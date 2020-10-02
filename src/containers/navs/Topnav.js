@@ -20,6 +20,7 @@ import {
   setContainerClassnames,
   clickOnMobileMenu,
   changeLocale,
+  logoutUser,
 } from '../../redux/actions';
 
 import {
@@ -176,9 +177,9 @@ const TopNav = ({
 
   const handleLogout = () => {
     try {
-      console.log(user);
-      firebase.auth().signOut();
       const user = firebase.auth().currentUser;
+      console.log(user);
+      logoutUser(history);
       console.log(user);
       if (!user) {
         console.log("signed out");

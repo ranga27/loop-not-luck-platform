@@ -17,7 +17,7 @@ const TopnavEasyAccess = () => {
         >
           <NavLink to="#" className="icon-menu-item">
             <i className="iconsminds-shop-4 d-block" />{' '}
-            <IntlMessages id="menu.dashboards" />
+            <IntlMessages id="menu.dashboard" />
           </NavLink>
 
           <NavLink to="#" className="icon-menu-item">

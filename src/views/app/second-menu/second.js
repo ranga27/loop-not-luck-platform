@@ -1,10 +1,10 @@
 import React from 'react';
 import { Row } from 'reactstrap';
-import IntlMessages from '../../../helpers/IntlMessages';
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
 import Breadcrumb from '../../../containers/navs/Breadcrumb';
+import PostAnOpportunity from '../../../containers/form-validations/PostAnOpportunity';
 
-const Second = ({ match }) => (
+const Post = ({ match }) => (
   <>
     <Row>
       <Colxx xxs="12">
@@ -14,11 +14,9 @@ const Second = ({ match }) => (
     </Row>
     <Row>
       <Colxx xxs="12" className="mb-4">
-        <p>
-          <IntlMessages id="menu.second" />
-        </p>
+        <PostAnOpportunity />
       </Colxx>
     </Row>
   </>
 );
-export default Second;
+export default Post;
