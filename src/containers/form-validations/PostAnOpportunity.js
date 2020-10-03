@@ -3,42 +3,29 @@
 import React, { Component, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap';
+import {
+  Row, Card, CardBody, FormGroup,
+  Label, Button
+} from 'reactstrap';
 import {
   FormikReactSelect,
-  FormikCheckboxGroup,
-  FormikCheckbox,
-  FormikRadioButtonGroup,
   FormikCustomCheckbox,
-  FormikCustomCheckboxGroup,
-  FormikCustomRadioGroup,
-  FormikTagsInput,
-  FormikSwitch,
   FormikDatePicker,
 } from './FormikFields';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import IntlMessages from '../../helpers/IntlMessages';
-
-const locations = [
-  { value: 'food', label: 'London' },
-  { value: 'beingfabulous', label: 'Manchester'},
-  { value: 'reasonml', label: 'Birmingham' },
-  { value: 'unicorns', label: 'Leeds' },
-  { value: 'kittens', label: 'Liverpool' },
-];
+import locations from '../../data/locations';
+import positionTypes from '../../data/positionTypes';
 
 const OpportunitySchema = Yup.object().shape({
   title: Yup.string()
-  .min(8, 'Too Short!')
-  .max(100, 'Too Long!')
-  .required('Please enter the opportunity title'),
-  
-  organisation: Yup.string()
-  .min(2, 'Too Short!')
-  .max(100, 'Too Long!')
-  .required('Please enter the organisation'),
+    .min(8, 'Too Short!')
+    .max(100, 'Too Long!')
+    .required('Please enter the opportunity title'),
 
-  select: Yup.string().required('A select option is required!'),
+  organisation: Yup.string()
+    .min(2, 'Too Short!')
+    .max(100, 'Too Long!')
+    .required('Please enter the organisation'),
 
   reactSelect: Yup.array()
     .min(3, 'Pick at least 3 tags')
@@ -48,48 +35,34 @@ const OpportunitySchema = Yup.object().shape({
         value: Yup.string().required(),
       })
     ),
-  checkboxSingle: Yup.bool().oneOf([true], 'Must agree to something'),
-  checkboxCustomSingle: Yup.bool().oneOf([true], 'Must agree to something'),
-  checkboxGroup: Yup.array()
-    .min(2, 'Pick at least 2 tags')
-    .required('At least one checkbox is required'),
 
-  customCheckGroup: Yup.array()
-    .min(2, 'Pick at least 2 tags')
-    .required('At least one checkbox is required'),
+  location: Yup.object()
+    .shape({
+      label: Yup.string().required(),
+      value: Yup.string().required(),
+    })
+    .nullable()
+    .required('Location is required!'),
 
-  radioGroup: Yup.string().required('A radio option is required'),
-  customRadioGroup: Yup.string().required('A radio option is required'),
-  tags: Yup.array()
-    .min(3, 'Pick at least 3 tags')
-    .required('At least one checkbox is required'),
-  switch: Yup.bool().oneOf([true], 'Must agree to something'),
-  date: Yup.date().nullable().required('Date required'),
+  positionType: Yup.object()
+    .shape({
+      label: Yup.string().required(),
+      value: Yup.string().required(),
+    })
+    .nullable()
+    .required('Position Type is required!'),
 
-  state: Yup.object()
-  .shape({
-    label: Yup.string().required(),
-    value: Yup.string().required(),
-  })
-  .nullable()
-  .required('Location is required!'),
+  description: Yup.string().required('Please provide the details'),
+
+  deadline: Yup.date().nullable().required('Date required'),
 
 });
-
-const options = [
-  { value: 'food', label: 'Food' },
-  { value: 'beingfabulous', label: 'Being Fabulous', disabled: true },
-  { value: 'reasonml', label: 'ReasonML' },
-  { value: 'unicorns', label: 'Unicorns' },
-  { value: 'kittens', label: 'Kittens' },
-];
 
 const PostAnOpportunity = () => {
 
   const onSubmit = (values, { setSubmitting }) => {
     const payload = {
       ...values,
-      reactSelect: values.reactSelect.map((t) => t.value),
     };
     setTimeout(() => {
       console.log(JSON.stringify(payload, null, 2));
@@ -107,18 +80,15 @@ const PostAnOpportunity = () => {
               initialValues={{
                 title: '',
                 organisation: '',
-                select: '3',
-                reactSelect: [{ value: 'reasonml', label: 'ReasonML' }],
-                checkboxGroup: ['kittens'],
-                customCheckGroup: ['unicorns'],
-                checkboxSingle: true,
-                checkboxCustomSingle: false,
-                radioGroup: '',
-                customRadioGroup: '',
-                tags: ['cake', 'dessert'],
-                switch: false,
-                date: null,
-                state: []
+                location: [],
+                positionType: [],
+                department: '',
+                description: '',
+                qualification: '',
+                howToApply: '',
+                deadline: null,
+                startDate: null,
+                checkboxCoverLetter: false,
               }}
               validationSchema={OpportunitySchema}
               onSubmit={onSubmit}
@@ -135,18 +105,18 @@ const PostAnOpportunity = () => {
                 isSubmitting,
               }) => (
                   <Form className="av-tooltip tooltip-label-right">
-                    
-                    <FormGroup  className="error-l-100">
+
+                    <FormGroup className="error-l-100">
                       <Label>Title</Label>
                       <Field className="form-control" name="title" />
                       {errors.title && touched.title ? (
                         <div className="invalid-feedback d-block">
                           {errors.title}
                         </div>
-                      ): null}
+                      ) : null}
                     </FormGroup>
-                    
-                    <FormGroup  className="error-l-100">
+
+                    <FormGroup className="error-l-100">
                       <Label>Organisation</Label>
                       <Field className="form-control" name="organisation" />
                       {errors.organisation && touched.organisation ? (
@@ -155,224 +125,144 @@ const PostAnOpportunity = () => {
                         </div>
                       ) : null}
                     </FormGroup>
-                    
+
                     <FormGroup className="error-l-100">
                       <Label>
                         Location
                       </Label>
                       <FormikReactSelect
-                        name="state"
-                        id="state"
-                        value={values.state}
+                        name="location"
+                        id="location"
+                        value={values.location}
                         options={locations}
                         onChange={setFieldValue}
                         onBlur={setFieldTouched}
                       />
-                      {errors.state && touched.state ? (
+                      {errors.location && touched.location ? (
                         <div className="invalid-feedback d-block">
-                          {errors.state}
+                          {errors.location}
                         </div>
                       ) : null}
                     </FormGroup>
 
                     <FormGroup className="error-l-100">
-                      <Label>Select </Label>
-                      <select
-                        name="select"
-                        className="form-control"
-                        value={values.select}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      >
-                        <option value="">Select an option..</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-
-                      {errors.select && touched.select ? (
-                        <div className="invalid-feedback d-block">
-                          {errors.select}
-                        </div>
-                      ) : null}
-                    </FormGroup>
-
-                    <FormGroup className="error-l-100">
-                      <Label>React Select </Label>
+                      <Label>
+                        Position Type
+                      </Label>
                       <FormikReactSelect
-                        name="reactSelect"
-                        id="reactSelect"
-                        value={values.reactSelect}
-                        isMulti
-                        options={options}
+                        name="positionType"
+                        id="positionType"
+                        value={values.positionType}
+                        options={positionTypes}
                         onChange={setFieldValue}
                         onBlur={setFieldTouched}
                       />
-                      {errors.reactSelect && touched.reactSelect ? (
+                      {errors.positionType && touched.positionType ? (
                         <div className="invalid-feedback d-block">
-                          {errors.reactSelect}
-                        </div>
-                      ) : null}
-                    </FormGroup>
-                    <FormGroup className="error-l-150">
-                      <Label className="d-block">Single Checkbox </Label>
-                      <FormikCheckbox
-                        name="checkboxSingle"
-                        value={values.checkboxSingle}
-                        label="Agree to something"
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                      />
-                      {errors.checkboxSingle && touched.checkboxSingle ? (
-                        <div className="invalid-feedback d-block">
-                          {errors.checkboxSingle}
-                        </div>
-                      ) : null}
-                    </FormGroup>
-                    <FormGroup className="error-l-150">
-                      <Label className="d-block">Custom Single Checkbox </Label>
-                      <FormikCustomCheckbox
-                        name="checkboxCustomSingle"
-                        value={values.checkboxCustomSingle}
-                        label="Agree to something"
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                      />
-                      {errors.checkboxCustomSingle &&
-                        touched.checkboxCustomSingle ? (
-                          <div className="invalid-feedback d-block">
-                            {errors.checkboxCustomSingle}
-                          </div>
-                        ) : null}
-                    </FormGroup>
-                    <FormGroup className="error-l-150 ">
-                      <Label className="d-block">Checkbox Group</Label>
-                      <FormikCheckboxGroup
-                        inline
-                        name="checkboxGroup"
-                        id="checkboxGroup"
-                        label="Which of these?"
-                        value={values.checkboxGroup}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                        options={options}
-                      />
-                      {errors.checkboxGroup && touched.checkboxGroup ? (
-                        <div className="invalid-feedback d-block">
-                          {errors.checkboxGroup}
-                        </div>
-                      ) : null}
-                    </FormGroup>
-                    <FormGroup className="error-l-175 ">
-                      <Label className="d-block">Custom Checkbox Group</Label>
-                      <FormikCustomCheckboxGroup
-                        inline
-                        name="customCheckGroup"
-                        id="customCheckGroup"
-                        label="Which of these?"
-                        value={values.customCheckGroup}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                        options={options}
-                      />
-                      {errors.customCheckGroup && touched.customCheckGroup ? (
-                        <div className="invalid-feedback d-block">
-                          {errors.customCheckGroup}
-                        </div>
-                      ) : null}
-                    </FormGroup>
-
-                    <FormGroup className="error-l-150">
-                      <Label className="d-block">Radio Group </Label>
-                      <FormikRadioButtonGroup
-                        inline
-                        name="radioGroup"
-                        id="radioGroup"
-                        label="One of these please"
-                        value={values.radioGroup}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                        options={options}
-                      />
-                      {errors.radioGroup && touched.radioGroup ? (
-                        <div className="invalid-feedback d-block">
-                          {errors.radioGroup}
-                        </div>
-                      ) : null}
-                    </FormGroup>
-                    <FormGroup className="error-l-175">
-                      <Label className="d-block">Custom Radio Group</Label>
-                      <FormikCustomRadioGroup
-                        inline
-                        name="customRadioGroup"
-                        id="customRadioGroup"
-                        label="Which of these?"
-                        value={values.customRadioGroup}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                        options={options}
-                      />
-                      {errors.customRadioGroup && touched.customRadioGroup ? (
-                        <div className="invalid-feedback d-block">
-                          {errors.customRadioGroup}
-                        </div>
-                      ) : null}
-                    </FormGroup>
-
-                    <FormGroup className="error-l-175">
-                      <Label className="d-block">
-                        <IntlMessages id="form-components.tags" />
-                      </Label>
-
-                      <FormikTagsInput
-                        name="tags"
-                        value={values.tags}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                      />
-
-                      {errors.tags && touched.tags ? (
-                        <div className="invalid-feedback d-block">
-                          {errors.tags}
+                          {errors.positionType}
                         </div>
                       ) : null}
                     </FormGroup>
 
                     <FormGroup className="error-l-100">
-                      <Label className="d-block">
-                        <IntlMessages id="form-components.switch" />
-                      </Label>
-                      <FormikSwitch
-                        name="switch"
-                        className="custom-switch custom-switch-primary"
-                        value={values.switch}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                      />
-                      {errors.switch && touched.switch ? (
+                      <Label>Department</Label>
+                      <Field className="form-control" name="department" />
+                      {errors.department && touched.department ? (
                         <div className="invalid-feedback d-block">
-                          {errors.switch}
+                          {errors.department}
                         </div>
                       ) : null}
                     </FormGroup>
 
                     <FormGroup className="error-l-100">
-                      <Label className="d-block">
-                        <IntlMessages id="form-components.date-picker" />
+                      <Label>Description</Label>
+                      <Field
+                        className="form-control"
+                        name="description"
+                        component="textarea"
+                      />
+                      {errors.description && touched.description ? (
+                        <div className="invalid-feedback d-block">
+                          {errors.description}
+                        </div>
+                      ) : null}
+                    </FormGroup>
+
+                    <FormGroup className="error-l-100">
+                      <Label>Required Qualifications</Label>
+                      <Field
+                        className="form-control"
+                        name="qualification"
+                        component="textarea"
+                      />
+                      {errors.qualification && touched.qualification ? (
+                        <div className="invalid-feedback d-block">
+                          {errors.qualification}
+                        </div>
+                      ) : null}
+                    </FormGroup>
+
+                    <FormGroup className="error-l-100">
+                      <Label>How to Apply</Label>
+                      <Field
+                        className="form-control"
+                        name="howToApply"
+                        component="textarea"
+                      />
+                      {errors.howToApply && touched.howToApply ? (
+                        <div className="invalid-feedback d-block">
+                          {errors.description}
+                        </div>
+                      ) : null}
+                    </FormGroup>
+
+                    <FormGroup className="error-l-100">
+                      <Label > Deadline
                       </Label>
                       <FormikDatePicker
-                        name="date"
-                        value={values.date}
+                        name="deadline"
+                        value={values.deadline}
                         onChange={setFieldValue}
                         onBlur={setFieldTouched}
                       />
-                      {errors.date && touched.date ? (
+                      {errors.deadline && touched.deadline ? (
                         <div className="invalid-feedback d-block">
-                          {errors.date}
+                          {errors.deadline}
                         </div>
                       ) : null}
+                    </FormGroup>
+
+                    <FormGroup className="error-l-100">
+                      <Label > Start Date of Role
+                      </Label>
+                      <FormikDatePicker
+                        name="startDate"
+                        value={values.startDate}
+                        onChange={setFieldValue}
+                        onBlur={setFieldTouched}
+                      />
+                      {errors.startDate && touched.startDate ? (
+                        <div className="invalid-feedback d-block">
+                          {errors.startDate}
+                        </div>
+                      ) : null}
+                    </FormGroup>
+
+                    <FormGroup className="error-l-150">
+                      <Label className="d-block">Cover Letter </Label>
+                      <FormikCustomCheckbox
+                        name="checkboxCoverLetter"
+                        value={values.checkboxCoverLetter}
+                        label="Required"
+                        onChange={setFieldValue}
+                        onBlur={setFieldTouched}
+                      />
+                      {errors.checkboxCoverLetter &&
+                        touched.checkboxCoverLetter ? (
+                          <div className="invalid-feedback d-block">
+                            {errors.checkboxCoverLetter}
+                          </div>
+                        ) : null}
                     </FormGroup>
 
                     <Button color="primary" type="submit">

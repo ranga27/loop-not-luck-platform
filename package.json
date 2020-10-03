@@ -1,7 +1,7 @@
 {
-  "name": "gogo-react",
+  "name": "loop-not-luck-platform",
   "version": "5.2.0",
-  "description": "Gogo - React Bootstrap 4 Admin Dashboard Template",
+  "description": "Loop Not Luck Platform",
   "private": true,
   "dependencies": {
     "@glidejs/glide": "^3.4.1",
