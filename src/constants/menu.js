@@ -9,24 +9,32 @@ const data = [
     to: `${adminRoot}/dashboard`,
   },
   {
-    id: 'secondmenu',
-    icon: 'iconsminds-three-arrow-fork',
-    label: 'menu.second-menu',
-    to: `${adminRoot}/second-menu`,
+    id: 'opportunities',
+    icon: 'simple-icon-rocket',
+    label: 'menu.opportunities',
+    to: `${adminRoot}/opportunities`,
     // roles: [UserRole.Admin, UserRole.Editor],
     subs: [
       {
         icon: 'simple-icon-paper-plane',
-        label: 'menu.second',
-        to: `${adminRoot}/second-menu/second`,
+        label: 'menu.post',
+        to: `${adminRoot}/opportunities/post`,
       },
     ],
   },
   {
-    id: 'blankpage',
-    icon: 'iconsminds-bucket',
-    label: 'menu.blank-page',
-    to: `${adminRoot}/blank-page`,
+    id: 'candidates',
+    icon: 'iconsminds-students',
+    label: 'menu.candidates',
+    to: `${adminRoot}/candidates`,
+    // roles: [UserRole.Admin, UserRole.Editor],
+    subs: [
+      {
+        icon: 'iconsminds-3d-eyeglasses',
+        label: 'menu.view',
+        to: `${adminRoot}/candidates/view`,
+      },
+    ],
   },
 ];
 export default data;

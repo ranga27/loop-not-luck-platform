@@ -35,8 +35,11 @@ module.exports = {
   'menu.dashboard': 'Dashboard',
   'menu.gogo': 'Gogo',
   'menu.start': 'Start',
-  'menu.second-menu': 'Opportunities',
-  'menu.second': 'Post',
+  'menu.opportunities': 'Opportunities',
+  'menu.post': 'Post',
+  'menu.candidates': 'Candidates',
+  'menu.view': 'View',
+  'menu.data-list': 'Data List',
   'menu.ui': 'UI',
   'menu.charts': 'Charts',
   'menu.chat': 'Chat',
@@ -50,4 +53,13 @@ module.exports = {
   'pages.error-title': 'Ooops... looks like an error occurred!',
   'pages.error-code': 'Error code',
   'pages.go-back-home': 'GO BACK HOME',
+
+  /* 05.Pages */
+  'pages.add-new': 'ADD NEW',
+  'pages.add-new-modal-title': 'Add New Item',
+  'pages.delete': 'Delete',
+  'pages.another-action': 'Another action',
+  'pages.display-options': 'Display Options',
+  'pages.orderby': 'Order By : ',
+
 };

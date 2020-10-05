@@ -29,7 +29,7 @@ export const firebaseConfig = {
 export const adminRoot = '/app';
 export const buyUrl = '';
 export const searchPath = `${adminRoot}/#`;
-export const servicePath = '';
+export const servicePath = 'https://api.coloredstrategies.com';
 
 export const currentUser = {
   id: 1,
