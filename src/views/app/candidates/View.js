@@ -8,6 +8,7 @@ import ListPageHeading from '../../../containers/pages/ListPageHeading';
 import AddNewModal from '../../../containers/pages/AddNewModal';
 import ListPageListing from '../../../containers/pages/ListPageListing';
 import useMousetrap from '../../../hooks/use-mousetrap';
+import {getCandidatesList} from '../../../data/getCandidatesList';
 
 const getIndex = (value, arr, prop) => {
   for (let i = 0; i < arr.length; i += 1) {
@@ -21,16 +22,15 @@ const getIndex = (value, arr, prop) => {
 const apiUrl = `${servicePath}/cakes/paging`;
 
 const orderOptions = [
-  { column: 'title', label: 'Product Name' },
-  { column: 'category', label: 'Category' },
-  { column: 'status', label: 'Status' },
+  { column: 'firstName', label: 'Name' },
+  { column: 'gender', label: 'Gender' },
+  { column: 'ethnicity', label: 'Ethnicity' },
 ];
 const pageSizes = [4, 8, 12, 20];
 
 const categories = [
-  { label: 'Cakes', value: 'Cakes', key: 0 },
-  { label: 'Cupcakes', value: 'Cupcakes', key: 1 },
-  { label: 'Desserts', value: 'Desserts', key: 2 },
+  { label: 'Male', value: 'Male', key: 0 },
+  { label: 'Female', value: 'Female', key: 1 },
 ];
 
 const View = ({ match }) => {
@@ -39,8 +39,8 @@ const View = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPageSize, setSelectedPageSize] = useState(8);
   const [selectedOrderOption, setSelectedOrderOption] = useState({
-    column: 'title',
-    label: 'Product Name',
+    column: 'firstName',
+    label: 'Name',
   });
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -56,23 +56,17 @@ const View = ({ match }) => {
   }, [selectedPageSize, selectedOrderOption]);
 
   useEffect(() => {
-    async function fetchData() {
-      axios
-        .get(
-          `${apiUrl}?pageSize=${selectedPageSize}&currentPage=${currentPage}&orderBy=${selectedOrderOption.column}&search=${search}`
-        )
-        .then((res) => {
-          return res.data;
-        })
-        .then((data) => {
-          setTotalPage(data.totalPage);
-          setItems(data.data.map(x=>{ return { ...x,img : x.img.replace("img/","img/products/")}}));
-          setSelectedItems([]);
-          setTotalItemCount(data.totalItem);
-          setIsLoaded(true);
-        });
+    // Firebase code for loading initial recommendations goes here
+    const loadCandidatesList = async () => {
+        const results = await getCandidatesList();
+        setTotalPage(Math.ceil(results.length/selectedPageSize));
+        setItems(results);
+        setSelectedItems([]);
+        setTotalItemCount(results.length);
+        setIsLoaded(true);
+        console.log(results);
     }
-    fetchData();
+    loadCandidatesList();
   }, [selectedPageSize, currentPage, selectedOrderOption, search]);
 
   const onCheckItem = (event, id) => {

@@ -7,28 +7,28 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
-import './helpers/Firebase';
-import AppLocale from './lang';
-import ColorSwitcher from './components/common/ColorSwitcher';
-import { NotificationContainer } from './components/common/react-notifications';
-import { isMultiColorActive, adminRoot } from './constants/defaultValues';
-import { getDirection } from './helpers/Utils';
-import { ProtectedRoute, UserRole } from './helpers/authHelper';
+import '../helpers/Firebase';
+import AppLocale from '../lang';
+import ColorSwitcher from '../components/common/ColorSwitcher';
+import { NotificationContainer } from '../components/common/react-notifications';
+import { isMultiColorActive, adminRoot } from '../constants/defaultValues';
+import { getDirection } from '../helpers/Utils';
+import { ProtectedRoute, UserRole } from '../helpers/authHelper';
 
 const ViewHome = React.lazy(() =>
-  import(/* webpackChunkName: "views" */ './views/home')
+  import(/* webpackChunkName: "views" */ '../views/home')
 );
 const ViewApp = React.lazy(() =>
-  import(/* webpackChunkName: "views-app" */ './views/app')
+  import(/* webpackChunkName: "views-app" */ '../views/app')
 );
 const ViewUser = React.lazy(() =>
-  import(/* webpackChunkName: "views-user" */ './views/user')
+  import(/* webpackChunkName: "views-user" */ '../views/user')
 );
 const ViewError = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ './views/error')
+  import(/* webpackChunkName: "views-error" */ '../views/error')
 );
 const ViewUnauthorized = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ './views/unauthorized')
+  import(/* webpackChunkName: "views-error" */ '../views/unauthorized')
 );
 
 class App extends React.Component {

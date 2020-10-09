@@ -1,10 +1,20 @@
 import React from 'react';
-import { Row } from 'reactstrap';
+import { Row, Card, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import { injectIntl } from 'react-intl';
 import IntlMessages from '../../helpers/IntlMessages';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import Breadcrumb from '../../containers/navs/Breadcrumb';
+import SortableStaticticsRow from '../../containers/pages/SortableStaticticsRow';
+import ProfileStatuses from '../../containers/pages/ProfileStatuses';
+import ProductCategoriesDoughnut from '../../containers/pages/ProductCategoriesDoughnut';
+import GradientWithRadialProgressCard from '../../containers/pages/GradientWithRadialProgressCard';
 
-const Dashboard = ({ match }) => {
+import { BarChart } from '../../components/charts';
+import { barChartData } from '../../data/charts'
+
+const Dashboard = ({ intl, match }) => {
+  const { messages } = intl;
+
   return (
     <>
       <Row>
@@ -14,14 +24,59 @@ const Dashboard = ({ match }) => {
         </Colxx>
       </Row>
       <Row>
-        <Colxx xxs="12" className="mb-4">
-          <p>
-            <IntlMessages id="menu.dashboard" />
-          </p>
+        <Colxx lg="4" md="6" className="mb-4">
+          <GradientWithRadialProgressCard
+            icon="iconsminds-clock"
+            title={`12 ${messages['dashboards.posts']}`}
+            detail={messages['dashboards.pending-for-publish']}
+            percent={(5 * 100) / 12}
+            progressText="5/12"
+          />
+        </Colxx>
+        <Colxx lg="4" md="6" className="mb-4">
+          <GradientWithRadialProgressCard
+            icon="iconsminds-male"
+            title={`6 ${messages['dashboards.users']}`}
+            detail={messages['dashboards.on-approval-process']}
+            percent={(4 * 100) / 6}
+            progressText="4/6"
+          />
+        </Colxx>
+        <Colxx lg="4" md="6" className="mb-4">
+          <GradientWithRadialProgressCard
+            icon="iconsminds-bell"
+            title={`10 ${messages['dashboards.alerts']}`}
+            detail={messages['dashboards.waiting-for-notice']}
+            percent={(8 * 100) / 10}
+            progressText="8/10"
+          />
+        </Colxx>
+      </Row>      <Row className="mb-4">
+        <Colxx xxs="12">
+          <Card>
+            <CardBody>
+              <CardTitle>
+                <IntlMessages id="charts.bar" />
+              </CardTitle>
+              <Row>
+                <Colxx xxs="12" lg="6" className="mb-5">
+                  <div className="chart-container">
+                    <BarChart shadow data={barChartData} />
+                  </div>
+                </Colxx>
+                <Colxx xl="4" lg="6" md="12" className="mb-4">
+                  <ProfileStatuses cardClass="dashboard-progress" />
+                </Colxx>
+                <Colxx xl="4" lg="6" md="12" className="mb-4">
+                  <ProductCategoriesDoughnut />
+                </Colxx>
+              </Row>
+            </CardBody>
+          </Card>
         </Colxx>
       </Row>
     </>
   );
 };
 
-export default Dashboard;
+export default injectIntl(Dashboard);

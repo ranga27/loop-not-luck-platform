@@ -1,26 +1,26 @@
 const data = [
   {
-    title: 'Basic Information',
+    title: 'Applications',
     total: 18,
     status: 12,
   },
   {
-    title: 'Portfolio',
+    title: 'Shortlisted',
     total: 8,
     status: 1,
   },
   {
-    title: 'Billing Details',
+    title: 'Finalised',
     total: 6,
     status: 2,
   },
   {
-    title: 'Interests',
+    title: 'On Hold',
     total: 10,
-    status: 0,
+    status: 1,
   },
   {
-    title: 'Legal Documents',
+    title: 'Rejected',
     total: 2,
     status: 1,
   },
