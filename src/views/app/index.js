@@ -6,7 +6,7 @@ import AppLayout from '../../layout/AppLayout';
 // import { ProtectedRoute, UserRole } from '../../helpers/authHelper';
 
 const Dashboard = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-dashboard" */ './dashboard')
+  import(/* webpackChunkName: "viwes-dashboard" */ './DashboardPage')
 );
 const Opportunities = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './opportunities')

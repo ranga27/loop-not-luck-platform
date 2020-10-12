@@ -4,7 +4,6 @@ import { injectIntl } from 'react-intl';
 import IntlMessages from '../../helpers/IntlMessages';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import Breadcrumb from '../../containers/navs/Breadcrumb';
-import SortableStaticticsRow from '../../containers/pages/SortableStaticticsRow';
 import ProfileStatuses from '../../containers/pages/ProfileStatuses';
 import ProductCategoriesDoughnut from '../../containers/pages/ProductCategoriesDoughnut';
 import GradientWithRadialProgressCard from '../../containers/pages/GradientWithRadialProgressCard';
@@ -12,7 +11,7 @@ import GradientWithRadialProgressCard from '../../containers/pages/GradientWithR
 import { BarChart } from '../../components/charts';
 import { barChartData } from '../../data/charts'
 
-const Dashboard = ({ intl, match }) => {
+const DashboardPage = ({ intl, match }) => {
   const { messages } = intl;
 
   return (
@@ -79,4 +78,4 @@ const Dashboard = ({ intl, match }) => {
   );
 };
 
-export default injectIntl(Dashboard);
+export default injectIntl(DashboardPage);

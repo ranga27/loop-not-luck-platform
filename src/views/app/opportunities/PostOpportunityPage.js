@@ -2,9 +2,9 @@ import React from 'react';
 import { Row } from 'reactstrap';
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
 import Breadcrumb from '../../../containers/navs/Breadcrumb';
-import PostAnOpportunity from '../../../containers/opportunities/PostAnOpportunity';
+import PostOpportunityContainer from '../../../containers/opportunities/PostOpportunityContainer';
 
-const Post = ({ match }) => (
+const PostOpportunityPage = ({ match }) => (
   <>
     <Row>
       <Colxx xxs="12">
@@ -14,9 +14,9 @@ const Post = ({ match }) => (
     </Row>
     <Row>
       <Colxx xxs="12" className="mb-4">
-        <PostAnOpportunity />
+        <PostOpportunityContainer />
       </Colxx>
     </Row>
   </>
 );
-export default Post;
+export default PostOpportunityPage;

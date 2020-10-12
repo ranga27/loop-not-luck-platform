@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 const View = React.lazy(() =>
-  import(/* webpackChunkName: "second" */ './View')
+  import(/* webpackChunkName: "second" */ './ViewCandidatesPage')
 );
 const CandidatesMenu = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>

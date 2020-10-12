@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
-import axios from 'axios';
-
 import { servicePath } from '../../../constants/defaultValues';
-
 import ListPageHeading from '../../../containers/pages/ListPageHeading';
 import AddNewModal from '../../../containers/pages/AddNewModal';
 import ListPageListing from '../../../containers/pages/ListPageListing';
@@ -19,8 +15,6 @@ const getIndex = (value, arr, prop) => {
   return -1;
 };
 
-const apiUrl = `${servicePath}/cakes/paging`;
-
 const orderOptions = [
   { column: 'firstName', label: 'Name' },
   { column: 'gender', label: 'Gender' },
@@ -33,7 +27,7 @@ const categories = [
   { label: 'Female', value: 'Female', key: 1 },
 ];
 
-const View = ({ match }) => {
+const ViewCandidatesPage = ({ match }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [displayMode, setDisplayMode] = useState('list');
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,7 +50,6 @@ const View = ({ match }) => {
   }, [selectedPageSize, selectedOrderOption]);
 
   useEffect(() => {
-    // Firebase code for loading initial recommendations goes here
     const loadCandidatesList = async () => {
         const results = await getCandidatesList();
         setTotalPage(Math.ceil(results.length/selectedPageSize));
@@ -197,4 +190,4 @@ const View = ({ match }) => {
   );
 };
 
-export default View;
+export default ViewCandidatesPage;

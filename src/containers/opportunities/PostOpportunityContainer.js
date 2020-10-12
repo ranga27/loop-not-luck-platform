@@ -58,7 +58,7 @@ const OpportunitySchema = Yup.object().shape({
 
 });
 
-const PostAnOpportunity = () => {
+const PostOpportunityContainer = () => {
 
   const onSubmit = (values, { setSubmitting }) => {
     const payload = {
@@ -277,4 +277,4 @@ const PostAnOpportunity = () => {
     </Row>
   );
 };
-export default PostAnOpportunity;
+export default PostOpportunityContainer;
