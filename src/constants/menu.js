@@ -20,6 +20,11 @@ const data = [
         label: 'menu.post',
         to: `${adminRoot}/opportunities/post`,
       },
+      {
+        icon: 'simple-icon-paper-clip',
+        label: 'menu.open',
+        to: `${adminRoot}/opportunities/open`,
+      },
     ],
   },
   {

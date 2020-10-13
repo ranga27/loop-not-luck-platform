@@ -37,6 +37,7 @@ module.exports = {
   'menu.start': 'Start',
   'menu.opportunities': 'Opportunities',
   'menu.post': 'Post Role',
+  'menu.open': 'Open Roles',
   'menu.candidates': 'Candidates',
   'menu.view': 'View',
   'menu.data-list': 'View Candidates',
@@ -48,6 +49,8 @@ module.exports = {
   'menu.search': 'Search',
   'menu.docs': 'Docs',
   'menu.blank-page': 'Candidates',
+  'pages.profile': 'PROFILE',
+  'pages.images': 'IMAGES',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',

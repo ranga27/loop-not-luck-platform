@@ -4,6 +4,11 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 const Post = React.lazy(() =>
   import(/* webpackChunkName: "second" */ './PostOpportunityPage')
 );
+
+const Open = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ './OpenRolesPage')
+);
+
 const OpportunitiesMenu = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>
@@ -11,6 +16,10 @@ const OpportunitiesMenu = ({ match }) => (
       <Route
         path={`${match.url}/post`}
         render={(props) => <Post {...props} />}
+      />
+      <Route
+        path={`${match.url}/open`}
+        render={(props) => <Open {...props} />}
       />
       <Redirect to="/error" />
     </Switch>
