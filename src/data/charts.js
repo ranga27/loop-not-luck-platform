@@ -175,7 +175,7 @@ export const smallChartData1 = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
     {
-      label: 'Total Orders',
+      label: 'Unique views',
       borderColor: colors.themeColor1,
       pointBorderColor: colors.themeColor1,
       pointHoverBackgroundColor: colors.themeColor1,
@@ -198,7 +198,7 @@ export const smallChartData2 = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
     {
-      label: 'Pending Orders',
+      label: 'Interested Candidates',
       borderColor: colors.themeColor1,
       pointBorderColor: colors.themeColor1,
       pointHoverBackgroundColor: colors.themeColor1,
@@ -221,7 +221,7 @@ export const smallChartData3 = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
     {
-      label: 'Total Orders',
+      label: 'Applied Candidates',
       borderColor: colors.themeColor1,
       pointBorderColor: colors.themeColor1,
       pointHoverBackgroundColor: colors.themeColor1,

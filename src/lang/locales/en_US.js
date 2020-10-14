@@ -68,6 +68,7 @@ module.exports = {
   'dashboards.work-progress': 'Shortlisted Candidates',
   'dashboards.tasks-completed': 'Rejected Candidates',
   'dashboards.payments-done': 'Opportunities Posted',
+  'dashboards.tickets': 'Top Recommendations',
 
   /* 05.Pages */
   'pages.add-new': 'ADD NEW',

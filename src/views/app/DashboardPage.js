@@ -7,7 +7,6 @@ import Breadcrumb from '../../containers/navs/Breadcrumb';
 import ProfileStatuses from '../../containers/pages/ProfileStatuses';
 import ProductCategoriesDoughnut from '../../containers/pages/ProductCategoriesDoughnut';
 import GradientWithRadialProgressCard from '../../containers/pages/GradientWithRadialProgressCard';
-
 import { BarChart } from '../../components/charts';
 import { barChartData } from '../../data/charts'
 
@@ -50,28 +49,28 @@ const DashboardPage = ({ intl, match }) => {
             progressText="8/10"
           />
         </Colxx>
-      </Row>      <Row className="mb-4">
-        <Colxx xxs="12">
+      </Row>
+
+      <Row>
+        <Colxx xl="4" lg="6" className="mb-4">
           <Card>
             <CardBody>
               <CardTitle>
                 <IntlMessages id="charts.bar" />
               </CardTitle>
-              <Row>
-                <Colxx xxs="12" lg="6" className="mb-5">
-                  <div className="chart-container">
-                    <BarChart shadow data={barChartData} />
-                  </div>
-                </Colxx>
-                <Colxx xl="4" lg="6" md="12" className="mb-4">
-                  <ProfileStatuses cardClass="dashboard-progress" />
-                </Colxx>
-                <Colxx xl="4" lg="6" md="12" className="mb-4">
-                  <ProductCategoriesDoughnut />
-                </Colxx>
-              </Row>
+              <div className="chart-container">
+                <BarChart shadow data={barChartData} />
+              </div>
             </CardBody>
           </Card>
+        </Colxx>
+
+        <Colxx xl="4" lg="6" className="mb-4">
+          <ProfileStatuses cardClass="dashboard-progress" />
+        </Colxx>
+
+        <Colxx xl="4" lg="6" className="mb-4">
+          <ProductCategoriesDoughnut />
         </Colxx>
       </Row>
     </>

@@ -5,7 +5,7 @@ import Breadcrumb from '../../../containers/navs/Breadcrumb';
 import IntlMessages from '../../../helpers/IntlMessages';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import TabCardExamples from '../../../containers/opportunities/TabCardExamples';
+import OpenRoleStats from '../../../containers/opportunities/OpenRoleStats';
 
 const OpenRolesPage = ({ match }) => {
   return (
@@ -16,7 +16,7 @@ const OpenRolesPage = ({ match }) => {
           <Separator className="mb-5" />
         </Colxx>
       </Row>
-      <TabCardExamples />
+      <OpenRoleStats />
     </>
   );
 };
