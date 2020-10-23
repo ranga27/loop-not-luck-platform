@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import {
   Row,
   Card,
-
+  CardBody,
   Nav,
   NavItem,
   TabContent,
@@ -16,6 +16,7 @@ import Tickets from '../pages/Tickets';
 import classnames from 'classnames';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import data from '../../data/roles';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const OpenRoleStats = () => {
   const [activeFirstTab, setActiveFirstTab] = useState('1');
@@ -24,30 +25,40 @@ const OpenRoleStats = () => {
   return (
     <Row>
 
-      <Colxx lg="5">
-            <Nav pills className="flex-column">
-              <NavItem>
-                {data.map((role, index) => {
-                  return (
-                    <NavLink
-                      key={`role_${index}`}
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === role.id,
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab(role.id);
-                        setRoleId(role.id);
-                      }}
-                    >
-                      {role.name}
-                    </NavLink>
-                  );
-                })}
-              </NavItem>
-            </Nav>
+      <Colxx lg="5" md="12" className="mb-4">
+        <Card>
+          <CardBody>
+            <div className="dashboard-list-with-user">
+              <PerfectScrollbar
+                options={{ suppressScrollX: true, wheelPropagation: false }} 
+              >
+                <Nav pills className="flex-column">
+                  <NavItem>
+                    {data.map((role, index) => {
+                      return (
+                        <NavLink
+                          key={`role_${index}`}
+                          to="#"
+                          location={{}}
+                          className={classnames({
+                            active: activeFirstTab === role.id,
+                            'nav-link': true,
+                          })}
+                          onClick={() => {
+                            setActiveFirstTab(role.id);
+                            setRoleId(role.id);
+                          }}
+                        >
+                          <h6>{role.name}</h6>
+                        </NavLink>
+                      );
+                    })}
+                  </NavItem>
+                </Nav>
+              </PerfectScrollbar>
+            </div>
+          </CardBody>
+        </Card>
       </Colxx>
 
       <Colxx>

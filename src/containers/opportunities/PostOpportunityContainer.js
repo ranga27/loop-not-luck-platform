@@ -12,9 +12,17 @@ import {
   FormikCustomCheckbox,
   FormikDatePicker,
 } from './FormikFields';
+import Select from "react-select";
+
 import { Colxx } from '../../components/common/CustomBootstrap';
 import locations from '../../data/locations';
 import positionTypes from '../../data/positionTypes';
+
+const applicationOption = [
+  { label: "Email CV & Cover Letter", value: 'email' },
+  { label: "Apply on website", value: 'website' },
+];
+
 
 const OpportunitySchema = Yup.object().shape({
   title: Yup.string()
@@ -56,10 +64,16 @@ const OpportunitySchema = Yup.object().shape({
 
   deadline: Yup.date().nullable().required('Date required'),
 
+  email: Yup.string()
+  .email('Invalid email')
+  .required('Please enter your email address'),
+
 });
 
 const PostOpportunityContainer = () => {
-
+  const [isEmail, setEmail] = useState(false);
+  const [isWebsite, setWebsite] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
   const onSubmit = (values, { setSubmitting }) => {
     const payload = {
       ...values,
@@ -69,6 +83,18 @@ const PostOpportunityContainer = () => {
       setSubmitting(false);
     }, 1000);
   };
+
+  const showInput = (option) => {
+    setSelectedOption(option);
+    if (option.value === 'email') {
+      setEmail(true);
+      setWebsite(false);
+    }
+    else {
+      setEmail(false);
+      setWebsite(true);
+    }
+  }
 
   return (
     <Row className="mb-4">
@@ -86,6 +112,8 @@ const PostOpportunityContainer = () => {
                 description: '',
                 qualification: '',
                 howToApply: '',
+                email: 'jane@doe.com',
+                website: '',
                 deadline: null,
                 startDate: null,
                 checkboxCoverLetter: false,
@@ -203,18 +231,47 @@ const PostOpportunityContainer = () => {
                     </FormGroup>
 
                     <FormGroup className="error-l-100">
-                      <Label>How to Apply</Label>
-                      <Field
-                        className="form-control"
-                        name="howToApply"
-                        component="textarea"
+
+                      <Label>
+                        How to Apply
+                      </Label>
+                      <Select
+                        className={`react-select apply`}
+                        classNamePrefix="react-select"
+                        value={selectedOption}
+                        options={applicationOption}
+                        onChange={showInput}
                       />
-                      {errors.howToApply && touched.howToApply ? (
-                        <div className="invalid-feedback d-block">
-                          {errors.description}
-                        </div>
-                      ) : null}
+
                     </FormGroup>
+
+                    <div>
+                      {isEmail ?
+                        <FormGroup className="error-l-100">
+                          <Label>Email</Label>
+                          <Field className="form-control" name="email" />
+                          {errors.email && touched.email ? (
+                            <div className="invalid-feedback d-block">
+                              {errors.email}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        : null}
+                    </div>
+
+                    <div>
+                      {isWebsite ?
+                        <FormGroup className="error-l-100">
+                          <Label>Website</Label>
+                          <Field className="form-control" name="website" />
+                          {errors.website && touched.website ? (
+                            <div className="invalid-feedback d-block">
+                              {errors.website}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        : null}
+                    </div>
 
                     <FormGroup className="error-l-100">
                       <Label > Deadline
