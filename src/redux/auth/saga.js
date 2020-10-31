@@ -61,6 +61,7 @@ const registerWithEmailPasswordAsync = async (email, password) =>
     .catch((error) => error);
 
 function* registerWithEmailPassword({ payload }) {
+  console.log(payload.user);
   const { email, password } = payload.user;
   const { history } = payload;
   try {
@@ -73,7 +74,7 @@ function* registerWithEmailPassword({ payload }) {
       const item = { uid: registerUser.user.uid, ...currentUser };
       setCurrentUser(item);
       yield put(registerUserSuccess(item));
-      history.push(adminRoot);
+      history.push("/user/login");
     } else {
       yield put(registerUserError(registerUser.message));
     }
