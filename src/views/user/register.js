@@ -7,6 +7,10 @@ import {
   Label,
   Input,
   Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -18,6 +22,7 @@ import { NotificationManager } from '../../components/common/react-notifications
 import IntlMessages from '../../helpers/IntlMessages';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { adminRoot } from '../../constants/defaultValues';
+import { getCurrentUser } from '../../helpers/Utils';
 
 const validatePassword = (value) => {
   let error;
@@ -39,10 +44,16 @@ const validateEmail = (value) => {
   return error;
 };
 
-const Register = ({ history, loading, error, registerUserAction }) => {
+const Register = ({
+  history,
+  loading,
+  error,
+  currentUser,
+  registerUserAction,
+}) => {
   const [email] = useState('');
   const [password] = useState('');
-
+  const [modalBasic, setModalBasic] = useState(false);
   useEffect(() => {
     if (error) {
       NotificationManager.warning(
@@ -53,13 +64,23 @@ const Register = ({ history, loading, error, registerUserAction }) => {
         null,
         ''
       );
+    } else if (!loading && currentUser === 'success') {
+/*       NotificationManager.success(
+        'Please verify your email',
+        'Verify email.',
+        -0,
+        null,
+        null,
+        ''
+      ); */
+      setModalBasic(true);
     }
-  }, [error]);
+  }, [error, loading, currentUser]);
 
   const onUserRegister = (values) => {
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
-        console.log(values);
+        //setModalBasic(true);
         registerUserAction(values, history);
       }
     }
@@ -143,6 +164,27 @@ const Register = ({ history, loading, error, registerUserAction }) => {
                         <IntlMessages id="user.register-button" />
                       </span>
                     </Button>
+                    <Modal
+                      isOpen={modalBasic}
+                      toggle={() => setModalBasic(!modalBasic)}
+                    >
+                      <ModalHeader>
+                        <IntlMessages id="modal.modal-title" />
+                      </ModalHeader>
+                      <ModalBody>
+                        E-Mail confirmation sent: Check your E-Mails (Spam
+                        folder included) for a confirmation E-Mail. Login
+                        once you confirmed your E-Mail.
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button
+                          color="secondary"
+                          onClick={() => setModalBasic(false)}
+                        >
+                          Close
+                        </Button>
+                      </ModalFooter>
+                    </Modal>
                   </div>
                 </Form>
               )}
@@ -154,8 +196,8 @@ const Register = ({ history, loading, error, registerUserAction }) => {
   );
 };
 const mapStateToProps = ({ authUser }) => {
-  const { loading, error } = authUser;
-  return { loading, error };
+  const { loading, error, currentUser } = authUser;
+  return { loading, error, currentUser };
 };
 
 export default connect(mapStateToProps, {

@@ -12,6 +12,7 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
+  VERIFY_EMAIL,
 } from '../actions';
 
 export const loginUser = (user, history) => ({
@@ -69,4 +70,9 @@ export const registerUserError = (message) => ({
 export const logoutUser = (history) => ({
   type: LOGOUT_USER,
   payload: { history },
+});
+
+export const verifyEmail = (message) => ({
+  type: VERIFY_EMAIL,
+  payload: { message },
 });

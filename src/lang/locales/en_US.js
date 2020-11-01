@@ -143,4 +143,6 @@ module.exports = {
   'charts.shadow': 'Shadow',
   'charts.no-shadow': 'No Shadow',
 
+  'modal.modal-title': 'Verify Email',
+
 };

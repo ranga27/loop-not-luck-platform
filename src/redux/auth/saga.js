@@ -17,9 +17,10 @@ import {
   forgotPasswordError,
   resetPasswordSuccess,
   resetPasswordError,
+  verifyEmail,
 } from './actions';
 
-import { adminRoot, currentUser } from "../../constants/defaultValues"
+import { adminRoot, currentUser } from '../../constants/defaultValues';
 import { setCurrentUser } from '../../helpers/Utils';
 
 export function* watchLoginUser() {
@@ -61,7 +62,6 @@ const registerWithEmailPasswordAsync = async (email, password) =>
     .catch((error) => error);
 
 function* registerWithEmailPassword({ payload }) {
-  console.log(payload.user);
   const { email, password } = payload.user;
   const { history } = payload;
   try {
@@ -71,10 +71,13 @@ function* registerWithEmailPassword({ payload }) {
       password
     );
     if (!registerUser.message) {
+      auth.currentUser.sendEmailVerification();
       const item = { uid: registerUser.user.uid, ...currentUser };
+      console.log(registerUser);
+      console.log(item);
       setCurrentUser(item);
-      yield put(registerUserSuccess(item));
-      history.push("/user/login");
+      yield put(registerUserSuccess('success'));
+      //history.push('/user/login');
     } else {
       yield put(registerUserError(registerUser.message));
     }
