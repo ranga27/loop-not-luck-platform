@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import { Row, Nav, NavItem, TabContent, TabPane } from 'reactstrap';
+import React from 'react';
+import { Row} from 'reactstrap';
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
 import Breadcrumb from '../../../containers/navs/Breadcrumb';
-import IntlMessages from '../../../helpers/IntlMessages';
-import classnames from 'classnames';
-import { NavLink } from 'react-router-dom';
 import OpenRoleStats from '../../../containers/opportunities/OpenRoleStats';
 
 const OpenRolesPage = ({ match }) => {

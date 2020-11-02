@@ -5,7 +5,6 @@ import {
   CardTitle,
   FormGroup,
   Label,
-  Input,
   Button,
   Modal,
   ModalHeader,
@@ -21,8 +20,6 @@ import { NotificationManager } from '../../components/common/react-notifications
 
 import IntlMessages from '../../helpers/IntlMessages';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import { adminRoot } from '../../constants/defaultValues';
-import { getCurrentUser } from '../../helpers/Utils';
 
 const validatePassword = (value) => {
   let error;

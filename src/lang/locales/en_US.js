@@ -49,8 +49,8 @@ module.exports = {
   'menu.search': 'Search',
   'menu.docs': 'Docs',
   'menu.blank-page': 'Candidates',
-  'pages.profile': 'PROFILE',
-  'pages.images': 'IMAGES',
+  'menu.onboarding': 'Onboarding',
+
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
@@ -144,5 +144,25 @@ module.exports = {
   'charts.no-shadow': 'No Shadow',
 
   'modal.modal-title': 'Verify Email',
+
+   /* 07.21.Wizards */
+   'wizard.step-name-1': 'Step 1',
+   'wizard.step-name-2': 'Step 2',
+   'wizard.step-name-3': 'Step 3',
+   'wizard.step-desc-1': 'First step description',
+   'wizard.step-desc-2': 'Second step description',
+   'wizard.step-desc-3': 'Third step description',
+   'wizard.content-1': 'Step content for first step.',
+   'wizard.content-2': 'Step content for second step.',
+   'wizard.content-3': 'Last step content!',
+   'wizard.content-thanks': 'Thank You!',
+   'wizard.next': 'Next',
+   'wizard.prev': 'Back',
+   'wizard.registered': 'Your registration completed successfully!',
+   'wizard.async': 'Async save for 3 seconds!',
+
+   'forms.name': 'Name',
+   'forms.email': 'E-mail',
+   'forms.password': 'Password',
 
 };

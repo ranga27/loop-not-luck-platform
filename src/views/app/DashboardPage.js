@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Card, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import { Row, Card, CardBody, CardTitle } from 'reactstrap';
 import { injectIntl } from 'react-intl';
 import IntlMessages from '../../helpers/IntlMessages';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';

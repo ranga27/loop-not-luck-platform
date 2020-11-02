@@ -8,7 +8,6 @@ import {
   smallChartData1,
   smallChartData2,
   smallChartData3,
-  smallChartData4,
 } from '../../data/charts';
 
 const SmallLineCharts = ({ itemClass = 'dashboard-small-chart' }) => {

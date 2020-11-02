@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   Row,
   Card,
@@ -7,7 +7,6 @@ import {
   NavItem,
   TabContent,
   TabPane,
-  Button,
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import SmallLineCharts from '../pages/SmallLineCharts';

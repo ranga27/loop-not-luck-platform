@@ -3,7 +3,6 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
-import firebase from 'firebase/app';
 
 import {
   UncontrolledDropdown,
@@ -36,7 +35,7 @@ import TopnavEasyAccess from './Topnav.EasyAccess';
 import TopnavNotifications from './Topnav.Notifications';
 import TopnavDarkSwitch from './Topnav.DarkSwitch';
 
-import { getDirection, setDirection } from '../../helpers/Utils';
+import { getCurrentUser, getDirection, setDirection } from '../../helpers/Utils';
 
 const TopNav = ({
   intl,
@@ -177,7 +176,7 @@ const TopNav = ({
 
   const handleLogout = () => {
     try {
-      const user = firebase.auth().currentUser;
+      const user = getCurrentUser();
       console.log(user);
       logoutUser(history);
       console.log(user);

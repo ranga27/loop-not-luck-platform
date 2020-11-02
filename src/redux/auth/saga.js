@@ -17,7 +17,6 @@ import {
   forgotPasswordError,
   resetPasswordSuccess,
   resetPasswordError,
-  verifyEmail,
 } from './actions';
 
 import { adminRoot, currentUser } from '../../constants/defaultValues';
@@ -63,7 +62,6 @@ const registerWithEmailPasswordAsync = async (email, password) =>
 
 function* registerWithEmailPassword({ payload }) {
   const { email, password } = payload.user;
-  const { history } = payload;
   try {
     const registerUser = yield call(
       registerWithEmailPasswordAsync,

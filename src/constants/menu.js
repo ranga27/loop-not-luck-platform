@@ -9,6 +9,12 @@ const data = [
     to: `${adminRoot}/dashboard`,
   },
   {
+    id: 'onboarding',
+    icon: 'simple-icon-note',
+    label: 'menu.onboarding',
+    to: `${adminRoot}/onboarding`,
+  },
+  {
     id: 'opportunities',
     icon: 'simple-icon-rocket',
     label: 'menu.opportunities',

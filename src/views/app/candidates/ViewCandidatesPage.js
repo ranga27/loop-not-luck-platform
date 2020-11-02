@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { servicePath } from '../../../constants/defaultValues';
 import ListPageHeading from '../../../containers/pages/ListPageHeading';
 import AddNewModal from '../../../containers/pages/AddNewModal';
 import ListPageListing from '../../../containers/pages/ListPageListing';

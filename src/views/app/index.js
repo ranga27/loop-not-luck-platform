@@ -14,8 +14,8 @@ const Opportunities = React.lazy(() =>
 const Candidates = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './candidates')
 );
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
+const Onboarding = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-onboarding" */ './Onboarding')
 );
 
 const App = ({ match }) => {
@@ -36,6 +36,10 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/candidates`}
               render={(props) => <Candidates {...props} />}
+            />
+            <Route
+              path={`${match.url}/onboarding`}
+              render={(props) => <Onboarding {...props} />}
             />
             {/* <ProtectedRoute
                     path={`${match.url}/second-menu`}
