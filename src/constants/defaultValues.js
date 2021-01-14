@@ -36,7 +36,7 @@ export const currentUser = {
   title: 'Sarah Kortney',
   img: '/assets/img/profiles/l-1.jpg',
   date: 'Last seen today 15:24',
-  role: UserRole.Admin
+  role: UserRole.Candidate
 }
 
 

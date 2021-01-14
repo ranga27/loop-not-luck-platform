@@ -8,32 +8,31 @@ import IntlMessages from '../../helpers/IntlMessages';
 import BottomNavigation from '../../components/wizard/BottomNavigation';
 import TopNavigation from '../../components/wizard/TopNavigation';
 
-const validateEmail = (value) => {
+//TODO: replace validation with YUP
+const validateFirstName = (value) => {
   let error;
   if (!value) {
-    error = 'Please enter your email address';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    error = 'Invalid email address';
+    error = 'Please enter your First Name';
   }
   return error;
 };
 
-const validateName = (value) => {
+const validateLastName = (value) => {
   let error;
   if (!value) {
-    error = 'Please enter your name';
+    error = 'Please enter your Last Name';
   } else if (value.length < 2) {
-    error = 'Value must be longer than 2 characters';
+    error = 'Last Name must be longer than 2 characters';
   }
   return error;
 };
 
-const validatePassword = (value) => {
+const validateDateOfBirth = (value) => {
   let error;
   if (!value) {
-    error = 'Please enter your password';
-  } else if (value.length < 6) {
-    error = 'Password must be longer than 6 characters';
+    error = 'Please enter your Date of Birth';
+  } else if (value.length < 4) {
+    error = 'Date of Birth must be longer than 4 characters';
   }
   return error;
 };
@@ -45,17 +44,17 @@ const Validation = ({ intl }) => {
   const [fields, setFields] = useState([
     {
       valid: false,
-      name: 'name',
+      name: 'firstName',
       value: '',
     },
     {
       valid: false,
-      name: 'email',
+      name: 'lastName',
       value: '',
     },
     {
       valid: false,
-      name: 'password',
+      name: 'dateOfBirth',
       value: '',
     },
   ]);
@@ -64,6 +63,7 @@ const Validation = ({ intl }) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      console.log(fields);
     }, 3000);
   };
 
@@ -115,22 +115,22 @@ const Validation = ({ intl }) => {
                 <Formik
                   innerRef={forms[0]}
                   initialValues={{
-                    name: fields[0].value,
+                    firstName: fields[0].value,
                   }}
                   onSubmit={() => {}}
                 >
                   {({ errors, touched }) => (
                     <Form className="av-tooltip tooltip-label-right">
                       <FormGroup>
-                        <Label>{messages['forms.name']}</Label>
+                        <Label>{messages['forms.firstName']}</Label>
                         <Field
                           className="form-control"
-                          name="name"
-                          validate={validateName}
+                          name="firstName"
+                          validate={validateFirstName}
                         />
-                        {errors.name && touched.name && (
+                        {errors.firstName && touched.firstName && (
                           <div className="invalid-feedback d-block">
-                            {errors.name}
+                            {errors.firstName}
                           </div>
                         )}
                       </FormGroup>
@@ -148,22 +148,22 @@ const Validation = ({ intl }) => {
                 <Formik
                   innerRef={forms[1]}
                   initialValues={{
-                    email: fields[1].value,
+                    lastName: fields[1].value,
                   }}
                   onSubmit={() => {}}
                 >
                   {({ errors, touched }) => (
                     <Form className="av-tooltip tooltip-label-right">
                       <FormGroup>
-                        <Label>{messages['forms.email']}</Label>
+                        <Label>{messages['forms.lastName']}</Label>
                         <Field
                           className="form-control"
-                          name="email"
-                          validate={validateEmail}
+                          name="lastName"
+                          validate={validateLastName}
                         />
-                        {errors.email && touched.email && (
+                        {errors.lastName && touched.lastName && (
                           <div className="invalid-feedback d-block">
-                            {errors.email}
+                            {errors.lastName}
                           </div>
                         )}
                       </FormGroup>
@@ -172,6 +172,7 @@ const Validation = ({ intl }) => {
                 </Formik>
               </div>
             </Step>
+
             <Step
               id="step3"
               name={messages['wizard.step-name-3']}
@@ -181,23 +182,23 @@ const Validation = ({ intl }) => {
                 <Formik
                   innerRef={forms[2]}
                   initialValues={{
-                    password: fields[2].value,
+                    dateOfBirth: fields[2].value,
                   }}
                   onSubmit={() => {}}
                 >
                   {({ errors, touched }) => (
                     <Form className="av-tooltip tooltip-label-right error-l-75">
                       <FormGroup>
-                        <Label>{messages['forms.password']}</Label>
+                        <Label>{messages['forms.dateOfBirth']}</Label>
                         <Field
                           className="form-control"
-                          name="password"
-                          type="password"
-                          validate={validatePassword}
+                          name="dateOfBirth"
+                          type="dateOfBirth"
+                          validate={validateDateOfBirth}
                         />
-                        {errors.password && touched.password && (
+                        {errors.dateOfBirth && touched.dateOfBirth && (
                           <div className="invalid-feedback d-block">
-                            {errors.password}
+                            {errors.dateOfBirth}
                           </div>
                         )}
                       </FormGroup>

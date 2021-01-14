@@ -35,7 +35,7 @@ import TopnavEasyAccess from './Topnav.EasyAccess';
 import TopnavNotifications from './Topnav.Notifications';
 import TopnavDarkSwitch from './Topnav.DarkSwitch';
 
-import { getCurrentUser, getDirection, setDirection } from '../../helpers/Utils';
+import { getDirection, setDirection } from '../../helpers/Utils';
 
 const TopNav = ({
   intl,
@@ -46,6 +46,7 @@ const TopNav = ({
   locale,
   setContainerClassnamesAction,
   clickOnMobileMenuAction,
+  logoutUserAction,
   changeLocaleAction,
 }) => {
   const [isInFullScreen, setIsInFullScreen] = useState(false);
@@ -176,16 +177,7 @@ const TopNav = ({
 
   const handleLogout = () => {
     try {
-      const user = getCurrentUser();
-      console.log(user);
-      logoutUser(history);
-      console.log(user);
-      if (!user) {
-        console.log("signed out");
-      }
-      else {
-        console.log("still signed in");
-      }
+      logoutUserAction(history);
     } catch (e) {
       throw new Error('Error while signing out');
     }
@@ -339,5 +331,6 @@ export default injectIntl(
     setContainerClassnamesAction: setContainerClassnames,
     clickOnMobileMenuAction: clickOnMobileMenu,
     changeLocaleAction: changeLocale,
+    logoutUserAction: logoutUser,
   })(TopNav)
 );

@@ -146,12 +146,18 @@ module.exports = {
   'modal.modal-title': 'Verify Email',
 
    /* 07.21.Wizards */
-   'wizard.step-name-1': 'Step 1',
-   'wizard.step-name-2': 'Step 2',
-   'wizard.step-name-3': 'Step 3',
+   'wizard.step-name-1': 'Enter First Name',
+   'wizard.step-name-2': 'Enter Last Name',
+   'wizard.step-name-3': 'Enter Date of Birth',
+   'wizard.step-name-4': 'Enter Gender',
+   'wizard.step-name-5': 'Enter Education',
+   'wizard.step-name-6': 'Enter Location',
    'wizard.step-desc-1': 'First step description',
    'wizard.step-desc-2': 'Second step description',
    'wizard.step-desc-3': 'Third step description',
+   'wizard.step-desc-4': 'Fourth step description',
+   'wizard.step-desc-5': 'Fifth step description',
+   'wizard.step-desc-6': 'Sixth step description',
    'wizard.content-1': 'Step content for first step.',
    'wizard.content-2': 'Step content for second step.',
    'wizard.content-3': 'Last step content!',
@@ -159,10 +165,11 @@ module.exports = {
    'wizard.next': 'Next',
    'wizard.prev': 'Back',
    'wizard.registered': 'Your registration completed successfully!',
-   'wizard.async': 'Async save for 3 seconds!',
+   'wizard.async': 'Saving!',
 
-   'forms.name': 'Name',
+   'forms.firstName': 'First Name',
+   'forms.lastName': 'Last Name',
    'forms.email': 'E-mail',
-   'forms.password': 'Password',
+   'forms.dateOfBirth': 'Date of Birth',
 
 };

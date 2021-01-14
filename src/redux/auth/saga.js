@@ -42,6 +42,7 @@ function* loginWithEmailPassword({ payload }) {
       setCurrentUser(item);
       yield put(loginUserSuccess(item));
       history.push(adminRoot);
+      console.log(loginUser.user);
     } else {
       yield put(loginUserError(loginUser.message));
     }
