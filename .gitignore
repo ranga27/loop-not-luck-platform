@@ -79,4 +79,5 @@ typings/
 # workspace var
 .code-workspace
 .idea
+.husky
 src/api/services/*.json
