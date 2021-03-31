@@ -5,6 +5,10 @@ const Post = React.lazy(() =>
   import(/* webpackChunkName: "second" */ './PostOpportunityPage')
 );
 
+const Review = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ './ReviewRoles')
+);
+
 const Open = React.lazy(() =>
   import(/* webpackChunkName: "second" */ './OpenRolesPage')
 );
@@ -16,6 +20,10 @@ const OpportunitiesMenu = ({ match }) => (
       <Route
         path={`${match.url}/post`}
         render={(props) => <Post {...props} />}
+      />
+      <Route
+        path={`${match.url}/review`}
+        render={(props) => <Review {...props} />}
       />
       <Route
         path={`${match.url}/open`}

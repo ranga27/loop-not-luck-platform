@@ -23,10 +23,12 @@ import { adminRoot, currentUser } from '../../constants/defaultValues';
 import { setCurrentUser } from '../../helpers/Utils';
 
 export function* watchLoginUser() {
+  // eslint-disable-next-line no-use-before-define
   yield takeEvery(LOGIN_USER, loginWithEmailPassword);
 }
 
 const loginWithEmailPasswordAsync = async (email, password) =>
+  // eslint-disable-next-line no-return-await
   await auth
     .signInWithEmailAndPassword(email, password)
     .then((user) => user)
@@ -52,10 +54,12 @@ function* loginWithEmailPassword({ payload }) {
 }
 
 export function* watchRegisterUser() {
+  // eslint-disable-next-line no-use-before-define
   yield takeEvery(REGISTER_USER, registerWithEmailPassword);
 }
 
 const registerWithEmailPasswordAsync = async (email, password) =>
+  // eslint-disable-next-line no-return-await
   await auth
     .createUserWithEmailAndPassword(email, password)
     .then((user) => user)
@@ -76,7 +80,6 @@ function* registerWithEmailPassword({ payload }) {
       console.log(item);
       setCurrentUser(item);
       yield put(registerUserSuccess('success'));
-      //history.push('/user/login');
     } else {
       yield put(registerUserError(registerUser.message));
     }
@@ -86,6 +89,7 @@ function* registerWithEmailPassword({ payload }) {
 }
 
 export function* watchLogoutUser() {
+  // eslint-disable-next-line no-use-before-define
   yield takeEvery(LOGOUT_USER, logout);
 }
 
@@ -104,10 +108,12 @@ function* logout({ payload }) {
 }
 
 export function* watchForgotPassword() {
+  // eslint-disable-next-line no-use-before-define
   yield takeEvery(FORGOT_PASSWORD, forgotPassword);
 }
 
 const forgotPasswordAsync = async (email) => {
+  // eslint-disable-next-line no-return-await
   return await auth
     .sendPasswordResetEmail(email)
     .then((user) => user)
@@ -129,10 +135,12 @@ function* forgotPassword({ payload }) {
 }
 
 export function* watchResetPassword() {
+  // eslint-disable-next-line no-use-before-define
   yield takeEvery(RESET_PASSWORD, resetPassword);
 }
 
 const resetPasswordAsync = async (resetPasswordCode, newPassword) => {
+  // eslint-disable-next-line no-return-await
   return await auth
     .confirmPasswordReset(resetPasswordCode, newPassword)
     .then((user) => user)

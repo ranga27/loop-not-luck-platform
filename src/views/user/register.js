@@ -62,7 +62,7 @@ const Register = ({
         ''
       );
     } else if (!loading && currentUser === 'success') {
-/*       NotificationManager.success(
+      /*       NotificationManager.success(
         'Please verify your email',
         'Verify email.',
         -0,
@@ -77,7 +77,6 @@ const Register = ({
   const onUserRegister = (values) => {
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
-        //setModalBasic(true);
         registerUserAction(values, history);
       }
     }
@@ -170,8 +169,8 @@ const Register = ({
                       </ModalHeader>
                       <ModalBody>
                         E-Mail confirmation sent: Check your E-Mails (Spam
-                        folder included) for a confirmation E-Mail. Login
-                        once you confirmed your E-Mail.
+                        folder included) for a confirmation E-Mail. Login once
+                        you confirmed your E-Mail.
                       </ModalBody>
                       <ModalFooter>
                         <Button

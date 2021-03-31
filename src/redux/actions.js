@@ -17,6 +17,7 @@ export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
 export const VERIFY_EMAIL = 'VERIFY_EMAIL';
+
 /* MENU */
 export const MENU_SET_CLASSNAMES = 'MENU_SET_CLASSNAMES';
 export const MENU_CONTAINER_ADD_CLASSNAME = 'MENU_CONTAINER_ADD_CLASSNAME';
@@ -25,6 +26,10 @@ export const MENU_CHANGE_DEFAULT_CLASSES = 'MENU_CHANGE_DEFAULT_CLASSES';
 export const MENU_CHANGE_HAS_SUB_ITEM_STATUS =
   'MENU_CHANGE_HAS_SUB_ITEM_STATUS';
 
+/* OPPORTUNITIES */
+export const SELECT_OPPORTUNITY_TO_REVIEW = 'SELECT_OPPORTUNITY_TO_REVIEW';
+
 export * from './menu/actions';
 export * from './settings/actions';
 export * from './auth/actions';
+export * from './opportunities/actions';

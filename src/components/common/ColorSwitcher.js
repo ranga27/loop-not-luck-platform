@@ -2,7 +2,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FormGroup, Label, CustomInput } from 'reactstrap';
 import { colors } from '../../constants/defaultValues';
-import { getCurrentColor, setCurrentColor, getCurrentRadius, setCurrentRadius } from '../../helpers/Utils';
+import {
+  getCurrentColor,
+  setCurrentColor,
+  getCurrentRadius,
+  setCurrentRadius,
+} from '../../helpers/Utils';
 
 const ColorSwitcher = () => {
   const containerRef = useRef();
@@ -44,7 +49,7 @@ const ColorSwitcher = () => {
 
   const changeThemeColor = (e, color) => {
     e.preventDefault();
-    setCurrentColor(color)
+    setCurrentColor(color);
     setIsOpen(false);
     setTimeout(() => {
       window.location.reload();
@@ -62,7 +67,7 @@ const ColorSwitcher = () => {
               href={`#light.${color}`}
               className={`theme-color theme-color-${color} ${
                 selectedColor === `light.${color}` ? 'active' : ''
-                }`}
+              }`}
               onClick={(e) => changeThemeColor(e, `light.${color}`)}
             >
               <span>{` `}</span>
@@ -76,7 +81,7 @@ const ColorSwitcher = () => {
               href={`#light.${color}`}
               className={`theme-color theme-color-${color} ${
                 selectedColor === `light.${color}` ? 'active' : ''
-                }`}
+              }`}
               onClick={(e) => changeThemeColor(e, `light.${color}`)}
             >
               <span>{` `}</span>
@@ -91,7 +96,7 @@ const ColorSwitcher = () => {
               href={`#dark.${color}`}
               className={`theme-color theme-color-${color} ${
                 selectedColor === `dark.${color}` ? 'active' : ''
-                }`}
+              }`}
               onClick={(e) => changeThemeColor(e, `dark.${color}`)}
             >
               <span>{` `}</span>
@@ -105,7 +110,7 @@ const ColorSwitcher = () => {
               href={`#dark.${color}`}
               className={`theme-color theme-color-${color} ${
                 selectedColor === `dark.${color}` ? 'active' : ''
-                }`}
+              }`}
               onClick={(e) => changeThemeColor(e, `dark.${color}`)}
             >
               <span>{` `}</span>

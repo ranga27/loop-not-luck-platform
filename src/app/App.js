@@ -11,9 +11,13 @@ import '../helpers/Firebase';
 import AppLocale from '../lang';
 import ColorSwitcher from '../components/common/ColorSwitcher';
 import { NotificationContainer } from '../components/common/react-notifications';
-import { isMultiColorActive, adminRoot } from '../constants/defaultValues';
+import {
+  isMultiColorActive,
+  adminRoot,
+  UserRole,
+} from '../constants/defaultValues';
 import { getDirection } from '../helpers/Utils';
-import { ProtectedRoute, UserRole } from '../helpers/authHelper';
+import { ProtectedRoute } from '../helpers/authHelper';
 
 const ViewHome = React.lazy(() =>
   import(/* webpackChunkName: "views" */ '../views/home')

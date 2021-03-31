@@ -15,7 +15,7 @@ const Onboarding = ({ match }) => {
       </Row>
       <Row>
         <Colxx xxs="12" className="mb-5">
-        <Validation />
+          <Validation />
         </Colxx>
       </Row>
     </>

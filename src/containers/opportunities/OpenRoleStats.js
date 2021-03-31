@@ -9,13 +9,12 @@ import {
   TabPane,
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import classnames from 'classnames';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import SmallLineCharts from '../pages/SmallLineCharts';
 import Tickets from '../pages/Tickets';
-
-import classnames from 'classnames';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import data from '../../data/roles';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const OpenRoleStats = () => {
   const [activeFirstTab, setActiveFirstTab] = useState('1');
@@ -23,19 +22,19 @@ const OpenRoleStats = () => {
 
   return (
     <Row>
-
       <Colxx lg="5" md="12" className="mb-4">
         <Card>
           <CardBody>
             <div className="dashboard-list-with-user">
               <PerfectScrollbar
-                options={{ suppressScrollX: true, wheelPropagation: false }} 
+                options={{ suppressScrollX: true, wheelPropagation: false }}
               >
                 <Nav pills className="flex-column">
                   <NavItem>
                     {data.map((role, index) => {
                       return (
                         <NavLink
+                          // eslint-disable-next-line react/no-array-index-key
                           key={`role_${index}`}
                           to="#"
                           location={{}}
@@ -76,7 +75,6 @@ const OpenRoleStats = () => {
         </TabContent>
       </Colxx>
     </Row>
-
   );
 };
 

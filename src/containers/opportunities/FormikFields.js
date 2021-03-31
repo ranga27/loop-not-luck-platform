@@ -297,7 +297,15 @@ const FormikSwitch = ({ name, value, className, onChange, onBlur }) => {
   );
 };
 
-const FormikDatePicker = ({ name, value, className, onChange, onBlur }) => {
+const FormikDatePicker = ({
+  name,
+  value,
+  className,
+  onChange,
+  onBlur,
+  placeholderText,
+  dateFormat,
+}) => {
   const handleChange = (val) => {
     onChange(name, val);
   };
@@ -313,6 +321,8 @@ const FormikDatePicker = ({ name, value, className, onChange, onBlur }) => {
       selected={value}
       onChange={handleChange}
       onBlur={handleBlur}
+      placeholderText={placeholderText}
+      dateFormat={dateFormat}
     />
   );
 };

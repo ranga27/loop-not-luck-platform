@@ -8,7 +8,7 @@ import IntlMessages from '../../helpers/IntlMessages';
 import BottomNavigation from '../../components/wizard/BottomNavigation';
 import TopNavigation from '../../components/wizard/TopNavigation';
 
-//TODO: replace validation with YUP
+// TODO: replace validation with YUP
 const validateFirstName = (value) => {
   let error;
   if (!value) {

@@ -13,7 +13,6 @@ import {
   addContainerClassname,
   changeDefaultClassnames,
   changeSelectedMenuHasSubItems,
-
 } from '../../redux/actions';
 
 import menuItems from '../../constants/menu';
@@ -28,15 +27,18 @@ class Sidebar extends Component {
     };
   }
 
+  // eslint-disable-next-line react/sort-comp
   handleWindowResize = (event) => {
     if (event && !event.isTrusted) {
       return;
     }
     const { containerClassnames } = this.props;
     const nextClasses = this.getMenuClassesForResize(containerClassnames);
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.setContainerClassnames(
       0,
       nextClasses.join(' '),
+      // eslint-disable-next-line react/destructuring-assignment
       this.props.selectedMenuHasSubItems
     );
   };
@@ -105,11 +107,13 @@ class Sidebar extends Component {
   };
 
   getContainer = () => {
+    // eslint-disable-next-line react/no-find-dom-node
     return ReactDOM.findDOMNode(this);
   };
 
   toggle = () => {
     const hasSubItems = this.getIsHasSubItem();
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.changeSelectedMenuHasSubItems(hasSubItems);
     const { containerClassnames, menuClickCount } = this.props;
     const currentClasses = containerClassnames
@@ -146,6 +150,7 @@ class Sidebar extends Component {
       clickIndex = 0;
     }
     if (clickIndex >= 0) {
+      // eslint-disable-next-line react/destructuring-assignment
       this.props.setContainerClassnames(
         clickIndex,
         containerClassnames,
@@ -213,6 +218,7 @@ class Sidebar extends Component {
           },
           callback
         );
+        // eslint-disable-next-line react/destructuring-assignment
       } else if (this.state.selectedParentMenu === '') {
         this.setState(
           {
@@ -226,6 +232,7 @@ class Sidebar extends Component {
 
   setHasSubItemStatus = () => {
     const hasSubmenu = this.getIsHasSubItem();
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.changeSelectedMenuHasSubItems(hasSubmenu);
     this.toggle();
   };
@@ -238,7 +245,9 @@ class Sidebar extends Component {
     return false;
   };
 
+  // eslint-disable-next-line react/sort-comp
   componentDidUpdate(prevProps) {
+    // eslint-disable-next-line react/destructuring-assignment
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.setSelectedLiActive(this.setHasSubItemStatus);
 
@@ -262,6 +271,7 @@ class Sidebar extends Component {
   openSubMenu = (e, menuItem) => {
     const selectedParent = menuItem.id;
     const hasSubMenu = menuItem.subs && menuItem.subs.length > 0;
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.changeSelectedMenuHasSubItems(hasSubMenu);
     if (!hasSubMenu) {
       this.setState({
@@ -282,20 +292,24 @@ class Sidebar extends Component {
           currentClasses.includes('menu-sub-hidden') &&
           (menuClickCount === 2 || menuClickCount === 0)
         ) {
+          // eslint-disable-next-line react/destructuring-assignment
           this.props.setContainerClassnames(3, containerClassnames, hasSubMenu);
         } else if (
           currentClasses.includes('menu-hidden') &&
           (menuClickCount === 1 || menuClickCount === 3)
         ) {
+          // eslint-disable-next-line react/destructuring-assignment
           this.props.setContainerClassnames(2, containerClassnames, hasSubMenu);
         } else if (
           currentClasses.includes('menu-default') &&
           !currentClasses.includes('menu-sub-hidden') &&
           (menuClickCount === 1 || menuClickCount === 3)
         ) {
+          // eslint-disable-next-line react/destructuring-assignment
           this.props.setContainerClassnames(0, containerClassnames, hasSubMenu);
         }
       } else {
+        // eslint-disable-next-line react/destructuring-assignment
         this.props.addContainerClassname(
           'sub-show-temporary',
           containerClassnames
@@ -324,17 +338,18 @@ class Sidebar extends Component {
     return false;
   };
 
+  // eslint-disable-next-line no-shadow
   filteredList = (menuItems) => {
-    const { currentUser: { role } } = this.props;
-    return menuItems.filter(x => (x.roles && x.roles.includes(role)) || !x.roles)
-  }
-
-
-
+    const { currentUser } = this.props;
+    if (currentUser) {
+      return menuItems.filter(
+        (x) => (x.roles && x.roles.includes(currentUser.role)) || !x.roles
+      );
+    }
+    return menuItems;
+  };
 
   render() {
-
-
     const {
       selectedParentMenu,
       viewingParentMenu,
@@ -370,15 +385,15 @@ class Sidebar extends Component {
                             <IntlMessages id={item.label} />
                           </a>
                         ) : (
-                            <NavLink
-                              to={item.to}
-                              onClick={(e) => this.openSubMenu(e, item)}
-                              data-flag={item.id}
-                            >
-                              <i className={item.icon} />{' '}
-                              <IntlMessages id={item.label} />
-                            </NavLink>
-                          )}
+                          <NavLink
+                            to={item.to}
+                            onClick={(e) => this.openSubMenu(e, item)}
+                            data-flag={item.id}
+                          >
+                            <i className={item.icon} />{' '}
+                            <IntlMessages id={item.label} />
+                          </NavLink>
+                        )}
                       </NavItem>
                     );
                   })}
@@ -399,8 +414,11 @@ class Sidebar extends Component {
                       key={item.id}
                       className={classnames({
                         'd-block':
+                          // eslint-disable-next-line react/destructuring-assignment
                           (this.state.selectedParentMenu === item.id &&
+                            // eslint-disable-next-line react/destructuring-assignment
                             this.state.viewingParentMenu === '') ||
+                          // eslint-disable-next-line react/destructuring-assignment
                           this.state.viewingParentMenu === item.id,
                       })}
                       data-parent={item.id}
@@ -409,13 +427,15 @@ class Sidebar extends Component {
                         this.filteredList(item.subs).map((sub, index) => {
                           return (
                             <NavItem
+                              // eslint-disable-next-line react/no-array-index-key
                               key={`${item.id}_${index}`}
                               className={`${
                                 sub.subs && sub.subs.length > 0
                                   ? 'has-sub-item'
                                   : ''
-                                }`}
+                              }`}
                             >
+                              {/* eslint-disable-next-line no-nested-ternary */}
                               {sub.newWindow ? (
                                 <a
                                   href={sub.to}
@@ -434,7 +454,7 @@ class Sidebar extends Component {
                                       ) === -1
                                         ? ''
                                         : 'collapsed'
-                                      }`}
+                                    }`}
                                     to={sub.to}
                                     id={`${item.id}_${index}`}
                                     onClick={(e) =>
@@ -456,42 +476,49 @@ class Sidebar extends Component {
                                     }
                                   >
                                     <Nav className="third-level-menu">
-                                      {this.filteredList(sub.subs).map((thirdSub, thirdIndex) => {
-                                        return (
-                                          <NavItem
-                                            key={`${item.id}_${index}_${thirdIndex}`}
-                                          >
-                                            {thirdSub.newWindow ? (
-                                              <a
-                                                href={thirdSub.to}
-                                                rel="noopener noreferrer"
-                                                target="_blank"
-                                              >
-                                                <i className={thirdSub.icon} />{' '}
-                                                <IntlMessages
-                                                  id={thirdSub.label}
-                                                />
-                                              </a>
-                                            ) : (
+                                      {this.filteredList(sub.subs).map(
+                                        (thirdSub, thirdIndex) => {
+                                          return (
+                                            <NavItem
+                                              // eslint-disable-next-line react/no-array-index-key
+                                              key={`${item.id}_${index}_${thirdIndex}`}
+                                            >
+                                              {thirdSub.newWindow ? (
+                                                <a
+                                                  href={thirdSub.to}
+                                                  rel="noopener noreferrer"
+                                                  target="_blank"
+                                                >
+                                                  <i
+                                                    className={thirdSub.icon}
+                                                  />{' '}
+                                                  <IntlMessages
+                                                    id={thirdSub.label}
+                                                  />
+                                                </a>
+                                              ) : (
                                                 <NavLink to={thirdSub.to}>
-                                                  <i className={thirdSub.icon} />{' '}
+                                                  <i
+                                                    className={thirdSub.icon}
+                                                  />{' '}
                                                   <IntlMessages
                                                     id={thirdSub.label}
                                                   />
                                                 </NavLink>
                                               )}
-                                          </NavItem>
-                                        );
-                                      })}
+                                            </NavItem>
+                                          );
+                                        }
+                                      )}
                                     </Nav>
                                   </Collapse>
                                 </>
                               ) : (
-                                    <NavLink to={sub.to}>
-                                      <i className={sub.icon} />{' '}
-                                      <IntlMessages id={sub.label} />
-                                    </NavLink>
-                                  )}
+                                <NavLink to={sub.to}>
+                                  <i className={sub.icon} />{' '}
+                                  <IntlMessages id={sub.label} />
+                                </NavLink>
+                              )}
                             </NavItem>
                           );
                         })}
@@ -522,7 +549,7 @@ const mapStateToProps = ({ menu, authUser }) => {
     menuHiddenBreakpoint,
     menuClickCount,
     selectedMenuHasSubItems,
-    currentUser
+    currentUser,
   };
 };
 export default withRouter(

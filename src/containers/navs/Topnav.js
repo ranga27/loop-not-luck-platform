@@ -287,16 +287,19 @@ const TopNav = ({
             {isInFullScreen ? (
               <i className="simple-icon-size-actual d-block" />
             ) : (
-                <i className="simple-icon-size-fullscreen d-block" />
-              )}
+              <i className="simple-icon-size-fullscreen d-block" />
+            )}
           </button>
         </div>
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
-              <span className="name mr-1">Sarah Kortney</span>
+              <span className="name mr-1">Admin User</span>
               <span>
-                <img alt="Profile" src="/assets/img/profiles/l-1.jpg" />
+                <img
+                  alt="Profile"
+                  src="https://randomuser.me/api/portraits/women/27.jpg"
+                />
               </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>

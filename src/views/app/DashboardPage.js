@@ -8,7 +8,7 @@ import ProfileStatuses from '../../containers/pages/ProfileStatuses';
 import ProductCategoriesDoughnut from '../../containers/pages/ProductCategoriesDoughnut';
 import GradientWithRadialProgressCard from '../../containers/pages/GradientWithRadialProgressCard';
 import { BarChart } from '../../components/charts';
-import { barChartData } from '../../data/charts'
+import { barChartData } from '../../data/charts';
 
 const DashboardPage = ({ intl, match }) => {
   const { messages } = intl;

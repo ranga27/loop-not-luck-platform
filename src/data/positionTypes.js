@@ -1,11 +1,18 @@
 const positionTypes = [
-    { label: "Internship", value: 0 },
-    { label: "Graduate Scheme", value: 1 },
-    { label: "Entry-Level Position", value: 2 },
-    { label: "Apprenticeship", value: 3 },
-    { label: "Work Experience", value: 4 },
-    { label: "Summer Placement", value: 5 },
-    { label: "1 year Industrial Placement", value: 6 }
+  { label: 'Graduate Scheme', value: 'Graduate Scheme' },
+  { label: 'Entry-Level Job', value: 'Entry-Level Job' },
+  { label: 'Internship', value: 'Internship' },
+  { label: 'Insight Day', value: 'Insight Day' },
+  { label: 'Training', value: 'Training' },
+  { label: 'Programme', value: 'Programme' },
+  { label: 'Scholarships', value: 'Scholarships' },
+  {
+    label: 'Industrial Placement',
+    value: 'Industrial Placement',
+  },
+  { label: 'Work Experience', value: 'Work Experience' },
+  { label: 'Freelance', value: 'Freelance' },
+  { label: 'Contract', value: 'Contract' },
 ];
 
 export default positionTypes;

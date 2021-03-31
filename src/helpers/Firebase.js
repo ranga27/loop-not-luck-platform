@@ -1,12 +1,14 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
+import { firebaseConfig, mobileAppConfig } from '../constants/defaultValues';
 
-import { firebaseConfig } from '../constants/defaultValues';
+const mobileApp = firebase.initializeApp(mobileAppConfig, 'loop-not-luck-app');
 
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
-const database = firebase.firestore();
-
-export { auth, database };
+const db = firebase.firestore();
+const dbMobileApp = mobileApp.firestore();
+export { auth, db, dbMobileApp };

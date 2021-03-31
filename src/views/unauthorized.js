@@ -3,7 +3,8 @@ import { Row, Card, CardTitle } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { Colxx } from '../components/common/CustomBootstrap';
 import IntlMessages from '../helpers/IntlMessages';
-import { adminRoot } from '../constants/defaultValues'
+import { adminRoot } from '../constants/defaultValues';
+
 const Unauthorized = () => {
   useEffect(() => {
     document.body.classList.add('background');
@@ -37,7 +38,10 @@ const Unauthorized = () => {
                     <IntlMessages id="unauthorized.detail" />
                   </p>
                   <p className="display-1 font-weight-bold mb-5">503</p>
-                  <NavLink to={adminRoot} className="btn btn-primary btn-shadow btn-lg">
+                  <NavLink
+                    to={adminRoot}
+                    className="btn btn-primary btn-shadow btn-lg"
+                  >
                     <IntlMessages id="pages.go-back-home" />
                   </NavLink>
                 </div>

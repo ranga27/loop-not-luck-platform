@@ -9,6 +9,7 @@ const PostOpportunityPage = ({ match }) => (
     <Row>
       <Colxx xxs="12">
         <Breadcrumb heading="menu.post" match={match} />
+        {console.log(match)}
         <Separator className="mb-5" />
       </Colxx>
     </Row>

@@ -72,9 +72,11 @@ typings/
 .next
 
 # dotenv environment variables file
-.env
-.DS_Store
 .history
+.DS_STORE
+.DS_Store
 
 # workspace var
 .code-workspace
+.idea
+src/api/services/*.json

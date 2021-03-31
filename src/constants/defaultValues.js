@@ -1,4 +1,7 @@
-import { UserRole } from "../helpers/authHelper";
+export const UserRole = {
+  Admin: 0,
+  Editor: 1,
+};
 
 /*
 Menu Types:
@@ -16,14 +19,24 @@ export const localeOptions = [
 ];
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyASO7xWsWqUHXXxkcMlbmaLWBuI6hOK5gA",
-    authDomain: "loop-luck.firebaseapp.com",
-    databaseURL: "https://loop-luck.firebaseio.com",
-    projectId: "loop-luck",
-    storageBucket: "loop-luck.appspot.com",
-    messagingSenderId: "254916519702",
-    appId: "1:254916519702:web:bd8ba9a53a0f27486c9237",
-    measurementId: "G-VYCHZLSDJZ"
+  apiKey: 'AIzaSyASO7xWsWqUHXXxkcMlbmaLWBuI6hOK5gA',
+  authDomain: 'loop-luck.firebaseapp.com',
+  databaseURL: 'https://loop-luck.firebaseio.com',
+  projectId: 'loop-luck',
+  storageBucket: 'loop-luck.appspot.com',
+  messagingSenderId: '254916519702',
+  appId: '1:254916519702:web:bd8ba9a53a0f27486c9237',
+  measurementId: 'G-VYCHZLSDJZ',
+};
+
+export const mobileAppConfig = {
+  apiKey: 'AIzaSyBRRYT6XXmQ8o27DfEmK8Tr1J2KFrqjscM',
+  authDomain: 'loop-not-luck-app.firebaseapp.com',
+  projectId: 'loop-not-luck-app',
+  storageBucket: 'loop-not-luck-app.appspot.com',
+  messagingSenderId: '738687721732',
+  appId: '1:738687721732:web:4d322c646fd41eae887051',
+  measurementId: 'G-K0G2V0CFHF',
 };
 
 export const adminRoot = '/app';
@@ -33,12 +46,11 @@ export const servicePath = 'https://api.coloredstrategies.com';
 
 export const currentUser = {
   id: 1,
-  title: 'Sarah Kortney',
+  title: 'Admin User',
   img: '/assets/img/profiles/l-1.jpg',
   date: 'Last seen today 15:24',
-  role: UserRole.Candidate
-}
-
+  role: UserRole.Admin,
+};
 
 export const themeColorStorageKey = '__theme_selected_color';
 export const isMultiColorActive = true;

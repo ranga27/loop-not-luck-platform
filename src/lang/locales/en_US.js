@@ -12,9 +12,10 @@ module.exports = {
   /* 01.General */
   'general.copyright': 'Gogo React © 2018 All Rights Reserved.',
 
-  "unauthorized.title": "Unauthorized Access Attempt",
-  "unauthorized.detail": "You are not authorized to view the page you are trying to access.",
-  
+  'unauthorized.title': 'Unauthorized Access Attempt',
+  'unauthorized.detail':
+    'You are not authorized to view the page you are trying to access.',
+
   /* 02.User Login, Logout, Register */
   'user.login-title': 'Login',
   'user.register': 'Register',
@@ -38,6 +39,7 @@ module.exports = {
   'menu.opportunities': 'Opportunities',
   'menu.post': 'Post Role',
   'menu.open': 'Open Roles',
+  'menu.review': 'Review Roles',
   'menu.candidates': 'Candidates',
   'menu.view': 'View',
   'menu.data-list': 'View Candidates',
@@ -50,7 +52,6 @@ module.exports = {
   'menu.docs': 'Docs',
   'menu.blank-page': 'Candidates',
   'menu.onboarding': 'Onboarding',
-
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
@@ -145,31 +146,30 @@ module.exports = {
 
   'modal.modal-title': 'Verify Email',
 
-   /* 07.21.Wizards */
-   'wizard.step-name-1': 'Enter First Name',
-   'wizard.step-name-2': 'Enter Last Name',
-   'wizard.step-name-3': 'Enter Date of Birth',
-   'wizard.step-name-4': 'Enter Gender',
-   'wizard.step-name-5': 'Enter Education',
-   'wizard.step-name-6': 'Enter Location',
-   'wizard.step-desc-1': 'First step description',
-   'wizard.step-desc-2': 'Second step description',
-   'wizard.step-desc-3': 'Third step description',
-   'wizard.step-desc-4': 'Fourth step description',
-   'wizard.step-desc-5': 'Fifth step description',
-   'wizard.step-desc-6': 'Sixth step description',
-   'wizard.content-1': 'Step content for first step.',
-   'wizard.content-2': 'Step content for second step.',
-   'wizard.content-3': 'Last step content!',
-   'wizard.content-thanks': 'Thank You!',
-   'wizard.next': 'Next',
-   'wizard.prev': 'Back',
-   'wizard.registered': 'Your registration completed successfully!',
-   'wizard.async': 'Saving!',
+  /* 07.21.Wizards */
+  'wizard.step-name-1': 'Enter First Name',
+  'wizard.step-name-2': 'Enter Last Name',
+  'wizard.step-name-3': 'Enter Date of Birth',
+  'wizard.step-name-4': 'Enter Gender',
+  'wizard.step-name-5': 'Enter Education',
+  'wizard.step-name-6': 'Enter Location',
+  'wizard.step-desc-1': 'First step description',
+  'wizard.step-desc-2': 'Second step description',
+  'wizard.step-desc-3': 'Third step description',
+  'wizard.step-desc-4': 'Fourth step description',
+  'wizard.step-desc-5': 'Fifth step description',
+  'wizard.step-desc-6': 'Sixth step description',
+  'wizard.content-1': 'Step content for first step.',
+  'wizard.content-2': 'Step content for second step.',
+  'wizard.content-3': 'Last step content!',
+  'wizard.content-thanks': 'Thank You!',
+  'wizard.next': 'Next',
+  'wizard.prev': 'Back',
+  'wizard.registered': 'Your registration completed successfully!',
+  'wizard.async': 'Saving!',
 
-   'forms.firstName': 'First Name',
-   'forms.lastName': 'Last Name',
-   'forms.email': 'E-mail',
-   'forms.dateOfBirth': 'Date of Birth',
-
+  'forms.firstName': 'First Name',
+  'forms.lastName': 'Last Name',
+  'forms.email': 'E-mail',
+  'forms.dateOfBirth': 'Date of Birth',
 };

@@ -3,7 +3,7 @@ import ListPageHeading from '../../../containers/pages/ListPageHeading';
 import AddNewModal from '../../../containers/pages/AddNewModal';
 import ListPageListing from '../../../containers/pages/ListPageListing';
 import useMousetrap from '../../../hooks/use-mousetrap';
-import {getCandidatesList} from '../../../data/getCandidatesList';
+import getCandidatesList from '../../../data/getCandidatesList';
 
 const getIndex = (value, arr, prop) => {
   for (let i = 0; i < arr.length; i += 1) {
@@ -50,14 +50,14 @@ const ViewCandidatesPage = ({ match }) => {
 
   useEffect(() => {
     const loadCandidatesList = async () => {
-        const results = await getCandidatesList();
-        setTotalPage(Math.ceil(results.length/selectedPageSize));
-        setItems(results);
-        setSelectedItems([]);
-        setTotalItemCount(results.length);
-        setIsLoaded(true);
-        console.log(results);
-    }
+      const results = await getCandidatesList();
+      setTotalPage(Math.ceil(results.length / selectedPageSize));
+      setItems(results);
+      setSelectedItems([]);
+      setTotalItemCount(results.length);
+      setIsLoaded(true);
+      console.log(results);
+    };
     loadCandidatesList();
   }, [selectedPageSize, currentPage, selectedOrderOption, search]);
 
