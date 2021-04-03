@@ -16,13 +16,15 @@ export async function fetchOpportunitiesFromFirestore() {
   return opportunities;
 }
 
-export async function updateOpportunityToFirestore(opportunity) {
-  return db.collection('opportunities').doc(opportunity.id).update(opportunity);
+export async function updateOpportunityInFirestore(opportunity) {
+  const { id, ...opps } = opportunity;
+  return db.collection('opportunities').doc(opportunity.id).update(opps);
 }
 
-export async function updateOpportunityToMobileAppFirestore(opportunity) {
+export async function updateOpportunityInMobileAppFirestore(opportunity) {
+  const { id, ...opps } = opportunity;
   return dbMobileApp
     .collection('opportunities')
     .doc(opportunity.id)
-    .set({ opportunity }, { merge: true });
+    .set(opps, { merge: true });
 }

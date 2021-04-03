@@ -9,11 +9,7 @@ import {
   FormGroup,
   Label,
   Button,
-  Input,
-  FormText,
   CustomInput,
-  InputGroupAddon,
-  InputGroup,
   Modal,
   ModalHeader,
   ModalBody,
@@ -36,8 +32,8 @@ import { addOpportunityToFirestore } from '../../app/firestore/firestoreService'
 import { uploadFile } from './uploadFile';
 
 const applicationOption = [
-  { label: 'Email CV & Cover Letter', value: 'email' },
-  { label: 'Apply on website', value: 'website' },
+  { value: 'Email CV & Cover Letter', label: 'Email CV & Cover Letter' },
+  { value: 'Apply on website', label: 'Apply on website' },
 ];
 
 const PostOpportunityContainer = () => {
@@ -59,7 +55,7 @@ const PostOpportunityContainer = () => {
     description: '',
     qualification: '',
     howToApply: '',
-    email: 'jane@doe.com',
+    email: '',
     website: '',
     deadline: null,
     startDate: null,
@@ -68,26 +64,26 @@ const PostOpportunityContainer = () => {
 
   const onSubmit = async (values, { setSubmitting }) => {
     try {
+      const { location, positionType } = values;
+      console.log('SUBMIT: ', {
+        ...values,
+        location: location.value,
+        positionType: positionType.value,
+      });
       setModalBasic(true);
       const logoUrl = logoFile
         ? await uploadFile(logoFile, 'companyLogos')
         : null;
-      // await addOpportunityToFirestore({ ...values, logoUrl });
+      await addOpportunityToFirestore({
+        ...values,
+        location: location.value,
+        positionType: positionType.value,
+        logoUrl,
+      });
       setSubmitting(false);
     } catch (error) {
       toast.error(error.message);
       setSubmitting(false);
-    }
-  };
-
-  const showInput = (option) => {
-    setSelectedOption(option);
-    if (option.value === 'email') {
-      setEmail(true);
-      setWebsite(false);
-    } else {
-      setEmail(false);
-      setWebsite(true);
     }
   };
 
@@ -99,7 +95,7 @@ const PostOpportunityContainer = () => {
             <h6 className="mb-4">Post an Opportunity</h6>
             <Formik
               initialValues={initialValues}
-              // validationSchema={OpportunitySchema}
+              validationSchema={OpportunitySchema}
               onSubmit={onSubmit}
             >
               {({
@@ -213,7 +209,17 @@ const PostOpportunityContainer = () => {
                       classNamePrefix="react-select"
                       value={selectedOption}
                       options={applicationOption}
-                      onChange={showInput}
+                      onChange={(option) => {
+                        setSelectedOption(option);
+                        setFieldValue('howToApply', option.value);
+                        if (option.value === 'Email CV & Cover Letter') {
+                          setEmail(true);
+                          setWebsite(false);
+                        } else {
+                          setEmail(false);
+                          setWebsite(true);
+                        }
+                      }}
                     />
                   </FormGroup>
 

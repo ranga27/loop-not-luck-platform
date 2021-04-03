@@ -12,7 +12,7 @@ export const uploadFile = async (file, folderName) => {
       : file.type === 'image/jpeg'
       ? '.jpg'
       : '';
-
+  // check if file exists
   // eslint-disable-next-line prefer-template
   const filePath = folderName + '/' + uuid() + fileExtension;
   const storage = firebase.storage().ref(filePath);

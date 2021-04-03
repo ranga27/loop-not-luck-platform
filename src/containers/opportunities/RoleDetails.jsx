@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
-import React, { createRef, useRef, useState } from 'react';
+import React, { createRef, useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import {
   Row,
@@ -11,10 +11,14 @@ import {
   Button,
   CustomInput,
   CardImg,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from 'reactstrap';
-import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
+import Select from 'react-select';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
 import {
   FormikReactSelect,
@@ -25,37 +29,46 @@ import { Colxx } from '../../components/common/CustomBootstrap';
 import locations from '../../data/locations';
 import positionTypes from '../../data/positionTypes';
 import {
-  updateOpportunityToFirestore,
-  updateOpportunityToMobileAppFirestore,
+  updateOpportunityInFirestore,
+  updateOpportunityInMobileAppFirestore,
 } from '../../app/firestore/firestoreService';
 import { selectOpportunityToReview } from '../../redux/actions';
 import { uploadFile } from './uploadFile';
 
 const applicationOption = [
-  { label: 'Email CV & Cover Letter', value: 'email' },
-  { label: 'Apply on website', value: 'website' },
+  { value: 'Email CV & Cover Letter', label: 'Email CV & Cover Letter' },
+  { value: 'Apply on website', label: 'Apply on website' },
 ];
 
 const RoleDetails = () => {
+  const [modalBasic, setModalBasic] = useState(false);
   const [isEmail, setEmail] = useState(false);
   const [isWebsite, setWebsite] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [logoFile, setLogoFile] = useState('');
+  const [selectedOption, setSelectedOption] = useState('');
   const logoRef = createRef();
   const dispatch = useDispatch();
 
   const { selectedOpportunity } = useSelector((state) => state.opportunities);
-
   const initialValues = {
     id: selectedOpportunity.id,
     title: selectedOpportunity.title,
     organisation: selectedOpportunity.organisation,
-    location: selectedOpportunity.location,
-    positionType: selectedOpportunity.positionType,
+    location: {
+      label: selectedOpportunity.location,
+      value: selectedOpportunity.location,
+    },
+    positionType: {
+      label: selectedOpportunity.positionType,
+      value: selectedOpportunity.positionType,
+    },
     department: selectedOpportunity.department,
     description: selectedOpportunity.description,
     qualification: selectedOpportunity.qualification,
-    howToApply: selectedOpportunity.howToApply,
+    howToApply: {
+      label: selectedOpportunity.howToApply,
+      value: selectedOpportunity.howToApply,
+    },
     email: selectedOpportunity.email,
     website: selectedOpportunity.website,
     deadline: selectedOpportunity.deadline,
@@ -66,14 +79,26 @@ const RoleDetails = () => {
 
   const onSubmit = async (values, actions) => {
     try {
+      const { location, positionType, howToApply } = values;
+      setModalBasic(true);
+      // TODO: currently overwrites the logofile everytime. Check if the files exits before uploading. HACK: clear form after every upload.
       const logoUrl = logoFile
         ? await uploadFile(logoFile, 'companyLogos')
         : values.logoUrl;
 
-      const opportunity = { ...values, publish: true, logoUrl };
-      await updateOpportunityToFirestore(opportunity);
-      await updateOpportunityToMobileAppFirestore(opportunity);
+      const opportunity = {
+        ...values,
+        location: location.value,
+        positionType: positionType.value,
+        howToApply: howToApply.value,
+        publish: true,
+        logoUrl,
+      };
+      console.log('SUBMIT: ', opportunity);
+      await updateOpportunityInFirestore(opportunity);
+      await updateOpportunityInMobileAppFirestore(opportunity);
       dispatch(selectOpportunityToReview(opportunity));
+      actions.resetForm(values);
       actions.setSubmitting(false);
     } catch (error) {
       toast.error(error.message);
@@ -81,16 +106,19 @@ const RoleDetails = () => {
     }
   };
 
-  const showInput = (option) => {
-    setSelectedOption(option);
-    if (option.value === 'email') {
+  useEffect(() => {
+    setSelectedOption({
+      label: selectedOpportunity.howToApply,
+      value: selectedOpportunity.howToApply,
+    });
+    if (selectedOpportunity.howToApply === 'Email CV & Cover Letter') {
       setEmail(true);
       setWebsite(false);
     } else {
       setEmail(false);
       setWebsite(true);
     }
-  };
+  }, [selectedOpportunity]);
 
   const handleFileSelect = (file) => {
     setLogoFile(file);
@@ -217,16 +245,29 @@ const RoleDetails = () => {
                     <Select
                       className="react-select apply"
                       classNamePrefix="react-select"
+                      name="howToApply"
+                      id="howToApply"
                       value={selectedOption}
                       options={applicationOption}
-                      onChange={showInput}
+                      onChange={(option) => {
+                        setSelectedOption(option);
+                        setFieldValue('howToApply', option);
+                        if (option.value === 'Email CV & Cover Letter') {
+                          setEmail(true);
+                          setWebsite(false);
+                        } else {
+                          setEmail(false);
+                          setWebsite(true);
+                        }
+                      }}
+                      onBlur={setFieldTouched}
                     />
                   </FormGroup>
 
                   <div>
                     {isEmail ? (
                       <FormGroup className="error-l-100">
-                        <Label>Email</Label>
+                        <Label>Hiring Manager Email</Label>
                         <Field className="form-control" name="email" />
                         {errors.email && touched.email ? (
                           <div className="invalid-feedback d-block">
@@ -325,6 +366,20 @@ const RoleDetails = () => {
                 </Form>
               )}
             </Formik>
+            <Modal
+              isOpen={modalBasic}
+              toggle={() => setModalBasic(!modalBasic)}
+            >
+              <ModalHeader>Opportunity Edited & Published!</ModalHeader>
+              <ModalBody>
+                You can now review and edit other opportunities.
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" onClick={() => setModalBasic(false)}>
+                  OK
+                </Button>
+              </ModalFooter>
+            </Modal>
           </CardBody>
         </Card>
       </Colxx>
