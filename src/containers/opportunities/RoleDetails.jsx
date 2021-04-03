@@ -102,6 +102,7 @@ const RoleDetails = () => {
       actions.setSubmitting(false);
     } catch (error) {
       toast.error(error.message);
+      console.log(error);
       actions.setSubmitting(false);
     }
   };

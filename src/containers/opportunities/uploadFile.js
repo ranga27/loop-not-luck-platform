@@ -17,6 +17,5 @@ export const uploadFile = async (file, folderName) => {
   const filePath = folderName + '/' + uuid() + fileExtension;
   const storage = firebase.storage().ref(filePath);
   await storage.put(file);
-  console.log(prefix + filePath);
   return prefix + filePath;
 };

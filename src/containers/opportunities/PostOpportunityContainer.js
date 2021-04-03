@@ -83,6 +83,7 @@ const PostOpportunityContainer = () => {
       setSubmitting(false);
     } catch (error) {
       toast.error(error.message);
+      console.log(error);
       setSubmitting(false);
     }
   };
