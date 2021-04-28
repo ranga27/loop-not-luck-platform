@@ -43,6 +43,7 @@ function* loginWithEmailPassword({ payload }) {
       const item = { uid: loginUser.user.uid, ...currentUser };
       setCurrentUser(item);
       yield put(loginUserSuccess(item));
+      // HACK: routing in saga, move to login component
       history.push(adminRoot);
       console.log(loginUser.user);
     } else {

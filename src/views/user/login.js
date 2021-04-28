@@ -31,8 +31,8 @@ const validateEmail = (value) => {
 };
 
 const Login = ({ history, loading, error, loginUserAction }) => {
-  const [email] = useState('demo@loopnotluck.com');
-  const [password] = useState('loop123');
+  const [email] = useState('');
+  const [password] = useState('');
 
   useEffect(() => {
     if (error) {
@@ -59,17 +59,14 @@ const Login = ({ history, loading, error, loginUserAction }) => {
             <p className="white mb-0">
               Please use your credentials to login.
               <br />
-              If you are not a member, please{' '}
+              {/* If you are not a member, please{' '}
               <NavLink to="/user/register" className="white">
                 register
               </NavLink>
-              .
+              . */}
             </p>
           </div>
           <div className="form-side">
-            <NavLink to="/" className="white">
-              <span className="logo-single" />
-            </NavLink>
             <CardTitle className="mb-4">
               <IntlMessages id="user.login-title" />
             </CardTitle>

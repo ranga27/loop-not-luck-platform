@@ -25,7 +25,7 @@ const ForgotPassword = ({
   error,
   forgotPasswordAction,
 }) => {
-  const [email] = useState('demo@coloredstrategies.com');
+  const [email] = useState('');
 
   const onForgotPassword = (values) => {
     if (!loading) {
@@ -74,9 +74,6 @@ const ForgotPassword = ({
             </p>
           </div>
           <div className="form-side">
-            <NavLink to="/" className="white">
-              <span className="logo-single" />
-            </NavLink>
             <CardTitle className="mb-4">
               <IntlMessages id="user.forgot-password" />
             </CardTitle>

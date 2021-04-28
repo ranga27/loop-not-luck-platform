@@ -1,6 +1,7 @@
 export const UserRole = {
-  Admin: 0,
-  Editor: 1,
+  SuperAdmin: 0,
+  Admin: 1,
+  Editor: 2,
 };
 
 /*
@@ -49,7 +50,7 @@ export const currentUser = {
   title: 'Admin User',
   img: '/assets/img/profiles/l-1.jpg',
   date: 'Last seen today 15:24',
-  role: UserRole.Admin,
+  role: UserRole.SuperAdmin,
 };
 
 export const themeColorStorageKey = '__theme_selected_color';

@@ -91,9 +91,6 @@ const ResetPassword = ({
             </p>
           </div>
           <div className="form-side">
-            <NavLink to="/" className="white">
-              <span className="logo-single" />
-            </NavLink>
             <CardTitle className="mb-4">
               <IntlMessages id="user.reset-password" />
             </CardTitle>
