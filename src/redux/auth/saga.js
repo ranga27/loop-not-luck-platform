@@ -7,7 +7,6 @@ import {
   FORGOT_PASSWORD,
   RESET_PASSWORD,
 } from '../actions';
-
 import {
   loginUserSuccess,
   loginUserError,
@@ -31,7 +30,9 @@ const loginWithEmailPasswordAsync = async (email, password) =>
   // eslint-disable-next-line no-return-await
   await auth
     .signInWithEmailAndPassword(email, password)
-    .then((user) => user)
+    .then((userCredential) => {
+      console.log(userCredential.user);
+    })
     .catch((error) => error);
 
 function* loginWithEmailPassword({ payload }) {

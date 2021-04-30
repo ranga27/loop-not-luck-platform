@@ -17,6 +17,12 @@ const Candidates = React.lazy(() =>
 const Onboarding = React.lazy(() =>
   import(/* webpackChunkName: "viwes-onboarding" */ './Onboarding')
 );
+const Admin = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-onboarding" */ './admin')
+);
+const Account = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-dashboard" */ './Account')
+);
 
 const App = ({ match }) => {
   return (
@@ -45,15 +51,14 @@ const App = ({ match }) => {
               path={`${match.url}/onboarding`}
               render={(props) => <Onboarding {...props} />}
             />
-            {/* <ProtectedRoute
-                    path={`${match.url}/second-menu`}
-                    component={SecondMenu}
-                    roles={[UserRole.Admin]}
-            /> 
             <Route
-              path={`${match.url}/blank-page`}
-              render={(props) => <BlankPage {...props} />}
-            /> */}
+              path={`${match.url}/admin`}
+              render={(props) => <Admin {...props} />}
+            />
+            <Route
+              path={`${match.url}/account`}
+              render={(props) => <Account {...props} />}
+            />
             <Redirect to="/error" />
           </Switch>
         </Suspense>

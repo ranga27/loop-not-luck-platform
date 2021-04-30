@@ -1,4 +1,4 @@
-import { adminRoot } from './defaultValues';
+import { adminRoot, UserRole } from './defaultValues';
 
 const data = [
   {
@@ -6,7 +6,6 @@ const data = [
     icon: 'simple-icon-rocket',
     label: 'menu.opportunities',
     to: `${adminRoot}/opportunities`,
-    // roles: [UserRole.Admin, UserRole.Editor],
     subs: [
       {
         icon: 'simple-icon-paper-plane',
@@ -17,12 +16,8 @@ const data = [
         icon: 'simple-icon-paper-clip',
         label: 'menu.review',
         to: `${adminRoot}/opportunities/review`,
+        roles: [UserRole.SuperAdmin, UserRole.Admin],
       },
-      /*       {
-        icon: 'simple-icon-paper-clip',
-        label: 'menu.open',
-        to: `${adminRoot}/opportunities/open`,
-      }, */
     ],
   },
   {
@@ -30,7 +25,7 @@ const data = [
     icon: 'iconsminds-students',
     label: 'menu.candidates',
     to: `${adminRoot}/candidates`,
-    // roles: [UserRole.Admin, UserRole.Editor],
+    roles: [UserRole.SuperAdmin, UserRole.Admin],
     subs: [
       {
         icon: 'iconsminds-3d-eyeglasses',
@@ -40,7 +35,7 @@ const data = [
     ],
   },
   {
-    id: 'dashbaord',
+    id: 'dashboard',
     icon: 'iconsminds-shop-4',
     label: 'menu.dashboard',
     to: `${adminRoot}/dashboard`,
@@ -50,6 +45,13 @@ const data = [
     icon: 'simple-icon-note',
     label: 'menu.onboarding',
     to: `${adminRoot}/onboarding`,
+    // roles: [UserRole.Candidate, UserRole.Editor],
+  },
+  {
+    id: 'admin',
+    icon: 'iconsminds-security-settings',
+    label: 'menu.admin',
+    to: `${adminRoot}/admin`,
     // roles: [UserRole.Candidate, UserRole.Editor],
   },
 ];

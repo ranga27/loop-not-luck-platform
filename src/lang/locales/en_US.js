@@ -52,6 +52,7 @@ module.exports = {
   'menu.docs': 'Docs',
   'menu.blank-page': 'Candidates',
   'menu.onboarding': 'Onboarding',
+  'menu.admin': 'Admin',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
@@ -172,4 +173,6 @@ module.exports = {
   'forms.lastName': 'Last Name',
   'forms.email': 'E-mail',
   'forms.dateOfBirth': 'Date of Birth',
+  'forms.account-info': 'Account Info',
+  'forms.submit': 'Submit',
 };
