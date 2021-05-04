@@ -34,14 +34,17 @@ const loginWithEmailPasswordAsync = async (email, password) =>
   await auth
     .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
+      currentUser.email = userCredential.user.email;
       userCredential.user
         .getIdTokenResult()
         .then((idTokenResult) => {
           // Confirm the user is a Super Admin.
           if (idTokenResult.claims.superAdmin) {
             currentUser.role = UserRole.superAdmin;
+          } else if (idTokenResult.claims.admin) {
+            currentUser.role = UserRole.admin;
           } else {
-            console.log('User is not super admin');
+            currentUser.role = UserRole.editor;
           }
         })
         .catch((error) => {
