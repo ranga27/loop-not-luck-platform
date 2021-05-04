@@ -68,9 +68,9 @@ class App extends React.Component {
                     path={adminRoot}
                     component={ViewApp}
                     roles={[
-                      UserRole.SuperAdmin,
-                      UserRole.Admin,
-                      UserRole.Editor,
+                      UserRole.superAdmin,
+                      UserRole.admin,
+                      UserRole.editor,
                     ]}
                   />
                   <Route

@@ -172,4 +172,6 @@ module.exports = {
   'forms.lastName': 'Last Name',
   'forms.email': 'E-mail',
   'forms.dateOfBirth': 'Date of Birth',
+  'forms.account-info': 'Account Info',
+  'forms.submit': 'Submit',
 };

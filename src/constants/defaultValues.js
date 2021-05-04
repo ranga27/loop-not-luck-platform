@@ -1,7 +1,7 @@
 export const UserRole = {
-  SuperAdmin: 0,
-  Admin: 1,
-  Editor: 2,
+  superAdmin: 0,
+  admin: 1,
+  editor: 2,
 };
 
 /*
@@ -45,13 +45,13 @@ export const buyUrl = '';
 export const searchPath = `${adminRoot}/#`;
 export const servicePath = 'https://api.coloredstrategies.com';
 
-export const currentUser = {
+/* export const currentUser = {
   id: 1,
   title: 'Admin User',
   img: '/assets/img/profiles/l-1.jpg',
   date: 'Last seen today 15:24',
-  role: UserRole.SuperAdmin,
-};
+  role: UserRole.superAdmin,
+}; */
 
 export const themeColorStorageKey = '__theme_selected_color';
 export const isMultiColorActive = true;

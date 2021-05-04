@@ -14,10 +14,10 @@ import {
   RESET_PASSWORD_ERROR,
 } from '../actions';
 import { getCurrentUser } from '../../helpers/Utils';
-import { isAuthGuardActive, currentUser } from '../../constants/defaultValues';
+import { isAuthGuardActive } from '../../constants/defaultValues';
 
 const INIT_STATE = {
-  currentUser: isAuthGuardActive ? currentUser : getCurrentUser(),
+  currentUser: isAuthGuardActive ? null : getCurrentUser(),
   forgotUserMail: '',
   newPassword: '',
   resetPasswordCode: '',

@@ -1,4 +1,4 @@
-import { adminRoot } from './defaultValues';
+import { adminRoot, UserRole } from './defaultValues';
 
 const data = [
   {
@@ -6,7 +6,6 @@ const data = [
     icon: 'simple-icon-rocket',
     label: 'menu.opportunities',
     to: `${adminRoot}/opportunities`,
-    // roles: [UserRole.Admin, UserRole.Editor],
     subs: [
       {
         icon: 'simple-icon-paper-plane',
@@ -17,6 +16,7 @@ const data = [
         icon: 'simple-icon-paper-clip',
         label: 'menu.review',
         to: `${adminRoot}/opportunities/review`,
+        roles: [UserRole.superAdmin, UserRole.admin],
       },
       /*       {
         icon: 'simple-icon-paper-clip',

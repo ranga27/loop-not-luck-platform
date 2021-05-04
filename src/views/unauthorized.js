@@ -28,9 +28,6 @@ const Unauthorized = () => {
                   <p className="text-white h2">Loop Not Luck</p>
                 </div>
                 <div className="form-side">
-                  <NavLink to="/" className="white">
-                    <span className="logo-single" />
-                  </NavLink>
                   <CardTitle className="mb-4">
                     <IntlMessages id="unauthorized.title" />
                   </CardTitle>

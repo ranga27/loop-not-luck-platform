@@ -19,8 +19,10 @@ import {
   resetPasswordError,
 } from './actions';
 
-import { adminRoot, currentUser } from '../../constants/defaultValues';
+import { adminRoot, UserRole } from '../../constants/defaultValues';
 import { setCurrentUser } from '../../helpers/Utils';
+
+const currentUser = {};
 
 export function* watchLoginUser() {
   // eslint-disable-next-line no-use-before-define
@@ -31,7 +33,22 @@ const loginWithEmailPasswordAsync = async (email, password) =>
   // eslint-disable-next-line no-return-await
   await auth
     .signInWithEmailAndPassword(email, password)
-    .then((user) => user)
+    .then((userCredential) => {
+      userCredential.user
+        .getIdTokenResult()
+        .then((idTokenResult) => {
+          // Confirm the user is a Super Admin.
+          if (idTokenResult.claims.superAdmin) {
+            currentUser.role = UserRole.superAdmin;
+          } else {
+            console.log('User is not super admin');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      return userCredential;
+    })
     .catch((error) => error);
 
 function* loginWithEmailPassword({ payload }) {
@@ -41,11 +58,11 @@ function* loginWithEmailPassword({ payload }) {
     const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
     if (!loginUser.message) {
       const item = { uid: loginUser.user.uid, ...currentUser };
+      console.log('current user', item);
       setCurrentUser(item);
       yield put(loginUserSuccess(item));
       // HACK: routing in saga, move to login component
       history.push(adminRoot);
-      console.log(loginUser.user);
     } else {
       yield put(loginUserError(loginUser.message));
     }
@@ -77,8 +94,6 @@ function* registerWithEmailPassword({ payload }) {
     if (!registerUser.message) {
       auth.currentUser.sendEmailVerification();
       const item = { uid: registerUser.user.uid, ...currentUser };
-      console.log(registerUser);
-      console.log(item);
       setCurrentUser(item);
       yield put(registerUserSuccess('success'));
     } else {

@@ -17,7 +17,9 @@ const Candidates = React.lazy(() =>
 const Onboarding = React.lazy(() =>
   import(/* webpackChunkName: "viwes-onboarding" */ './Onboarding')
 );
-
+const Account = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-dashboard" */ './Account')
+);
 const App = ({ match }) => {
   return (
     <AppLayout>
@@ -54,6 +56,10 @@ const App = ({ match }) => {
               path={`${match.url}/blank-page`}
               render={(props) => <BlankPage {...props} />}
             /> */}
+            <Route
+              path={`${match.url}/account`}
+              render={(props) => <Account {...props} />}
+            />
             <Redirect to="/error" />
           </Switch>
         </Suspense>
