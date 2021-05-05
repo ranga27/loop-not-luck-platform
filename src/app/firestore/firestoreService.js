@@ -28,3 +28,12 @@ export async function updateOpportunityInMobileAppFirestore(opportunity) {
     .doc(opportunity.id)
     .set(opps, { merge: true });
 }
+
+export async function updateUserInFirestore(user) {
+  const { uid, ...details } = user;
+  return db.collection('users').doc(uid).set(details, { merge: true });
+}
+
+export async function fetchUserDataFromFirestore(uid) {
+  return db.collection('users').doc(uid).get();
+}

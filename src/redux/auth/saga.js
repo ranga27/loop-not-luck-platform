@@ -21,6 +21,7 @@ import {
 
 import { adminRoot, UserRole } from '../../constants/defaultValues';
 import { setCurrentUser } from '../../helpers/Utils';
+// import { fetchUserDataFromFirestore } from '../../app/firestore/firestoreService';
 
 const currentUser = {};
 
@@ -33,12 +34,13 @@ const loginWithEmailPasswordAsync = async (email, password) =>
   // eslint-disable-next-line no-return-await
   await auth
     .signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      currentUser.email = userCredential.user.email;
-      userCredential.user
+    .then((userCred) => {
+      currentUser.uid = userCred.user.uid;
+      currentUser.email = userCred.user.email;
+      userCred.user
         .getIdTokenResult()
         .then((idTokenResult) => {
-          // Confirm the user is a Super Admin.
+          // TODO: Switch case or use accesslevel code
           if (idTokenResult.claims.superAdmin) {
             currentUser.role = UserRole.superAdmin;
           } else if (idTokenResult.claims.admin) {
@@ -50,7 +52,7 @@ const loginWithEmailPasswordAsync = async (email, password) =>
         .catch((error) => {
           console.log(error);
         });
-      return userCredential;
+      return userCred;
     })
     .catch((error) => error);
 
@@ -60,10 +62,9 @@ function* loginWithEmailPassword({ payload }) {
   try {
     const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
     if (!loginUser.message) {
-      const item = { uid: loginUser.user.uid, ...currentUser };
-      console.log('current user', item);
-      setCurrentUser(item);
-      yield put(loginUserSuccess(item));
+      console.log('current user', currentUser);
+      setCurrentUser(currentUser);
+      yield put(loginUserSuccess(currentUser));
       // HACK: routing in saga, move to login component
       history.push(adminRoot);
     } else {
