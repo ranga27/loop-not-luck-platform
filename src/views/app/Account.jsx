@@ -9,22 +9,24 @@ import {
   Button,
   FormGroup,
 } from 'reactstrap';
+import { useSelector, useDispatch } from 'react-redux';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
-import { getCurrentUser } from '../../helpers/Utils';
-import { updateUserInFirestore } from '../../app/firestore/firestoreService';
+// import { getCurrentUser } from '../../helpers/Utils';
+import { updateUser } from '../../redux/actions';
 
 const Account = () => {
-  const { uid, firstName, lastName, email } = getCurrentUser();
+  const dispatch = useDispatch();
+  const { loading, currentUser } = useSelector((state) => state.authUser);
+  const { uid, firstName, lastName, email } = currentUser;
   const initialValues = {
     firstName,
     lastName,
     email,
   };
-  console.log(initialValues);
   const onSubmit = async (values, actions) => {
     try {
-      updateUserInFirestore({ uid, ...values });
+      dispatch(updateUser({ uid, ...values }));
       actions.setSubmitting(false);
     } catch (error) {
       console.error(error);
@@ -65,8 +67,21 @@ const Account = () => {
                     />
                   </FormGroup>
 
-                  <Button color="primary" type="submit">
-                    Submit
+                  <Button
+                    color="primary"
+                    className={`btn-shadow btn-multiple-state ${
+                      loading ? 'show-spinner' : ''
+                    }`}
+                    size="lg"
+                  >
+                    <span className="spinner d-inline-block">
+                      <span className="bounce1" />
+                      <span className="bounce2" />
+                      <span className="bounce3" />
+                    </span>
+                    <span className="label">
+                      <IntlMessages id="forms.submit" />
+                    </span>
                   </Button>
                 </Form>
               )}

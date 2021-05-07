@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { configureStore } from '../redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { configureStore, persistor } from '../redux/store';
 import reportWebVitals from './reportWebVitals';
 
 const App = React.lazy(() => import(/* webpackChunkName: "App" */ './App'));
@@ -9,9 +10,11 @@ const App = React.lazy(() => import(/* webpackChunkName: "App" */ './App'));
 const Main = () => {
   return (
     <Provider store={configureStore()}>
-      <Suspense fallback={<div className="loading" />}>
-        <App />
-      </Suspense>
+      <PersistGate loading={null} persistor={persistor}>
+        <Suspense fallback={<div className="loading" />}>
+          <App />
+        </Suspense>
+      </PersistGate>
     </Provider>
   );
 };

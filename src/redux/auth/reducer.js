@@ -12,12 +12,17 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
+  UPDATE_USER,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+  SET_USER_ROLE,
 } from '../actions';
-import { getCurrentUser } from '../../helpers/Utils';
-import { isAuthGuardActive } from '../../constants/defaultValues';
+// import { getCurrentUser } from '../../helpers/Utils';
+// import { isAuthGuardActive } from '../../constants/defaultValues';
 
 const INIT_STATE = {
-  currentUser: isAuthGuardActive ? null : getCurrentUser(),
+  currentUser: '',
+  userRole: 2,
   forgotUserMail: '',
   newPassword: '',
   resetPasswordCode: '',
@@ -25,15 +30,15 @@ const INIT_STATE = {
   error: '',
 };
 
-export default (state = INIT_STATE, action) => {
-  switch (action.type) {
+export default (state = INIT_STATE, { type, payload }) => {
+  switch (type) {
     case LOGIN_USER:
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
         loading: false,
-        currentUser: action.payload,
+        currentUser: payload,
         error: '',
       };
     case LOGIN_USER_ERROR:
@@ -41,7 +46,7 @@ export default (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         currentUser: null,
-        error: action.payload.message,
+        error: payload.message,
       };
     case FORGOT_PASSWORD:
       return { ...state, loading: true, error: '' };
@@ -49,7 +54,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false,
-        forgotUserMail: action.payload,
+        forgotUserMail: payload,
         error: '',
       };
     case FORGOT_PASSWORD_ERROR:
@@ -57,7 +62,7 @@ export default (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         forgotUserMail: '',
-        error: action.payload.message,
+        error: payload.message,
       };
     case RESET_PASSWORD:
       return { ...state, loading: true, error: '' };
@@ -65,7 +70,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false,
-        newPassword: action.payload,
+        newPassword: payload,
         resetPasswordCode: '',
         error: '',
       };
@@ -75,7 +80,7 @@ export default (state = INIT_STATE, action) => {
         loading: false,
         newPassword: '',
         resetPasswordCode: '',
-        error: action.payload.message,
+        error: payload.message,
       };
     case REGISTER_USER:
       return { ...state, loading: true, error: '' };
@@ -83,7 +88,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false,
-        currentUser: action.payload,
+        currentUser: payload,
         error: '',
       };
     case REGISTER_USER_ERROR:
@@ -91,10 +96,39 @@ export default (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         currentUser: null,
-        error: action.payload.message,
+        error: payload.message,
       };
     case LOGOUT_USER:
-      return { ...state, currentUser: null, error: '' };
+      return { ...state, currentUser: null, error: '', loading: false };
+    case UPDATE_USER:
+      return {
+        ...state,
+        loading: true,
+        error: '',
+      };
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentUser: {
+          ...state.currentUser,
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          email: payload.email,
+        },
+        error: '',
+      };
+    case UPDATE_USER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload.message,
+      };
+    case SET_USER_ROLE:
+      return {
+        ...state,
+        userRole: payload,
+      };
     default:
       return { ...state };
   }

@@ -14,6 +14,10 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
   VERIFY_EMAIL,
+  UPDATE_USER,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
+  SET_USER_ROLE,
 } from '../actions';
 
 export const loginUser = (user, history) => ({
@@ -76,4 +80,24 @@ export const logoutUser = (history) => ({
 export const verifyEmail = (message) => ({
   type: VERIFY_EMAIL,
   payload: { message },
+});
+
+export const updateUser = (user) => ({
+  type: UPDATE_USER,
+  payload: user,
+});
+
+export const updateUserSuccess = (user) => ({
+  type: UPDATE_USER_SUCCESS,
+  payload: user,
+});
+
+export const updateUserError = (message) => ({
+  type: UPDATE_USER_ERROR,
+  payload: { message },
+});
+
+export const setUserRole = (userRole) => ({
+  type: SET_USER_ROLE,
+  payload: userRole,
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { getCurrentUser } from './Utils';
+import { useSelector } from 'react-redux';
 import { isAuthGuardActive } from '../constants/defaultValues';
 
 const ProtectedRoute = ({
@@ -8,9 +8,10 @@ const ProtectedRoute = ({
   roles = undefined,
   ...rest
 }) => {
+  const { currentUser } = useSelector((state) => state.authUser);
   const setComponent = (props) => {
     if (isAuthGuardActive) {
-      const currentUser = getCurrentUser();
+      // TODO: get from redux store, since its hydrated
       if (currentUser) {
         if (roles) {
           if (roles.includes(currentUser.role)) {

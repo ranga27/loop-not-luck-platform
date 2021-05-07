@@ -6,6 +6,7 @@ import {
   LOGOUT_USER,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
+  UPDATE_USER,
 } from '../actions';
 
 import {
@@ -17,11 +18,18 @@ import {
   forgotPasswordError,
   resetPasswordSuccess,
   resetPasswordError,
+  updateUserSuccess,
+  updateUserError,
 } from './actions';
 
 import { adminRoot, UserRole } from '../../constants/defaultValues';
-import { setCurrentUser } from '../../helpers/Utils';
-// import { fetchUserDataFromFirestore } from '../../app/firestore/firestoreService';
+// import { setCurrentUser } from '../../helpers/Utils';
+import {
+  fetchUserDataFromFirestore,
+  updateUserInFirestore,
+} from '../../app/firestore/firestoreService';
+// eslint-disable-next-line import/no-cycle
+import { persistor } from '../store';
 
 const currentUser = {};
 
@@ -35,12 +43,11 @@ const loginWithEmailPasswordAsync = async (email, password) =>
   await auth
     .signInWithEmailAndPassword(email, password)
     .then((userCred) => {
-      currentUser.uid = userCred.user.uid;
-      currentUser.email = userCred.user.email;
       userCred.user
         .getIdTokenResult()
         .then((idTokenResult) => {
           // TODO: Switch case or use accesslevel code
+          // TODO: Store role in a separate store object
           if (idTokenResult.claims.superAdmin) {
             currentUser.role = UserRole.superAdmin;
           } else if (idTokenResult.claims.admin) {
@@ -62,8 +69,13 @@ function* loginWithEmailPassword({ payload }) {
   try {
     const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
     if (!loginUser.message) {
-      console.log('current user', currentUser);
-      setCurrentUser(currentUser);
+      currentUser.uid = loginUser.user.uid;
+      currentUser.email = loginUser.user.email;
+      const doc = yield call(fetchUserDataFromFirestore, currentUser.uid);
+      if (doc.exists) {
+        currentUser.firstName = doc.data().firstName;
+        currentUser.lastName = doc.data().lastName;
+      }
       yield put(loginUserSuccess(currentUser));
       // HACK: routing in saga, move to login component
       history.push(adminRoot);
@@ -71,7 +83,8 @@ function* loginWithEmailPassword({ payload }) {
       yield put(loginUserError(loginUser.message));
     }
   } catch (error) {
-    yield put(loginUserError(error));
+    console.error(error);
+    yield put(loginUserError(error.message));
   }
 }
 
@@ -97,8 +110,6 @@ function* registerWithEmailPassword({ payload }) {
     );
     if (!registerUser.message) {
       auth.currentUser.sendEmailVerification();
-      const item = { uid: registerUser.user.uid, ...currentUser };
-      setCurrentUser(item);
       yield put(registerUserSuccess('success'));
     } else {
       yield put(registerUserError(registerUser.message));
@@ -123,7 +134,8 @@ const logoutAsync = async (history) => {
 
 function* logout({ payload }) {
   const { history } = payload;
-  setCurrentUser();
+  // setCurrentUser();
+  yield call(persistor.purge);
   yield call(logoutAsync, history);
 }
 
@@ -185,6 +197,19 @@ function* resetPassword({ payload }) {
   }
 }
 
+function* updateUser({ payload }) {
+  try {
+    yield call(updateUserInFirestore, payload);
+    yield put(updateUserSuccess(payload));
+  } catch (error) {
+    console.error(error);
+    yield put(updateUserError(error.message));
+  }
+}
+export function* watchUpdateUser() {
+  yield takeEvery(UPDATE_USER, updateUser);
+}
+
 export default function* rootSaga() {
   yield all([
     fork(watchLoginUser),
@@ -192,5 +217,6 @@ export default function* rootSaga() {
     fork(watchRegisterUser),
     fork(watchForgotPassword),
     fork(watchResetPassword),
+    fork(watchUpdateUser),
   ]);
 }
