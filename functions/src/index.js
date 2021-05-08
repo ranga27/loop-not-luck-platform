@@ -1,1 +1,5 @@
-export { helloWorld } from './helloWorld';
+import { functions as adminFunctions } from './admin';
+
+export default {
+  ...adminFunctions,
+};

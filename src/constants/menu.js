@@ -52,5 +52,12 @@ const data = [
     to: `${adminRoot}/onboarding`,
     // roles: [UserRole.Candidate, UserRole.Editor],
   },
+  {
+    id: 'admin',
+    icon: 'simple-icon-note',
+    label: 'menu.admin',
+    to: `${adminRoot}/admin`,
+    // roles: [UserRole.Candidate, UserRole.Editor],
+  },
 ];
 export default data;

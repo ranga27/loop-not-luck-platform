@@ -20,6 +20,9 @@ const Onboarding = React.lazy(() =>
 const Account = React.lazy(() =>
   import(/* webpackChunkName: "viwes-dashboard" */ './Account')
 );
+const Admin = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-dashboard" */ './Admin')
+);
 const App = ({ match }) => {
   return (
     <AppLayout>
@@ -47,18 +50,13 @@ const App = ({ match }) => {
               path={`${match.url}/onboarding`}
               render={(props) => <Onboarding {...props} />}
             />
-            {/* <ProtectedRoute
-                    path={`${match.url}/second-menu`}
-                    component={SecondMenu}
-                    roles={[UserRole.Admin]}
-            /> 
-            <Route
-              path={`${match.url}/blank-page`}
-              render={(props) => <BlankPage {...props} />}
-            /> */}
             <Route
               path={`${match.url}/account`}
               render={(props) => <Account {...props} />}
+            />
+            <Route
+              path={`${match.url}/admin`}
+              render={(props) => <Admin {...props} />}
             />
             <Redirect to="/error" />
           </Switch>

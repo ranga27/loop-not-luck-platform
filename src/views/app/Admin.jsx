@@ -14,7 +14,7 @@ import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { updateUser } from '../../redux/actions';
 
-const Account = () => {
+const Admin = () => {
   const dispatch = useDispatch();
   const { loading, currentUser } = useSelector((state) => state.authUser);
   const { uid, firstName, lastName, email } = currentUser;
@@ -92,4 +92,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default Admin;
