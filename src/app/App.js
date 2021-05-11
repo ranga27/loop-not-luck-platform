@@ -67,11 +67,7 @@ class App extends React.Component {
                   <ProtectedRoute
                     path={adminRoot}
                     component={ViewApp}
-                    roles={[
-                      UserRole.superAdmin,
-                      UserRole.admin,
-                      UserRole.editor,
-                    ]}
+                    roles={[UserRole.super, UserRole.admin, UserRole.editor]}
                   />
                   <Route
                     path="/user"

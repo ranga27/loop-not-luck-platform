@@ -175,4 +175,5 @@ module.exports = {
   'forms.dateOfBirth': 'Date of Birth',
   'forms.account-info': 'Account Info',
   'forms.submit': 'Submit',
+  'forms.admin': 'Admin',
 };

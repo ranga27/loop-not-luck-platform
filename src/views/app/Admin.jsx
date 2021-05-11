@@ -1,92 +1,144 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
 import {
-  Row,
+  Badge,
   Card,
   CardBody,
-  CardTitle,
-  Label,
+  CardSubtitle,
+  Row,
+  CardText,
   Button,
-  FormGroup,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from 'reactstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import firebase from 'firebase/app';
+import Select from 'react-select';
+import _ from 'lodash';
+import CustomSelectInput from '../../components/common/CustomSelectInput';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import IntlMessages from '../../helpers/IntlMessages';
-import { updateUser } from '../../redux/actions';
+import ThumbnailLetters from '../../components/cards/ThumbnailLetters';
 
-const Admin = () => {
-  const dispatch = useDispatch();
-  const { loading, currentUser } = useSelector((state) => state.authUser);
-  const { uid, firstName, lastName, email } = currentUser;
-  const initialValues = {
-    firstName,
-    lastName,
-    email,
+const selectData = [
+  { label: 'Super Admin', value: 'super', key: 0 },
+  { label: 'Admin', value: 'admin', key: 1 },
+  { label: 'Editor', value: 'editor', key: 2 },
+];
+// TODO: move to separate file
+const getUsers = async () => {
+  const getUsersFunction = firebase.functions().httpsCallable('getUsersList');
+  const results = await getUsersFunction();
+  return results.data;
+};
+
+const updateRole = async (uid, role) => {
+  const updateRoleFunction = firebase.functions().httpsCallable('setUserRole');
+  return updateRoleFunction({ uid, role });
+};
+
+export const Admin = () => {
+  const [modalBasic, setModalBasic] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [usersList, setUsersList] = useState([]);
+  const [userData, setUserData] = useState({});
+  const onSubmitRole = async (uid) => {
+    console.log(uid, selectedOption.value);
+    const newRole = { role: selectedOption.value };
+    await updateRole(uid, newRole);
   };
-  const onSubmit = async (values, actions) => {
-    try {
-      dispatch(updateUser({ uid, ...values }));
-      actions.setSubmitting(false);
-    } catch (error) {
-      console.error(error);
-      actions.setSubmitting(false);
-    }
+
+  const toggle = () => {
+    setModalBasic(!modalBasic);
   };
+  useEffect(() => {
+    const loadUsers = async () => {
+      const users = await getUsers();
+      if (users) {
+        console.log(users);
+        setUsersList(users);
+      }
+    };
+    loadUsers();
+  }, []);
   return (
-    <Row className="mb-4">
-      <Colxx xxs="12">
-        <Card>
-          <CardBody>
-            <CardTitle>
-              <IntlMessages id="forms.account-info" />
-            </CardTitle>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={(values, actions) => onSubmit(values, actions)}
-            >
-              {() => (
-                <Form className="av-tooltip tooltip-label-right">
-                  <FormGroup className="mb-5">
-                    <Label>First Name</Label>
-                    <Field className="form-control" name="firstName" />
-                  </FormGroup>
-
-                  <FormGroup className="mb-5">
-                    <Label>Last Name</Label>
-                    <Field className="form-control" name="lastName" />
-                  </FormGroup>
-
-                  <FormGroup className="mb-5">
-                    <Label>Email</Label>
-                    <Field
-                      className="form-control"
-                      name="email"
-                      type="email"
-                      disabled
-                    />
-                  </FormGroup>
-
-                  <Button
-                    color="primary"
-                    className={`btn-shadow btn-multiple-state ${
-                      loading ? 'show-spinner' : ''
-                    }`}
-                    size="lg"
-                  >
-                    <span className="spinner d-inline-block">
-                      <span className="bounce1" />
-                      <span className="bounce2" />
-                      <span className="bounce3" />
-                    </span>
-                    <span className="label">
-                      <IntlMessages id="forms.submit" />
-                    </span>
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          </CardBody>
-        </Card>
+    <Row>
+      <Colxx md="6" sm="6" lg="4" xxs="12">
+        {usersList.map((item, index) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Card key={index} className="d-flex flex-row mb-4">
+              <ThumbnailLetters rounded text={item.email} className="m-4" />
+              <div className=" d-flex flex-grow-1 min-width-zero">
+                <CardBody className=" pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
+                  <div className="min-width-zero">
+                    <CardSubtitle className="truncate mb-1">
+                      {item.email}
+                    </CardSubtitle>
+                    <Badge color="danger" pill className="mb-1">
+                      {item.role}
+                    </Badge>
+                    <br />
+                    <Button
+                      outline
+                      size="xs"
+                      color="primary"
+                      onClick={() => {
+                        setUserData(item);
+                        setSelectedOption(
+                          selectData.find(
+                            (option) => option.value === item.role
+                          )
+                        );
+                        toggle();
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Modal isOpen={modalBasic} toggle={toggle}>
+                      <ModalHeader>Edit Role</ModalHeader>
+                      <ModalBody>
+                        Current Role for {userData.email}:{' '}
+                        <Badge color="danger" pill className="mb-1">
+                          {userData.role}
+                        </Badge>
+                        <br /> Select new role:
+                        <Colxx xxs="10" md="6" className="mb-5">
+                          <Select
+                            components={{ Input: CustomSelectInput }}
+                            className="react-select"
+                            classNamePrefix="react-select"
+                            name="form-field-name"
+                            value={selectedOption}
+                            onChange={setSelectedOption}
+                            options={selectData}
+                          />
+                        </Colxx>
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button
+                          color="primary"
+                          onClick={() => {
+                            setModalBasic(false);
+                            onSubmitRole(userData.uid);
+                          }}
+                        >
+                          Submit
+                        </Button>{' '}
+                        <Button
+                          color="secondary"
+                          onClick={() => setModalBasic(false)}
+                        >
+                          Cancel
+                        </Button>
+                      </ModalFooter>
+                    </Modal>
+                  </div>
+                </CardBody>
+              </div>
+            </Card>
+          );
+        })}
       </Colxx>
     </Row>
   );

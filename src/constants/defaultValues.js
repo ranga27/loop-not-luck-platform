@@ -1,7 +1,7 @@
 export const UserRole = {
-  superAdmin: 0,
-  admin: 1,
-  editor: 2,
+  super: 'super',
+  admin: 'admin',
+  editor: 'editor',
 };
 
 /*

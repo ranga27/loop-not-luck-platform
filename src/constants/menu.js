@@ -16,7 +16,7 @@ const data = [
         icon: 'simple-icon-paper-clip',
         label: 'menu.review',
         to: `${adminRoot}/opportunities/review`,
-        roles: [UserRole.superAdmin, UserRole.admin],
+        roles: [UserRole.super, UserRole.admin],
       },
       /*       {
         icon: 'simple-icon-paper-clip',
@@ -39,25 +39,25 @@ const data = [
       },
     ],
   },
-  {
+  /*   {
     id: 'dashbaord',
     icon: 'iconsminds-shop-4',
     label: 'menu.dashboard',
     to: `${adminRoot}/dashboard`,
-  },
-  {
+  }, */
+  /* {
     id: 'onboarding',
     icon: 'simple-icon-note',
     label: 'menu.onboarding',
     to: `${adminRoot}/onboarding`,
     // roles: [UserRole.Candidate, UserRole.Editor],
-  },
+  }, */
   {
     id: 'admin',
-    icon: 'simple-icon-note',
+    icon: 'iconsminds-security-settings',
     label: 'menu.admin',
     to: `${adminRoot}/admin`,
-    // roles: [UserRole.Candidate, UserRole.Editor],
+    roles: [UserRole.super],
   },
 ];
 export default data;

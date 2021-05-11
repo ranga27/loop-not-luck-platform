@@ -22,7 +22,7 @@ import {
   updateUserError,
 } from './actions';
 
-import { adminRoot, UserRole } from '../../constants/defaultValues';
+import { adminRoot } from '../../constants/defaultValues';
 // import { setCurrentUser } from '../../helpers/Utils';
 import {
   fetchUserDataFromFirestore,
@@ -46,15 +46,8 @@ const loginWithEmailPasswordAsync = async (email, password) =>
       userCred.user
         .getIdTokenResult()
         .then((idTokenResult) => {
-          // TODO: Switch case or use accesslevel code
           // TODO: Store role in a separate store object
-          if (idTokenResult.claims.superAdmin) {
-            currentUser.role = UserRole.superAdmin;
-          } else if (idTokenResult.claims.admin) {
-            currentUser.role = UserRole.admin;
-          } else {
-            currentUser.role = UserRole.editor;
-          }
+          currentUser.role = idTokenResult.claims.role;
         })
         .catch((error) => {
           console.log(error);
