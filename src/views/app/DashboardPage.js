@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
 import { injectIntl } from 'react-intl';
@@ -59,7 +60,8 @@ const DashboardPage = ({ intl, match }) => {
                 <IntlMessages id="charts.bar" />
               </CardTitle>
               <div className="chart-container">
-                <BarChart shadow data={barChartData} />
+                {/*                 <BarChart shadow data={barChartData} />
+                 */}{' '}
               </div>
             </CardBody>
           </Card>
@@ -70,7 +72,8 @@ const DashboardPage = ({ intl, match }) => {
         </Colxx>
 
         <Colxx xl="4" lg="6" className="mb-4">
-          <ProductCategoriesDoughnut />
+          {/*           <ProductCategoriesDoughnut />
+           */}{' '}
         </Colxx>
       </Row>
     </>

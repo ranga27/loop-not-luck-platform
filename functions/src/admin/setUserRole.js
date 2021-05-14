@@ -10,7 +10,7 @@ export const setUserRole = functions.https.onCall(async (data, context) => {
     await admin.auth().setCustomUserClaims(uid, role);
     return true;
   } catch (error) {
-    console.log('Error setting user role: ', error);
+    console.error('Error setting user role: ', error);
     return error;
   }
 });

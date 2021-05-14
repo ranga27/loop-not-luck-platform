@@ -19,9 +19,9 @@ export const getUsersList = functions.https.onCall(async (data, context) => {
   try {
     const listUsers = await admin.auth().listUsers();
     const users = listUsers.users.map(mapUser);
-    return users;
+    return { users, error: null };
   } catch (error) {
-    console.log('Error listing users: ', error);
-    return null;
+    console.log('Error listing users: ', error.message);
+    return { users: null, error: error.message };
   }
 });

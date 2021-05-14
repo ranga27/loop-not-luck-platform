@@ -10,10 +10,12 @@ import settings from './settings/reducer';
 import menu from './menu/reducer';
 import authUser from './auth/reducer';
 import opportunities from './opportunities/reducer';
+import admin from './admin/reducer';
 
 const authConfig = {
   key: 'auth',
   storage,
+  whitelist: ['currentUser'],
 };
 
 const sagaMiddleware = createSagaMiddleware();
@@ -25,6 +27,7 @@ const rootReducer = combineReducers({
   settings,
   authUser: persistReducer(authConfig, authUser),
   opportunities,
+  admin,
 });
 
 const store = createStore(

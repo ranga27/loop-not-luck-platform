@@ -23,7 +23,6 @@ import {
 } from './actions';
 
 import { adminRoot } from '../../constants/defaultValues';
-// import { setCurrentUser } from '../../helpers/Utils';
 import {
   fetchUserDataFromFirestore,
   updateUserInFirestore,

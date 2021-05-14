@@ -17,8 +17,6 @@ import {
   UPDATE_USER_ERROR,
   SET_USER_ROLE,
 } from '../actions';
-// import { getCurrentUser } from '../../helpers/Utils';
-// import { isAuthGuardActive } from '../../constants/defaultValues';
 
 const INIT_STATE = {
   currentUser: '',

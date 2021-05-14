@@ -32,7 +32,16 @@ export const MENU_CHANGE_HAS_SUB_ITEM_STATUS =
 /* OPPORTUNITIES */
 export const SELECT_OPPORTUNITY_TO_REVIEW = 'SELECT_OPPORTUNITY_TO_REVIEW';
 
+/* ADMIN */
+export const GET_USERS_REQUESTED = 'GET_USERS_REQUESTED';
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+export const GET_USERS_ERROR = 'GET_USERS_ERROR';
+export const UPDATE_ROLE = 'UPDATE_ROLE';
+export const UPDATE_ROLE_SUCCESS = 'UPDATE_ROLE_SUCCESS';
+export const UPDATE_ROLE_ERROR = 'UPDATE_ROLE_ERROR';
+
 export * from './menu/actions';
 export * from './settings/actions';
 export * from './auth/actions';
 export * from './opportunities/actions';
+export * from './admin/actions';

@@ -39,12 +39,12 @@ const data = [
       },
     ],
   },
-  /*   {
+  {
     id: 'dashbaord',
     icon: 'iconsminds-shop-4',
     label: 'menu.dashboard',
     to: `${adminRoot}/dashboard`,
-  }, */
+  },
   /* {
     id: 'onboarding',
     icon: 'simple-icon-note',
