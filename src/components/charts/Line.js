@@ -1,7 +1,6 @@
 /* eslint-disable prefer-rest-params */
 import React, { useEffect, useRef, useState } from 'react';
 import { Chart } from 'chart.js';
-
 import { lineChartOptions } from './config';
 
 const Line = ({ data, shadow = false }) => {

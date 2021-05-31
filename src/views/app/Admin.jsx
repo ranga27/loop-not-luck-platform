@@ -12,7 +12,6 @@ import {
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
-import firebase from 'firebase/app';
 import Select from 'react-select';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsers, updateRole } from '../../redux/actions';

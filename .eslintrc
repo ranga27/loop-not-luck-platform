@@ -13,8 +13,12 @@
     "plugin:prettier/recommended",
     "prettier"
   ],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    },
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
@@ -23,7 +27,7 @@
       "experimentalObjectRestSpread": true
     }
   },
-  "plugins": ["react", "react-hooks", "jsx-a11y", "prettier"],
+  "plugins": ["react", "react-hooks", "jsx-a11y", "prettier", "@babel"],
   "rules": {
     "react/jsx-filename-extension": [
       1,

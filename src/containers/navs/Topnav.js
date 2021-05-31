@@ -3,7 +3,6 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
-
 import {
   UncontrolledDropdown,
   DropdownItem,
@@ -11,17 +10,14 @@ import {
   DropdownMenu,
   Input,
 } from 'reactstrap';
-
 import { NavLink, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-
+import { connect, useSelector } from 'react-redux';
 import {
   setContainerClassnames,
   clickOnMobileMenu,
   changeLocale,
   logoutUser,
 } from '../../redux/actions';
-
 import {
   menuHiddenBreakpoint,
   searchPath,
@@ -29,12 +25,9 @@ import {
   isDarkSwitchActive,
   adminRoot,
 } from '../../constants/defaultValues';
-
 import { MobileMenuIcon, MenuIcon } from '../../components/svg';
 import TopnavEasyAccess from './Topnav.EasyAccess';
-import TopnavNotifications from './Topnav.Notifications';
 import TopnavDarkSwitch from './Topnav.DarkSwitch';
-
 import { getDirection, setDirection } from '../../helpers/Utils';
 
 const TopNav = ({
@@ -49,6 +42,7 @@ const TopNav = ({
   logoutUserAction,
   changeLocaleAction,
 }) => {
+  const { currentUser } = useSelector((state) => state.authUser);
   const [isInFullScreen, setIsInFullScreen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -277,7 +271,6 @@ const TopNav = ({
         {isDarkSwitchActive && <TopnavDarkSwitch />}
         <div className="header-icons d-inline-block align-middle">
           <TopnavEasyAccess />
-          <TopnavNotifications />
           <button
             className="header-icon btn btn-empty d-none d-sm-inline-block"
             type="button"
@@ -294,7 +287,7 @@ const TopNav = ({
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
-              <span className="name mr-1">Admin User</span>
+              <span className="name mr-1">{currentUser.firstName}</span>
               <span>
                 <img alt="Profile" src="/assets/img/profiles/l-1.jpg" />
               </span>

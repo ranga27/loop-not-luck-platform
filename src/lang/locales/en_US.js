@@ -71,6 +71,14 @@ module.exports = {
   'dashboards.tasks-completed': 'Rejected Candidates',
   'dashboards.payments-done': 'Opportunities Posted',
   'dashboards.tickets': 'Top Recommendations',
+  'dashboards.pending-orders': 'Pending Orders',
+  'dashboards.completed-orders': 'Completed Orders',
+  'dashboards.refund-requests': 'Refund Requests',
+  'dashboards.new-comments': 'New Comments',
+  'dashboards.sales': 'Sales',
+  'dashboards.orders': 'Orders',
+  'dashboards.refunds': 'Refunds',
+  'dashboards.recent-orders': 'Recent Roles',
 
   /* 05.Pages */
   'pages.add-new': 'ADD NEW',
