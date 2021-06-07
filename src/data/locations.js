@@ -1,4 +1,5 @@
-const locations = [
+// eslint-disable-next-line import/prefer-default-export
+export const locations = [
   { value: 'Aberdare', label: 'Aberdare' },
   { value: 'Aberdeen', label: 'Aberdeen' },
   { value: 'Abergavenny', label: 'Abergavenny' },
@@ -995,5 +996,3 @@ const locations = [
   { value: 'Ystrad Mynach', label: 'Ystrad Mynach' },
   { value: 'Ystradgynlais', label: 'Ystradgynlais' },
 ];
-
-export default locations;

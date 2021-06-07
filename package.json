@@ -1,10 +1,11 @@
 {
   "name": "loop-not-luck-platform",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Loop Not Luck Platform",
   "private": true,
   "dependencies": {
     "@glidejs/glide": "^3.4.1",
+    "@hookform/resolvers": "^2.5.2",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.8",
@@ -22,7 +23,6 @@
     "rc-slider": "^9.7.2",
     "rc-switch": "^3.2.2",
     "react": "^17.0.2",
-    "react-albus": "^2.0.0",
     "react-autosuggest": "^10.1.0",
     "react-big-calendar": "^0.33.2",
     "react-circular-progressbar": "^2.0.4",
@@ -31,6 +31,7 @@
     "react-dom": "^17.0.2",
     "react-dropzone-component": "^3.2.0",
     "react-headroom": "^3.1.1",
+    "react-hook-form": "^7.8.1",
     "react-image-lightbox": "^5.1.1",
     "react-intl": "^5.17.6",
     "react-lines-ellipsis": "^0.15.0",

@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 import React, { createRef, useState, useEffect } from 'react';
@@ -26,19 +27,14 @@ import {
   FormikDatePicker,
 } from './FormikFields';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import locations from '../../data/locations';
-import positionTypes from '../../data/positionTypes';
+import { locations, applicationOptions, positionTypes } from '../../data';
+
 import {
   updateOpportunityInFirestore,
   updateOpportunityInMobileAppFirestore,
 } from '../../app/firestore/firestoreService';
 import { selectOpportunityToReview } from '../../redux/actions';
 import { uploadFile } from './uploadFile';
-
-const applicationOption = [
-  { value: 'Email CV & Cover Letter', label: 'Email CV & Cover Letter' },
-  { value: 'Apply on website', label: 'Apply on website' },
-];
 
 const RoleDetails = () => {
   const [modalBasic, setModalBasic] = useState(false);
@@ -112,7 +108,7 @@ const RoleDetails = () => {
       label: selectedOpportunity.howToApply,
       value: selectedOpportunity.howToApply,
     });
-    if (selectedOpportunity.howToApply === 'Email CV & Cover Letter') {
+    if (selectedOpportunity.howToApply === 'Email to Hiring Manager') {
       setEmail(true);
       setWebsite(false);
     } else {
@@ -249,11 +245,11 @@ const RoleDetails = () => {
                       name="howToApply"
                       id="howToApply"
                       value={selectedOption}
-                      options={applicationOption}
+                      options={applicationOptions}
                       onChange={(option) => {
                         setSelectedOption(option);
                         setFieldValue('howToApply', option);
-                        if (option.value === 'Email CV & Cover Letter') {
+                        if (option.value === 'Email to Hiring Manager') {
                           setEmail(true);
                           setWebsite(false);
                         } else {

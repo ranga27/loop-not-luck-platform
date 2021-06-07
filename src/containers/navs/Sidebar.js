@@ -199,9 +199,10 @@ class Sidebar extends Component {
       selectedlink.parentElement.classList.add('active');
       this.setState(
         {
-          selectedParentMenu: selectedlink.parentElement.parentElement.getAttribute(
-            'data-parent'
-          ),
+          selectedParentMenu:
+            selectedlink.parentElement.parentElement.getAttribute(
+              'data-parent'
+            ),
         },
         callback
       );
@@ -212,9 +213,8 @@ class Sidebar extends Component {
       if (selectedParentNoSubItem != null) {
         this.setState(
           {
-            selectedParentMenu: selectedParentNoSubItem.getAttribute(
-              'data-flag'
-            ),
+            selectedParentMenu:
+              selectedParentNoSubItem.getAttribute('data-flag'),
           },
           callback
         );
@@ -350,11 +350,8 @@ class Sidebar extends Component {
   };
 
   render() {
-    const {
-      selectedParentMenu,
-      viewingParentMenu,
-      collapsedMenus,
-    } = this.state;
+    const { selectedParentMenu, viewingParentMenu, collapsedMenus } =
+      this.state;
     return (
       <div className="sidebar">
         <div className="main-menu">

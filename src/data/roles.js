@@ -1,8 +1,7 @@
 const data = [
   {
     id: '1',
-    name:
-      '2021 Graduate Talent Program Management Consulting practice - London',
+    name: '2021 Graduate Talent Program Management Consulting practice - London',
     clicks: '3',
   },
   {
@@ -17,8 +16,7 @@ const data = [
   },
   {
     id: '4',
-    name:
-      '2021 Graduate Talent Program Management Consulting practice - London',
+    name: '2021 Graduate Talent Program Management Consulting practice - London',
     clicks: '3',
   },
   {
@@ -33,8 +31,7 @@ const data = [
   },
   {
     id: '7',
-    name:
-      '2021 Graduate Talent Program Management Consulting practice - London',
+    name: '2021 Graduate Talent Program Management Consulting practice - London',
     clicks: '3',
   },
   {
@@ -49,8 +46,7 @@ const data = [
   },
   {
     id: '10',
-    name:
-      '2021 Graduate Talent Program Management Consulting practice - London',
+    name: '2021 Graduate Talent Program Management Consulting practice - London',
     clicks: '3',
   },
   {
@@ -65,8 +61,7 @@ const data = [
   },
   {
     id: '13',
-    name:
-      '2021 Graduate Talent Program Management Consulting practice - London',
+    name: '2021 Graduate Talent Program Management Consulting practice - London',
     clicks: '3',
   },
   {

@@ -18,6 +18,12 @@ const data = [
         to: `${adminRoot}/opportunities/review`,
         roles: [UserRole.super, UserRole.admin],
       },
+      {
+        icon: 'iconsminds-notepad',
+        label: 'menu.post',
+        to: `${adminRoot}/opportunities/roles`,
+        roles: [UserRole.super, UserRole.admin],
+      },
       /*       {
         icon: 'simple-icon-paper-clip',
         label: 'menu.open',

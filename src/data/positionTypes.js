@@ -1,4 +1,5 @@
-const positionTypes = [
+// eslint-disable-next-line import/prefer-default-export
+export const positionTypes = [
   { label: 'Graduate Scheme', value: 'Graduate Scheme' },
   { label: 'Entry-Level Job', value: 'Entry-Level Job' },
   { label: 'Internship', value: 'Internship' },
@@ -14,5 +15,3 @@ const positionTypes = [
   { label: 'Freelance', value: 'Freelance' },
   { label: 'Contract', value: 'Contract' },
 ];
-
-export default positionTypes;

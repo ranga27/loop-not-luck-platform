@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import {
@@ -15,8 +13,7 @@ import {
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
-import { NavLink, useHistory } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
@@ -26,15 +23,9 @@ import {
   FormikDatePicker,
 } from './FormikFields';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import locations from '../../data/locations';
-import positionTypes from '../../data/positionTypes';
+import { locations, applicationOptions, positionTypes } from '../../data';
 import { addOpportunityToFirestore } from '../../app/firestore/firestoreService';
 import { uploadFile } from './uploadFile';
-
-const applicationOption = [
-  { value: 'Email CV & Cover Letter', label: 'Email CV & Cover Letter' },
-  { value: 'Apply on website', label: 'Apply on website' },
-];
 
 const PostOpportunityContainer = () => {
   const history = useHistory();
@@ -83,7 +74,7 @@ const PostOpportunityContainer = () => {
       setSubmitting(false);
     } catch (error) {
       toast.error(error.message);
-      console.log(error);
+      console.error(error);
       setSubmitting(false);
     }
   };
@@ -100,11 +91,8 @@ const PostOpportunityContainer = () => {
               onSubmit={onSubmit}
             >
               {({
-                handleSubmit,
                 setFieldValue,
                 setFieldTouched,
-                handleChange,
-                handleBlur,
                 values,
                 errors,
                 touched,
@@ -139,9 +127,8 @@ const PostOpportunityContainer = () => {
                       value={values.location}
                       options={locations}
                       onChange={setFieldValue}
-                      onBlur={setFieldTouched}
                     />
-                    {errors.location && touched.location ? (
+                    {errors.location ? (
                       <div className="invalid-feedback d-block">
                         {errors.location}
                       </div>
@@ -209,7 +196,7 @@ const PostOpportunityContainer = () => {
                       className="react-select apply"
                       classNamePrefix="react-select"
                       value={selectedOption}
-                      options={applicationOption}
+                      options={applicationOptions}
                       onChange={(option) => {
                         setSelectedOption(option);
                         setFieldValue('howToApply', option.value);

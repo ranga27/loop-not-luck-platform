@@ -4,10 +4,10 @@
   @include depth(1);
 
   .image-side {
-    width: 40%;
-    background: url('/assets/img/login/balloon.jpg') no-repeat center top;
+    width: 25%;
+    background: url('/assets/logos/white.png') no-repeat center top;
     background-size: cover;
-    padding: 80px 40px;
+    // padding: 80px 40px;
 
     .h3 {
       line-height: 0.8rem;
@@ -15,8 +15,8 @@
   }
 
   .form-side {
-    width: 60%;
-    padding: 80px;
+    width: 50%;
+    padding: 40px;
   }
 
   @include respond-below(md) {
@@ -43,7 +43,9 @@
     flex-direction: column;
 
     .image-side {
-      padding: 35px 30px;
+      width: 35%;
+      align-self: center;
+      // padding: 35px 30px;
     }
 
     .form-side {

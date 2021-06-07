@@ -53,6 +53,7 @@ module.exports = {
   'menu.blank-page': 'Candidates',
   'menu.onboarding': 'Onboarding',
   'menu.admin': 'Admin',
+  'menu.roles': 'Post Role',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',

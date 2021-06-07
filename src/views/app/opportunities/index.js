@@ -13,6 +13,9 @@ const Open = React.lazy(() =>
   import(/* webpackChunkName: "second" */ './OpenRolesPage')
 );
 
+const Roles = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ './PostRoles')
+);
 const OpportunitiesMenu = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>
@@ -28,6 +31,10 @@ const OpportunitiesMenu = ({ match }) => (
       <Route
         path={`${match.url}/open`}
         render={(props) => <Open {...props} />}
+      />
+      <Route
+        path={`${match.url}/roles`}
+        render={(props) => <Roles {...props} />}
       />
       <Redirect to="/error" />
     </Switch>
