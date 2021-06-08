@@ -9,25 +9,13 @@ export const OpportunitySchema = Yup.object().shape({
   organisation: Yup.string()
     .max(100, 'Too Long!')
     .required('Please enter the Organisation'),
-  /* 
-  location: Yup.object()
-    .shape({
-      label: Yup.string().required(),
-      value: Yup.string().required(),
-    })
-    .nullable()
-    .required('Location is required!'),
 
-  positionType: Yup.object()
-    .shape({
-      label: Yup.string().required(),
-      value: Yup.string().required(),
-    })
-    .nullable()
-    .required('Position Type is required!'),
+  location: Yup.string().required('Please select the Location'),
+
+  positionType: Yup.string().required('Please select Position Type'),
 
   description: Yup.string().required('Please provide the details'),
-
+  /*
   deadline: Yup.date().nullable().required('Date required'),
   startDate: Yup.date().nullable().required('Start Date required'),
   email: Yup.string()

@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Select from 'react-select';
 import {
   Row,
   Card,
@@ -19,13 +20,15 @@ import {
 import { useHistory } from 'react-router-dom';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
-import { TextInput } from './FormFields';
+import { SelectField, TextInput } from './FormFields';
+import { locations, applicationOptions, positionTypes } from '../../data';
 
 const PostRoleContainer = () => {
   const history = useHistory();
   const [modalBasic, setModalBasic] = useState(false);
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -55,11 +58,51 @@ const PostRoleContainer = () => {
                 register={register}
                 errors={errors.organisation}
               />
+
+              <SelectField
+                label="Location"
+                name="location"
+                control={control}
+                options={locations}
+                errors={errors.location}
+              />
+
+              <SelectField
+                label="Position Type"
+                name="positionType"
+                control={control}
+                options={positionTypes}
+                errors={errors.positionType}
+              />
+
               <TextInput
                 name="department"
                 label="Department"
                 register={register}
               />
+
+              <TextInput
+                name="description"
+                label="Description"
+                register={register}
+                errors={errors.description}
+                type="textarea"
+              />
+
+              <TextInput
+                name="qualification"
+                label="Required Qualifications"
+                register={register}
+                type="textarea"
+              />
+
+              <SelectField
+                label="How to Apply"
+                name="howToApply"
+                control={control}
+                options={applicationOptions}
+              />
+
               <Button color="primary" type="submit">
                 Submit
               </Button>
