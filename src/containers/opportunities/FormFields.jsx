@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { Controller } from 'react-hook-form';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { Controller, useController } from 'react-hook-form';
+import ReactDatePicker from 'react-datepicker';
+import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
 import Select from 'react-select';
+import 'react-datepicker/dist/react-datepicker.css';
+
 // TODO: create a smart component passing individual components as children to form: https://codesandbox.io/s/react-hook-form-smart-form-component-forked-iq89z
 
 const Group = ({ label, errors, children }) => {
@@ -48,5 +51,44 @@ export const SelectField = ({ label, name, control, options, errors }) => {
         )}
       />
     </Group>
+  );
+};
+export const DatePicker = ({ label, name, control }) => {
+  return (
+    <Group label={label}>
+      <Controller
+        control={control}
+        name={name}
+        render={({ field: { onChange, value } }) => (
+          <ReactDatePicker
+            className="input"
+            placeholderText="Select date"
+            onChange={(e) => onChange(e)}
+            selected={value}
+            dateFormat="dd/MM/yyyy"
+          />
+        )}
+      />
+    </Group>
+  );
+};
+export const CheckBox = ({ label, name, control }) => {
+  const {
+    field: { ref, ...inputProps },
+  } = useController({ name, control, defaultValue: false });
+
+  return (
+    <FormGroup check>
+      <Label check>
+        <CustomInput
+          id={name}
+          innerRef={ref}
+          className="form-check-input"
+          type="checkbox"
+          {...inputProps}
+        />{' '}
+        {label}
+      </Label>
+    </FormGroup>
   );
 };

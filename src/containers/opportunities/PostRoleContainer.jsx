@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useController } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Select from 'react-select';
 import {
   Row,
   Card,
@@ -16,18 +15,21 @@ import {
   Label,
   Input,
   Form,
+  CustomInput,
 } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
-import { SelectField, TextInput } from './FormFields';
+import { CheckBox, DatePicker, SelectField, TextInput } from './FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const PostRoleContainer = () => {
   const history = useHistory();
   const [modalBasic, setModalBasic] = useState(false);
 
   const {
+    watch,
     control,
     register,
     handleSubmit,
@@ -35,6 +37,7 @@ const PostRoleContainer = () => {
   } = useForm({
     resolver: yupResolver(OpportunitySchema),
   });
+  const howToApply = watch('howToApply');
   const onSubmit = (data) => console.log(data);
   return (
     <Row className="mb-4">
@@ -58,7 +61,6 @@ const PostRoleContainer = () => {
                 register={register}
                 errors={errors.organisation}
               />
-
               <SelectField
                 label="Location"
                 name="location"
@@ -66,7 +68,6 @@ const PostRoleContainer = () => {
                 options={locations}
                 errors={errors.location}
               />
-
               <SelectField
                 label="Position Type"
                 name="positionType"
@@ -74,13 +75,11 @@ const PostRoleContainer = () => {
                 options={positionTypes}
                 errors={errors.positionType}
               />
-
               <TextInput
                 name="department"
                 label="Department"
                 register={register}
               />
-
               <TextInput
                 name="description"
                 label="Description"
@@ -88,19 +87,38 @@ const PostRoleContainer = () => {
                 errors={errors.description}
                 type="textarea"
               />
-
               <TextInput
                 name="qualification"
                 label="Required Qualifications"
                 register={register}
                 type="textarea"
               />
-
               <SelectField
                 label="How to Apply"
                 name="howToApply"
                 control={control}
                 options={applicationOptions}
+              />
+              {howToApply === 'Email to Hiring Manager' && (
+                <TextInput
+                  name="email"
+                  label="Hiring Manager Email"
+                  register={register}
+                />
+              )}
+              {howToApply === 'Apply on website' && (
+                <TextInput name="website" label="Website" register={register} />
+              )}
+              <DatePicker label="Deadline" name="deadline" control={control} />
+              <DatePicker
+                label="Start Date"
+                name="startDate"
+                control={control}
+              />
+              <CheckBox
+                name="coverLetter"
+                label="Cover Letter Required"
+                control={control}
               />
 
               <Button color="primary" type="submit">
