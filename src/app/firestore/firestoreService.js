@@ -37,3 +37,12 @@ export async function updateUserInFirestore(user) {
 export async function fetchUserDataFromFirestore(uid) {
   return db.collection('users').doc(uid).get();
 }
+
+export async function fetchCompaniesFromFirestore() {
+  const querySnapshot = await db.collection('companies').get();
+  const companies = querySnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }));
+  return companies;
+}

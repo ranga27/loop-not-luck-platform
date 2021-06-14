@@ -23,11 +23,27 @@ import { OpportunitySchema } from '../../constants/opportunitySchema';
 import { CheckBox, DatePicker, SelectField, TextInput } from './FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
+import { uploadFile } from './uploadFile';
 
 const PostRoleContainer = () => {
   const history = useHistory();
   const [modalBasic, setModalBasic] = useState(false);
-
+  const [logoFile, setLogoFile] = useState('');
+  const handleFileSelect = (file) => {
+    setLogoFile(file);
+  };
+  const defaultValues = {
+    department: '',
+    qualification: '',
+    howToApply: '',
+    email: '',
+    website: '',
+    rolling: true,
+    deadline: null,
+    startDate: null,
+    coverLetter: false,
+  };
+  // TODO: defualt values
   const {
     watch,
     control,
@@ -35,10 +51,16 @@ const PostRoleContainer = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    defaultValues,
     resolver: yupResolver(OpportunitySchema),
   });
   const howToApply = watch('howToApply');
-  const onSubmit = (data) => console.log(data);
+  const rolling = watch('rolling');
+  const onSubmit = async (data) => {
+    const file = data.logoFile;
+    console.log('SUBMIT: ', file);
+    await uploadFile(file, 'test');
+  };
   return (
     <Row className="mb-4">
       <Colxx xxs="12">
@@ -109,7 +131,15 @@ const PostRoleContainer = () => {
               {howToApply === 'Apply on website' && (
                 <TextInput name="website" label="Website" register={register} />
               )}
-              <DatePicker label="Deadline" name="deadline" control={control} />
+              <Label>Deadline</Label>
+              <CheckBox name="rolling" label="Rolling" control={control} />
+              {!rolling && (
+                <DatePicker
+                  label="Deadline Date"
+                  name="deadline"
+                  control={control}
+                />
+              )}
               <DatePicker
                 label="Start Date"
                 name="startDate"
@@ -120,6 +150,22 @@ const PostRoleContainer = () => {
                 label="Cover Letter Required"
                 control={control}
               />
+
+              <FormGroup>
+                <Label>Upload Company Logo (120 x 120)</Label>
+                <Controller
+                  render={({ field: { onChange, ref } }) => (
+                    <CustomInput
+                      type="file"
+                      id="logoFile"
+                      onChange={(e) => onChange(e.target.files[0])}
+                      innerRef={ref}
+                    />
+                  )}
+                  name="logoFile"
+                  control={control}
+                />
+              </FormGroup>
 
               <Button color="primary" type="submit">
                 Submit

@@ -1,27 +1,20 @@
 import React, { Suspense } from 'react';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import AppLayout from '../../layout/AppLayout';
 // import { ProtectedRoute, UserRole } from '../../helpers/authHelper';
 
-const Dashboard = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-dashboard" */ './DashboardPage')
-);
 const Opportunities = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-second-menu" */ './opportunities')
+  import(/* webpackChunkName: "opportunities" */ './opportunities')
 );
 const Candidates = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-second-menu" */ './candidates')
-);
-const Onboarding = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-onboarding" */ './Onboarding')
-);
-const Account = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-dashboard" */ './Account')
+  import(/* webpackChunkName: "candidates" */ './candidates')
 );
 const Admin = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-dashboard" */ './Admin')
+  import(/* webpackChunkName: "admin" */ './admin')
+);
+const Account = React.lazy(() =>
+  import(/* webpackChunkName: "account" */ './Account')
 );
 const App = ({ match }) => {
   return (
@@ -35,20 +28,12 @@ const App = ({ match }) => {
               to={`${match.url}/opportunities`}
             />
             <Route
-              path={`${match.url}/dashboard`}
-              render={(props) => <Dashboard {...props} />}
-            />
-            <Route
               path={`${match.url}/opportunities`}
               render={(props) => <Opportunities {...props} />}
             />
             <Route
               path={`${match.url}/candidates`}
               render={(props) => <Candidates {...props} />}
-            />
-            <Route
-              path={`${match.url}/onboarding`}
-              render={(props) => <Onboarding {...props} />}
             />
             <Route
               path={`${match.url}/account`}

@@ -6,6 +6,9 @@ import {
   UPDATE_ROLE,
   UPDATE_ROLE_SUCCESS,
   UPDATE_ROLE_ERROR,
+  GET_COMPANIES_REQUESTED,
+  GET_COMPANIES_SUCCESS,
+  GET_COMPANIES_ERROR,
 } from '../actions';
 
 export const getUsers = () => ({
@@ -29,5 +32,16 @@ export const updateRoleSuccess = (uid, email, role) => ({
 });
 export const updateRoleError = (message) => ({
   type: UPDATE_ROLE_ERROR,
+  payload: message,
+});
+export const getCompanies = () => ({
+  type: GET_COMPANIES_REQUESTED,
+});
+export const getCompaniesSuccess = (companies) => ({
+  type: GET_COMPANIES_SUCCESS,
+  payload: companies,
+});
+export const getCompaniesError = (message) => ({
+  type: GET_COMPANIES_ERROR,
   payload: message,
 });

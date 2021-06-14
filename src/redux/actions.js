@@ -39,6 +39,9 @@ export const GET_USERS_ERROR = 'GET_USERS_ERROR';
 export const UPDATE_ROLE = 'UPDATE_ROLE';
 export const UPDATE_ROLE_SUCCESS = 'UPDATE_ROLE_SUCCESS';
 export const UPDATE_ROLE_ERROR = 'UPDATE_ROLE_ERROR';
+export const GET_COMPANIES_REQUESTED = 'GET_COMPANIES_REQUESTED';
+export const GET_COMPANIES_SUCCESS = 'GET_COMPANIES_SUCCESS';
+export const GET_COMPANIES_ERROR = 'GET_COMPANIES_ERROR';
 
 export * from './menu/actions';
 export * from './settings/actions';

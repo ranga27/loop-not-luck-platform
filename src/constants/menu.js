@@ -24,11 +24,6 @@ const data = [
         to: `${adminRoot}/opportunities/roles`,
         roles: [UserRole.super, UserRole.admin],
       },
-      /*       {
-        icon: 'simple-icon-paper-clip',
-        label: 'menu.open',
-        to: `${adminRoot}/opportunities/open`,
-      }, */
     ],
   },
   {
@@ -45,25 +40,24 @@ const data = [
       },
     ],
   },
-  /* {
-    id: 'dashbaord',
-    icon: 'iconsminds-shop-4',
-    label: 'menu.dashboard',
-    to: `${adminRoot}/dashboard`,
-  },
-   {
-    id: 'onboarding',
-    icon: 'simple-icon-note',
-    label: 'menu.onboarding',
-    to: `${adminRoot}/onboarding`,
-    // roles: [UserRole.Candidate, UserRole.Editor],
-  }, */
   {
     id: 'admin',
     icon: 'iconsminds-security-settings',
     label: 'menu.admin',
     to: `${adminRoot}/admin`,
     roles: [UserRole.super],
+    subs: [
+      {
+        icon: 'iconsminds-3d-eyeglasses',
+        label: 'menu.users',
+        to: `${adminRoot}/admin/users`,
+      },
+      {
+        icon: 'iconsminds-shop-4',
+        label: 'menu.companies',
+        to: `${adminRoot}/admin/companies`,
+      },
+    ],
   },
 ];
 export default data;

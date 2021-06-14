@@ -5,10 +5,14 @@ import {
   UPDATE_ROLE,
   UPDATE_ROLE_SUCCESS,
   UPDATE_ROLE_ERROR,
+  GET_COMPANIES_REQUESTED,
+  GET_COMPANIES_SUCCESS,
+  GET_COMPANIES_ERROR,
 } from '../actions';
 
 const initialState = {
   users: [],
+  companies: [],
   loading: false,
   error: null,
 };
@@ -42,6 +46,19 @@ export default (state = initialState, { type, payload }) => {
         ),
       };
     case UPDATE_ROLE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    case GET_COMPANIES_REQUESTED:
+      return {
+        ...state,
+        loading: true,
+      };
+    case GET_COMPANIES_SUCCESS:
+      return { ...state, loading: false, companies: payload };
+    case GET_COMPANIES_ERROR:
       return {
         ...state,
         loading: false,

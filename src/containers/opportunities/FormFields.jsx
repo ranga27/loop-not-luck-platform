@@ -73,22 +73,22 @@ export const DatePicker = ({ label, name, control }) => {
   );
 };
 export const CheckBox = ({ label, name, control }) => {
-  const {
-    field: { ref, ...inputProps },
-  } = useController({ name, control, defaultValue: false });
-
   return (
-    <FormGroup check>
-      <Label check>
-        <CustomInput
-          id={name}
-          innerRef={ref}
-          className="form-check-input"
-          type="checkbox"
-          {...inputProps}
-        />{' '}
-        {label}
-      </Label>
+    <FormGroup>
+      <Controller
+        render={({ field }) => (
+          <CustomInput
+            id={name}
+            value={field.value}
+            onChange={field.onChange}
+            innerRef={field.ref}
+            type="checkbox"
+            label={label}
+          />
+        )}
+        name={name}
+        control={control}
+      />
     </FormGroup>
   );
 };

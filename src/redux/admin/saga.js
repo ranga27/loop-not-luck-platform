@@ -1,23 +1,23 @@
-/* eslint-disable no-unused-vars */
-import {
-  all,
-  call,
-  put,
-  takeEvery,
-  fork,
-  takeLatest,
-} from 'redux-saga/effects';
+import { all, call, put, takeEvery, fork } from 'redux-saga/effects';
 import firebase from 'firebase/app';
-import { GET_USERS_REQUESTED, UPDATE_ROLE } from '../actions';
+import {
+  GET_USERS_REQUESTED,
+  UPDATE_ROLE,
+  GET_COMPANIES_REQUESTED,
+} from '../actions';
 
 import {
   getUsersError,
   getUsersSuccess,
   updateRoleError,
   updateRoleSuccess,
+  getCompaniesSuccess,
+  getCompaniesError,
 } from './actions';
+import { fetchCompaniesFromFirestore } from '../../app/firestore/firestoreService';
 
 const fetchUsersAsync = async () => {
+  // TODO: create a wrapper funtion for firebase.functions, to make code backend agnostic
   const fetchUsersFunction = firebase.functions().httpsCallable('getUsersList');
   const results = await fetchUsersFunction();
   return results.data;
@@ -56,6 +56,30 @@ function* updateUserRole({ payload }) {
     console.error(e);
   }
 }
+
+const fetchCompaniesAsync = async () => {
+  try {
+    const companies = await fetchCompaniesFromFirestore();
+    return { companies, error: null };
+  } catch (error) {
+    return { companies: null, error: error.message };
+  }
+};
+
+function* fetchCompanies() {
+  try {
+    const data = yield call(fetchCompaniesAsync);
+    if (data.companies != null) {
+      yield put(getCompaniesSuccess(data.companies));
+    } else if (data.error != null) {
+      yield put(getCompaniesError(data.error));
+    }
+  } catch (e) {
+    yield put(getCompaniesError(e.message));
+    console.error(e);
+  }
+}
+
 export function* watchGetUsers() {
   yield takeEvery(GET_USERS_REQUESTED, fetchUsers);
 }
@@ -63,7 +87,13 @@ export function* watchGetUsers() {
 export function* watchUpdateRole() {
   yield takeEvery(UPDATE_ROLE, updateUserRole);
 }
-
+export function* watchGetCompanies() {
+  yield takeEvery(GET_COMPANIES_REQUESTED, fetchCompanies);
+}
 export default function* rootSaga() {
-  yield all([fork(watchGetUsers), fork(watchUpdateRole)]);
+  yield all([
+    fork(watchGetUsers),
+    fork(watchUpdateRole),
+    fork(watchGetCompanies),
+  ]);
 }

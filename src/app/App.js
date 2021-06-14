@@ -32,7 +32,7 @@ const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ '../views/error')
 );
 const ViewUnauthorized = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ '../views/unauthorized')
+  import(/* webpackChunkName: "views-unauthorized" */ '../views/unauthorized')
 );
 
 class App extends React.Component {
