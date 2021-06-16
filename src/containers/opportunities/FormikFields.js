@@ -7,8 +7,6 @@ import React from 'react';
 import Select from 'react-select';
 import { CustomInput } from 'reactstrap';
 
-import TagsInput from 'react-tagsinput';
-import 'react-tagsinput/react-tagsinput.css';
 import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
 
@@ -272,15 +270,6 @@ const FormikCustomRadioGroup = ({
   );
 };
 
-const FormikTagsInput = ({ name, value, onChange, onBlur }) => {
-  const handleChange = (val) => {
-    onBlur(name, true);
-    onChange(name, val);
-  };
-
-  return <TagsInput name={name} value={value} onChange={handleChange} />;
-};
-
 const FormikSwitch = ({ name, value, className, onChange, onBlur }) => {
   const handleChange = (val) => {
     onBlur(name, true);
@@ -335,7 +324,6 @@ export {
   FormikCustomCheckbox,
   FormikRadioButtonGroup,
   FormikCustomRadioGroup,
-  FormikTagsInput,
   FormikSwitch,
   FormikDatePicker,
 };

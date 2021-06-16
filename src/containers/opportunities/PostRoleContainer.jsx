@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { useForm, Controller, useController } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Row,
@@ -13,14 +13,18 @@ import {
   ModalFooter,
   FormGroup,
   Label,
-  Input,
   Form,
   CustomInput,
 } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
-import { CheckBox, DatePicker, SelectField, TextInput } from './FormFields';
+import {
+  CheckBox,
+  DatePicker,
+  SelectField,
+  TextInput,
+} from '../../components/FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import { uploadFile } from './uploadFile';

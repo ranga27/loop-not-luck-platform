@@ -27,7 +27,14 @@ export const TextInput = ({ name, label, register, errors, ...rest }) => {
     </Group>
   );
 };
-export const SelectField = ({ label, name, control, options, errors }) => {
+export const SelectField = ({
+  label,
+  name,
+  control,
+  options,
+  errors,
+  ...rest
+}) => {
   return (
     <Group label={label} errors={errors}>
       <Controller
@@ -47,6 +54,7 @@ export const SelectField = ({ label, name, control, options, errors }) => {
             options={options}
             className="react-select"
             classNamePrefix="react-select"
+            {...rest}
           />
         )}
       />
