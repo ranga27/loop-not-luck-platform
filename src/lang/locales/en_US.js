@@ -186,4 +186,5 @@ module.exports = {
   'forms.account-info': 'Account Info',
   'forms.submit': 'Submit',
   'forms.admin': 'Admin',
+  'forms.add-company': 'Add New Company',
 };

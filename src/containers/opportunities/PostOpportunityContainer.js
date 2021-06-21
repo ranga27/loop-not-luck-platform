@@ -25,7 +25,7 @@ import {
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import { addOpportunityToFirestore } from '../../app/firestore/firestoreService';
-import { uploadFile } from './uploadFile';
+import { uploadFile } from '../../helpers/uploadFile';
 
 const PostOpportunityContainer = () => {
   const history = useHistory();

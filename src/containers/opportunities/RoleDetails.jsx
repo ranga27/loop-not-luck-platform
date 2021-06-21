@@ -34,7 +34,7 @@ import {
   updateOpportunityInMobileAppFirestore,
 } from '../../app/firestore/firestoreService';
 import { selectOpportunityToReview } from '../../redux/actions';
-import { uploadFile } from './uploadFile';
+import { uploadFile } from '../../helpers/uploadFile';
 
 const RoleDetails = () => {
   const [modalBasic, setModalBasic] = useState(false);

@@ -27,15 +27,11 @@ import {
 } from '../../components/FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
-import { uploadFile } from './uploadFile';
+import { uploadFile } from '../../helpers/uploadFile';
 
 const PostRoleContainer = () => {
   const history = useHistory();
   const [modalBasic, setModalBasic] = useState(false);
-  const [logoFile, setLogoFile] = useState('');
-  const handleFileSelect = (file) => {
-    setLogoFile(file);
-  };
   const defaultValues = {
     department: '',
     qualification: '',

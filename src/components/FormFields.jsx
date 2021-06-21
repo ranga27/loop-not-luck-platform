@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useController } from 'react-hook-form';
 import ReactDatePicker from 'react-datepicker';
 import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
@@ -17,6 +17,41 @@ const Group = ({ label, errors, children }) => {
         <div className="invalid-feedback d-block">{errors.message}</div>
       )}
     </FormGroup>
+  );
+};
+
+export const MultiSelect = ({
+  label,
+  name,
+  control,
+  options,
+  setValue,
+  ...rest
+}) => {
+  const [selection, setSelection] = useState({ selectedOptions: [] });
+  const handleChange = (selectedOption) => {
+    setSelection({ selectedOption });
+    setValue(
+      'tags',
+      selectedOption.map((option) => option.value)
+    );
+  };
+  return (
+    <Group label={label}>
+      <Controller
+        name={name}
+        control={control}
+        render={() => (
+          <Select
+            options={options}
+            value={selection.selectedOptions}
+            onChange={handleChange}
+            isMulti
+            {...rest}
+          />
+        )}
+      />
+    </Group>
   );
 };
 
@@ -98,5 +133,23 @@ export const CheckBox = ({ label, name, control }) => {
         control={control}
       />
     </FormGroup>
+  );
+};
+export const FileUpload = ({ label, errors, name, control }) => {
+  return (
+    <Group label={label} errors={errors}>
+      <Controller
+        render={({ field: { onChange, ref } }) => (
+          <CustomInput
+            type="file"
+            id="logoFile"
+            onChange={(e) => onChange(e.target.files[0])}
+            innerRef={ref}
+          />
+        )}
+        name={name}
+        control={control}
+      />
+    </Group>
   );
 };

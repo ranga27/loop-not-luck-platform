@@ -1,11 +1,9 @@
 import firebase from 'firebase/app';
-import { v4 as uuid } from 'uuid';
 
 const prefix = 'https://storage.googleapis.com/loop-luck.appspot.com/';
 
 // eslint-disable-next-line import/prefer-default-export
-export const uploadFile = async (file, folderName) => {
-  console.log(file.type);
+export const uploadFile = async (file, fileName, folderName) => {
   const fileExtension =
     // eslint-disable-next-line no-nested-ternary
     file.type === 'image/png'
@@ -15,8 +13,7 @@ export const uploadFile = async (file, folderName) => {
       : '';
   // TODO: check if file exists
   // eslint-disable-next-line prefer-template
-  const filePath = folderName + '/' + uuid() + fileExtension;
-  console.log(filePath);
+  const filePath = folderName + '/' + fileName + fileExtension;
   const storage = firebase.storage().ref(filePath);
   await storage.put(file);
   return prefix + filePath;
