@@ -46,3 +46,27 @@ export async function fetchCompaniesFromFirestore() {
   }));
   return companies;
 }
+
+export async function doesCompanyExistInFirestore(name) {
+  try {
+    const querySnapshot = await db
+      .collection('companies')
+      .where('name', '==', name)
+      .get();
+    if (querySnapshot.size > 0) {
+      console.log('Company exists', querySnapshot);
+    } else console.log('Company does not exist', querySnapshot);
+  } catch (error) {
+    console.error(error);
+  }
+}
+export async function addCompanyToFirestore(company) {
+  try {
+    const { id } = await db.collection('companies').add(company);
+    console.log(id);
+    return { id, error: null };
+  } catch (error) {
+    console.error('Error adding company: ', error);
+    return { id: null, error: error.message };
+  }
+}

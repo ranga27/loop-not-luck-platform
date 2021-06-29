@@ -8,6 +8,12 @@ import {
   GET_COMPANIES_REQUESTED,
   GET_COMPANIES_SUCCESS,
   GET_COMPANIES_ERROR,
+  ADD_COMPANY,
+  ADD_COMPANY_SUCCESS,
+  ADD_COMPANY_ERROR,
+  EDIT_COMPANY,
+  EDIT_COMPANY_SUCCESS,
+  EDIT_COMPANY_ERROR,
 } from '../actions';
 
 const initialState = {
@@ -15,6 +21,7 @@ const initialState = {
   companies: [],
   loading: false,
   error: null,
+  company: null,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -64,6 +71,26 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
         error: payload,
       };
+    case ADD_COMPANY:
+      return { ...state, loading: true };
+    case ADD_COMPANY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        companies: [...state.companies, payload],
+      };
+    case ADD_COMPANY_ERROR:
+      return { ...state, loading: false, error: payload };
+    case EDIT_COMPANY:
+      return { ...state, loading: true };
+    case EDIT_COMPANY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        company: payload,
+      };
+    case EDIT_COMPANY_ERROR:
+      return { ...state, loading: false, error: payload };
     default:
       return { ...state };
   }

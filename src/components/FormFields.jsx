@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import { Controller, useController } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { Controller } from 'react-hook-form';
 import ReactDatePicker from 'react-datepicker';
 import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
 import Select from 'react-select';
@@ -26,27 +26,30 @@ export const MultiSelect = ({
   control,
   options,
   setValue,
+  errors,
+  selected,
   ...rest
 }) => {
   const [selection, setSelection] = useState({ selectedOptions: [] });
   const handleChange = (selectedOption) => {
     setSelection({ selectedOption });
+    console.log('Selected Option: ', selectedOption);
     setValue(
       'tags',
       selectedOption.map((option) => option.value)
     );
   };
   return (
-    <Group label={label}>
+    <Group label={label} errors={errors}>
       <Controller
         name={name}
         control={control}
         render={() => (
           <Select
-            options={options}
-            value={selection.selectedOptions}
-            onChange={handleChange}
             isMulti
+            options={options}
+            onChange={handleChange}
+            value={selection.selectedOptions}
             {...rest}
           />
         )}

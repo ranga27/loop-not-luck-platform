@@ -39,9 +39,16 @@ export const GET_USERS_ERROR = 'GET_USERS_ERROR';
 export const UPDATE_ROLE = 'UPDATE_ROLE';
 export const UPDATE_ROLE_SUCCESS = 'UPDATE_ROLE_SUCCESS';
 export const UPDATE_ROLE_ERROR = 'UPDATE_ROLE_ERROR';
+// TODO: move companies to its own action, reducer, saga
 export const GET_COMPANIES_REQUESTED = 'GET_COMPANIES_REQUESTED';
 export const GET_COMPANIES_SUCCESS = 'GET_COMPANIES_SUCCESS';
 export const GET_COMPANIES_ERROR = 'GET_COMPANIES_ERROR';
+export const ADD_COMPANY = 'ADD_COMPANY';
+export const ADD_COMPANY_SUCCESS = 'ADD_COMPANY_SUCCESS';
+export const ADD_COMPANY_ERROR = 'ADD_COMPANY_ERROR';
+export const EDIT_COMPANY = 'EDIT_COMPANY';
+export const EDIT_COMPANY_SUCCESS = 'EDIT_COMPANY_SUCCESS';
+export const EDIT_COMPANY_ERROR = 'EDIT_COMPANY_ERROR';
 
 export * from './menu/actions';
 export * from './settings/actions';

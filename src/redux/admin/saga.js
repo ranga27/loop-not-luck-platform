@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { all, call, put, takeEvery, fork } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import {
   GET_USERS_REQUESTED,
   UPDATE_ROLE,
   GET_COMPANIES_REQUESTED,
+  ADD_COMPANY,
+  EDIT_COMPANY,
 } from '../actions';
 
 import {
@@ -13,8 +16,15 @@ import {
   updateRoleSuccess,
   getCompaniesSuccess,
   getCompaniesError,
+  addCompanySuccess,
+  addCompanyError,
+  editCompanySuccess,
+  editCompanyError,
 } from './actions';
-import { fetchCompaniesFromFirestore } from '../../app/firestore/firestoreService';
+import {
+  addCompanyToFirestore,
+  fetchCompaniesFromFirestore,
+} from '../../app/firestore/firestoreService';
 
 const fetchUsersAsync = async () => {
   // TODO: create a wrapper funtion for firebase.functions, to make code backend agnostic
@@ -80,20 +90,56 @@ function* fetchCompanies() {
   }
 }
 
+const addCompanyAsync = async (company) => {
+  return addCompanyToFirestore(company);
+};
+function* addNewCompany({ company }) {
+  try {
+    if (company) {
+      const { id, error } = yield call(addCompanyAsync, company);
+      if (id != null) {
+        yield put(addCompanySuccess({ ...company, id }));
+      } else if (error != null) {
+        yield put(addCompanyError(error));
+      }
+    } else yield put(addCompanyError('No Company Data'));
+  } catch (e) {
+    yield put(addCompanyError(e.message));
+    console.error(e);
+  }
+}
+
+function* selectCompany({ company }) {
+  try {
+    if (company) {
+      yield put(editCompanySuccess(company));
+    } else yield put(editCompanyError('Error'));
+  } catch (e) {
+    yield put(editCompanyError('Error'));
+    console.error(e);
+  }
+}
 export function* watchGetUsers() {
   yield takeEvery(GET_USERS_REQUESTED, fetchUsers);
 }
-
 export function* watchUpdateRole() {
   yield takeEvery(UPDATE_ROLE, updateUserRole);
 }
 export function* watchGetCompanies() {
   yield takeEvery(GET_COMPANIES_REQUESTED, fetchCompanies);
 }
+export function* watchAddCompany() {
+  yield takeEvery(ADD_COMPANY, addNewCompany);
+}
+export function* watchEditCompany() {
+  yield takeEvery(EDIT_COMPANY, selectCompany);
+}
 export default function* rootSaga() {
   yield all([
     fork(watchGetUsers),
     fork(watchUpdateRole),
     fork(watchGetCompanies),
+    fork(watchAddCompany),
+    fork(watchEditCompany),
   ]);
 }

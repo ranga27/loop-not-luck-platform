@@ -107,10 +107,6 @@ module.exports = {
   'pages.bake-progress': 'Bake Progress',
   'pages.popularity': 'Popularity',
   'pages.comments': 'Comments',
-  'pages.mailing-info':
-    'Mailing templates use inline styling and table layout to be displayed well at various service providers. To provide better usability we include it as regular html with dangerouslySetInnerHTML.',
-  'pages.invoice-info':
-    'Invoice template has an inline styled version for usage outside of the project as well as React version.',
   'pages.react-version': 'React Version',
   'pages.inline-version': 'Inline Styled Html Version',
   'pages.like': 'Like',
@@ -187,4 +183,5 @@ module.exports = {
   'forms.submit': 'Submit',
   'forms.admin': 'Admin',
   'forms.add-company': 'Add New Company',
+  'forms.edit-company': 'Edit Company',
 };

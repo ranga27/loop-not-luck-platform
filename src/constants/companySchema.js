@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 // eslint-disable-next-line import/prefer-default-export
-export const CompanySchema = yup.object().shape({
+export const companySchema = yup.object().shape({
   name: yup.string().required('Please enter the Name'),
 
   email: yup
@@ -21,4 +21,6 @@ export const CompanySchema = yup.object().shape({
         );
       }
     ),
+
+  tags: yup.array().required('Select atleast one tag'),
 });

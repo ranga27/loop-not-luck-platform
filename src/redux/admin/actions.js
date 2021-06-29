@@ -9,6 +9,12 @@ import {
   GET_COMPANIES_REQUESTED,
   GET_COMPANIES_SUCCESS,
   GET_COMPANIES_ERROR,
+  ADD_COMPANY,
+  ADD_COMPANY_SUCCESS,
+  ADD_COMPANY_ERROR,
+  EDIT_COMPANY,
+  EDIT_COMPANY_SUCCESS,
+  EDIT_COMPANY_ERROR,
 } from '../actions';
 
 export const getUsers = () => ({
@@ -43,5 +49,29 @@ export const getCompaniesSuccess = (companies) => ({
 });
 export const getCompaniesError = (message) => ({
   type: GET_COMPANIES_ERROR,
+  payload: message,
+});
+export const addCompany = (company) => ({
+  type: ADD_COMPANY,
+  company,
+});
+export const addCompanySuccess = (company) => ({
+  type: ADD_COMPANY_SUCCESS,
+  payload: company,
+});
+export const addCompanyError = (message) => ({
+  type: ADD_COMPANY_ERROR,
+  payload: message,
+});
+export const editCompany = (company) => ({
+  type: EDIT_COMPANY,
+  company,
+});
+export const editCompanySuccess = (company) => ({
+  type: EDIT_COMPANY_SUCCESS,
+  payload: company,
+});
+export const editCompanyError = (message) => ({
+  type: EDIT_COMPANY_ERROR,
   payload: message,
 });
