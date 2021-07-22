@@ -7,13 +7,13 @@ export async function addOpportunityToMobileAppFirestore(opportunity) {
   return dbMobileApp.collection('opportunities').add(opportunity);
 }
 
-export async function fetchOpportunitiesFromFirestore() {
+export async function fetchRolesFromFirestore() {
   const querySnapshot = await db.collection('opportunities').get();
-  const opportunities = querySnapshot.docs.map((doc) => ({
+  const roles = querySnapshot.docs.map((doc) => ({
     ...doc.data(),
     id: doc.id,
   }));
-  return opportunities;
+  return roles;
 }
 
 export async function updateOpportunityInFirestore(opportunity) {
@@ -60,13 +60,18 @@ export async function doesCompanyExistInFirestore(name) {
     console.error(error);
   }
 }
+
 export async function addCompanyToFirestore(company) {
   try {
     const { id } = await db.collection('companies').add(company);
-    console.log(id);
     return { id, error: null };
   } catch (error) {
     console.error('Error adding company: ', error);
     return { id: null, error: error.message };
   }
+}
+
+export async function updateCompanyInFirestore(company) {
+  const { id, ...comp } = company;
+  return db.collection('companies').doc(id).set(comp, { merge: true });
 }

@@ -58,15 +58,15 @@ export const Users = ({ match }) => {
         </Colxx>
       </Row>
       <Row>
-        <Colxx md="6" sm="6" lg="4" xxs="12">
-          {loading && <p>Loading...</p>}
-          {users.length === 0 && !loading && <p>No users available!</p>}
-          {error && !loading && <p>{error}</p>}
-          {users.length > 0 &&
-            users.map((item, index) => {
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <Card key={index} className="d-flex flex-row mb-4">
+        {loading && <p>Loading...</p>}
+        {users.length === 0 && !loading && <p>No users available!</p>}
+        {error && !loading && <p>{error}</p>}
+        {users.length > 0 &&
+          users.map((item, index) => {
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Colxx md="6" sm="6" lg="4" xxs="12" key={index}>
+                <Card className="d-flex flex-row mb-4">
                   <ThumbnailLetters rounded text={item.email} className="m-4" />
                   <div className=" d-flex flex-grow-1 min-width-zero">
                     <CardBody className=" pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
@@ -95,7 +95,7 @@ export const Users = ({ match }) => {
                           Edit
                         </Button>
                         <Modal isOpen={modalBasic} toggle={toggle}>
-                          <ModalHeader>Edit Role</ModalHeader>
+                          <ModalHeader>Edit User</ModalHeader>
                           <ModalBody>
                             Current Role for {userData.email}:{' '}
                             <Badge color="danger" pill className="mb-1">
@@ -135,10 +135,10 @@ export const Users = ({ match }) => {
                       </div>
                     </CardBody>
                   </div>
-                </Card>
-              );
-            })}
-        </Colxx>
+                </Card>{' '}
+              </Colxx>
+            );
+          })}
       </Row>
     </>
   );

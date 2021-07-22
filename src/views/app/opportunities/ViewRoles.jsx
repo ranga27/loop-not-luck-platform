@@ -3,14 +3,14 @@ import { Row } from 'reactstrap';
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
 import Breadcrumb from '../../../containers/navs/Breadcrumb';
 import RoleListContainer from '../../../containers/opportunities/RoleListContainer';
-import RoleDetails from '../../../containers/opportunities/RoleDetails';
+import RoleDetailsContainer from '../../../containers/opportunities/RoleDetailsContainer';
 
-const ReviewRoles = ({ match }) => {
+const ViewRoles = ({ match }) => {
   return (
     <>
       <Row>
         <Colxx xxs="12">
-          <Breadcrumb heading="menu.review" match={match} />
+          <Breadcrumb heading="menu.view-roles" match={match} />
           <Separator className="mb-5" />
         </Colxx>
       </Row>
@@ -19,11 +19,11 @@ const ReviewRoles = ({ match }) => {
           <RoleListContainer />
         </Colxx>
         <Colxx lg="6" md="12" className="mb-4">
-          <RoleDetails />
+          <RoleDetailsContainer />
         </Colxx>
       </Row>
     </>
   );
 };
 
-export default ReviewRoles;
+export default ViewRoles;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row } from 'reactstrap';
+import { Row, Card, CardBody } from 'reactstrap';
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
 import Breadcrumb from '../../../containers/navs/Breadcrumb';
 import PostRoleContainer from '../../../containers/opportunities/PostRoleContainer';
@@ -14,7 +14,12 @@ const PostRoles = ({ match }) => (
     </Row>
     <Row>
       <Colxx xxs="12" className="mb-4">
-        <PostRoleContainer />
+        <Card>
+          <CardBody>
+            <h6 className="mb-4">Post an Opportunity</h6>
+            <PostRoleContainer />
+          </CardBody>
+        </Card>
       </Colxx>
     </Row>
   </>

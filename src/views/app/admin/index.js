@@ -17,6 +17,10 @@ const EditCompany = React.lazy(() =>
   import(/* webpackChunkName: "edit-company" */ './EditCompany')
 );
 
+const Test = React.lazy(() =>
+  import(/* webpackChunkName: "admin-test" */ './Test')
+);
+
 const AdminMenu = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>
@@ -36,6 +40,10 @@ const AdminMenu = ({ match }) => (
       <Route
         path={`${match.url}/editcompany`}
         render={(props) => <EditCompany {...props} />}
+      />
+      <Route
+        path={`${match.url}/test`}
+        render={(props) => <Test {...props} />}
       />
       <Redirect to="/error" />
     </Switch>

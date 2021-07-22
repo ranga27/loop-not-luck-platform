@@ -2,24 +2,29 @@ import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 const Post = React.lazy(() =>
-  import(/* webpackChunkName: "second" */ './PostOpportunityPage')
+  import(/* webpackChunkName: "post-opp" */ './PostOpportunityPage')
 );
 
 const Review = React.lazy(() =>
-  import(/* webpackChunkName: "second" */ './ReviewRoles')
+  import(/* webpackChunkName: "review-roles" */ './ReviewRoles')
 );
 
 const Open = React.lazy(() =>
-  import(/* webpackChunkName: "second" */ './OpenRolesPage')
+  import(/* webpackChunkName: "open-roles" */ './OpenRolesPage')
 );
 
 const Roles = React.lazy(() =>
-  import(/* webpackChunkName: "second" */ './PostRoles')
+  import(/* webpackChunkName: "post-roles" */ './PostRoles')
 );
+
+const View = React.lazy(() =>
+  import(/* webpackChunkName: "view-roles" */ './ViewRoles')
+);
+
 const OpportunitiesMenu = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>
-      <Redirect exact from={`${match.url}/`} to={`${match.url}/post`} />
+      <Redirect exact from={`${match.url}/`} to={`${match.url}/view`} />
       <Route
         path={`${match.url}/post`}
         render={(props) => <Post {...props} />}
@@ -35,6 +40,10 @@ const OpportunitiesMenu = ({ match }) => (
       <Route
         path={`${match.url}/roles`}
         render={(props) => <Roles {...props} />}
+      />
+      <Route
+        path={`${match.url}/view`}
+        render={(props) => <View {...props} />}
       />
       <Redirect to="/error" />
     </Switch>

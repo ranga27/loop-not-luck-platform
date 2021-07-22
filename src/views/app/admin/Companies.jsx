@@ -27,11 +27,7 @@ const Companies = ({ match }) => {
           <Separator className="mb-5" />
         </Colxx>
       </Row>
-      <Row>
-        <Colxx xxs="12" className="mb-4">
-          <CompaniesContainer />
-        </Colxx>
-      </Row>
+      <CompaniesContainer />
     </>
   );
 };

@@ -14,15 +14,17 @@ const CompaniesContainer = () => {
   return (
     <>
       <Row>
-        <Colxx md="6" sm="6" lg="4" xxs="12">
-          {loading && <p>Loading...</p>}
-          {companies.length === 0 && !loading && <p>No companies available!</p>}
-          {error && !loading && <p>{error}</p>}
-          {companies.length > 0 &&
-            companies.map((company) => {
-              return <CompanyCard key={company.id} company={company} />;
-            })}
-        </Colxx>
+        {loading && <p>Loading...</p>}
+        {companies.length === 0 && !loading && <p>No companies available!</p>}
+        {error && !loading && <p>{error}</p>}
+        {companies.length > 0 &&
+          companies.map((company) => {
+            return (
+              <Colxx xs="6" sm="4" xl="3" className="mb-4" key={company.id}>
+                <CompanyCard company={company} />
+              </Colxx>
+            );
+          })}
       </Row>
     </>
   );

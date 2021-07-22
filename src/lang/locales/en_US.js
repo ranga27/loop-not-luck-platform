@@ -56,6 +56,8 @@ module.exports = {
   'menu.roles': 'Post Role',
   'menu.users': 'Users',
   'menu.companies': 'Companies',
+  'menu.view-roles': 'View Roles',
+
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
   'pages.error-code': 'Error code',

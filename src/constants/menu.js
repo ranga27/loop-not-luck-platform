@@ -8,6 +8,11 @@ const data = [
     to: `${adminRoot}/opportunities`,
     subs: [
       {
+        icon: 'simple-icon-drawer',
+        label: 'menu.view-roles',
+        to: `${adminRoot}/opportunities/view`,
+      },
+      {
         icon: 'simple-icon-paper-plane',
         label: 'menu.post',
         to: `${adminRoot}/opportunities/post`,
@@ -22,7 +27,6 @@ const data = [
         icon: 'iconsminds-notepad',
         label: 'menu.post',
         to: `${adminRoot}/opportunities/roles`,
-        roles: [UserRole.super, UserRole.admin],
       },
     ],
   },

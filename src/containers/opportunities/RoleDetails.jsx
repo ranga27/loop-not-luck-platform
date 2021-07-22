@@ -33,7 +33,7 @@ import {
   updateOpportunityInFirestore,
   updateOpportunityInMobileAppFirestore,
 } from '../../app/firestore/firestoreService';
-import { selectOpportunityToReview } from '../../redux/actions';
+import { selectedRole } from '../../redux/actions';
 import { uploadFile } from '../../helpers/uploadFile';
 
 const RoleDetails = () => {
@@ -93,7 +93,7 @@ const RoleDetails = () => {
       console.log('SUBMIT: ', opportunity);
       await updateOpportunityInFirestore(opportunity);
       await updateOpportunityInMobileAppFirestore(opportunity);
-      dispatch(selectOpportunityToReview(opportunity));
+      dispatch(selectedRole(opportunity));
       actions.resetForm(values);
       actions.setSubmitting(false);
     } catch (error) {

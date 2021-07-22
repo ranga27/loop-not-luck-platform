@@ -1,5 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { all, call, put, takeEvery, fork } from 'redux-saga/effects';
+import {
+  all,
+  call,
+  put,
+  takeEvery,
+  fork,
+  takeLeading,
+} from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import {
   GET_USERS_REQUESTED,
@@ -132,7 +139,7 @@ export function* watchAddCompany() {
   yield takeEvery(ADD_COMPANY, addNewCompany);
 }
 export function* watchEditCompany() {
-  yield takeEvery(EDIT_COMPANY, selectCompany);
+  yield takeLeading(EDIT_COMPANY, selectCompany);
 }
 export default function* rootSaga() {
   yield all([

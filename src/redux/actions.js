@@ -29,17 +29,20 @@ export const MENU_CHANGE_DEFAULT_CLASSES = 'MENU_CHANGE_DEFAULT_CLASSES';
 export const MENU_CHANGE_HAS_SUB_ITEM_STATUS =
   'MENU_CHANGE_HAS_SUB_ITEM_STATUS';
 
-/* OPPORTUNITIES */
-export const SELECT_OPPORTUNITY_TO_REVIEW = 'SELECT_OPPORTUNITY_TO_REVIEW';
-
+/* ROLES */
+export const SELECTED_ROLE = 'SELECTED_ROLE';
+export const GET_ROLES_REQUESTED = 'GET_ROLES_REQUESTED';
+export const GET_ROLES_SUCCESS = 'GET_ROLES_SUCCESS';
+export const GET_ROLES_ERROR = 'GET_ROLES_ERROR';
 /* ADMIN */
 export const GET_USERS_REQUESTED = 'GET_USERS_REQUESTED';
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
 export const GET_USERS_ERROR = 'GET_USERS_ERROR';
+// TODO:move roles to roles folder
 export const UPDATE_ROLE = 'UPDATE_ROLE';
 export const UPDATE_ROLE_SUCCESS = 'UPDATE_ROLE_SUCCESS';
 export const UPDATE_ROLE_ERROR = 'UPDATE_ROLE_ERROR';
-// TODO: move companies to its own action, reducer, saga
+// TODO: move companies to its own folder
 export const GET_COMPANIES_REQUESTED = 'GET_COMPANIES_REQUESTED';
 export const GET_COMPANIES_SUCCESS = 'GET_COMPANIES_SUCCESS';
 export const GET_COMPANIES_ERROR = 'GET_COMPANIES_ERROR';
@@ -51,7 +54,7 @@ export const EDIT_COMPANY_SUCCESS = 'EDIT_COMPANY_SUCCESS';
 export const EDIT_COMPANY_ERROR = 'EDIT_COMPANY_ERROR';
 
 export * from './menu/actions';
-export * from './settings/actions';
 export * from './auth/actions';
-export * from './opportunities/actions';
 export * from './admin/actions';
+export * from './roles/actions';
+export * from './settings/actions';

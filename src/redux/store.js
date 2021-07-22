@@ -9,7 +9,7 @@ import sagas from './sagas';
 import settings from './settings/reducer';
 import menu from './menu/reducer';
 import authUser from './auth/reducer';
-import opportunities from './opportunities/reducer';
+import roles from './roles/reducer';
 import admin from './admin/reducer';
 
 const authConfig = {
@@ -18,16 +18,22 @@ const authConfig = {
   whitelist: ['currentUser'],
 };
 
+const adminConfig = {
+  key: 'admin',
+  storage,
+  whitelist: ['company'],
+};
+
 const sagaMiddleware = createSagaMiddleware();
 
 const middlewares = [sagaMiddleware];
 
 const rootReducer = combineReducers({
   menu,
+  roles,
   settings,
+  admin: persistReducer(adminConfig, admin),
   authUser: persistReducer(authConfig, authUser),
-  opportunities,
-  admin,
 });
 
 const store = createStore(
