@@ -36,7 +36,7 @@ export const MultiSelect = ({
   const handleChange = (selectedOption) => {
     setSelection({ selectedOption });
     setValue(
-      'tags',
+      name,
       selectedOption.map((option) => option.value)
     );
   };

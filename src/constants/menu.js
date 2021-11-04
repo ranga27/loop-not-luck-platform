@@ -13,17 +13,6 @@ const data = [
         to: `${adminRoot}/opportunities/view`,
       },
       {
-        icon: 'simple-icon-paper-plane',
-        label: 'menu.post',
-        to: `${adminRoot}/opportunities/post`,
-      },
-      {
-        icon: 'simple-icon-paper-clip',
-        label: 'menu.review',
-        to: `${adminRoot}/opportunities/review`,
-        roles: [UserRole.super, UserRole.admin],
-      },
-      {
         icon: 'iconsminds-notepad',
         label: 'menu.post',
         to: `${adminRoot}/opportunities/roles`,
@@ -60,6 +49,11 @@ const data = [
         icon: 'iconsminds-shop-4',
         label: 'menu.companies',
         to: `${adminRoot}/admin/companies`,
+      },
+      {
+        icon: 'iconsminds-idea',
+        label: 'menu.test',
+        to: `${adminRoot}/admin/test`,
       },
     ],
   },

@@ -57,6 +57,7 @@ module.exports = {
   'menu.users': 'Users',
   'menu.companies': 'Companies',
   'menu.view-roles': 'View Roles',
+  'menu.test': 'Test Algorithm',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',

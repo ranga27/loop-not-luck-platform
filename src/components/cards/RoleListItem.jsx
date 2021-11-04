@@ -31,7 +31,6 @@ const RoleListItem = ({ roles, selectRole }) => {
             </Nav>
           );
         })}
-        ;
       </CardBody>
     </Card>
   );
