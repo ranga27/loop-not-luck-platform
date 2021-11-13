@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+// TODO: change to RHF
 import { Formik, Form, Field } from 'formik';
 import { NotificationManager } from '../../components/common/react-notifications';
 
@@ -54,13 +54,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
     <Row className="h-100">
       <Colxx xxs="12" md="10" className="mx-auto my-auto">
         <Card className="auth-card">
-          <div className="position-relative image-side ">
-            {/* If you are not a member, please{' '}
-              <NavLink to="/user/register" className="white">
-                register
-              </NavLink>
-              . */}
-          </div>
+          <div className="position-relative image-side " />
           <div className="form-side">
             <CardTitle className="mb-4">
               <IntlMessages id="user.login-title" />
@@ -124,6 +118,14 @@ const Login = ({ history, loading, error, loginUserAction }) => {
                 </Form>
               )}
             </Formik>
+            <p className="mb-0">
+              <br />
+              If you are not a member, please{' '}
+              <NavLink to="/user/register" style={{ color: 'green' }}>
+                register
+              </NavLink>
+              .
+            </p>
           </div>
         </Card>
       </Colxx>
