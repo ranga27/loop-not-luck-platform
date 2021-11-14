@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import {
   Row,
@@ -15,6 +17,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // TODO: Use RHF
 import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 import { registerUser } from '../../redux/actions';
 import { NotificationManager } from '../../components/common/react-notifications';
@@ -22,26 +25,15 @@ import { NotificationManager } from '../../components/common/react-notifications
 import IntlMessages from '../../helpers/IntlMessages';
 import { Colxx } from '../../components/common/CustomBootstrap';
 
-// TODO: replace with Yup validation
-const validatePassword = (value) => {
-  let error;
-  if (!value) {
-    error = 'Please enter your password';
-  } else if (value.length < 4) {
-    error = 'Value must be longer than 3 characters';
-  }
-  return error;
-};
-
-const validateEmail = (value) => {
-  let error;
-  if (!value) {
-    error = 'Please enter your email address';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    error = 'Invalid email address';
-  }
-  return error;
-};
+const SignupSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Please enter your email address'),
+  password: Yup.string()
+    .required('Please enter your password')
+    .min(8, 'Password is too short - should be 8 chars minimum.'),
+  role: Yup.string().required('An option is required'),
+});
 
 const Register = ({ history }) => {
   const { loading, error, currentUser } = useSelector(
@@ -50,6 +42,7 @@ const Register = ({ history }) => {
   const dispatch = useDispatch();
   const [email] = useState('');
   const [password] = useState('');
+  const [role] = useState('');
   const [modalBasic, setModalBasic] = useState(false);
   useEffect(() => {
     if (error) {
@@ -62,7 +55,8 @@ const Register = ({ history }) => {
         ''
       );
     } else if (!loading && currentUser === 'success') {
-      /*       NotificationManager.success(
+      /* Showing modal so disabling Notification toast
+            NotificationManager.success(
         'Please verify your email',
         'Verify email.',
         -0,
@@ -81,8 +75,12 @@ const Register = ({ history }) => {
       }
     }
   };
+  const options = [
+    { value: 'candidate', label: 'Candidate' },
+    { value: 'employer', label: 'Employer' },
+  ];
 
-  const initialValues = { email, password };
+  const initialValues = { email, password, role };
 
   return (
     <Row className="h-100">
@@ -94,18 +92,24 @@ const Register = ({ history }) => {
               <IntlMessages id="user.register" />
             </CardTitle>
 
-            <Formik initialValues={initialValues} onSubmit={onUserRegister}>
-              {({ errors, touched }) => (
+            <Formik
+              initialValues={initialValues}
+              validationSchema={SignupSchema}
+              onSubmit={onUserRegister}
+            >
+              {({
+                setFieldTouched,
+                values,
+                errors,
+                touched,
+                setFieldValue,
+              }) => (
                 <Form className="av-tooltip tooltip-label-bottom">
                   <FormGroup className="form-group has-float-label  mb-4">
                     <Label>
                       <IntlMessages id="user.email" />
                     </Label>
-                    <Field
-                      className="form-control"
-                      name="email"
-                      validate={validateEmail}
-                    />
+                    <Field className="form-control" name="email" />
                     {errors.email && touched.email && (
                       <div className="invalid-feedback d-block">
                         {errors.email}
@@ -121,7 +125,6 @@ const Register = ({ history }) => {
                       className="form-control"
                       type="password"
                       name="password"
-                      validate={validatePassword}
                     />
                     {errors.password && touched.password && (
                       <div className="invalid-feedback d-block">
@@ -129,7 +132,23 @@ const Register = ({ history }) => {
                       </div>
                     )}{' '}
                   </FormGroup>
-
+                  <FormGroup className="form-group mb-4">
+                    <Label className="d-block">Select One</Label>
+                    <FormikRadioButtonGroup
+                      inline
+                      name="role"
+                      id="role"
+                      value={values.role}
+                      onChange={setFieldValue}
+                      onBlur={setFieldTouched}
+                      options={options}
+                    />
+                    {errors.role && touched.role ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.role}
+                      </div>
+                    ) : null}
+                  </FormGroup>
                   <div className="d-flex justify-content-end align-items-center">
                     <Button
                       color="primary"
@@ -173,7 +192,6 @@ const Register = ({ history }) => {
               )}
             </Formik>
             <p className="mb-0">
-              <br />
               If you are a member, please{' '}
               <NavLink to="/user/login" style={{ color: 'green' }}>
                 login
@@ -184,6 +202,51 @@ const Register = ({ history }) => {
         </Card>
       </Colxx>
     </Row>
+  );
+};
+
+const FormikRadioButtonGroup = ({
+  name,
+  value,
+  options,
+  inline = false,
+  onChange,
+  onBlur,
+}) => {
+  const handleChange = (val) => {
+    onChange(name, val);
+  };
+
+  const handleBlur = () => {
+    onBlur(name, true);
+  };
+
+  return (
+    <>
+      {options.map((child, index) => {
+        return (
+          <div
+            // eslint-disable-next-line react/no-array-index-key
+            key={`${name}_${child.value}_${index}`}
+            className={`position-relative form-check ${
+              inline ? 'form-check-inline' : ''
+            }`}
+          >
+            <input
+              id={child.value}
+              name={name}
+              type="radio"
+              className="form-check-input"
+              onChange={() => handleChange(child.value)}
+              onBlur={handleBlur}
+              defaultChecked={value === child.value}
+              disabled={child.disabled}
+            />
+            <label className="form-check-label">{child.label}</label>
+          </div>
+        );
+      })}
+    </>
   );
 };
 

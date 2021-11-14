@@ -1,5 +1,8 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
+import firebase from 'firebase/app';
+
 import { auth } from '../../helpers/Firebase';
+
 import {
   LOGIN_USER,
   REGISTER_USER,
@@ -85,21 +88,29 @@ export function* watchRegisterUser() {
   yield takeEvery(REGISTER_USER, registerWithEmailPassword);
 }
 
-const registerWithEmailPasswordAsync = async (email, password) =>
+const registerWithEmailPasswordAsync = async (email, password, newRole) =>
   // eslint-disable-next-line no-return-await
   // TODO: separate createUser function from saga into firebaseService.js
   auth
     .createUserWithEmailAndPassword(email, password)
-    .then((user) => user)
+    .then((userCred) => {
+      const { uid } = userCred.user;
+      const role = { role: newRole };
+      const updateRoleFunction = firebase
+        .functions()
+        .httpsCallable('setUserRole');
+      return updateRoleFunction({ uid, role });
+    })
     .catch((error) => error);
 
 function* registerWithEmailPassword({ payload }) {
-  const { email, password } = payload.user;
+  const { email, password, role } = payload.user;
   try {
     const registerUser = yield call(
       registerWithEmailPasswordAsync,
       email,
-      password
+      password,
+      role
     );
     if (!registerUser.message) {
       auth.currentUser.sendEmailVerification();

@@ -71,7 +71,7 @@ class App extends React.Component {
                       UserRole.super,
                       UserRole.admin,
                       UserRole.editor,
-                      UserRole.company,
+                      UserRole.employer,
                       UserRole.candidate,
                     ]}
                   />
