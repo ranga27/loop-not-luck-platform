@@ -87,7 +87,8 @@ export function* watchRegisterUser() {
 
 const registerWithEmailPasswordAsync = async (email, password) =>
   // eslint-disable-next-line no-return-await
-  await auth
+  // TODO: separate createUser function from saga into firebaseService.js
+  auth
     .createUserWithEmailAndPassword(email, password)
     .then((user) => user)
     .catch((error) => error);

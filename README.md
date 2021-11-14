@@ -97,6 +97,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 - [ ] marshmallow UI
 - [ ] map over data to create input elements - reduce code and improve readability - reafactor the post opps page input elemets into an array to loop over to create HTML elements
 - [ ] prevent the app to generate unnecessary routes, rather checking current user role on each route it is great to generate only the routes that user have access
+- [ ] upgrade to react router 6 - lots of breaking changes
 
 New Dev instructions
 

@@ -12,7 +12,8 @@ import {
   ModalFooter,
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+// TODO: Use RHF
 import { Formik, Form, Field } from 'formik';
 
 import { registerUser } from '../../redux/actions';
@@ -21,6 +22,7 @@ import { NotificationManager } from '../../components/common/react-notifications
 import IntlMessages from '../../helpers/IntlMessages';
 import { Colxx } from '../../components/common/CustomBootstrap';
 
+// TODO: replace with Yup validation
 const validatePassword = (value) => {
   let error;
   if (!value) {
@@ -41,13 +43,11 @@ const validateEmail = (value) => {
   return error;
 };
 
-const Register = ({
-  history,
-  loading,
-  error,
-  currentUser,
-  registerUserAction,
-}) => {
+const Register = ({ history }) => {
+  const { loading, error, currentUser } = useSelector(
+    (state) => state.authUser
+  );
+  const dispatch = useDispatch();
   const [email] = useState('');
   const [password] = useState('');
   const [modalBasic, setModalBasic] = useState(false);
@@ -77,7 +77,7 @@ const Register = ({
   const onUserRegister = (values) => {
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
-        registerUserAction(values, history);
+        dispatch(registerUser(values, history));
       }
     }
   };
@@ -186,11 +186,5 @@ const Register = ({
     </Row>
   );
 };
-const mapStateToProps = ({ authUser }) => {
-  const { loading, error, currentUser } = authUser;
-  return { loading, error, currentUser };
-};
 
-export default connect(mapStateToProps, {
-  registerUserAction: registerUser,
-})(Register);
+export default Register;

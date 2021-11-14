@@ -2,8 +2,8 @@ export const UserRole = {
   super: 'super',
   admin: 'admin',
   editor: 'editor',
-  candidate: 'candidate',
   company: 'company',
+  candidate: 'candidate',
 };
 
 /*
