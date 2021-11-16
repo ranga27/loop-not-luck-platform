@@ -20,6 +20,7 @@ module.exports = {
   'user.login-title': 'Login',
   'user.register': 'Register',
   'user.forgot-password': 'Forgot Password',
+  'user.first-name': 'First Name',
   'user.email': 'E-mail',
   'user.password': 'Password',
   'user.forgot-password-question': 'Forget password?',

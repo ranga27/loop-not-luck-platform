@@ -1,5 +1,4 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import firebase from 'firebase/app';
 
 import { auth } from '../../helpers/Firebase';
 
@@ -32,6 +31,7 @@ import {
 } from '../../app/firestore/firestoreService';
 // eslint-disable-next-line import/no-cycle
 import { persistor } from '../store';
+import { registerInFirebase } from '../../app/firestore/firebaseService';
 
 const currentUser = {};
 
@@ -88,29 +88,15 @@ export function* watchRegisterUser() {
   yield takeEvery(REGISTER_USER, registerWithEmailPassword);
 }
 
-const registerWithEmailPasswordAsync = async (email, password, newRole) =>
-  // eslint-disable-next-line no-return-await
-  // TODO: separate createUser function from saga into firebaseService.js
-  auth
-    .createUserWithEmailAndPassword(email, password)
-    .then((userCred) => {
-      const { uid } = userCred.user;
-      const role = { role: newRole };
-      const updateRoleFunction = firebase
-        .functions()
-        .httpsCallable('setUserRole');
-      return updateRoleFunction({ uid, role });
-    })
-    .catch((error) => error);
+const registerWithEmailPasswordAsync = async (user) => {
+  return registerInFirebase(user);
+};
 
 function* registerWithEmailPassword({ payload }) {
-  const { email, password, role } = payload.user;
   try {
     const registerUser = yield call(
       registerWithEmailPasswordAsync,
-      email,
-      password,
-      role
+      payload.user
     );
     if (!registerUser.message) {
       auth.currentUser.sendEmailVerification();
@@ -119,7 +105,12 @@ function* registerWithEmailPassword({ payload }) {
       yield put(registerUserError(registerUser.message));
     }
   } catch (error) {
-    yield put(registerUserError(error));
+    if (error.message.includes('internal'))
+      yield put(
+        registerUserError(
+          'Internal Error, contact support: hello@loopnotluck.com'
+        )
+      );
   }
 }
 

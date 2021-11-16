@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap';
+import { Label, FormGroup, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-// TODO: change to RHF
+// TODO: change to RHF smartform
 import { Formik, Form, Field } from 'formik';
+
 import { NotificationManager } from '../../components/common/react-notifications';
 
 import { loginUser } from '../../redux/actions';
-import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
+import Layout from './layout';
 
+// TODO: check for email verified?
 const validatePassword = (value) => {
   let error;
   if (!value) {
@@ -29,7 +31,6 @@ const validateEmail = (value) => {
   }
   return error;
 };
-
 const Login = ({ history, loading, error, loginUserAction }) => {
   const [email] = useState('');
   const [password] = useState('');
@@ -47,89 +48,75 @@ const Login = ({ history, loading, error, loginUserAction }) => {
       }
     }
   };
-
   const initialValues = { email, password };
 
   return (
-    <Row className="h-100">
-      <Colxx xxs="12" md="10" className="mx-auto my-auto">
-        <Card className="auth-card">
-          <div className="position-relative image-side " />
-          <div className="form-side">
-            <CardTitle className="mb-4">
-              <IntlMessages id="user.login-title" />
-            </CardTitle>
-
-            <Formik initialValues={initialValues} onSubmit={onUserLogin}>
-              {({ errors, touched }) => (
-                <Form className="av-tooltip tooltip-label-bottom">
-                  <FormGroup className="form-group has-float-label">
-                    <Label>
-                      <IntlMessages id="user.email" />
-                    </Label>
-                    <Field
-                      className="form-control"
-                      name="email"
-                      validate={validateEmail}
-                    />
-                    {errors.email && touched.email && (
-                      <div className="invalid-feedback d-block">
-                        {errors.email}
-                      </div>
-                    )}
-                  </FormGroup>
-                  <FormGroup className="form-group has-float-label">
-                    <Label>
-                      <IntlMessages id="user.password" />
-                    </Label>
-                    <Field
-                      className="form-control"
-                      type="password"
-                      name="password"
-                      validate={validatePassword}
-                    />
-                    {errors.password && touched.password && (
-                      <div className="invalid-feedback d-block">
-                        {errors.password}
-                      </div>
-                    )}
-                  </FormGroup>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <NavLink to="/user/forgot-password">
-                      <IntlMessages id="user.forgot-password-question" />
-                    </NavLink>
-                    <Button
-                      color="primary"
-                      className={`btn-shadow btn-multiple-state ${
-                        loading ? 'show-spinner' : ''
-                      }`}
-                      size="lg"
-                    >
-                      <span className="spinner d-inline-block">
-                        <span className="bounce1" />
-                        <span className="bounce2" />
-                        <span className="bounce3" />
-                      </span>
-                      <span className="label">
-                        <IntlMessages id="user.login-button" />
-                      </span>
-                    </Button>
-                  </div>
-                </Form>
+    <Layout cardTitle="user.login-title">
+      <Formik initialValues={initialValues} onSubmit={onUserLogin}>
+        {({ errors, touched }) => (
+          <Form className="av-tooltip tooltip-label-bottom">
+            <FormGroup className="form-group has-float-label">
+              <Label>
+                <IntlMessages id="user.email" />
+              </Label>
+              <Field
+                className="form-control"
+                name="email"
+                validate={validateEmail}
+              />
+              {errors.email && touched.email && (
+                <div className="invalid-feedback d-block">{errors.email}</div>
               )}
-            </Formik>
-            <p className="mb-0">
-              <br />
-              If you are not a member, please{' '}
-              <NavLink to="/user/register" style={{ color: 'green' }}>
-                register
+            </FormGroup>
+            <FormGroup className="form-group has-float-label">
+              <Label>
+                <IntlMessages id="user.password" />
+              </Label>
+              <Field
+                className="form-control"
+                type="password"
+                name="password"
+                validate={validatePassword}
+              />
+              {errors.password && touched.password && (
+                <div className="invalid-feedback d-block">
+                  {errors.password}
+                </div>
+              )}
+            </FormGroup>
+            <div className="d-flex justify-content-between align-items-center">
+              <NavLink to="/user/forgot-password">
+                <IntlMessages id="user.forgot-password-question" />
               </NavLink>
-              .
-            </p>
-          </div>
-        </Card>
-      </Colxx>
-    </Row>
+              <Button
+                color="primary"
+                className={`btn-shadow btn-multiple-state ${
+                  loading ? 'show-spinner' : ''
+                }`}
+                size="lg"
+              >
+                <span className="spinner d-inline-block">
+                  <span className="bounce1" />
+                  <span className="bounce2" />
+                  <span className="bounce3" />
+                </span>
+                <span className="label">
+                  <IntlMessages id="user.login-button" />
+                </span>
+              </Button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+      <p className="mb-0">
+        <br />
+        If you are not a member, please{' '}
+        <NavLink to="/user/register" style={{ color: 'green' }}>
+          register
+        </NavLink>
+        .
+      </p>
+    </Layout>
   );
 };
 const mapStateToProps = ({ authUser }) => {

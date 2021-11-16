@@ -52,9 +52,10 @@ const Onboarding = ({ intl }) => {
                     >
                       <motion.div
                         className="col-md-6 offset-md-3"
-                        initial={{ x: '-100vw' }}
-                        animate={{ x: 0 }}
-                        transition={{ stiffness: 150 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.15 }}
                       >
                         <div className="wizard-basic-step text-center">
                           <p>

@@ -29,6 +29,7 @@ export async function updateOpportunityInMobileAppFirestore(opportunity) {
     .set(opps, { merge: true });
 }
 
+// Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore(user) {
   const { uid, ...details } = user;
   return db.collection('users').doc(uid).set(details, { merge: true });
