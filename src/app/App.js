@@ -34,7 +34,9 @@ const ViewError = React.lazy(() =>
 const ViewUnauthorized = React.lazy(() =>
   import(/* webpackChunkName: "views-unauthorized" */ '../views/unauthorized')
 );
-
+const ViewOnboarding = React.lazy(() =>
+  import(/* webpackChunkName: "views-onboarding" */ '../views/onboarding')
+);
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -88,6 +90,11 @@ class App extends React.Component {
                     path="/unauthorized"
                     exact
                     render={(props) => <ViewUnauthorized {...props} />}
+                  />
+                  <Route
+                    path="/onboarding"
+                    exact
+                    render={(props) => <ViewOnboarding {...props} />}
                   />
                   <Route
                     path="/"

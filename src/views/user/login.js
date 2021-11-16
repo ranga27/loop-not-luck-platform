@@ -14,8 +14,8 @@ const validatePassword = (value) => {
   let error;
   if (!value) {
     error = 'Please enter your password';
-  } else if (value.length < 4) {
-    error = 'Value must be longer than 3 characters';
+  } else if (value.length < 8) {
+    error = 'Value must be minimum 8 characters';
   }
   return error;
 };

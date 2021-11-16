@@ -75,6 +75,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## TODO
 
+- [ ] sweetalert2
+- [ ] uneverified users can sign in
 - [ ] Restrict Admin page for Super users only
 - [ ] Pagination not working
 - [ ] Forgot password route

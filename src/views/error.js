@@ -24,9 +24,7 @@ const Error = () => {
           <Row className="h-100">
             <Colxx xxs="12" md="10" className="mx-auto my-auto">
               <Card className="auth-card">
-                <div className="position-relative image-side ">
-                  <p className="text-white h2">Loop Not Luck</p>
-                </div>
+                <div className="position-relative image-side " />
                 <div className="form-side">
                   <CardTitle className="mb-4">
                     <IntlMessages id="pages.error-title" />

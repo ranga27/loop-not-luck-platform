@@ -20,7 +20,7 @@ import {
 
 const INIT_STATE = {
   currentUser: '',
-  userRole: 2,
+  isProfileComplete: false,
   forgotUserMail: '',
   newPassword: '',
   resetPasswordCode: '',

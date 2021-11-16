@@ -8,14 +8,25 @@ const ProtectedRoute = ({
   roles = undefined,
   ...rest
 }) => {
-  const { currentUser } = useSelector((state) => state.authUser);
+  const { currentUser, isProfileComplete } = useSelector(
+    (state) => state.authUser
+  );
   const setComponent = (props) => {
     if (isAuthGuardActive) {
-      // TODO: get from redux store, since its hydrated
       if (currentUser) {
         if (roles) {
           if (roles.includes(currentUser.role)) {
-            return <Component {...props} />;
+            if (currentUser.role === 'candidate' && isProfileComplete) {
+              return <Component {...props} />;
+            }
+            return (
+              <Redirect
+                to={{
+                  pathname: '/onboarding',
+                  state: { from: props.location },
+                }}
+              />
+            );
           }
           return (
             <Redirect
