@@ -38,7 +38,6 @@ export const Users = ({ match }) => {
   const onSubmitRole = async (user) => {
     const { uid, email } = user;
     const newRole = { role: selectedOption.value };
-    // await updateRole(uid, newRole);
     dispatch(updateRole(uid, email, newRole));
   };
 

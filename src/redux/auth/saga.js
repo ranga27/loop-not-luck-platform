@@ -1,5 +1,5 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-
+import firebase from 'firebase/app';
 import { auth } from '../../helpers/Firebase';
 
 import {
@@ -31,7 +31,6 @@ import {
 } from '../../app/firestore/firestoreService';
 // eslint-disable-next-line import/no-cycle
 import { persistor } from '../store';
-import { registerInFirebase } from '../../app/firestore/firebaseService';
 
 const currentUser = {};
 
@@ -88,15 +87,28 @@ export function* watchRegisterUser() {
   yield takeEvery(REGISTER_USER, registerWithEmailPassword);
 }
 
-const registerWithEmailPasswordAsync = async (user) => {
-  return registerInFirebase(user);
+const registerWithEmailPasswordAsync = async (email, password, newRole) => {
+  auth
+    .createUserWithEmailAndPassword(email, password)
+    .then((userCred) => {
+      const { uid } = userCred.user;
+      const role = { role: newRole };
+      const updateRoleFunction = firebase
+        .functions()
+        .httpsCallable('setUserRole');
+      updateRoleFunction({ uid, role });
+    })
+    .catch((error) => error);
 };
 
 function* registerWithEmailPassword({ payload }) {
+  const { email, password, role } = payload.user;
   try {
     const registerUser = yield call(
       registerWithEmailPasswordAsync,
-      payload.user
+      email,
+      password,
+      role
     );
     if (!registerUser.message) {
       auth.currentUser.sendEmailVerification();

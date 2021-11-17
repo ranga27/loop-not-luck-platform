@@ -54,7 +54,8 @@ const Register = ({ history }) => {
         }
       });
     }
-  }, [error, loading, currentUser, history, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
 
   const onUserRegister = (values) => {
     if (!loading) {
@@ -128,6 +129,7 @@ const Register = ({ history }) => {
               </FormGroup>
               <Button
                 color="primary"
+                type="submit"
                 className={`btn-shadow btn-multiple-state ${
                   loading ? 'show-spinner' : ''
                 }`}

@@ -16,17 +16,17 @@ const ProtectedRoute = ({
       if (currentUser) {
         if (roles) {
           if (roles.includes(currentUser.role)) {
-            if (currentUser.role === 'candidate' && isProfileComplete) {
-              return <Component {...props} />;
+            if (currentUser.role === 'candidate' && !isProfileComplete) {
+              return (
+                <Redirect
+                  to={{
+                    pathname: '/onboarding',
+                    state: { from: props.location },
+                  }}
+                />
+              );
             }
-            return (
-              <Redirect
-                to={{
-                  pathname: '/onboarding',
-                  state: { from: props.location },
-                }}
-              />
-            );
+            return <Component {...props} />;
           }
           return (
             <Redirect
