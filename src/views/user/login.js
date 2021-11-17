@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Label, FormGroup, Button } from 'reactstrap';
+import { Label, FormGroup } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 // TODO: change to RHF smartform
@@ -10,6 +10,7 @@ import { NotificationManager } from '../../components/common/react-notifications
 import { loginUser } from '../../redux/actions';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
+import AuthButton from './AuthButton';
 
 // TODO: check for email verified?
 const validatePassword = (value) => {
@@ -88,22 +89,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
               <NavLink to="/user/forgot-password">
                 <IntlMessages id="user.forgot-password-question" />
               </NavLink>
-              <Button
-                color="primary"
-                className={`btn-shadow btn-multiple-state ${
-                  loading ? 'show-spinner' : ''
-                }`}
-                size="lg"
-              >
-                <span className="spinner d-inline-block">
-                  <span className="bounce1" />
-                  <span className="bounce2" />
-                  <span className="bounce3" />
-                </span>
-                <span className="label">
-                  <IntlMessages id="user.login-button" />
-                </span>
-              </Button>
+              <AuthButton loading={loading} label="user.login-button" />
             </div>
           </Form>
         )}

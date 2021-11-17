@@ -1,5 +1,4 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import firebase from 'firebase/app';
 import { auth } from '../../helpers/Firebase';
 
 import {
@@ -31,6 +30,7 @@ import {
 } from '../../app/firestore/firestoreService';
 // eslint-disable-next-line import/no-cycle
 import { persistor } from '../store';
+import { registerInFirebase } from '../../app/firestore/firebaseService';
 
 const currentUser = {};
 
@@ -87,18 +87,8 @@ export function* watchRegisterUser() {
   yield takeEvery(REGISTER_USER, registerWithEmailPassword);
 }
 
-const registerWithEmailPasswordAsync = async (email, password, newRole) => {
-  auth
-    .createUserWithEmailAndPassword(email, password)
-    .then((userCred) => {
-      const { uid } = userCred.user;
-      const role = { role: newRole };
-      const updateRoleFunction = firebase
-        .functions()
-        .httpsCallable('setUserRole');
-      updateRoleFunction({ uid, role });
-    })
-    .catch((error) => error);
+const registerWithEmailPasswordAsync = async (email, password, role) => {
+  return registerInFirebase(email, password, role);
 };
 
 function* registerWithEmailPassword({ payload }) {
@@ -117,12 +107,13 @@ function* registerWithEmailPassword({ payload }) {
       yield put(registerUserError(registerUser.message));
     }
   } catch (error) {
-    if (error.message.includes('internal'))
-      yield put(
-        registerUserError(
-          'Internal Error, contact support: hello@loopnotluck.com'
-        )
-      );
+    yield put(
+      registerUserError(
+        error.message.includes('internal')
+          ? 'Please contact support: hello@loopnotluck.com'
+          : error
+      )
+    );
   }
 }
 

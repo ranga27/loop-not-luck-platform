@@ -16,7 +16,7 @@ const ForgotPassword = React.lazy(() =>
 const ResetPassword = React.lazy(() =>
   import(/* webpackChunkName: "user-reset-password" */ './reset-password')
 );
-
+// TODO: Replace Laoding Suspense with a framer motion effect
 const User = ({ match }) => {
   return (
     <UserLayout>

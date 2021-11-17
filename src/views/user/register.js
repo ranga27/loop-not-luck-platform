@@ -1,29 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
-import { FormGroup, Label, Button } from 'reactstrap';
+import { FormGroup, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // TODO: Use RHF
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import { registerUser, logoutUser } from '../../redux/actions';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
-
-const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .required('Please enter your First Name')
-    .min(2, 'Name is too short - should be 2 chars minimum'),
-  email: Yup.string()
-    .email('Invalid email address')
-    .required('Please enter your email address'),
-  password: Yup.string()
-    .required('Please enter your password')
-    .min(8, 'Password is too short - should be 8 chars minimum.'),
-  role: Yup.string().required('An option is required'),
-});
+import { SignupSchema } from './SignupSchema';
+import AuthButton from './AuthButton';
 
 const Register = ({ history }) => {
   const { loading, error, currentUser } = useSelector(
@@ -44,7 +32,7 @@ const Register = ({ history }) => {
     } else if (!loading && currentUser === 'success') {
       Swal.fire(
         'Awesome!',
-        "You're successfully registered! E-Mail confirmation sent: Check your E-Mails (Spam folder included) for a confirmation E-Mail. Login once you confirmed your E-Mail.",
+        "You're successfully registered! Check your E-Mails (Spam folder included) for a confirmation E-Mail. Login once you confirmed your E-Mail.",
         'success'
       ).then((result) => {
         if (result.isConfirmed || result.isDismissed) {
@@ -55,7 +43,7 @@ const Register = ({ history }) => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]);
+  }, [currentUser, error, loading]);
 
   const onUserRegister = (values) => {
     if (!loading) {
@@ -127,23 +115,7 @@ const Register = ({ history }) => {
                   <div className="invalid-feedback d-block">{errors.role}</div>
                 ) : null}
               </FormGroup>
-              <Button
-                color="primary"
-                type="submit"
-                className={`btn-shadow btn-multiple-state ${
-                  loading ? 'show-spinner' : ''
-                }`}
-                size="lg"
-              >
-                <span className="spinner d-inline-block">
-                  <span className="bounce1" />
-                  <span className="bounce2" />
-                  <span className="bounce3" />
-                </span>
-                <span className="label">
-                  <IntlMessages id="user.register-button" />
-                </span>
-              </Button>
+              <AuthButton loading={loading} label="user.register-button" />
             </div>
           </Form>
         )}

@@ -1,19 +1,34 @@
-/* eslint-disable object-shorthand */
-/* eslint-disable import/prefer-default-export */
 import firebase from 'firebase/app';
 import { updateUserInFirestore } from './firestoreService';
 
-export async function registerInFirebase(user) {
-  const { email, password, firstName, role, customClaims } = user;
-  const updateRoleFunction = firebase.functions().httpsCallable('setUserRole');
+export async function registerInFirebase(email, password, role) {
   try {
     // Create a new user account
-    const result = await firebase
+    const userCred = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    const { uid } = result.user;
-    updateRoleFunction({ uid, customClaims });
-    return updateUserInFirestore({ uid, firstName, email, role });
+    const { uid } = userCred.user;
+    const updateRoleFunction = firebase
+      .functions()
+      .httpsCallable('setUserRole');
+    updateRoleFunction({ uid, role });
+    updateUserInFirestore({
+      uid,
+      email,
+      role,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    return uid;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function registerInFirestore(email, password) {
+  try {
+    // Create a new user account
+    return firebase.auth().createUserWithEmailAndPassword(email, password);
   } catch (error) {
     console.error(error);
     throw error;
