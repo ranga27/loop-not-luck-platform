@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { registerUser, logoutUser } from '../../redux/actions';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
-import { SignupSchema } from './SignupSchema';
+import { SignUpSchema } from './SignUpSchema';
 import AuthButton from './AuthButton';
 
 const Register = ({ history }) => {
@@ -43,7 +43,7 @@ const Register = ({ history }) => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser, error, loading]);
+  }, [currentUser, loading]);
 
   const onUserRegister = (values) => {
     if (!loading) {
@@ -63,7 +63,7 @@ const Register = ({ history }) => {
     <Layout cardTitle="user.register">
       <Formik
         initialValues={initialValues}
-        validationSchema={SignupSchema}
+        validationSchema={SignUpSchema}
         onSubmit={onUserRegister}
       >
         {({ setFieldTouched, values, errors, touched, setFieldValue }) => (

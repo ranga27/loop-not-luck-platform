@@ -1,51 +1,43 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Label, FormGroup } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 // TODO: change to RHF smartform
 import { Formik, Form, Field } from 'formik';
-
-import { NotificationManager } from '../../components/common/react-notifications';
-
-import { loginUser } from '../../redux/actions';
+import Swal from 'sweetalert2';
+import { loginUser, setAuthError } from '../../redux/actions';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
 import AuthButton from './AuthButton';
+import { SignInSchema } from './SignInSchema';
 
 // TODO: check for email verified?
-const validatePassword = (value) => {
-  let error;
-  if (!value) {
-    error = 'Please enter your password';
-  } else if (value.length < 8) {
-    error = 'Value must be minimum 8 characters';
-  }
-  return error;
-};
 
-const validateEmail = (value) => {
-  let error;
-  if (!value) {
-    error = 'Please enter your email address';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    error = 'Invalid email address';
-  }
-  return error;
-};
-const Login = ({ history, loading, error, loginUserAction }) => {
-  const [email] = useState('');
-  const [password] = useState('');
+const Login = ({ history }) => {
+  const { loading, error } = useSelector((state) => state.authUser);
+  const dispatch = useDispatch();
+  const [email] = useState('sarang@loopnotluck.com');
+  const [password] = useState('hanumant');
 
   useEffect(() => {
-    if (error) {
-      NotificationManager.warning(error, 'Login Error', 3000, null, null, '');
-    }
+    if (error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error,
+      }).then((result) => {
+        if (result.isConfirmed || result.isDismissed) {
+          // Firebase signs in user, hence sign out immediately to verify email
+          dispatch(setAuthError(''));
+        }
+      });
   }, [error]);
 
   const onUserLogin = (values) => {
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
-        loginUserAction(values, history);
+        dispatch(loginUser(values, history));
       }
     }
   };
@@ -53,18 +45,18 @@ const Login = ({ history, loading, error, loginUserAction }) => {
 
   return (
     <Layout cardTitle="user.login-title">
-      <Formik initialValues={initialValues} onSubmit={onUserLogin}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={SignInSchema}
+        onSubmit={onUserLogin}
+      >
         {({ errors, touched }) => (
           <Form className="av-tooltip tooltip-label-bottom">
             <FormGroup className="form-group has-float-label">
               <Label>
                 <IntlMessages id="user.email" />
               </Label>
-              <Field
-                className="form-control"
-                name="email"
-                validate={validateEmail}
-              />
+              <Field className="form-control" name="email" />
               {errors.email && touched.email && (
                 <div className="invalid-feedback d-block">{errors.email}</div>
               )}
@@ -73,12 +65,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
               <Label>
                 <IntlMessages id="user.password" />
               </Label>
-              <Field
-                className="form-control"
-                type="password"
-                name="password"
-                validate={validatePassword}
-              />
+              <Field className="form-control" type="password" name="password" />
               {errors.password && touched.password && (
                 <div className="invalid-feedback d-block">
                   {errors.password}
@@ -105,11 +92,5 @@ const Login = ({ history, loading, error, loginUserAction }) => {
     </Layout>
   );
 };
-const mapStateToProps = ({ authUser }) => {
-  const { loading, error } = authUser;
-  return { loading, error };
-};
 
-export default connect(mapStateToProps, {
-  loginUserAction: loginUser,
-})(Login);
+export default Login;

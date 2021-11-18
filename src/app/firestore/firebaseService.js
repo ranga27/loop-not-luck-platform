@@ -1,11 +1,15 @@
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { httpsCallable } from 'firebase/functions';
 import { serverTimestamp } from 'firebase/firestore';
 import { auth, functions } from '../../helpers/Firebase';
-import { updateUserInFirestore } from './firestoreService';
+import {
+  fetchUserDataFromFirestore,
+  updateUserInFirestore,
+} from './firestoreService';
 
 export async function verifyEmail() {
   // TODO: implement custom template
@@ -23,7 +27,7 @@ export async function setUserRole(uid, role) {
   return updateRoleFunction({ uid, role });
 }
 
-export async function registerInFirebase(email, password, role) {
+export async function registerInFirebase({ email, password, firstName, role }) {
   try {
     // Create a new user account
     const userCredential = await createUserWithEmailAndPassword(
@@ -37,11 +41,26 @@ export async function registerInFirebase(email, password, role) {
       uid,
       email,
       role,
+      firstName,
       createdAt: serverTimestamp(),
     });
     return uid;
   } catch (error) {
-    console.error(error);
+    console.error('Could not register user: ', error);
+    throw error;
+  }
+}
+
+export async function signInWithEmail(email, password) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return fetchUserDataFromFirestore(userCredential.user.uid);
+  } catch (error) {
+    console.error('Could not sign in');
     throw error;
   }
 }

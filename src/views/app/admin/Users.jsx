@@ -47,8 +47,7 @@ export const Users = ({ match }) => {
 
   useEffect(() => {
     dispatch(getUsers());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

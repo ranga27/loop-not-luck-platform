@@ -1,11 +1,11 @@
-import { doc, collection, setDoc, addDoc } from 'firebase/firestore';
+import { doc, collection, setDoc, addDoc, getDoc } from 'firebase/firestore';
 import { db } from '../../helpers/Firebase';
 
 // Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore(user) {
   const { uid, ...details } = user;
-  const userRef = doc(db, 'users', uid);
-  setDoc(userRef, details, { merge: true });
+  const docRef = doc(db, 'users', uid);
+  setDoc(docRef, details, { merge: true });
 }
 
 export async function addOpportunityToFirestore(opportunity) {
@@ -28,7 +28,9 @@ export async function updateOpportunityInFirestore(opportunity) {
 }
 
 export async function fetchUserDataFromFirestore(uid) {
-  return db.collection('users').doc(uid).get();
+  const docRef = doc(db, 'users', uid);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
 }
 
 export async function fetchCompaniesFromFirestore() {

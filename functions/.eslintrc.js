@@ -4,6 +4,8 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb'],
-  rules: { 'import/prefer-default-export': 'off' },
+  extends: ['eslint:recommended', 'google'],
+  rules: {
+    // quotes: ["error", "double"],
+  },
 };

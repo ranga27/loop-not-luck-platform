@@ -16,6 +16,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   SET_USER_ROLE,
+  SET_AUTH_ERROR,
 } from '../actions';
 
 const INIT_STATE = {
@@ -126,6 +127,11 @@ export default (state = INIT_STATE, { type, payload }) => {
       return {
         ...state,
         userRole: payload,
+      };
+    case SET_AUTH_ERROR:
+      return {
+        ...state,
+        error: payload,
       };
     default:
       return { ...state };

@@ -1,21 +1,20 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable object-shorthand */
-/* eslint-disable no-console */
-const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+const { initializeApp } = require('firebase-admin/app');
+const { getAuth } = require('firebase-admin/auth');
 
-admin.initializeApp();
+initializeApp();
 
 /** Cloud Function that sets desired user role */
-exports.setUserRole = functions.https.onCall(async (data) => {
+exports.setUserRole = functions.https.onCall((data) => {
   try {
     const { uid, role } = data;
     console.log(uid, role);
-    await admin.auth().setCustomUserClaims(uid, { role: role });
+    // Set custom user claims on this user.
+    getAuth().setCustomUserClaims(uid, { role: role });
     return true;
   } catch (error) {
     console.error('Error setting user role: ', error);
-    throw error;
+    throw new functions.https.HttpsError('Error', error.message, error);
   }
 });
 
@@ -31,13 +30,12 @@ const mapUser = (user) => {
   return item;
 };
 
-exports.getUsersList = functions.https.onCall(async (data) => {
+exports.getUsersList = functions.https.onCall(async () => {
   try {
-    const listUsers = await admin.auth().listUsers();
-    const users = listUsers.users.map(mapUser);
-    return users;
+    const listUsersResult = await getAuth().listUsers();
+    return listUsersResult.users.map(mapUser);
   } catch (error) {
     console.log('Error listing users: ', error.message);
-    throw error;
+    throw new functions.https.HttpsError('Error', error.message, error);
   }
 });

@@ -18,6 +18,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   SET_USER_ROLE,
+  SET_AUTH_ERROR,
 } from '../actions';
 
 export const loginUser = (user, history) => ({
@@ -100,4 +101,8 @@ export const updateUserError = (message) => ({
 export const setUserRole = (userRole) => ({
   type: SET_USER_ROLE,
   payload: userRole,
+});
+export const setAuthError = (message) => ({
+  type: SET_AUTH_ERROR,
+  payload: message,
 });

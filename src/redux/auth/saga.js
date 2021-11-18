@@ -22,43 +22,20 @@ import {
   updateUserSuccess,
   updateUserError,
 } from './actions';
-
 import { adminRoot } from '../../constants/defaultValues';
-import {
-  fetchUserDataFromFirestore,
-  updateUserInFirestore,
-} from '../../app/firestore/firestoreService';
+import { updateUserInFirestore } from '../../app/firestore/firestoreService';
 // eslint-disable-next-line import/no-cycle
 import { persistor } from '../store';
 import {
   registerInFirebase,
+  signInWithEmail,
   verifyEmail,
 } from '../../app/firestore/firebaseService';
+import { getUserError } from './getUserError';
 
-const currentUser = {};
-
-export function* watchLoginUser() {
-  // eslint-disable-next-line no-use-before-define
-  yield takeEvery(LOGIN_USER, loginWithEmailPassword);
-}
-
-const loginWithEmailPasswordAsync = async (email, password) =>
-  // eslint-disable-next-line no-return-await
-  await auth
-    .signInWithEmailAndPassword(email, password)
-    .then((userCred) => {
-      userCred.user
-        .getIdTokenResult()
-        .then((idTokenResult) => {
-          // TODO: Store role in a separate store object
-          currentUser.role = idTokenResult.claims.role;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      return userCred;
-    })
-    .catch((error) => error);
+const loginWithEmailPasswordAsync = async (email, password) => {
+  return signInWithEmail(email, password);
+};
 
 function* loginWithEmailPassword({ payload }) {
   const { email, password } = payload.user;
@@ -66,14 +43,7 @@ function* loginWithEmailPassword({ payload }) {
   try {
     const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
     if (!loginUser.message) {
-      currentUser.uid = loginUser.user.uid;
-      currentUser.email = loginUser.user.email;
-      const doc = yield call(fetchUserDataFromFirestore, currentUser.uid);
-      if (doc.exists) {
-        currentUser.firstName = doc.data().firstName;
-        currentUser.lastName = doc.data().lastName;
-      }
-      yield put(loginUserSuccess(currentUser));
+      yield put(loginUserSuccess(loginUser));
       // HACK: routing in saga, move to login component
       history.push(adminRoot);
     } else {
@@ -81,17 +51,19 @@ function* loginWithEmailPassword({ payload }) {
     }
   } catch (error) {
     console.error(error);
-    yield put(loginUserError(error.message));
+    yield put(loginUserError(getUserError(error.message)));
   }
 }
-
+export function* watchLoginUser() {
+  yield takeEvery(LOGIN_USER, loginWithEmailPassword);
+}
 export function* watchRegisterUser() {
   // eslint-disable-next-line no-use-before-define
   yield takeEvery(REGISTER_USER, registerWithEmailPassword);
 }
 
-const registerWithEmailPasswordAsync = async (email, password, role) => {
-  return registerInFirebase(email, password, role);
+const registerWithEmailPasswordAsync = async (user) => {
+  return registerInFirebase(user);
 };
 
 const verifyEmailAsync = async () => {
@@ -99,13 +71,10 @@ const verifyEmailAsync = async () => {
 };
 
 function* registerWithEmailPassword({ payload }) {
-  const { email, password, role } = payload.user;
   try {
     const registerUser = yield call(
       registerWithEmailPasswordAsync,
-      email,
-      password,
-      role
+      payload.user
     );
     if (!registerUser.message) {
       yield call(verifyEmailAsync);
@@ -114,13 +83,7 @@ function* registerWithEmailPassword({ payload }) {
       yield put(registerUserError(registerUser.message));
     }
   } catch (error) {
-    yield put(
-      registerUserError(
-        error.message.includes('internal')
-          ? 'Please contact support: hello@loopnotluck.com'
-          : error
-      )
-    );
+    yield put(registerUserError(getUserError(error.message)));
   }
 }
 

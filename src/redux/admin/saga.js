@@ -33,13 +33,13 @@ import {
 import { getUsersList, setUserRole } from '../../app/firestore/firebaseService';
 
 const fetchUsersAsync = async () => {
-  // TODO: create a wrapper funtion for firebase.functions, to make code backend agnostic
   return getUsersList;
 };
 
 function* fetchUsers() {
   try {
     const data = yield call(fetchUsersAsync);
+    console.log(data);
     if (data.users != null) {
       yield put(getUsersSuccess(data.users));
     } else if (data.error != null) {
