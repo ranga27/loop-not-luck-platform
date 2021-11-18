@@ -16,6 +16,7 @@ const data = [
         icon: 'iconsminds-notepad',
         label: 'menu.post',
         to: `${adminRoot}/opportunities/roles`,
+        roles: [UserRole.Admin, UserRole.Editor],
       },
     ],
   },
@@ -24,7 +25,7 @@ const data = [
     icon: 'iconsminds-students',
     label: 'menu.candidates',
     to: `${adminRoot}/candidates`,
-    // roles: [UserRole.Admin, UserRole.Editor],
+    roles: [UserRole.Admin, UserRole.Editor],
     subs: [
       {
         icon: 'iconsminds-3d-eyeglasses',

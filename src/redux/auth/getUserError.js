@@ -9,6 +9,8 @@ export const getUserError = (message) => {
       return 'The password is not strong enough.';
     case /user-not-found/i.test(message):
       return 'The user with this email does not exist, please register';
+    case /wrong-password/i.test(message):
+      return 'Incorrect password, please try again or reset password';
     default:
       return message;
   }

@@ -1,7 +1,9 @@
 import React, { Suspense } from 'react';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ProtectedRoute } from '../../helpers/authHelper';
 import AppLayout from '../../layout/AppLayout';
+import { UserRole } from '../../constants/defaultValues';
 
 const Opportunities = React.lazy(() =>
   import(/* webpackChunkName: "opportunities" */ './opportunities')
@@ -38,9 +40,10 @@ const App = ({ match }) => {
               path={`${match.url}/account`}
               render={(props) => <Account {...props} />}
             />
-            <Route
+            <ProtectedRoute
               path={`${match.url}/admin`}
-              render={(props) => <Admin {...props} />}
+              component={Admin}
+              roles={[UserRole.admin]}
             />
             <Redirect to="/error" />
           </Switch>

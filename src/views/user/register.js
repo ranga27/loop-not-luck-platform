@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // TODO: Use RHF
 import { Formik, Form, Field } from 'formik';
 import Swal from 'sweetalert2';
-import { registerUser, logoutUser } from '../../redux/actions';
+import { registerUser, logoutUser, setAuthError } from '../../redux/actions';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
 import { SignUpSchema } from './SignUpSchema';
@@ -38,6 +38,7 @@ const Register = ({ history }) => {
         if (result.isConfirmed || result.isDismissed) {
           // Firebase signs in user, hence sign out immediately to verify email
           dispatch(logoutUser(history));
+          dispatch(setAuthError(''));
           history.push('/');
         }
       });

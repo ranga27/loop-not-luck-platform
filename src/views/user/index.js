@@ -42,7 +42,7 @@ const User = ({ match }) => {
             />
             <Redirect to="/error" />
           </Switch>
-        </Suspense>{' '}
+        </Suspense>
       </AnimatePresence>
     </UserLayout>
   );

@@ -32,20 +32,10 @@ export const firebaseConfig = {
   measurementId: 'G-VYCHZLSDJZ',
 };
 
-export const mobileAppConfig = {
-  apiKey: 'AIzaSyBRRYT6XXmQ8o27DfEmK8Tr1J2KFrqjscM',
-  authDomain: 'loop-not-luck-app.firebaseapp.com',
-  projectId: 'loop-not-luck-app',
-  storageBucket: 'loop-not-luck-app.appspot.com',
-  messagingSenderId: '738687721732',
-  appId: '1:738687721732:web:4d322c646fd41eae887051',
-  measurementId: 'G-K0G2V0CFHF',
-};
-
 export const adminRoot = '/app';
 export const buyUrl = '';
 export const searchPath = `${adminRoot}/#`;
-export const servicePath = 'https://api.coloredstrategies.com';
+export const servicePath = '';
 
 /* export const currentUser = {
   id: 1,

@@ -1,4 +1,5 @@
 import {
+  updateProfile,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithEmailAndPassword,
@@ -36,6 +37,7 @@ export async function registerInFirebase({ email, password, firstName, role }) {
       password
     );
     const { uid } = userCredential.user;
+    updateProfile(auth.currentUser, { displayName: firstName });
     setUserRole(uid, role);
     updateUserInFirestore({
       uid,
@@ -58,7 +60,12 @@ export async function signInWithEmail(email, password) {
       email,
       password
     );
-    return fetchUserDataFromFirestore(userCredential.user.uid);
+    const { emailVerified, uid } = userCredential.user;
+    if (emailVerified) {
+      const user = await fetchUserDataFromFirestore(uid);
+      return { ...user, emailVerified };
+    }
+    return new Error('Email Verification pending, please check your emails');
   } catch (error) {
     console.error('Could not sign in');
     throw error;
