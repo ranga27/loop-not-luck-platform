@@ -1,17 +1,15 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
-import 'firebase/functions';
-import { firebaseConfig, mobileAppConfig } from '../constants/defaultValues';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { firebaseConfig } from '../constants/defaultValues';
 
-const mobileApp = firebase.initializeApp(mobileAppConfig, 'loop-not-luck-app');
+const firebaseApp = initializeApp(firebaseConfig);
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-const dbMobileApp = mobileApp.firestore();
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+const functions = getFunctions(firebaseApp);
 
-firebase.functions().useEmulator('localhost', 5001);
+connectFunctionsEmulator(functions, 'localhost', 5001);
 
-export { auth, db, dbMobileApp };
+export { auth, db, functions };

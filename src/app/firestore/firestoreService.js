@@ -1,17 +1,23 @@
-import { db, dbMobileApp } from '../../helpers/Firebase';
-// eslint-disable-next-line import/prefer-default-export
-export function addOpportunityToFirestore(opportunity) {
-  return db.collection('opportunities').add(opportunity);
+import { doc, collection, setDoc, addDoc } from 'firebase/firestore';
+import { db } from '../../helpers/Firebase';
+
+// Create a new user document in user collection if it does not exists. Else update the document.
+export async function updateUserInFirestore(user) {
+  const { uid, ...details } = user;
+  const userRef = doc(db, 'users', uid);
+  setDoc(userRef, details, { merge: true });
 }
-export async function addOpportunityToMobileAppFirestore(opportunity) {
-  return dbMobileApp.collection('opportunities').add(opportunity);
+
+export async function addOpportunityToFirestore(opportunity) {
+  const docRef = await addDoc(collection(db, 'opportunities'));
+  await addDoc(docRef, opportunity);
 }
 
 export async function fetchRolesFromFirestore() {
   const querySnapshot = await db.collection('opportunities').get();
-  const roles = querySnapshot.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
+  const roles = querySnapshot.docs.map((docu) => ({
+    ...docu.data(),
+    id: docu.id,
   }));
   return roles;
 }
@@ -21,29 +27,15 @@ export async function updateOpportunityInFirestore(opportunity) {
   return db.collection('opportunities').doc(opportunity.id).update(opps);
 }
 
-export async function updateOpportunityInMobileAppFirestore(opportunity) {
-  const { id, ...opps } = opportunity;
-  return dbMobileApp
-    .collection('opportunities')
-    .doc(opportunity.id)
-    .set(opps, { merge: true });
-}
-
-// Create a new user document in user collection if it does not exists. Else update the document.
-export async function updateUserInFirestore(user) {
-  const { uid, ...details } = user;
-  return db.collection('users').doc(uid).set(details, { merge: true });
-}
-
 export async function fetchUserDataFromFirestore(uid) {
   return db.collection('users').doc(uid).get();
 }
 
 export async function fetchCompaniesFromFirestore() {
   const querySnapshot = await db.collection('companies').get();
-  const companies = querySnapshot.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
+  const companies = querySnapshot.docs.map((docu) => ({
+    ...docu.data(),
+    id: docu.id,
   }));
   return companies;
 }

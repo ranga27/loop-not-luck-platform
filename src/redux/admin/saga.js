@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   all,
   call,
@@ -7,7 +6,6 @@ import {
   fork,
   takeLeading,
 } from 'redux-saga/effects';
-import firebase from 'firebase/app';
 import {
   GET_USERS_REQUESTED,
   UPDATE_ROLE,
@@ -32,12 +30,11 @@ import {
   addCompanyToFirestore,
   fetchCompaniesFromFirestore,
 } from '../../app/firestore/firestoreService';
+import { getUsersList, setUserRole } from '../../app/firestore/firebaseService';
 
 const fetchUsersAsync = async () => {
   // TODO: create a wrapper funtion for firebase.functions, to make code backend agnostic
-  const fetchUsersFunction = firebase.functions().httpsCallable('getUsersList');
-  const results = await fetchUsersFunction();
-  return results.data;
+  return getUsersList;
 };
 
 function* fetchUsers() {
@@ -55,8 +52,7 @@ function* fetchUsers() {
 }
 
 const updateRoleAsync = async (uid, role) => {
-  const updateRoleFunction = firebase.functions().httpsCallable('setUserRole');
-  return updateRoleFunction({ uid, role });
+  return setUserRole(uid, role);
 };
 
 function* updateUserRole({ payload }) {

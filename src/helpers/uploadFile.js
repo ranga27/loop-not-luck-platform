@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 
 const prefix = 'https://storage.googleapis.com/loop-luck.appspot.com/';
 

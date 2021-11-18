@@ -1,34 +1,45 @@
-import firebase from 'firebase/app';
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth';
+import { httpsCallable } from 'firebase/functions';
+import { serverTimestamp } from 'firebase/firestore';
+import { auth, functions } from '../../helpers/Firebase';
 import { updateUserInFirestore } from './firestoreService';
+
+export async function verifyEmail() {
+  // TODO: implement custom template
+  return sendEmailVerification(auth.currentUser);
+}
+
+export async function getUsersList() {
+  const getUsersListFunction = httpsCallable(functions, 'getUsersList');
+  const results = await getUsersListFunction();
+  return results.data;
+}
+
+export async function setUserRole(uid, role) {
+  const updateRoleFunction = httpsCallable(functions, 'setUserRole');
+  return updateRoleFunction({ uid, role });
+}
 
 export async function registerInFirebase(email, password, role) {
   try {
     // Create a new user account
-    const userCred = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password);
-    const { uid } = userCred.user;
-    const updateRoleFunction = firebase
-      .functions()
-      .httpsCallable('setUserRole');
-    updateRoleFunction({ uid, role });
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const { uid } = userCredential.user;
+    setUserRole(uid, role);
     updateUserInFirestore({
       uid,
       email,
       role,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: serverTimestamp(),
     });
     return uid;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-export async function registerInFirestore(email, password) {
-  try {
-    // Create a new user account
-    return firebase.auth().createUserWithEmailAndPassword(email, password);
   } catch (error) {
     console.error(error);
     throw error;

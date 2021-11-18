@@ -29,10 +29,7 @@ import {
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { locations, applicationOptions, positionTypes } from '../../data';
 
-import {
-  updateOpportunityInFirestore,
-  updateOpportunityInMobileAppFirestore,
-} from '../../app/firestore/firestoreService';
+import { updateOpportunityInFirestore } from '../../app/firestore/firestoreService';
 import { selectedRole } from '../../redux/actions';
 import { uploadFile } from '../../helpers/uploadFile';
 
@@ -92,7 +89,6 @@ const RoleDetails = () => {
       };
       console.log('SUBMIT: ', opportunity);
       await updateOpportunityInFirestore(opportunity);
-      await updateOpportunityInMobileAppFirestore(opportunity);
       dispatch(selectedRole(opportunity));
       actions.resetForm(values);
       actions.setSubmitting(false);

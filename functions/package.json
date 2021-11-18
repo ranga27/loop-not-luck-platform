@@ -1,17 +1,17 @@
 {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
+  "name": "loop-not-luck-platform-cloud-functions",
+  "description": "Cloud Functions for Loop Not Luck Platform",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "./node_modules/.bin/eslint --max-warnings=0 .",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "build": "babel ./src --out-dir ./build"
+    "build": "babel ./index.js --out-dir ./build"
   },
   "engines": {
-    "node": "12"
+    "node": "14"
   },
   "main": "index.js",
   "dependencies": {

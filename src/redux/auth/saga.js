@@ -30,7 +30,10 @@ import {
 } from '../../app/firestore/firestoreService';
 // eslint-disable-next-line import/no-cycle
 import { persistor } from '../store';
-import { registerInFirebase } from '../../app/firestore/firebaseService';
+import {
+  registerInFirebase,
+  verifyEmail,
+} from '../../app/firestore/firebaseService';
 
 const currentUser = {};
 
@@ -91,6 +94,10 @@ const registerWithEmailPasswordAsync = async (email, password, role) => {
   return registerInFirebase(email, password, role);
 };
 
+const verifyEmailAsync = async () => {
+  return verifyEmail();
+};
+
 function* registerWithEmailPassword({ payload }) {
   const { email, password, role } = payload.user;
   try {
@@ -101,7 +108,7 @@ function* registerWithEmailPassword({ payload }) {
       role
     );
     if (!registerUser.message) {
-      auth.currentUser.sendEmailVerification();
+      yield call(verifyEmailAsync);
       yield put(registerUserSuccess('success'));
     } else {
       yield put(registerUserError(registerUser.message));

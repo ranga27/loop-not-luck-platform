@@ -24,8 +24,8 @@ const selectData = [
   { label: 'Super Admin', value: 'super', key: 0 },
   { label: 'Admin', value: 'admin', key: 1 },
   { label: 'Editor', value: 'editor', key: 2 },
-  { label: 'Candidate', value: 'candidate', key: 2 },
-  { label: 'Employer', value: 'employer', key: 2 },
+  { label: 'Candidate', value: 'candidate', key: 3 },
+  { label: 'Employer', value: 'employer', key: 4 },
 ];
 
 export const Users = ({ match }) => {
