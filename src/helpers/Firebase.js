@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
@@ -10,6 +11,6 @@ const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 const functions = getFunctions(firebaseApp);
 
-connectFunctionsEmulator(functions, 'localhost', 5001);
+// connectFunctionsEmulator(functions, 'localhost', 5001);
 
 export { auth, db, functions };

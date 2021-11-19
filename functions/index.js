@@ -1,3 +1,4 @@
+/* eslint object-curly-spacing: ["error", "always"]*/
 const functions = require('firebase-functions');
 const { initializeApp } = require('firebase-admin/app');
 const { getAuth } = require('firebase-admin/auth');
