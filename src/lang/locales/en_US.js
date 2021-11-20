@@ -143,6 +143,9 @@ module.exports = {
   'pages.prices.featurecomparison': 'Feature Comparison',
   'pages.prices.pricecomparison': 'Price Comparison',
 
+  /* Forms */
+  'forms.gender': 'Gender',
+
   /* 07.06.Charts */
   'charts.line': 'Line Chart',
   'charts.polar': 'Polar Chart',

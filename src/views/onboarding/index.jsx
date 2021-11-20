@@ -1,26 +1,57 @@
-import React, { Suspense } from 'react';
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-param-reassign */
+import React, { Suspense, createRef, useState } from 'react';
 import { Card, CardBody, Row } from 'reactstrap';
-import { Wizard, Steps, Step } from 'react-albus';
+import { Wizard, Steps } from 'react-albus';
 import { injectIntl } from 'react-intl';
-import { motion } from 'framer-motion';
 import BottomNavigation from '../../components/wizard/BottomNavigation';
 import TopNavigation from '../../components/wizard/TopNavigation';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import IntlMessages from '../../helpers/IntlMessages';
 import UserLayout from '../../layout/UserLayout';
+import { Step1 } from './Step1';
+import { Step2 } from './Step2';
+import { Step3 } from './Step3';
+import { Step4 } from './Step4';
 
 const Onboarding = ({ intl }) => {
+  const forms = [createRef(null), createRef(null), createRef(null)];
+  const [bottomNavHidden, setBottomNavHidden] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [fields, setFields] = useState({
+    gender: '',
+    email: '',
+    password: '',
+  });
   const topNavClick = (stepItem, push) => {
     push(stepItem.id);
   };
 
   const onClickNext = (goToNext, steps, step) => {
-    // eslint-disable-next-line no-param-reassign
-    step.isDone = true;
     if (steps.length - 1 <= steps.indexOf(step)) {
       return;
     }
-    goToNext();
+    const formIndex = steps.indexOf(step);
+    const form = forms[formIndex].current;
+
+    form.submitForm().then(() => {
+      if (!form.isDirty && form.isValid) {
+        const newFields = { ...fields, ...form.values };
+        setFields(newFields);
+
+        if (steps.length - 2 <= steps.indexOf(step)) {
+          // done
+          setBottomNavHidden(true);
+          setLoading(true);
+          console.log(newFields);
+          setTimeout(() => {
+            setLoading(false);
+          }, 3000);
+        }
+        goToNext();
+        step.isDone = true;
+      }
+    });
   };
 
   const onClickPrev = (goToPrev, steps, step) => {
@@ -40,71 +71,21 @@ const Onboarding = ({ intl }) => {
               <CardBody className="wizard wizard-default">
                 <Wizard>
                   <TopNavigation
-                    className="justify-content-between"
-                    disableNav={false}
-                    topNavClick={topNavClick}
+                    className="justify-content-center"
+                    disableNav
                   />
                   <Steps>
-                    <Step
-                      id="step1"
-                      name={messages['wizard.step-name-1']}
-                      desc={messages['wizard.step-desc-1']}
-                    >
-                      <motion.div
-                        className="col-md-6 offset-md-3"
-                        animate={{ opacity: 1, y: 0 }}
-                        initial={{ opacity: 0, y: 20 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.15 }}
-                      >
-                        <div className="wizard-basic-step text-center">
-                          <p>
-                            <IntlMessages id="wizard.content-1" />
-                          </p>
-                        </div>
-                      </motion.div>
-                    </Step>
-                    <Step
-                      id="step2"
-                      name={messages['wizard.step-name-2']}
-                      desc={messages['wizard.step-desc-2']}
-                    >
-                      <motion.div
-                        className="col-md-6 offset-md-3"
-                        animate={{ opacity: 1, y: 0 }}
-                        initial={{ opacity: 0, y: 20 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.15 }}
-                      >
-                        <div className="wizard-basic-step text-center">
-                          <p>
-                            <IntlMessages id="wizard.content-2" />
-                          </p>
-                        </div>
-                      </motion.div>
-                    </Step>
-                    <Step
-                      id="step3"
-                      name={messages['wizard.step-name-3']}
-                      desc={messages['wizard.step-desc-3']}
-                      hideTopNav
-                    >
-                      <motion.div animate={{ scale: 1.5 }}>
-                        <div className="wizard-basic-step text-center">
-                          <p className="mb-2">
-                            <IntlMessages id="wizard.content-thanks" />
-                          </p>
-                          <p>
-                            <IntlMessages id="wizard.content-3" />
-                          </p>
-                        </div>
-                      </motion.div>
-                    </Step>
+                    {Step1(forms[0], fields, messages)}
+                    {Step2(forms[1], fields, messages)}
+                    {Step3(forms[2], fields, messages)}
+                    {Step4(loading)}
                   </Steps>
                   <BottomNavigation
                     onClickNext={onClickNext}
                     onClickPrev={onClickPrev}
-                    className="justify-content-between"
+                    className={`justify-content-center ${
+                      bottomNavHidden && 'invisible'
+                    }`}
                     prevLabel={messages['wizard.prev']}
                     nextLabel={messages['wizard.next']}
                   />
