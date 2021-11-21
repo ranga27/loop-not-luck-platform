@@ -13,16 +13,18 @@ import { Step1 } from './Step1';
 import { Step2 } from './Step2';
 import { Step3 } from './Step3';
 import { Step4 } from './Step4';
+import { Step5 } from './Step5';
 
 const Onboarding = ({ intl }) => {
-  const forms = [createRef(null), createRef(null), createRef(null)];
+  const forms = [
+    createRef(null),
+    createRef(null),
+    createRef(null),
+    createRef(null),
+  ];
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [fields, setFields] = useState({
-    gender: '',
-    email: '',
-    password: '',
-  });
+  const [fields, setFields] = useState({});
   const topNavClick = (stepItem, push) => {
     push(stepItem.id);
   };
@@ -46,7 +48,7 @@ const Onboarding = ({ intl }) => {
           console.log(newFields);
           setTimeout(() => {
             setLoading(false);
-          }, 3000);
+          }, 1000);
         }
         goToNext();
         step.isDone = true;
@@ -78,7 +80,8 @@ const Onboarding = ({ intl }) => {
                     {Step1(forms[0], fields, messages)}
                     {Step2(forms[1], fields, messages)}
                     {Step3(forms[2], fields, messages)}
-                    {Step4(loading)}
+                    {Step4(forms[3], fields, messages)}
+                    {Step5(loading)}
                   </Steps>
                   <BottomNavigation
                     onClickNext={onClickNext}

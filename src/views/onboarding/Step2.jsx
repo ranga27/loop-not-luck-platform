@@ -1,50 +1,75 @@
+/* eslint-disable import/prefer-default-export */
 import React from 'react';
 import { FormGroup, Label } from 'reactstrap';
+import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { motion } from 'framer-motion';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
+import { FormikCustomRadioGroup } from '../../components/FormikCustomRadioGroup';
 
-export const validateEmail = (value) => {
-  let error;
-  if (!value) {
-    error = 'Please enter your email address';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    error = 'Invalid email address';
-  }
-  return error;
-};
+// TODO: move to constants
+const options = [
+  {
+    label: 'Neither of my parents have attended university',
+    value: 'Neither of my parents have attended university',
+  },
+  {
+    label: 'One of my parents has attended university',
+    value: 'One of my parents has attended university',
+  },
+  {
+    label: 'I was on free school meals at school',
+    value: 'I was on free school meals at school',
+  },
+  {
+    label: 'Publically funded education',
+    value: 'Publically funded education',
+  },
+  { label: 'Privately funded education', value: 'Privately funded education' },
+  {
+    label: 'Identify with the LGBTQIA+ community',
+    value: 'Identify with the LGBTQIA+ community',
+  },
+];
 
+// TODO: pass schema from parent
+const validationSchema = Yup.object().shape({
+  diversity: Yup.string().required('Select at least one option'),
+});
 export function Step2(form, fields, messages) {
   return (
     <Step id="step2">
       <motion.div
-        className="col-md-6 offset-md-3"
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 20 }}
         exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.15 }}
+        transition={{ duration: 0.5 }}
       >
         <div className="wizard-basic-step">
           <Formik
+            validationSchema={validationSchema}
             innerRef={form}
             initialValues={{
-              name: fields.email,
+              diversity: fields.diversity,
             }}
             validateOnMount
             onSubmit={() => {}}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
               <Form className="av-tooltip tooltip-label-right error-l-75">
                 <FormGroup>
-                  <Label>{messages['forms.email']}</Label>
-                  <Field
-                    className="form-control"
-                    name="email"
-                    validate={validateEmail}
+                  <Label>{messages['forms.diversity']}</Label>
+                  <FormikCustomRadioGroup
+                    name="diversity"
+                    id="diversity"
+                    value={values.diversity}
+                    onChange={setFieldValue}
+                    onBlur={setFieldTouched}
+                    options={options}
                   />
-                  {errors.email && touched.email && (
+                  {errors.diversity && touched.diversity && (
                     <div className="invalid-feedback d-block">
-                      {errors.email}
+                      {errors.diversity}
                     </div>
                   )}
                 </FormGroup>

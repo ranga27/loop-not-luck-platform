@@ -145,6 +145,11 @@ module.exports = {
 
   /* Forms */
   'forms.gender': 'Gender',
+  'forms.diversity':
+    'We specialise in helping diverse talent access entry-level opportunities. Please select any options that apply to you.',
+  'forms.ethnicity': 'What is your ethnicity?',
+  'forms.disability':
+    'Do you consider yourself to have a disability? Specify below',
 
   /* 07.06.Charts */
   'charts.line': 'Line Chart',
