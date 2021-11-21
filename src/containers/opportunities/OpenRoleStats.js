@@ -11,7 +11,6 @@ import {
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import SmallLineCharts from '../pages/SmallLineCharts';
 import Tickets from '../pages/Tickets';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import data from '../../data/roles';
@@ -64,9 +63,7 @@ const OpenRoleStats = () => {
           <TabPane tabId={roleId}>
             <Row>
               {/* {data[roleId - 1].clicks} */}
-              <Colxx lg="12" md="12">
-                <SmallLineCharts itemClass="dashboard-small-chart-analytics" />
-              </Colxx>
+              <Colxx lg="12" md="12" />
               <Colxx lg="12" md="12" className="mb-4">
                 <Tickets />
               </Colxx>

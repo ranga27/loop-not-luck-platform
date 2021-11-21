@@ -184,7 +184,7 @@ module.exports = {
   'wizard.content-thanks': 'Thank You!',
   'wizard.next': 'Next',
   'wizard.prev': 'Back',
-  'wizard.registered': 'Your registration completed successfully!',
+  'wizard.registered': 'Your onboarding completed successfully!',
   'wizard.async': 'Saving!',
 
   'forms.firstName': 'First Name',

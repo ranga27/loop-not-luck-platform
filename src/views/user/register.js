@@ -30,6 +30,7 @@ const Register = ({ history }) => {
         title: 'Oops...',
         text: error,
       });
+      dispatch(setAuthError(''));
     } else if (!loading && currentUser === 'success') {
       Swal.fire(
         'Awesome!',
@@ -38,8 +39,8 @@ const Register = ({ history }) => {
       ).then((result) => {
         if (result.isConfirmed || result.isDismissed) {
           // Firebase signs in user, hence sign out immediately to verify email
-          dispatch(logoutUser(history));
           dispatch(setAuthError(''));
+          dispatch(logoutUser(history));
           history.push('/');
         }
       });
