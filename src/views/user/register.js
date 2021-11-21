@@ -10,9 +10,9 @@ import Swal from 'sweetalert2';
 import { registerUser, logoutUser, setAuthError } from '../../redux/actions';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
-import { SignUpSchema } from './SignUpSchema';
+import { SignUpSchema } from './SignupSchema';
 import AuthButton from './AuthButton';
-import { FormikRadioButtonGroup } from '../../components/FormikRadioButtonGroup';
+import { FormikCustomRadioGroup } from '../../components/FormikCustomRadioGroup';
 
 const Register = ({ history }) => {
   const { loading, error, currentUser } = useSelector(
@@ -105,7 +105,7 @@ const Register = ({ history }) => {
             <div className="d-flex justify-content-end align-items-center">
               <FormGroup className="form-group mb-4">
                 <Label className="d-block">Select One</Label>
-                <FormikRadioButtonGroup
+                <FormikCustomRadioGroup
                   inline
                   name="role"
                   id="role"

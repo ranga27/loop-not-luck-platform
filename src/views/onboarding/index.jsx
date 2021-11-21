@@ -14,9 +14,11 @@ import { Step2 } from './Step2';
 import { Step3 } from './Step3';
 import { Step4 } from './Step4';
 import { Step5 } from './Step5';
+import { Step6 } from './Step6';
 
 const Onboarding = ({ intl }) => {
   const forms = [
+    createRef(null),
     createRef(null),
     createRef(null),
     createRef(null),
@@ -81,7 +83,8 @@ const Onboarding = ({ intl }) => {
                     {Step2(forms[1], fields, messages)}
                     {Step3(forms[2], fields, messages)}
                     {Step4(forms[3], fields, messages)}
-                    {Step5(loading)}
+                    {Step5(forms[4], fields, messages)}
+                    {Step6(loading)}
                   </Steps>
                   <BottomNavigation
                     onClickNext={onClickNext}

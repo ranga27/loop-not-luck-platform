@@ -71,11 +71,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "precommit": "lint-staged",
-    "deploy": "npm run build && firebase deploy --only hosting",
-    "functions:build": "npm run build --prefix ./functions",
-    "functions:deploy": "npm run functions:build && firebase deploy --only functions",
-    "functions:watch": "nodemon --watch ./functions --ignore ./functions/build --exec 'npm run functions:build'",
-    "functions:dev": "concurrently 'npm run functions:watch' 'firebase emulators:start --only functions'"
+    "deploy": "yarn build && firebase deploy --only hosting",
+    "functions:deploy": "cd functions && firebase deploy --only functions"
   },
   "browserslist": [
     ">0.2%",
@@ -90,7 +87,6 @@
     "@babel/plugin-transform-react-jsx": "^7.14.5",
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
-    "concurrently": "^6.0.2",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -98,7 +94,6 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
-    "nodemon": "^2.0.4",
     "prettier": "^2.2.1",
     "redux-devtools-extension": "^2.13.9"
   }
