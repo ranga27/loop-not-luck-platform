@@ -25,10 +25,13 @@ const options = [
     label: 'Publically funded education',
     value: 'Publically funded education',
   },
-  { label: 'Privately funded education', value: 'Privately funded education' },
   {
     label: 'Identify with the LGBTQIA+ community',
     value: 'Identify with the LGBTQIA+ community',
+  },
+  {
+    label: 'None',
+    value: 'None',
   },
 ];
 

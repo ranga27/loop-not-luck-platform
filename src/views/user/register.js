@@ -34,7 +34,7 @@ const Register = ({ history }) => {
     } else if (!loading && currentUser === 'success') {
       Swal.fire(
         'Awesome!',
-        "You're successfully registered! Check your E-Mails (Spam folder included) for a confirmation E-Mail. Login once you confirmed your E-Mail.",
+        'You are nearly in the loop. Please click the link the email just sent to verify your account.',
         'success'
       ).then((result) => {
         if (result.isConfirmed || result.isDismissed) {

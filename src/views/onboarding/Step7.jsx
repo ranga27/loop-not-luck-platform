@@ -9,26 +9,38 @@ import { FormikCustomRadioGroup } from '../../components/FormikCustomRadioGroup'
 
 // TODO: move to constants
 const options = [
-  { label: 'Full-time roles', value: 'Full-time roles' },
-  { label: 'Part-time roles', value: 'Part-time roles' },
-  { label: 'Internships', value: 'Internships' },
-  { label: 'Scholarships', value: 'Scholarships' },
-  { label: 'Graduate Schemes', value: 'Graduate Schemes' },
-  { label: 'Graduate Jobs', value: 'Graduate Jobs' },
-  { label: 'Company Events', value: 'Company Events' },
-  { label: 'Insight Days', value: 'Insight Days' },
-  { label: 'Summer Placements', value: 'Summer Placements' },
-  { label: 'Work Experience', value: 'Work Experience' },
-  { label: 'Industrial Placements', value: 'Industrial Placements' },
+  { label: 'Consulting', value: 'Consulting' },
+  { label: 'Marketing', value: 'Marketing' },
+  {
+    label: 'Project and Programme Management',
+    value: 'Project and Programme Management',
+  },
+  {
+    label: 'Media, journalism, PR and publishing',
+    value: 'Media, journalism, PR and publishing',
+  },
+  { label: 'Engineering', value: 'Engineering' },
+  { label: 'Financial Services', value: 'Financial Services' },
+  { label: 'Travel', value: 'Travel' },
+  { label: 'Beauty, Cosmetics, Fashion', value: 'Beauty, Cosmetics, Fashion' },
+  { label: 'Education', value: 'Education' },
+  { label: 'Technology', value: 'Technology' },
+  { label: 'Law', value: 'Law' },
+  {
+    label: 'National and Local Government/Public Sector',
+    value: 'National and Local Government/Public Sector',
+  },
+  { label: 'Charity and Third Sector', value: 'Charity and Third Sector' },
+  { label: 'Sustainability', value: 'Sustainability' },
 ];
 
 // TODO: pass schema from parent
 const validationSchema = Yup.object().shape({
-  roles: Yup.string().required('Please select'),
+  interests: Yup.string().required('Please select'),
 });
-export function Step5(form, fields, messages) {
+export function Step7(form, fields, messages) {
   return (
-    <Step id="step5">
+    <Step id="step7">
       <motion.div
         className="col-md-6 offset-md-3"
         animate={{ opacity: 1, y: 0 }}
@@ -41,7 +53,7 @@ export function Step5(form, fields, messages) {
             validationSchema={validationSchema}
             innerRef={form}
             initialValues={{
-              roles: fields.roles,
+              interests: fields.interests,
             }}
             validateOnMount
             onSubmit={() => {}}
@@ -49,18 +61,18 @@ export function Step5(form, fields, messages) {
             {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
               <Form className="av-tooltip tooltip-label-right error-l-75">
                 <FormGroup>
-                  <Label>{messages['forms.roles']}</Label>
+                  <Label>{messages['forms.interests']}</Label>
                   <FormikCustomRadioGroup
-                    name="roles"
-                    id="roles"
-                    value={values.roles}
+                    name="interests"
+                    id="interests"
+                    value={values.interests}
                     onChange={setFieldValue}
                     onBlur={setFieldTouched}
                     options={options}
                   />
-                  {errors.roles && touched.roles && (
+                  {errors.interests && touched.interests && (
                     <div className="invalid-feedback d-block">
-                      {errors.roles}
+                      {errors.interests}
                     </div>
                   )}
                 </FormGroup>

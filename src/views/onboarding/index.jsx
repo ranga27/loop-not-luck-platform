@@ -15,15 +15,13 @@ import { Step3 } from './Step3';
 import { Step4 } from './Step4';
 import { Step5 } from './Step5';
 import { Step6 } from './Step6';
+import { Step7 } from './Step7';
+import { Step8 } from './Step8';
 
 const Onboarding = ({ intl }) => {
-  const forms = [
-    createRef(null),
-    createRef(null),
-    createRef(null),
-    createRef(null),
-    createRef(null),
-  ];
+  // TODO: use array.fill
+  // Array of form refs. To use RHF explore ref options
+  const forms = new Array(7).fill(createRef(null));
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fields, setFields] = useState({});
@@ -84,7 +82,9 @@ const Onboarding = ({ intl }) => {
                     {Step3(forms[2], fields, messages)}
                     {Step4(forms[3], fields, messages)}
                     {Step5(forms[4], fields, messages)}
-                    {Step6(loading)}
+                    {Step6(forms[5], fields, messages)}
+                    {Step7(forms[6], fields, messages)}
+                    {Step8(loading)}
                   </Steps>
                   <BottomNavigation
                     onClickNext={onClickNext}
