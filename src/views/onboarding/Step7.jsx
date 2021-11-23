@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { motion } from 'framer-motion';
 import { Formik, Form } from 'formik';
-import { FormikCustomRadioGroup } from '../../components/FormikCustomRadioGroup';
+import { FormikCustomCheckboxGroup } from '../../components/form/FormikCustomCheckboxGroup';
 
 // TODO: move to constants
 const options = [
@@ -36,7 +36,7 @@ const options = [
 
 // TODO: pass schema from parent
 const validationSchema = Yup.object().shape({
-  interests: Yup.string().required('Please select'),
+  interests: Yup.array().required('Please select at least one').min(1),
 });
 export function Step7(form, fields, messages) {
   return (
@@ -62,7 +62,7 @@ export function Step7(form, fields, messages) {
               <Form className="av-tooltip tooltip-label-right error-l-75">
                 <FormGroup>
                   <Label>{messages['forms.interests']}</Label>
-                  <FormikCustomRadioGroup
+                  <FormikCustomCheckboxGroup
                     name="interests"
                     id="interests"
                     value={values.interests}
@@ -70,11 +70,11 @@ export function Step7(form, fields, messages) {
                     onBlur={setFieldTouched}
                     options={options}
                   />
-                  {errors.interests && touched.interests && (
+                  {errors.interests && touched.interests ? (
                     <div className="invalid-feedback d-block">
                       {errors.interests}
                     </div>
-                  )}
+                  ) : null}
                 </FormGroup>
               </Form>
             )}

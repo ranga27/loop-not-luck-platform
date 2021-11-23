@@ -12,7 +12,7 @@ import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
 import { SignUpSchema } from './SignupSchema';
 import AuthButton from './AuthButton';
-import { FormikCustomRadioGroup } from '../../components/FormikCustomRadioGroup';
+import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
 
 const Register = ({ history }) => {
   const { loading, error, currentUser } = useSelector(

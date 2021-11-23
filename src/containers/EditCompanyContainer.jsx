@@ -9,7 +9,7 @@ import { DevTool } from '@hookform/devtools';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 import { companySchema } from '../constants/companySchema';
-import { TextInput, MultiSelect, FileUpload } from '../components/FormFields';
+import { TextInput, MultiSelect, FileUpload } from '../components/form/FormFields';
 import tagOptions from '../data/tagOptions';
 import { uploadFile } from '../helpers/uploadFile';
 import { addCompany } from '../redux/actions';

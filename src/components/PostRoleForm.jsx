@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
 import { OpportunitySchema } from '../constants/opportunitySchema';
-import { CheckBox, DatePicker, SelectField, TextInput } from './FormFields';
+import { CheckBox, DatePicker, SelectField, TextInput } from './form/FormFields';
 import { locations, applicationOptions, positionTypes } from '../data';
 import 'react-datepicker/dist/react-datepicker.css';
 

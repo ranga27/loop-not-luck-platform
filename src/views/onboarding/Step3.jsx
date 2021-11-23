@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { motion } from 'framer-motion';
 import { Formik, Form } from 'formik';
-import { FormikCustomRadioGroup } from '../../components/FormikCustomRadioGroup';
+import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
 
 // TODO: move to constants
 const options = [

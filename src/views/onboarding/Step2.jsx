@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { motion } from 'framer-motion';
 import { Formik, Form } from 'formik';
-import { FormikCustomRadioGroup } from '../../components/FormikCustomRadioGroup';
+import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
 
 // TODO: move to constants
 const options = [
@@ -22,8 +22,8 @@ const options = [
     value: 'I was on free school meals at school',
   },
   {
-    label: 'Publically funded education',
-    value: 'Publically funded education',
+    label: 'Publicaly funded education',
+    value: 'Publicaly funded education',
   },
   {
     label: 'Identify with the LGBTQIA+ community',

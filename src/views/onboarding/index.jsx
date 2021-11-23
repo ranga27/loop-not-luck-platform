@@ -1,5 +1,4 @@
 /* eslint-disable import/no-cycle */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import React, { Suspense, createRef, useState } from 'react';
 import { Card, CardBody, Row } from 'reactstrap';
@@ -24,10 +23,7 @@ const Onboarding = ({ intl }) => {
   const forms = new Array(7).fill(createRef(null));
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [fields, setFields] = useState({});
-  const topNavClick = (stepItem, push) => {
-    push(stepItem.id);
-  };
+  const [fields, setFields] = useState({ interests: '' });
 
   const onClickNext = (goToNext, steps, step) => {
     if (steps.length - 1 <= steps.indexOf(step)) {
