@@ -28,7 +28,7 @@ export const FormikCustomCheckboxGroup = ({
   };
 
   return (
-    <>
+    <div className="form-options justify-content-center">
       {options.map((child, index) => {
         return (
           <CustomInput
@@ -45,6 +45,6 @@ export const FormikCustomCheckboxGroup = ({
           />
         );
       })}
-    </>
+    </div>
   );
 };

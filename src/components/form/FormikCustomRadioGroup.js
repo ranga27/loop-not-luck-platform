@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/prefer-default-export */
-import React from 'react';
+import classNames from 'classnames';
+import React, { useState } from 'react';
 import { CustomInput } from 'reactstrap';
 
 export const FormikCustomRadioGroup = ({
@@ -22,7 +24,7 @@ export const FormikCustomRadioGroup = ({
   };
 
   return (
-    <>
+    <div className="form-options">
       {options.map((child, index) => {
         return (
           <CustomInput
@@ -39,6 +41,6 @@ export const FormikCustomRadioGroup = ({
           />
         );
       })}
-    </>
+    </div>
   );
 };
