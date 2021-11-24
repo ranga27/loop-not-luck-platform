@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Button } from 'reactstrap';
 import { companySchema } from '../constants/companySchema';
-import { TextInput, MultiSelect, FileUpload } from '../components/FormFields';
+import { TextInput, MultiSelect, FileUpload } from '../components/form/FormFields';
 import tagOptions from '../data/tagOptions';
 import { uploadFile } from '../helpers/uploadFile';
 import { addCompany, getCompanies } from '../redux/actions';

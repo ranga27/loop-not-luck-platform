@@ -5,7 +5,7 @@
 import React from 'react';
 import { CustomInput } from 'reactstrap';
 
-export const FormikCustomRadioGroup = ({
+export const FormikCustomCheckboxGroup = ({
   name,
   value,
   options,
@@ -14,7 +14,13 @@ export const FormikCustomRadioGroup = ({
   onBlur,
 }) => {
   const handleChange = (val) => {
-    onChange(name, val);
+    const valueArray = [...value] || [];
+    if (!valueArray.includes(val)) {
+      valueArray.push(val);
+    } else {
+      valueArray.splice(valueArray.indexOf(val), 1);
+    }
+    onChange(name, valueArray);
   };
 
   const handleBlur = () => {
@@ -22,23 +28,23 @@ export const FormikCustomRadioGroup = ({
   };
 
   return (
-    <>
+    <div className="form-options justify-content-center">
       {options.map((child, index) => {
         return (
           <CustomInput
             key={`${name}_${child.value}_${index}`}
-            type="radio"
             id={`${name}_${child.value}_${index}`}
+            type="checkbox"
             name={child.name}
             label={child.label}
             onChange={() => handleChange(child.value)}
             onBlur={handleBlur}
-            checked={value === child.value}
+            checked={value.includes(child.value)}
             disabled={child.disabled}
             inline={inline}
           />
         );
       })}
-    </>
+    </div>
   );
 };

@@ -5,18 +5,26 @@ import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { motion } from 'framer-motion';
 import { Formik, Form } from 'formik';
-import { FormikCustomRadioGroup } from '../../components/FormikCustomRadioGroup';
+import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
 
 // TODO: move to constants
 const options = [
-  { label: 'Yes', value: 'Yes' },
-  { label: 'No', value: 'No' },
-  { label: 'Please Specify', value: 'Please Specify' },
+  { label: 'Full-time roles', value: 'Full-time roles' },
+  { label: 'Part-time roles', value: 'Part-time roles' },
+  { label: 'Internships', value: 'Internships' },
+  { label: 'Scholarships', value: 'Scholarships' },
+  { label: 'Graduate Schemes', value: 'Graduate Schemes' },
+  { label: 'Graduate Jobs', value: 'Graduate Jobs' },
+  { label: 'Company Events', value: 'Company Events' },
+  { label: 'Insight Days', value: 'Insight Days' },
+  { label: 'Summer Placements', value: 'Summer Placements' },
+  { label: 'Work Experience', value: 'Work Experience' },
+  { label: 'Industrial Placements', value: 'Industrial Placements' },
 ];
 
 // TODO: pass schema from parent
 const validationSchema = Yup.object().shape({
-  disability: Yup.string().required('Please select'),
+  roles: Yup.string().required('Please select'),
 });
 export function Step5(form, fields, messages) {
   return (
@@ -33,7 +41,7 @@ export function Step5(form, fields, messages) {
             validationSchema={validationSchema}
             innerRef={form}
             initialValues={{
-              disability: fields.disability,
+              roles: fields.roles,
             }}
             validateOnMount
             onSubmit={() => {}}
@@ -41,18 +49,18 @@ export function Step5(form, fields, messages) {
             {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
               <Form className="av-tooltip tooltip-label-right error-l-75">
                 <FormGroup>
-                  <Label>{messages['forms.disability']}</Label>
+                  <Label>{messages['forms.roles']}</Label>
                   <FormikCustomRadioGroup
-                    name="disability"
-                    id="disability"
-                    value={values.disability}
+                    name="roles"
+                    id="roles"
+                    value={values.roles}
                     onChange={setFieldValue}
                     onBlur={setFieldTouched}
                     options={options}
                   />
-                  {errors.disability && touched.disability && (
+                  {errors.roles && touched.roles && (
                     <div className="invalid-feedback d-block">
-                      {errors.disability}
+                      {errors.roles}
                     </div>
                   )}
                 </FormGroup>

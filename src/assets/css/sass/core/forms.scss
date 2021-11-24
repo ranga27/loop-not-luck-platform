@@ -7,6 +7,10 @@
   color: $primary-color !important;
 }
 
+.form-options {
+  display: flex;
+  flex-direction: column;
+}
 .was-validated .form-control:invalid,
 .form-control.is-invalid,
 .was-validated .custom-select:invalid,

@@ -6,7 +6,7 @@ import ReactDatePicker from 'react-datepicker';
 import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
 import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
-import { companySchema } from '../constants/companySchema';
+import { companySchema } from '../../constants/companySchema';
 
 // TODO: create a smart component passing individual components as children to form: https://codesandbox.io/s/react-hook-form-smart-form-component-forked-iq89z
 

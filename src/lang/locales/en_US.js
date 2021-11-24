@@ -23,7 +23,7 @@ module.exports = {
   'user.first-name': 'First Name',
   'user.email': 'E-mail',
   'user.password': 'Password',
-  'user.forgot-password-question': 'Forget password?',
+  'user.forgot-password-question': 'Forgot password?',
   'user.fullname': 'Full Name',
   'user.login-button': 'LOGIN',
   'user.register-button': 'REGISTER',
@@ -150,6 +150,9 @@ module.exports = {
   'forms.ethnicity': 'What is your ethnicity?',
   'forms.disability':
     'Do you consider yourself to have a disability? Specify below',
+  'forms.roles': 'What type of roles are you interested in?',
+  'forms.start': 'When will you be avalible to start full-time work?',
+  'forms.interests': 'Areas of interest - select all that apply',
 
   /* 07.06.Charts */
   'charts.line': 'Line Chart',
@@ -181,12 +184,12 @@ module.exports = {
   'wizard.content-1': 'Step content for first step.',
   'wizard.content-2': 'Step content for second step.',
   'wizard.content-3': 'Last step content!',
-  'wizard.content-thanks': 'Thank You!',
+  'wizard.content-thanks': 'You are in the loop!',
   'wizard.next': 'Next',
   'wizard.prev': 'Back',
   'wizard.registered': 'Your onboarding completed successfully!',
   'wizard.async': 'Saving!',
-
+  'wizard.end-button': 'Get Started',
   'forms.firstName': 'First Name',
   'forms.lastName': 'Last Name',
   'forms.email': 'E-mail',
