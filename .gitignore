@@ -81,3 +81,4 @@ typings/
 .idea
 .husky
 src/api/services/*.json
+.firebase/hosting.*.cache
