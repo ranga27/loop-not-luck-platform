@@ -64,11 +64,11 @@ export function Step1(form, fields, messages) {
                       name="other"
                       validate={validateOther}
                     />
-                    {errors.other && touched.other ? (
+                    {errors.other && touched.other && (
                       <div className="invalid-feedback d-block">
                         {errors.other}
                       </div>
-                    ) : null}
+                    )}
                   </div>
                 )}
               </FormGroup>

@@ -3,15 +3,25 @@ import React from 'react';
 import { FormGroup, Label } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
 import { ethnicityOptions } from './ethnicityOptions';
 import { StepLayout } from './stepLayout';
 
-// TODO: pass schema from parent
 const validationSchema = Yup.object().shape({
   ethnicity: Yup.string().required('Ethnicity is required'),
 });
+
+const validateOther = (value) => {
+  console.log(value);
+  let error;
+  if (!value) {
+    error = 'Please enter a value for Other';
+  } else if (value.length < 2) {
+    error = 'Value must be longer than 2 characters';
+  }
+  return error;
+};
 
 export function Step3(form, fields, messages) {
   return (
@@ -41,6 +51,22 @@ export function Step3(form, fields, messages) {
                 {errors.ethnicity && touched.ethnicity && (
                   <div className="invalid-feedback d-block">
                     {errors.ethnicity}
+                  </div>
+                )}
+              </FormGroup>
+              <FormGroup>
+                {values.ethnicity === 'Other' && (
+                  <div>
+                    <Field
+                      className="form-control"
+                      name="other"
+                      validate={validateOther}
+                    />
+                    {errors.other && touched.other && (
+                      <div className="invalid-feedback d-block">
+                        {errors.other}
+                      </div>
+                    )}
                   </div>
                 )}
               </FormGroup>

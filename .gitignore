@@ -79,3 +79,4 @@ typings/
 .husky
 src/api/services/*.json
 .firebase/hosting.*.cache
+.firebase/hosting.YnVpbGQ.cache
