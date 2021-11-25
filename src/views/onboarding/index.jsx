@@ -23,7 +23,12 @@ const Onboarding = ({ intl }) => {
   const forms = new Array(7).fill(createRef(null));
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [fields, setFields] = useState({ interests: '', diversity: '' });
+  const [fields, setFields] = useState({
+    interests: '',
+    diversity: '',
+    disability: '',
+    roles: '',
+  });
 
   const onClickNext = (goToNext, steps, step) => {
     if (steps.length - 1 <= steps.indexOf(step)) {
@@ -38,7 +43,7 @@ const Onboarding = ({ intl }) => {
         setFields(newFields);
 
         if (steps.length - 2 <= steps.indexOf(step)) {
-          // done
+          // Onboarding done
           setBottomNavHidden(true);
           setLoading(true);
           console.log(newFields);

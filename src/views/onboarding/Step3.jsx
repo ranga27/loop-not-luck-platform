@@ -13,7 +13,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const validateOther = (value) => {
-  console.log(value);
   let error;
   if (!value) {
     error = 'Please enter a value for Other';
@@ -32,6 +31,7 @@ export function Step3(form, fields, messages) {
           innerRef={form}
           initialValues={{
             ethnicity: fields.ethnicity,
+            other: '',
           }}
           validateOnMount
           onSubmit={() => {}}

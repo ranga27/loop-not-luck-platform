@@ -4,12 +4,14 @@ import { FormGroup, Label } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form } from 'formik';
-import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
 import { roleOptions } from './roleOptions';
 import { StepLayout } from './stepLayout';
+import { FormikCustomCheckboxGroup } from '../../components/form/FormikCustomCheckboxGroup';
 
 const validationSchema = Yup.object().shape({
-  roles: Yup.string().required('Please select'),
+  roles: Yup.array()
+    .required('Select at least one option')
+    .min(1, 'Select at least one option'),
 });
 export function Step5(form, fields, messages) {
   return (
@@ -28,7 +30,7 @@ export function Step5(form, fields, messages) {
             <Form className="av-tooltip tooltip-label-right error-l-75">
               <FormGroup>
                 <Label>{messages['forms.roles']}</Label>
-                <FormikCustomRadioGroup
+                <FormikCustomCheckboxGroup
                   name="roles"
                   id="roles"
                   value={values.roles}

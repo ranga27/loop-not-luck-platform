@@ -5,6 +5,7 @@ import { Step } from 'react-albus';
 import IntlMessages from '../../helpers/IntlMessages';
 import { StepLayout } from './stepLayout';
 
+const handleSubmit = () => {};
 export function Step8(loading) {
   return (
     <Step id="step8" hideTopNav>
@@ -23,7 +24,12 @@ export function Step8(loading) {
                 <IntlMessages id="wizard.content-thanks" />
               </h2>
               <p>
-                <Button color="primary" type="submit" size="lg">
+                <Button
+                  color="primary"
+                  type="submit"
+                  size="lg"
+                  onSubmit={handleSubmit}
+                >
                   <IntlMessages id="wizard.end-button" />
                 </Button>
               </p>
