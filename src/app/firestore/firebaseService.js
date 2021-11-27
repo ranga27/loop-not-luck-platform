@@ -45,6 +45,7 @@ export async function registerInFirebase({ email, password, firstName, role }) {
       role,
       firstName,
       createdAt: serverTimestamp(),
+      isOnboarded: false,
     });
     return uid;
   } catch (error) {
@@ -60,10 +61,10 @@ export async function signInWithEmail(email, password) {
       email,
       password
     );
-    const { emailVerified, uid } = userCredential.user;
+    const { uid, emailVerified } = userCredential.user;
     if (emailVerified) {
       const user = await fetchUserDataFromFirestore(uid);
-      return { ...user, emailVerified };
+      return { uid, emailVerified, ...user };
     }
     return new Error('Email Verification pending, please check your emails');
   } catch (error) {

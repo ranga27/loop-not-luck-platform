@@ -9,12 +9,10 @@ const ViewOnboarding = React.lazy(() =>
   import(/* webpackChunkName: "views-onboarding" */ './onboarding')
 );
 const Private = () => {
-  const { currentUser, isProfileComplete } = useSelector(
-    (state) => state.authUser
-  );
+  const { currentUser } = useSelector((state) => state.authUser);
   return (
     <Suspense fallback={<div className="loading" />}>
-      {currentUser.role === 'candidate' && !isProfileComplete ? (
+      {currentUser.role === 'candidate' && !currentUser.isOnboarded ? (
         <ViewOnboarding />
       ) : (
         <ViewApp />

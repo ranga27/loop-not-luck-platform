@@ -28,7 +28,6 @@ const Login = ({ history }) => {
         text: error,
       }).then((result) => {
         if (result.isConfirmed || result.isDismissed) {
-          // Firebase signs in user, hence sign out immediately to verify email
           dispatch(setAuthError(''));
         }
       });
@@ -72,23 +71,23 @@ const Login = ({ history }) => {
                 </div>
               )}
             </FormGroup>
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex flex-column justify-content-center align-items-center">
               <NavLink to="/user/forgot-password">
                 <IntlMessages id="user.forgot-password-question" />
               </NavLink>
               <AuthButton loading={loading} label="user.login-button" />
+              <p>
+                <br />
+                If you are not a member, please{' '}
+                <NavLink to="/user/register" style={{ color: 'green' }}>
+                  register
+                </NavLink>
+                .
+              </p>
             </div>
           </Form>
         )}
       </Formik>
-      <p className="mb-0">
-        <br />
-        If you are not a member, please{' '}
-        <NavLink to="/user/register" style={{ color: 'green' }}>
-          register
-        </NavLink>
-        .
-      </p>
     </Layout>
   );
 };

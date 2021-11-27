@@ -86,7 +86,7 @@ const ForgotPassword = ({
               )}
             </FormGroup>
 
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-center align-items-center">
               <AuthButton
                 loading={loading}
                 label="user.reset-password-button"

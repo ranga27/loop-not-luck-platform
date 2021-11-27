@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import React, { Suspense, createRef, useState } from 'react';
@@ -63,7 +64,6 @@ const Onboarding = ({ intl }) => {
     }
     goToPrev();
   };
-
   const { messages } = intl;
   return (
     <UserLayout>
@@ -85,7 +85,7 @@ const Onboarding = ({ intl }) => {
                     {Step5(forms[4], fields, messages)}
                     {Step6(forms[5], fields, messages)}
                     {Step7(forms[6], fields, messages)}
-                    {Step8(loading)}
+                    {Step8(loading, fields)}
                   </Steps>
                   <BottomNavigation
                     onClickNext={onClickNext}

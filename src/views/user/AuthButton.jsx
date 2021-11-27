@@ -8,7 +8,7 @@ const AuthButton = ({ loading, label }) => {
       <Button
         color="primary"
         type="submit"
-        className={`btn-shadow btn-multiple-state ${
+        className={`btn-shadow mt-4 btn-multiple-state ${
           loading ? 'show-spinner' : ''
         }`}
         size="lg"

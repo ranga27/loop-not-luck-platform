@@ -31,7 +31,7 @@ export function Step3(form, fields, messages) {
           innerRef={form}
           initialValues={{
             ethnicity: fields.ethnicity,
-            other: '',
+            ethnicityOther: '',
           }}
           validateOnMount
           onSubmit={() => {}}
@@ -59,12 +59,12 @@ export function Step3(form, fields, messages) {
                   <div>
                     <Field
                       className="form-control"
-                      name="other"
+                      name="ethnicityOther"
                       validate={validateOther}
                     />
-                    {errors.other && touched.other && (
+                    {errors.ethnicityOther && touched.ethnicityOther && (
                       <div className="invalid-feedback d-block">
-                        {errors.other}
+                        {errors.ethnicityOther}
                       </div>
                     )}
                   </div>

@@ -164,13 +164,15 @@ function* resetPassword({ payload }) {
     yield put(resetPasswordError(error));
   }
 }
+const updateUserAsync = async (user) => {
+  return updateUserInFirestore(user);
+};
 
 function* updateUser({ payload }) {
   try {
-    yield call(updateUserInFirestore, payload);
+    yield call(updateUserAsync, payload);
     yield put(updateUserSuccess(payload));
   } catch (error) {
-    console.error(error);
     yield put(updateUserError(error.message));
   }
 }

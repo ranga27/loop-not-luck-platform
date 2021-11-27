@@ -2,11 +2,17 @@
 import React from 'react';
 import { Button, Spinner } from 'reactstrap';
 import { Step } from 'react-albus';
+import { useSelector, useDispatch } from 'react-redux';
 import IntlMessages from '../../helpers/IntlMessages';
 import { StepLayout } from './stepLayout';
+import { updateUser } from '../../redux/actions';
 
-const handleSubmit = () => {};
-export function Step8(loading) {
+export function Step8({ loading, fields }) {
+  const dispatch = useDispatch();
+  const { uid } = useSelector((state) => state.authUser.currentUser);
+  const handleClick = () => {
+    dispatch(updateUser({ uid, ...fields, isOnboarded: true }));
+  };
   return (
     <Step id="step8" hideTopNav>
       <StepLayout>
@@ -28,7 +34,7 @@ export function Step8(loading) {
                   color="primary"
                   type="submit"
                   size="lg"
-                  onSubmit={handleSubmit}
+                  onClick={handleClick}
                 >
                   <IntlMessages id="wizard.end-button" />
                 </Button>

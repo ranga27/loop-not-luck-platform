@@ -21,6 +21,7 @@ To build & deploy to Firebase hosting
 - [ ] replace notification manager with sweetalert2
 - [ ] Pagination not working
 - [ ] Forgot password route
+- [ ] Resend email verification
 - [ ] Design same approach for components
 - [ ] Add index.js to all folders for better export
 - [ ] Use security rules in firestore to restrict operations based on custom claims & test
@@ -35,6 +36,7 @@ To build & deploy to Firebase hosting
 - [ ] map over data to create input elements - reduce code and improve readability - refactor the form/page elemets into an array to loop over to create HTML elements - e.g. smart forms
 - [ ] prevent the app to generate unnecessary routes, rather checking current user role on each route it is great to generate only the routes that user have access
 - [ ] upgrade to react router 6 - lots of breaking changes
+- [ ] integrate redux toolkit
 
 ## New Dev instructions
 

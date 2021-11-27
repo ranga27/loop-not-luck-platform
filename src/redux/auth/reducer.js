@@ -21,7 +21,6 @@ import {
 
 const INIT_STATE = {
   currentUser: '',
-  isProfileComplete: false,
   forgotUserMail: '',
   newPassword: '',
   resetPasswordCode: '',
@@ -111,9 +110,7 @@ export default (state = INIT_STATE, { type, payload }) => {
         loading: false,
         currentUser: {
           ...state.currentUser,
-          firstName: payload.firstName,
-          lastName: payload.lastName,
-          email: payload.email,
+          ...payload,
         },
         error: '',
       };

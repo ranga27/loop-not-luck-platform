@@ -102,8 +102,8 @@ const Register = ({ history }) => {
                 </div>
               )}
             </FormGroup>
-            <div className="d-flex justify-content-end align-items-center">
-              <FormGroup className="form-group mb-4">
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <FormGroup className="form-group">
                 <Label className="d-block">Select One</Label>
                 <FormikCustomRadioGroup
                   inline
@@ -119,17 +119,17 @@ const Register = ({ history }) => {
                 ) : null}
               </FormGroup>
               <AuthButton loading={loading} label="user.register-button" />
+              <p className="my-4">
+                If you are a member, please{' '}
+                <NavLink to="/user/login" style={{ color: 'green' }}>
+                  login
+                </NavLink>
+                .
+              </p>
             </div>
           </Form>
         )}
       </Formik>
-      <p className="mb-0">
-        If you are a member, please{' '}
-        <NavLink to="/user/login" style={{ color: 'green' }}>
-          login
-        </NavLink>
-        .
-      </p>
     </Layout>
   );
 };

@@ -11,6 +11,8 @@ export const getUserError = (message) => {
       return 'The user with this email does not exist, please register';
     case /wrong-password/i.test(message):
       return 'Incorrect password, please try again or reset password';
+    case /the-service-is-currently-unavailable/i.test(message):
+      return 'Registration service unavailable, try again';
     default:
       return message;
   }

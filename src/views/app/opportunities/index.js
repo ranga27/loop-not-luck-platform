@@ -20,7 +20,7 @@ const Roles = React.lazy(() =>
 const View = React.lazy(() =>
   import(/* webpackChunkName: "view-roles" */ './ViewRoles')
 );
-
+// TODO: protect routes according to the role, currently unprotected
 const OpportunitiesMenu = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>

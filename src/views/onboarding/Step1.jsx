@@ -32,7 +32,7 @@ export function Step1(form, fields, messages) {
           innerRef={form}
           initialValues={{
             gender: fields.gender,
-            other: '',
+            genderOther: '',
           }}
           validateOnMount
           validationSchema={validationSchema}
@@ -61,12 +61,12 @@ export function Step1(form, fields, messages) {
                   <div>
                     <Field
                       className="form-control"
-                      name="other"
+                      name="genderOther"
                       validate={validateOther}
                     />
-                    {errors.other && touched.other && (
+                    {errors.genderOther && touched.genderOther && (
                       <div className="invalid-feedback d-block">
-                        {errors.other}
+                        {errors.genderOther}
                       </div>
                     )}
                   </div>

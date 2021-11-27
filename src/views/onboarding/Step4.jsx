@@ -13,7 +13,6 @@ const options = [
   { label: 'No', value: 'No' },
 ];
 
-// TODO: pass schema from parent
 const validationSchema = Yup.object().shape({
   disability: Yup.string().required('Please select'),
 });
@@ -37,7 +36,7 @@ export function Step4(form, fields, messages) {
           innerRef={form}
           initialValues={{
             disability: fields.disability,
-            answer: '',
+            disabilityAnswer: '',
           }}
           validateOnMount
           onSubmit={() => {}}
@@ -65,13 +64,13 @@ export function Step4(form, fields, messages) {
                   <div>
                     <Field
                       className="form-control"
-                      name="answer"
+                      name="disabilityAnswer"
                       validate={validateAnswer}
                       placeholder="Please Specify"
                     />
-                    {errors.answer && touched.answer && (
+                    {errors.disabilityAnswer && touched.disabilityAnswer && (
                       <div className="invalid-feedback d-block">
-                        {errors.answer}
+                        {errors.disabilityAnswer}
                       </div>
                     )}
                   </div>
