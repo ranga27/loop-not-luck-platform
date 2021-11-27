@@ -8,15 +8,16 @@ import { UserRole } from '../../constants/defaultValues';
 const Opportunities = React.lazy(() =>
   import(/* webpackChunkName: "opportunities" */ './opportunities')
 );
+const Account = React.lazy(() =>
+  import(/* webpackChunkName: "account" */ './Account')
+);
 const Candidates = React.lazy(() =>
   import(/* webpackChunkName: "candidates" */ './candidates')
 );
 const Admin = React.lazy(() =>
   import(/* webpackChunkName: "admin" */ './admin')
 );
-const Account = React.lazy(() =>
-  import(/* webpackChunkName: "account" */ './Account')
-);
+
 const App = ({ match }) => {
   return (
     <AppLayout>
@@ -33,12 +34,13 @@ const App = ({ match }) => {
               render={(props) => <Opportunities {...props} />}
             />
             <Route
-              path={`${match.url}/candidates`}
-              render={(props) => <Candidates {...props} />}
-            />
-            <Route
               path={`${match.url}/account`}
               render={(props) => <Account {...props} />}
+            />
+            <Route
+              path={`${match.url}/candidates`}
+              render={(props) => <Candidates {...props} />}
+              roles={[UserRole.admin]}
             />
             <ProtectedRoute
               path={`${match.url}/admin`}

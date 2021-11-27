@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const ViewApp = React.lazy(() =>
@@ -8,16 +9,21 @@ const ViewApp = React.lazy(() =>
 const ViewOnboarding = React.lazy(() =>
   import(/* webpackChunkName: "views-onboarding" */ './onboarding')
 );
-const Private = () => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   const { currentUser } = useSelector((state) => state.authUser);
   return (
     <Suspense fallback={<div className="loading" />}>
-      {currentUser.role === 'candidate' && !currentUser.isOnboarded ? (
-        <ViewOnboarding />
-      ) : (
-        <ViewApp />
-      )}
+      <Route
+        {...rest}
+        render={(props) =>
+          currentUser.role === 'candidate' && !currentUser.isOnboarded ? (
+            <ViewOnboarding {...props} />
+          ) : (
+            <ViewApp {...props} />
+          )
+        }
+      />
     </Suspense>
   );
 };
-export default Private;
+export default PrivateRoute;
