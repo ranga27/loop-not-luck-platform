@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { updateUser } from '../../redux/actions';
+import { FormikReactSelect } from '../../components/form/FormikReactSelect';
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -54,6 +55,27 @@ const Account = () => {
                   <FormGroup className="mb-5">
                     <Label>Last Name</Label>
                     <Field className="form-control" name="lastName" />
+                  </FormGroup>
+
+                  <FormGroup className="mb-5 error-l-100">
+                    <Label>Mobile Number</Label>
+                    <Field className="form-control" name="mobileNumber" />
+                  </FormGroup>
+
+                  <FormGroup className="error-l-100">
+                    <Label>Location</Label>
+                    <FormikReactSelect
+                      name="location"
+                      id="location"
+                      value={values.location}
+                      options={locations}
+                      onChange={setFieldValue}
+                    />
+                    {errors.location ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.location}
+                      </div>
+                    ) : null}
                   </FormGroup>
 
                   <FormGroup className="mb-5">
