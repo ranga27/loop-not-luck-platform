@@ -15,22 +15,34 @@ import IntlMessages from '../../helpers/IntlMessages';
 import { updateUser } from '../../redux/actions';
 import { FormikReactSelect } from '../../components/form/FormikReactSelect';
 
+const options = [
+  { label: 'Yes', value: 'Yes' },
+  { label: 'No', value: 'No' },
+];
+
 const Account = () => {
   const dispatch = useDispatch();
   const { loading, currentUser } = useSelector((state) => state.authUser);
-  const { uid, firstName, lastName, email } = currentUser;
+  const { uid, firstName, lastName, email, mobileNumber, visaRequired } =
+    currentUser;
   const initialValues = {
     firstName,
     lastName,
     email,
+    mobileNumber,
+    visaRequired: options.filter((o) => o.value === visaRequired)[0],
   };
-  const onSubmit = async (values, actions) => {
+  const onSubmit = async (values, { setSubmitting }) => {
     try {
-      dispatch(updateUser({ uid, ...values }));
-      actions.setSubmitting(false);
+      const payload = {
+        ...values,
+        visaRequired: values.visaRequired.value,
+      };
+      dispatch(updateUser({ uid, ...payload }));
+      setSubmitting(false);
     } catch (error) {
       console.error(error);
-      actions.setSubmitting(false);
+      setSubmitting(false);
     }
   };
   return (
@@ -41,11 +53,8 @@ const Account = () => {
             <CardTitle>
               <IntlMessages id="forms.account-info" />
             </CardTitle>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={(values, actions) => onSubmit(values, actions)}
-            >
-              {() => (
+            <Formik initialValues={initialValues} onSubmit={onSubmit}>
+              {({ setFieldValue, values, errors, setFieldTouched }) => (
                 <Form className="av-tooltip tooltip-label-right">
                   <FormGroup className="mb-5">
                     <Label>First Name</Label>
@@ -63,17 +72,18 @@ const Account = () => {
                   </FormGroup>
 
                   <FormGroup className="error-l-100">
-                    <Label>Location</Label>
+                    <Label>Visa Sponsorship Required?</Label>
                     <FormikReactSelect
-                      name="location"
-                      id="location"
-                      value={values.location}
-                      options={locations}
+                      name="visaRequired"
+                      id="visaRequired"
+                      value={values.visaRequired}
+                      options={options}
                       onChange={setFieldValue}
+                      onBlur={setFieldTouched}
                     />
-                    {errors.location ? (
+                    {errors.visaRequired ? (
                       <div className="invalid-feedback d-block">
-                        {errors.location}
+                        {errors.visaRequired}
                       </div>
                     ) : null}
                   </FormGroup>
@@ -89,6 +99,7 @@ const Account = () => {
                   </FormGroup>
 
                   <Button
+                    type="submit"
                     color="primary"
                     className={`btn-shadow btn-multiple-state ${
                       loading ? 'show-spinner' : ''
