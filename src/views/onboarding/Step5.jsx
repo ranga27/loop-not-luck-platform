@@ -9,7 +9,7 @@ import { StepLayout } from './stepLayout';
 import { FormikCustomCheckboxGroup } from '../../components/form/FormikCustomCheckboxGroup';
 
 const validationSchema = Yup.object().shape({
-  roles: Yup.array()
+  rolesInterestedIn: Yup.array()
     .required('Select at least one option')
     .min(1, 'Select at least one option'),
 });
@@ -21,7 +21,7 @@ export function Step5(form, fields, messages) {
           validationSchema={validationSchema}
           innerRef={form}
           initialValues={{
-            roles: fields.roles,
+            rolesInterestedIn: fields.rolesInterestedIn,
           }}
           validateOnMount
           onSubmit={() => {}}
@@ -31,15 +31,17 @@ export function Step5(form, fields, messages) {
               <FormGroup>
                 <Label>{messages['forms.roles']}</Label>
                 <FormikCustomCheckboxGroup
-                  name="roles"
-                  id="roles"
-                  value={values.roles}
+                  name="rolesInterestedIn"
+                  id="rolesInterestedIn"
+                  value={values.rolesInterestedIn}
                   onChange={setFieldValue}
                   onBlur={setFieldTouched}
                   options={roleOptions}
                 />
-                {errors.roles && touched.roles && (
-                  <div className="invalid-feedback d-block">{errors.roles}</div>
+                {errors.rolesInterestedIn && touched.rolesInterestedIn && (
+                  <div className="invalid-feedback d-block">
+                    {errors.rolesInterestedIn}
+                  </div>
                 )}
               </FormGroup>
             </Form>

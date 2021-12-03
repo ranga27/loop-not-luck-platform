@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import {
@@ -14,6 +15,8 @@ import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { updateUser } from '../../redux/actions';
 import { FormikReactSelect } from '../../components/form/FormikReactSelect';
+import { FormikDatePicker } from '../../components/form/FormikDatePicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const options = [
   { label: 'Yes', value: 'Yes' },
@@ -23,8 +26,15 @@ const options = [
 const Account = () => {
   const dispatch = useDispatch();
   const { loading, currentUser } = useSelector((state) => state.authUser);
-  const { uid, firstName, lastName, email, mobileNumber, visaRequired } =
-    currentUser;
+  const {
+    uid,
+    firstName,
+    lastName,
+    email,
+    mobileNumber,
+    visaRequired,
+    graduationYear,
+  } = currentUser;
   const initialValues = {
     firstName,
     lastName,
@@ -86,6 +96,20 @@ const Account = () => {
                         {errors.visaRequired}
                       </div>
                     ) : null}
+                  </FormGroup>
+
+                  <FormGroup className="mb-5">
+                    <Label>Graduation Year</Label>
+                    <FormikDatePicker
+                      className="form-control"
+                      name="graduationYear"
+                      value={values.graduationYear}
+                      onChange={setFieldValue}
+                      onBlur={setFieldTouched}
+                      showYearPicker
+                      dateFormat="yyyy"
+                      yearItemNumber={9}
+                    />
                   </FormGroup>
 
                   <FormGroup className="mb-5">
