@@ -1,4 +1,13 @@
-import { doc, collection, setDoc, addDoc, getDoc } from 'firebase/firestore';
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
+import {
+  doc,
+  collection,
+  setDoc,
+  addDoc,
+  getDoc,
+  Timestamp,
+} from 'firebase/firestore';
 import { db } from '../../helpers/Firebase';
 
 // Create a new user document in user collection if it does not exists. Else update the document.
@@ -28,7 +37,15 @@ export async function updateOpportunityInFirestore(opportunity) {
 export async function fetchUserDataFromFirestore(uid) {
   const docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
-  return docSnap.data();
+  const data = docSnap.data();
+  for (const prop in data) {
+    if (data.hasOwnProperty(prop)) {
+      if (data[prop] instanceof Timestamp) {
+        data[prop] = data[prop].toDate().toUTCString();
+      }
+    }
+  }
+  return data;
 }
 
 export async function fetchCompaniesFromFirestore() {

@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
@@ -9,6 +10,7 @@ import {
   Label,
   Button,
   FormGroup,
+  CustomInput,
 } from 'reactstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { Colxx } from '../../components/common/CustomBootstrap';
@@ -34,6 +36,7 @@ const Account = () => {
     mobileNumber,
     visaRequired,
     graduationYear,
+    degreeSubject,
   } = currentUser;
   const initialValues = {
     firstName,
@@ -41,6 +44,8 @@ const Account = () => {
     email,
     mobileNumber,
     visaRequired: options.filter((o) => o.value === visaRequired)[0],
+    graduationYear: new Date(graduationYear),
+    degreeSubject,
   };
   const onSubmit = async (values, { setSubmitting }) => {
     try {
@@ -48,7 +53,18 @@ const Account = () => {
         ...values,
         visaRequired: values.visaRequired.value,
       };
-      dispatch(updateUser({ uid, ...payload }));
+      alert(
+        JSON.stringify(
+          {
+            fileName: values.cv.name,
+            type: values.cv.type,
+            size: `${values.cv.size} bytes`,
+          },
+          null,
+          2
+        )
+      );
+      // dispatch(updateUser({ uid, ...payload }));
       setSubmitting(false);
     } catch (error) {
       console.error(error);
@@ -109,6 +125,23 @@ const Account = () => {
                       showYearPicker
                       dateFormat="yyyy"
                       yearItemNumber={9}
+                    />
+                  </FormGroup>
+
+                  <FormGroup className="mb-5 error-l-100">
+                    <Label>Degree Subject</Label>
+                    <Field className="form-control" name="degreeSubject" />
+                  </FormGroup>
+
+                  <FormGroup className="mb-5 error-l-100">
+                    <Label>Upload CV</Label>
+                    <CustomInput
+                      type="file"
+                      name="cv"
+                      id="cv"
+                      onChange={(event) => {
+                        setFieldValue('cv', event.currentTarget.files[0]);
+                      }}
                     />
                   </FormGroup>
 
