@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import Swal from 'sweetalert2';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { updateUser } from '../../redux/actions';
@@ -56,10 +57,19 @@ const Account = () => {
         ...values,
         visaRequired: values.visaRequired.value,
       };
-      const storageRef = ref(storage, `cv/${uid}.pdf`);
-      uploadBytes(storageRef, values.cv).then((metadata) => {
-        console.log('Uploaded CV file!', storageRef.fullPath);
-      });
+      console.log(values.cv.type);
+      if (values.cv.type === 'application/pdf') {
+        const storageRef = ref(storage, `cv/${uid}.pdf`);
+        uploadBytes(storageRef, values.cv).then((metadata) => {
+          console.log('Uploaded CV file!', storageRef.fullPath);
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Only PDF files allowed',
+        });
+      }
       /* alert(
         JSON.stringify(
           {
