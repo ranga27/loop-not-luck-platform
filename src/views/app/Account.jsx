@@ -13,6 +13,7 @@ import {
   CustomInput,
 } from 'reactstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { updateUser } from '../../redux/actions';
@@ -26,6 +27,8 @@ const options = [
 ];
 
 const Account = () => {
+  const storage = getStorage();
+
   const dispatch = useDispatch();
   const { loading, currentUser } = useSelector((state) => state.authUser);
   const {
@@ -53,7 +56,11 @@ const Account = () => {
         ...values,
         visaRequired: values.visaRequired.value,
       };
-      alert(
+      const storageRef = ref(storage, `cv/${uid}.pdf`);
+      uploadBytes(storageRef, values.cv).then((metadata) => {
+        console.log('Uploaded CV file!', storageRef.fullPath);
+      });
+      /* alert(
         JSON.stringify(
           {
             fileName: values.cv.name,
@@ -63,7 +70,7 @@ const Account = () => {
           null,
           2
         )
-      );
+      ); */
       // dispatch(updateUser({ uid, ...payload }));
       setSubmitting(false);
     } catch (error) {
