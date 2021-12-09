@@ -13,14 +13,13 @@ import {
   CustomInput,
 } from 'reactstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
-import Swal from 'sweetalert2';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { updateUser } from '../../redux/actions';
 import { FormikReactSelect } from '../../components/form/FormikReactSelect';
 import { FormikDatePicker } from '../../components/form/FormikDatePicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { uploadFile } from './uploadFile';
 
 const options = [
   { label: 'Yes', value: 'Yes' },
@@ -28,8 +27,6 @@ const options = [
 ];
 
 const Account = () => {
-  const storage = getStorage();
-
   const dispatch = useDispatch();
   const { loading, currentUser } = useSelector((state) => state.authUser);
   const {
@@ -53,35 +50,14 @@ const Account = () => {
   };
   const onSubmit = async (values, { setSubmitting }) => {
     try {
-      const payload = {
-        ...values,
-        visaRequired: values.visaRequired.value,
-      };
-      console.log(values.cv.type);
-      if (values.cv.type === 'application/pdf') {
-        const storageRef = ref(storage, `cv/${uid}.pdf`);
-        uploadBytes(storageRef, values.cv).then((metadata) => {
-          console.log('Uploaded CV file!', storageRef.fullPath);
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Only PDF files allowed',
-        });
+      const cvUrl = await uploadFile(values.cv, uid, firstName);
+      if (cvUrl) {
+        const payload = {
+          ...values,
+          visaRequired: values.visaRequired.value,
+        };
+        dispatch(updateUser({ uid, ...payload }));
       }
-      /* alert(
-        JSON.stringify(
-          {
-            fileName: values.cv.name,
-            type: values.cv.type,
-            size: `${values.cv.size} bytes`,
-          },
-          null,
-          2
-        )
-      ); */
-      // dispatch(updateUser({ uid, ...payload }));
       setSubmitting(false);
     } catch (error) {
       console.error(error);
@@ -151,7 +127,7 @@ const Account = () => {
                   </FormGroup>
 
                   <FormGroup className="mb-5 error-l-100">
-                    <Label>Upload CV</Label>
+                    <Label>Upload CV (PDF files smaller than 1MB)</Label>
                     <CustomInput
                       type="file"
                       name="cv"

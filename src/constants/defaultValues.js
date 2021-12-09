@@ -32,18 +32,12 @@ export const firebaseConfig = {
   measurementId: 'G-VYCHZLSDJZ',
 };
 
+export const storageRootUrl = `https://storage.googleapis.com/${firebaseConfig.storageBucket}/`;
+
 export const adminRoot = '/app';
 export const buyUrl = '';
 export const searchPath = `${adminRoot}/#`;
 export const servicePath = '';
-
-/* export const currentUser = {
-  id: 1,
-  title: 'Admin User',
-  img: '/assets/img/profiles/l-1.jpg',
-  date: 'Last seen today 15:24',
-  role: UserRole.superAdmin,
-}; */
 
 export const themeColorStorageKey = '__theme_selected_color';
 export const isMultiColorActive = true;
