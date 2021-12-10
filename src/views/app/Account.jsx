@@ -13,6 +13,7 @@ import {
   CustomInput,
 } from 'reactstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { updateUser } from '../../redux/actions';
@@ -38,6 +39,7 @@ const Account = () => {
     visaRequired,
     graduationYear,
     degreeSubject,
+    cvUrl,
   } = currentUser;
   const initialValues = {
     firstName,
@@ -50,15 +52,33 @@ const Account = () => {
   };
   const onSubmit = async (values, { setSubmitting }) => {
     try {
-      const cvUrl = await uploadFile(values.cv, uid, firstName);
-      if (cvUrl) {
-        const payload = {
-          ...values,
-          visaRequired: values.visaRequired.value,
-        };
-        dispatch(updateUser({ uid, ...payload }));
+      const { cv, ...rest } = values;
+      const payload = {
+        ...rest,
+        visaRequired: rest.visaRequired.value,
+      };
+      if (cv) {
+        if (cvUrl) {
+          const result = await Swal.fire({
+            title: 'CV exists',
+            text: 'Do you want to overwrite it with the new file?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, overwrite it!',
+          });
+          if (result.isConfirmed) {
+            const fileUrl = await uploadFile(cv, uid, firstName);
+            if (fileUrl) payload.cvUrl = fileUrl;
+            else return; // stop submitting
+          }
+        }
       }
+      console.log(payload);
+      dispatch(updateUser({ uid, ...payload }));
       setSubmitting(false);
+      Swal.fire('Updated!', 'Your profile has been updated.', 'success');
     } catch (error) {
       console.error(error);
       setSubmitting(false);
@@ -73,7 +93,13 @@ const Account = () => {
               <IntlMessages id="forms.account-info" />
             </CardTitle>
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
-              {({ setFieldValue, values, errors, setFieldTouched }) => (
+              {({
+                setFieldValue,
+                values,
+                errors,
+                setFieldTouched,
+                isSubmitting,
+              }) => (
                 <Form className="av-tooltip tooltip-label-right">
                   <FormGroup className="mb-5">
                     <Label>First Name</Label>
@@ -152,7 +178,7 @@ const Account = () => {
                     type="submit"
                     color="primary"
                     className={`btn-shadow btn-multiple-state ${
-                      loading ? 'show-spinner' : ''
+                      isSubmitting ? 'show-spinner' : ''
                     }`}
                     size="lg"
                   >
