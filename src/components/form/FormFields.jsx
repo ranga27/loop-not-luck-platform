@@ -12,7 +12,7 @@ import { companySchema } from '../../constants/companySchema';
 
 const Group = ({ label, errors, children }) => {
   return (
-    <FormGroup className="error-l-100">
+    <FormGroup className="error-l-100 mb-5">
       <Label>{label}</Label>
       {children}
       {errors && (
