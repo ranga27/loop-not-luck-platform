@@ -60,10 +60,14 @@ export const MultiSelect = ({
   );
 };
 
-export const TextInput = ({ name, label, register, errors, ...rest }) => {
+export const TextInput = ({ name, label, control, errors, ...rest }) => {
   return (
     <Group label={label} errors={errors}>
-      <Input {...register(name)} {...rest} className="form-control" />
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => <Input {...field} {...rest} />}
+      />
     </Group>
   );
 };
@@ -101,9 +105,9 @@ export const SelectField = ({
     </Group>
   );
 };
-export const DatePicker = ({ label, name, control }) => {
+export const DatePicker = ({ label, name, control, errors, ...rest }) => {
   return (
-    <Group label={label}>
+    <Group label={label} errors={errors}>
       <Controller
         control={control}
         name={name}
@@ -113,7 +117,7 @@ export const DatePicker = ({ label, name, control }) => {
             placeholderText="Select date"
             onChange={(e) => onChange(e)}
             selected={value}
-            dateFormat="dd/MM/yyyy"
+            {...rest}
           />
         )}
       />
