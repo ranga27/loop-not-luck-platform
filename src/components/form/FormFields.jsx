@@ -1,14 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import ReactDatePicker from 'react-datepicker';
 import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
 import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
-import { companySchema } from '../../constants/companySchema';
 
-// TODO: create a smart component passing individual components as children to form: https://codesandbox.io/s/react-hook-form-smart-form-component-forked-iq89z
+// TODO: create a smart component passing individual components as children to form
 
 const Group = ({ label, errors, children }) => {
   return (

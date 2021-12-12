@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Label, Form } from 'reactstrap';
+import { Button, Form } from 'reactstrap';
 import { AccountSchema } from '../constants/accountSchema';
 import {
   DatePicker,
@@ -11,20 +10,14 @@ import {
   TextInput,
 } from './form/FormFields';
 import { visaRequiredOptions } from '../containers/visaRequiredOptions';
-// TODO: send data from container
-const AccountForm = ({ defaultValues }) => {
+import IntlMessages from '../helpers/IntlMessages';
+
+const AccountForm = ({ defaultValues, onSubmit }) => {
   const {
-    watch,
     control,
-    setValue,
-    register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({ defaultValues, resolver: yupResolver(AccountSchema) });
-
-  const onSubmit = async (data) => console.log('SUBMIT: ', data);
-
-  console.log(watch('firstName')); // watch input value by passing the name of it
 
   // TODO: convert into smart form
   return (
@@ -67,25 +60,35 @@ const AccountForm = ({ defaultValues }) => {
         dateFormat="yyyy"
         yearItemNumber={9}
       />
-
       <TextInput
         name="degreeSubject"
         label="Degree Subject"
         control={control}
         errors={errors.degreeSubject}
       />
-
       <FileUpload
         label="Upload CV (PDF files smaller than 1MB)"
         name="cv"
         control={control}
         errors={errors.cv}
       />
-
       <TextInput name="email" label="Email" control={control} disabled />
-
-      <Button color="primary" type="submit">
-        Submit
+      <Button
+        type="submit"
+        color="primary"
+        className={`btn-shadow btn-multiple-state ${
+          isSubmitting ? 'show-spinner' : ''
+        }`}
+        size="lg"
+      >
+        <span className="spinner d-inline-block">
+          <span className="bounce1" />
+          <span className="bounce2" />
+          <span className="bounce3" />
+        </span>
+        <span className="label">
+          <IntlMessages id="forms.submit" />
+        </span>
       </Button>
     </Form>
   );
