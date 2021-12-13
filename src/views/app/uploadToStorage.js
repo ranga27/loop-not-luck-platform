@@ -13,10 +13,9 @@ const showError = (text) => {
 };
 
 export const uploadToStorage = async (data) => {
-  const { cv, uid, firstName } = data;
-  const storage = getStorage();
-  const storageRef = ref(storage, `cv/${uid}/${firstName}.pdf`);
-  // TODO: move file type & file size validation to onchange event
+  const { cv, uid, firstName, ...rest } = data;
+
+  // TODO: move file type & file size validation to onChange event of the CustomInput
   if (cv.type !== 'application/pdf') {
     showError('Only PDF files allowed');
     return null;
@@ -25,10 +24,12 @@ export const uploadToStorage = async (data) => {
     showError('Please reduce the file size to less than 1MB');
     return null;
   }
+  const storage = getStorage();
+  const storageRef = ref(storage, `cv/${uid}/${firstName}.pdf`);
   await uploadBytes(storageRef, cv);
-  Object.assign(data, {
+  Object.assign(rest, {
     cvUrl: storageRootUrl + storageRef.fullPath,
     cvUploadDate: new Date(Date.now()),
   });
-  return data;
+  return { uid, firstName, ...rest };
 };

@@ -66,13 +66,15 @@ const AccountContainer = () => {
     cvUploadDate,
   };
 
-  // TODO: hoist the data into state and then manipulate rather than modifying in container
+  // TODO: hoist the data into state and then manipulate
   const onSubmit = async (data) => {
     console.log('SUBMIT: ', data);
     try {
       const payload = await uploadFile({ uid, ...data });
       console.log(payload);
+      // TODO: only update when there is data to update.
       dispatch(updateUser(payload));
+      // TODO: tell user what data has been updated.
       Swal.fire('Updated!', 'Your profile has been updated.', 'success');
     } catch (error) {
       console.error(error);

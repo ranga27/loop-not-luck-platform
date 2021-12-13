@@ -142,6 +142,8 @@ export const CheckBox = ({ label, name, control }) => {
     </FormGroup>
   );
 };
+
+
 export const FileUpload = ({ label, errors, name, control }) => {
   return (
     <Group label={label} errors={errors}>
