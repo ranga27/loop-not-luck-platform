@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import AccountForm from '../components/AccountForm';
 import { updateUser } from '../redux/actions';
-import { uploadFile } from '../views/app/uploadFile';
+import { uploadToStorage } from '../views/app/uploadToStorage';
 
 async function confirmOverwrite() {
   return Swal.fire({
@@ -18,6 +18,24 @@ async function confirmOverwrite() {
     confirmButtonText: 'Yes, overwrite it!',
   });
 }
+
+const uploadFile = async (data) => {
+  try {
+    if (data.cv) {
+      if (data.cvUploadDate) {
+        const overWrite = await confirmOverwrite();
+        if (overWrite.isConfirmed) {
+          return await uploadToStorage(data);
+        }
+      } else return await uploadToStorage(data);
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+  const { cv, ...rest } = data;
+  return rest;
+};
 
 const AccountContainer = () => {
   const dispatch = useDispatch();
@@ -52,25 +70,9 @@ const AccountContainer = () => {
   const onSubmit = async (data) => {
     console.log('SUBMIT: ', data);
     try {
-      const { cv, ...payload } = data;
-      // TODO: move file check to uploadFile
-      if (cv && cvUrl) {
-        const overWrite = await confirmOverwrite();
-        if (overWrite.isConfirmed) {
-          const file = await uploadFile(cv, uid, firstName);
-          if (file) {
-            Object.assign(payload, file);
-          } else return; // stop submitting
-        }
-      } else if (cv && !cvUrl) {
-        const file = await uploadFile(cv, uid, firstName);
-        if (file) {
-          Object.assign(payload, file);
-        } else return;
-      }
-
+      const payload = await uploadFile({ uid, ...data });
       console.log(payload);
-      dispatch(updateUser({ uid, ...payload }));
+      dispatch(updateUser(payload));
       Swal.fire('Updated!', 'Your profile has been updated.', 'success');
     } catch (error) {
       console.error(error);
