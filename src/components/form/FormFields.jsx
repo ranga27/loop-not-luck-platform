@@ -143,7 +143,6 @@ export const CheckBox = ({ label, name, control }) => {
   );
 };
 
-
 export const FileUpload = ({ label, errors, name, control }) => {
   return (
     <Group label={label} errors={errors}>
@@ -154,6 +153,7 @@ export const FileUpload = ({ label, errors, name, control }) => {
             id="logoFile"
             onChange={(e) => onChange(e.target.files[0])}
             innerRef={ref}
+            formNoValidate
           />
         )}
         name={name}

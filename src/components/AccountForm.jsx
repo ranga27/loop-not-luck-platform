@@ -17,7 +17,11 @@ const AccountForm = ({ defaultValues, onSubmit }) => {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({ defaultValues, resolver: yupResolver(AccountSchema) });
+  } = useForm({
+    mode: 'onSubmit',
+    defaultValues,
+    resolver: yupResolver(AccountSchema),
+  });
 
   // TODO: convert into smart form
   return (
