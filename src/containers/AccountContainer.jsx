@@ -48,24 +48,27 @@ const AccountContainer = () => {
     cvUploadDate,
   };
 
-  // TODO: hoist the data into state and then manipulate rather than modifying in parent container
+  // TODO: hoist the data into state and then manipulate rather than modifying in container
   const onSubmit = async (data) => {
     console.log('SUBMIT: ', data);
     try {
       const { cv, ...payload } = data;
-      console.log(cvUrl);
-      if (cv) {
-        if (cvUrl) {
-          const overWrite = await confirmOverwrite();
-          if (overWrite.isConfirmed) {
-            const fileUrl = await uploadFile(cv, uid, firstName);
-            if (fileUrl) {
-              payload.cvUrl = fileUrl;
-              payload.cvUploadDate = new Date(Date.now());
-            } else return; // stop submitting
-          }
+      // TODO: move file check to uploadFile
+      if (cv && cvUrl) {
+        const overWrite = await confirmOverwrite();
+        if (overWrite.isConfirmed) {
+          const file = await uploadFile(cv, uid, firstName);
+          if (file) {
+            Object.assign(payload, file);
+          } else return; // stop submitting
         }
+      } else if (cv && !cvUrl) {
+        const file = await uploadFile(cv, uid, firstName);
+        if (file) {
+          Object.assign(payload, file);
+        } else return;
       }
+
       console.log(payload);
       dispatch(updateUser({ uid, ...payload }));
       Swal.fire('Updated!', 'Your profile has been updated.', 'success');
