@@ -18,11 +18,9 @@ const AccountForm = ({ defaultValues, onSubmit }) => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    mode: 'onSubmit',
     defaultValues,
     resolver: yupResolver(AccountSchema),
   });
-
   // TODO: convert into smart form
   return (
     /* "handleSubmit" will validate inputs before invoking "onSubmit" */
@@ -70,8 +68,12 @@ const AccountForm = ({ defaultValues, onSubmit }) => {
         control={control}
         errors={errors.degreeSubject}
       />
+      {defaultValues.cvUploadDate &&
+        `CV Exists, uploaded on ${new Date(
+          defaultValues.cvUploadDate
+        ).toUTCString()}`}
       <FileUpload
-        label="Upload CV (PDF files smaller than 1MB)"
+        label="Upload CV (PDF file smaller than 1MB)"
         name="cv"
         control={control}
         errors={errors.cv}

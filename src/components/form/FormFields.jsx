@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
@@ -153,7 +154,6 @@ export const FileUpload = ({ label, errors, name, control }) => {
             id="logoFile"
             onChange={(e) => onChange(e.target.files[0])}
             innerRef={ref}
-            formNoValidate
           />
         )}
         name={name}
