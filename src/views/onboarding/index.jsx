@@ -17,7 +17,7 @@ import { Step5 } from './Step5';
 import { Step6 } from './Step6';
 import { Step7 } from './Step7';
 import { Step8 } from './Step8';
-
+// TODO: Move onboarding to candidate folder
 const Onboarding = ({ intl }) => {
   // TODO: use array.fill
   // Array of form refs. To use RHF explore ref options

@@ -7,8 +7,8 @@ import { Step } from 'react-albus';
 import { motion } from 'framer-motion';
 import { Formik, Form, Field } from 'formik';
 import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
-import { genderOptions } from './genderOptions';
-import { StepLayout } from './stepLayout';
+import { genderOptions } from '../../data/genderOptions';
+import { StepLayout } from '../../layout/stepLayout';
 
 const validationSchema = Yup.object().shape({
   gender: Yup.string().required('Gender is required'),

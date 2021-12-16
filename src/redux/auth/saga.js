@@ -23,14 +23,14 @@ import {
   updateUserError,
 } from './actions';
 import { adminRoot } from '../../constants/defaultValues';
-import { updateUserInFirestore } from '../../app/firestore/firestoreService';
+import { updateUserInFirestore } from '../../helpers/firestoreService';
 // eslint-disable-next-line import/no-cycle
 import { persistor } from '../store';
 import {
   registerInFirebase,
   signInWithEmail,
   verifyEmail,
-} from '../../app/firestore/firebaseService';
+} from '../../helpers/firebaseService';
 import { getUserError } from './getUserError';
 
 const loginWithEmailPasswordAsync = async (email, password) => {

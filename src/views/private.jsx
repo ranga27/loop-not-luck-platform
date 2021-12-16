@@ -2,10 +2,12 @@ import React, { Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const ViewApp = React.lazy(() =>
-  import(/* webpackChunkName: "views-app" */ './app')
+// TODO: Modify while implementing company route
+const ViewCandidate = React.lazy(() =>
+  import(/* webpackChunkName: "views-app" */ './candidate')
 );
 
+// TODO: Move onboarding to candidate folder
 const ViewOnboarding = React.lazy(() =>
   import(/* webpackChunkName: "views-onboarding" */ './onboarding')
 );
@@ -19,7 +21,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           currentUser.role === 'candidate' && !currentUser.isOnboarded ? (
             <ViewOnboarding {...props} />
           ) : (
-            <ViewApp {...props} />
+            <ViewCandidate {...props} />
           )
         }
       />

@@ -1,5 +1,5 @@
 import { takeEvery, all, fork, call, put } from 'redux-saga/effects';
-import { fetchRolesFromFirestore } from '../../app/firestore/firestoreService';
+import { fetchRolesFromFirestore } from '../../helpers/firestoreService';
 import { GET_ROLES_REQUESTED } from '../actions';
 import { getRolesSuccess, getRolesError } from './actions';
 

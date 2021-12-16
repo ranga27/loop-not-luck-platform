@@ -8,7 +8,7 @@ import {
   getDoc,
   Timestamp,
 } from 'firebase/firestore';
-import { db } from '../../helpers/Firebase';
+import { db } from './Firebase';
 
 // Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore({ uid, ...details }) {

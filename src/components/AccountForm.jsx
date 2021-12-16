@@ -9,7 +9,7 @@ import {
   SelectField,
   TextInput,
 } from './form/FormFields';
-import { visaRequiredOptions } from '../containers/visaRequiredOptions';
+import { visaRequiredOptions } from '../data/visaRequiredOptions';
 import IntlMessages from '../helpers/IntlMessages';
 
 const AccountForm = ({ defaultValues, onSubmit }) => {

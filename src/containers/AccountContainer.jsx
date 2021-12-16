@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import AccountForm from '../components/AccountForm';
 import { updateUser } from '../redux/actions';
-import { uploadToStorage } from '../views/app/uploadToStorage';
+import { uploadToStorage } from '../helpers/uploadToStorage';
 
 async function confirmOverwrite() {
   return Swal.fire({

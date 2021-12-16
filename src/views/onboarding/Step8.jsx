@@ -4,7 +4,7 @@ import { Button, Spinner } from 'reactstrap';
 import { Step } from 'react-albus';
 import { useSelector, useDispatch } from 'react-redux';
 import IntlMessages from '../../helpers/IntlMessages';
-import { StepLayout } from './stepLayout';
+import { StepLayout } from '../../layout/stepLayout';
 import { updateUser } from '../../redux/actions';
 
 export function Step8({ loading, fields }) {

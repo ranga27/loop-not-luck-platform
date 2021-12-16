@@ -29,8 +29,8 @@ import {
 import {
   addCompanyToFirestore,
   fetchCompaniesFromFirestore,
-} from '../../app/firestore/firestoreService';
-import { getUsersList, setUserRole } from '../../app/firestore/firebaseService';
+} from '../../helpers/firestoreService';
+import { getUsersList, setUserRole } from '../../helpers/firebaseService';
 
 const fetchUsersAsync = async () => {
   return getUsersList;

@@ -6,7 +6,7 @@ import {
 } from 'firebase/auth';
 import { httpsCallable } from 'firebase/functions';
 import { serverTimestamp } from 'firebase/firestore';
-import { auth, functions } from '../../helpers/Firebase';
+import { auth, functions } from './Firebase';
 import {
   fetchUserDataFromFirestore,
   updateUserInFirestore,
@@ -46,6 +46,7 @@ export async function registerInFirebase({ email, password, firstName, role }) {
       firstName,
       createdAt: serverTimestamp(),
       isOnboarded: false,
+      hasCompletedProfile: false,
     });
     return uid;
   } catch (error) {

@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form } from 'formik';
 import 'react-datepicker/dist/react-datepicker.css';
-import { StepLayout } from './stepLayout';
+import { StepLayout } from '../../layout/stepLayout';
 import { FormikDatePicker } from '../../components/form/FormikDatePicker';
 
 // TODO: pass schema from parent

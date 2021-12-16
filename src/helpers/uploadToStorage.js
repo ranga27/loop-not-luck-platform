@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
-import { storageRootUrl } from '../../constants/defaultValues';
+import { storageRootUrl } from '../constants/defaultValues';
 
 export const uploadToStorage = async (data) => {
   const { cv, uid, firstName, ...rest } = data;
