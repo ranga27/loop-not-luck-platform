@@ -16,26 +16,20 @@ const ViewRolesContainer = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       // TODO: avoid multiple firestore reads, keep role list updated via listener
-      // dispatch(getRoles());
+      dispatch(getRoles());
     };
     fetchRoles();
   }, [dispatch]);
   return (
-    <GlideComponent
-      settings={{
-        gap: 5,
-        perView: 1,
-        type: 'carousel',
-      }}
-    >
-      {items.map((item) => {
+    <div>
+      {roles.map((item) => {
         return (
           <div key={item.id}>
             <SingleCarouselItem {...item} />
           </div>
         );
       })}
-    </GlideComponent>
+    </div>
   );
 };
 
