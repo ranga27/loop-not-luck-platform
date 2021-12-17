@@ -16,7 +16,7 @@ const ViewRolesContainer = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       // TODO: avoid multiple firestore reads, keep role list updated via listener
-      dispatch(getRoles());
+      // dispatch(getRoles());
     };
     fetchRoles();
   }, [dispatch]);

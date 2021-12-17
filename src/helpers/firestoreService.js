@@ -2,11 +2,13 @@
 /* eslint-disable no-restricted-syntax */
 import {
   doc,
-  collection,
+  query,
   setDoc,
   addDoc,
   getDoc,
+  getDocs,
   Timestamp,
+  collection,
 } from 'firebase/firestore';
 import { db } from './Firebase';
 
@@ -21,7 +23,8 @@ export async function addOpportunityToFirestore(opportunity) {
 }
 
 export async function fetchRolesFromFirestore() {
-  const querySnapshot = await db.collection('opportunities').get();
+  const q = query(collection(db, 'opportunities'));
+  const querySnapshot = await getDocs(q);
   const roles = querySnapshot.docs.map((docu) => ({
     ...docu.data(),
     id: docu.id,
