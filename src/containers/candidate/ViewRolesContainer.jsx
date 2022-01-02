@@ -6,9 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
 import SwiperCore, { Keyboard, Pagination, Navigation } from 'swiper';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRoles, selectedRole } from '../../redux/actions';
-import GlideComponent from '../../components/carousel/GlideComponent';
-import { items } from './carouselItems';
-import { SingleCarouselItem } from '../../components/carousel/SingleCarouselItem';
+import { CarouselItem } from '../../components/carousel/CarouselItem';
 
 // Import Swiper styles
 import 'swiper/swiper-bundle.min.css';
@@ -31,12 +29,13 @@ const ViewRolesContainer = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       // TODO: avoid multiple firestore reads, keep role list updated via a listener
+      // TODO: add logic for no roles found
       dispatch(getRoles());
     };
     fetchRoles();
   }, [dispatch]);
   return (
-    <div id="carousel">
+    <>
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
@@ -54,14 +53,14 @@ const ViewRolesContainer = () => {
           return (
             <div key={item.id}>
               <SwiperSlide>
-                <SingleCarouselItem {...item} />
+                <CarouselItem {...item} />
               </SwiperSlide>
             </div>
           );
         })}
       </Swiper>
       <div className="swiper-pagination" />
-    </div>
+    </>
   );
 };
 
