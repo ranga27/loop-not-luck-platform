@@ -14,6 +14,7 @@ export const CarouselItem = ({
   qualification,
   department,
   startDate,
+  deadline,
 }) => {
   return (
     <Card>
@@ -35,6 +36,9 @@ export const CarouselItem = ({
             <Separator className="mt-3" />
             <h4 className="mt-3 text-muted text-uppercase">start date</h4>
             <h3 className="mt-3">{startDate}</h3>
+            <Separator className="mt-3" />
+            <h4 className="mt-3 text-muted text-uppercase">deadline</h4>
+            <h3 className="mt-3">{deadline}</h3>
           </Colxx>
           <Colxx>
             <h1 className="truncate">{title}</h1>

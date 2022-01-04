@@ -1,3 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-param-reassign */
+/* eslint-disable guard-for-in */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-restricted-syntax */
 import {
@@ -10,8 +13,8 @@ import {
   Timestamp,
   collection,
 } from 'firebase/firestore';
+import { format } from 'date-fns';
 import { db } from './Firebase';
-
 // Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore({ uid, ...details }) {
   return setDoc(doc(db, 'users', uid), details, { merge: true });
@@ -29,6 +32,16 @@ export async function fetchRolesFromFirestore() {
     ...docu.data(),
     id: docu.id,
   }));
+  roles.forEach((role) => {
+    for (const prop in role) {
+      // TODO: combine all date castings
+      if (role.hasOwnProperty(prop)) {
+        if (role[prop] instanceof Timestamp) {
+          role[prop] = format(new Date(role[prop].toDate()), 'dd-MMM-yyyy');
+        }
+      }
+    }
+  });
   return roles;
 }
 
