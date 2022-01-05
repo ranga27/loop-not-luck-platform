@@ -1,3 +1,5 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-boolean-value */
@@ -28,13 +30,44 @@ const ViewRolesContainer = () => {
   return (
     <Carousel
       enableKeyboardControls={true}
-      renderCenterLeftControls={({ previousSlide, currentSlide }) =>
+      renderCenterLeftControls={null}
+      renderCenterRightControls={null}
+      renderBottomCenterControls={null}
+      renderTopLeftControls={({ previousSlide, currentSlide }) =>
         currentSlide !== 0 ? (
-          <i onClick={previousSlide} className=" simple-icon-arrow-left" />
+          <i
+            onClick={previousSlide}
+            className=" simple-icon-arrow-left carousel-nav"
+          />
         ) : (
           ''
         )
       }
+      renderTopRightControls={({ nextSlide, slideCount, currentSlide }) =>
+        currentSlide !== slideCount - 1 ? (
+          <i
+            onClick={nextSlide}
+            className="simple-icon-arrow-right carousel-nav"
+          />
+        ) : (
+          ''
+        )
+      }
+      renderTopCenterControls={({ goToSlide, currentSlide }) => (
+        <>
+          {roles.map((item, index) => (
+            <button
+              key={item.id}
+              className={
+                currentSlide === index
+                  ? 'glide__bullet slider-dot glide__bullet--active'
+                  : 'glide__bullet slider-dot'
+              }
+              onClick={() => goToSlide(index)}
+            />
+          ))}
+        </>
+      )}
     >
       {roles.map((item, index) => (
         <div key={item.id}>
