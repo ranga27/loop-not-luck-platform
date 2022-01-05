@@ -1,23 +1,14 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
-import SwiperCore, { Keyboard, Pagination, Navigation } from 'swiper';
 import { useDispatch, useSelector } from 'react-redux';
+import Carousel from 'nuka-carousel';
 import { getRoles, selectedRole } from '../../redux/actions';
-import { CarouselItem } from '../../components/carousel/CarouselItem';
-
-// Import Swiper styles
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/swiper.min.css';
-import 'swiper/modules/pagination/pagination.min.css';
-import 'swiper/modules/navigation/navigation.min.css';
-
-import './styles.css';
-
-// install Swiper modules
-SwiperCore.use([Keyboard, Pagination, Navigation]);
+import { CarouselItem } from '../../components/cards/CarouselItem';
+import './styles.scss';
 
 const ViewRolesContainer = () => {
   const { roles } = useSelector((state) => state.roles);
@@ -35,32 +26,22 @@ const ViewRolesContainer = () => {
     fetchRoles();
   }, [dispatch]);
   return (
-    <>
-      <Swiper
-        slidesPerView={1}
-        spaceBetween={30}
-        keyboard={{
-          enabled: true,
-        }}
-        pagination={{
-          el: '.swiper-pagination',
-          clickable: true,
-        }}
-        navigation
-        className="mySwiper"
-      >
-        {roles.map((item) => {
-          return (
-            <div key={item.id}>
-              <SwiperSlide>
-                <CarouselItem {...item} />
-              </SwiperSlide>
-            </div>
-          );
-        })}
-      </Swiper>
-      <div className="swiper-pagination" />
-    </>
+    <Carousel
+      enableKeyboardControls={true}
+      renderCenterLeftControls={({ previousSlide, currentSlide }) =>
+        currentSlide !== 0 ? (
+          <i onClick={previousSlide} className=" simple-icon-arrow-left" />
+        ) : (
+          ''
+        )
+      }
+    >
+      {roles.map((item, index) => (
+        <div key={item.id}>
+          <CarouselItem {...item} />
+        </div>
+      ))}
+    </Carousel>
   );
 };
 

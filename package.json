@@ -17,6 +17,7 @@
     "framer-motion": "^4.1.17",
     "mousetrap": "^1.6.5",
     "node-sass": "^6.0.0",
+    "nuka-carousel": "^4.8.4",
     "prop-types": "^15.7.2",
     "rc-slider": "^9.7.2",
     "rc-switch": "^3.2.2",
@@ -53,7 +54,6 @@
     "redux-thunk": "^2.3.0",
     "sortablejs": "^1.13.0",
     "sweetalert2": "10.15.5",
-    "swiper": "^7.4.1",
     "video.js": "^7.11.8",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
