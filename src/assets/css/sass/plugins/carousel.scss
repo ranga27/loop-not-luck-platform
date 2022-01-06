@@ -22,10 +22,6 @@
     padding-top: 14px;
   }
 
-  .slider-dot-container {
-    display: inline-block;
-  }
-
   .btn {
     &:hover,
     &:focus,
@@ -86,10 +82,57 @@
 }
 
 .slider-list {
-  margin-top: 80px !important;
+  margin-top: 100px !important;
 }
 
 .slider-control-topcenter {
   display: flex;
   align-items: center;
+}
+
+.slider-top-button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-top-button {
+  margin: 1rem;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding: 0px 1.44rem;
+  font-size: 1.25rem;
+  &:hover {
+    background-color: transparent;
+    border-color: lighten($theme-color-1, 10%);
+    color: $theme-color-1;
+  }
+}
+
+.slider-dot-container {
+  display: flex;
+  align-items: center;
+}
+
+.carousel-nav {
+  min-width: 50px;
+  height: 50px;
+  background: $theme-color-1;
+  color: $foreground-color;
+  border: 1px solid $theme-color-1;
+  line-height: 1.7;
+  border-radius: 40px !important;
+  text-align: center;
+  padding: 0.55rem 0;
+  font-size: 1.25rem;
+  display: block;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  &:hover {
+    background-color: transparent;
+    border-color: lighten($theme-color-1, 10%);
+    color: $theme-color-1;
+  }
 }

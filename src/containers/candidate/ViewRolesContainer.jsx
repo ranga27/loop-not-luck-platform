@@ -5,15 +5,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'nuka-carousel';
 import { getRoles } from '../../redux/actions';
 import { CarouselItem } from '../../components/cards/CarouselItem';
-import StateButton from '../../components/StateButton';
+import { renderTopCenterControls } from './renderTopCenterControls';
 
 const ViewRolesContainer = () => {
   const { roles } = useSelector((state) => state.roles);
   const dispatch = useDispatch();
-  const handleSuccessButtonClick = () => {
+  const handleSaveButtonClick = (currentSlide) => {
     return new Promise((success) => {
       setTimeout(() => {
-        success('Everything went right!');
+        success(`Saved: ${roles[currentSlide].title}`);
+      }, 2000);
+    });
+  };
+  const handleApplyButtonClick = () => {
+    return new Promise((success) => {
+      setTimeout(() => {
+        success('Saved!');
       }, 2000);
     });
   };
@@ -53,30 +60,15 @@ const ViewRolesContainer = () => {
           ''
         )
       }
-      renderTopCenterControls={({ goToSlide, currentSlide }) => (
-        <>
-          {roles.map((item, index) => (
-            <button
-              type="button"
-              key={item.id}
-              className={
-                currentSlide === index
-                  ? 'glide__bullet slider-dot glide__bullet--active'
-                  : 'glide__bullet slider-dot'
-              }
-              onClick={() => goToSlide(index)}
-            />
-          ))}
-          <StateButton
-            id="successButton"
-            color="primary"
-            className="mb-3"
-            onClick={handleSuccessButtonClick}
-          >
-            Save
-          </StateButton>
-        </>
-      )}
+      renderTopCenterControls={({ goToSlide, currentSlide }) =>
+        renderTopCenterControls(
+          roles,
+          currentSlide,
+          goToSlide,
+          handleSaveButtonClick,
+          handleApplyButtonClick
+        )
+      }
     >
       {roles.map((item) => (
         <div key={item.id}>

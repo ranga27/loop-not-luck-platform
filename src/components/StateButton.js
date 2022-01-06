@@ -32,11 +32,13 @@ const StateButton = ({ id, className, color, children, onClick }) => {
     <span>
       <Button
         id={id}
-        className={`btn-multiple-state  ${className}  ${classnames({
-          'show-spinner': status === 'processing',
-          'show-success': status === 'success',
-          'show-fail': status === 'fail',
-        })}`}
+        className={`slider-top-button btn-multiple-state  ${className}  ${classnames(
+          {
+            'show-spinner': status === 'processing',
+            'show-success': status === 'success',
+            'show-fail': status === 'fail',
+          }
+        )}`}
         color={color}
         onClick={handleOnClick}
         disabled={status !== 'default'}
