@@ -1,23 +1,21 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/jsx-boolean-value */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'nuka-carousel';
-import { getRoles, selectedRole } from '../../redux/actions';
+import { getRoles } from '../../redux/actions';
 import { CarouselItem } from '../../components/cards/CarouselItem';
-import './styles.scss';
+import StateButton from '../../components/StateButton';
 
 const ViewRolesContainer = () => {
   const { roles } = useSelector((state) => state.roles);
   const dispatch = useDispatch();
-  const selectRole = (role) => {
-    // TODO: Use better name for selectedRole
-    dispatch(selectedRole(role));
+  const handleSuccessButtonClick = () => {
+    return new Promise((success) => {
+      setTimeout(() => {
+        success('Everything went right!');
+      }, 2000);
+    });
   };
   useEffect(() => {
     const fetchRoles = async () => {
@@ -29,13 +27,14 @@ const ViewRolesContainer = () => {
   }, [dispatch]);
   return (
     <Carousel
-      enableKeyboardControls={true}
+      enableKeyboardControls
       renderCenterLeftControls={null}
       renderCenterRightControls={null}
       renderBottomCenterControls={null}
       renderTopLeftControls={({ previousSlide, currentSlide }) =>
         currentSlide !== 0 ? (
           <i
+            role="link"
             onClick={previousSlide}
             className=" simple-icon-arrow-left carousel-nav"
           />
@@ -46,6 +45,7 @@ const ViewRolesContainer = () => {
       renderTopRightControls={({ nextSlide, slideCount, currentSlide }) =>
         currentSlide !== slideCount - 1 ? (
           <i
+            role="link"
             onClick={nextSlide}
             className="simple-icon-arrow-right carousel-nav"
           />
@@ -57,6 +57,7 @@ const ViewRolesContainer = () => {
         <>
           {roles.map((item, index) => (
             <button
+              type="button"
               key={item.id}
               className={
                 currentSlide === index
@@ -66,10 +67,18 @@ const ViewRolesContainer = () => {
               onClick={() => goToSlide(index)}
             />
           ))}
+          <StateButton
+            id="successButton"
+            color="primary"
+            className="mb-3"
+            onClick={handleSuccessButtonClick}
+          >
+            Save
+          </StateButton>
         </>
       )}
     >
-      {roles.map((item, index) => (
+      {roles.map((item) => (
         <div key={item.id}>
           <CarouselItem {...item} />
         </div>
