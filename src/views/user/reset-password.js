@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
@@ -6,7 +7,6 @@ import { connect } from 'react-redux';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { resetPassword } from '../../redux/actions';
-import { NotificationManager } from '../../components/common/react-notifications';
 
 const validateNewPassword = (values) => {
   const { newPassword, newPasswordAgain } = values;
@@ -27,7 +27,7 @@ const ResetPassword = ({
   const [newPassword] = useState('');
   const [newPasswordAgain] = useState('');
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (error) {
       NotificationManager.warning(
         error,
@@ -47,7 +47,7 @@ const ResetPassword = ({
         ''
       );
   }, [error, loading, newPassword]);
-
+ */
   const onResetPassword = (values) => {
     if (!loading) {
       const params = new URLSearchParams(location.search);
@@ -61,14 +61,14 @@ const ResetPassword = ({
           });
         }
       } else {
-        NotificationManager.warning(
+        /* NotificationManager.warning(
           'Please check your email url.',
           'Reset Password Error',
           3000,
           null,
           null,
           ''
-        );
+        ); */
       }
     }
   };

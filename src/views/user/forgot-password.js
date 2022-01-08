@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Label, FormGroup, CardSubtitle } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
@@ -5,7 +6,6 @@ import { Formik, Form, Field } from 'formik';
 import { connect } from 'react-redux';
 import IntlMessages from '../../helpers/IntlMessages';
 import { forgotPassword } from '../../redux/actions';
-import { NotificationManager } from '../../components/common/react-notifications';
 import AuthButton from './AuthButton';
 import Layout from './layout';
 
@@ -35,16 +35,16 @@ const ForgotPassword = ({
       }
     }
   };
-
+  /*
   useEffect(() => {
     if (error) {
-      NotificationManager.warning(
+       NotificationManager.warning(
         error,
         'Forgot Password Error',
         3000,
         null,
         null,
-        ''
+        '' 
       );
     } else if (!loading && forgotUserMail === 'success')
       NotificationManager.success(
@@ -53,9 +53,9 @@ const ForgotPassword = ({
         3000,
         null,
         null,
-        ''
+        '' 
       );
-  }, [error, forgotUserMail, loading]);
+  }, [error, forgotUserMail, loading]); */
 
   const initialValues = { email };
 

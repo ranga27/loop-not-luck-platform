@@ -118,7 +118,7 @@ const ColorSwitcher = () => {
           ))}
         </div>
       </div>
-      <div className=" pb-0 pl-4 pt-4">
+      <div className=" pb-0 pl-4 pt-4 m-4">
         <FormGroup>
           <Label for="radiusRadio">Border Radius </Label>
           <div>
@@ -126,11 +126,11 @@ const ColorSwitcher = () => {
               type="radio"
               name="radiusRadio"
               id="rounded"
-              label="Rounded"
               inline
               defaultChecked={radius === 'rounded'}
               onChange={() => setRadius('rounded')}
             />
+            <Label className="mx-2">Rounded</Label>
             <Input
               type="radio"
               name="radiusRadio"
@@ -140,6 +140,7 @@ const ColorSwitcher = () => {
               defaultChecked={radius === 'flat'}
               onChange={() => setRadius('flat')}
             />
+            <Label className="mx-2">Flat</Label>
           </div>
         </FormGroup>
       </div>

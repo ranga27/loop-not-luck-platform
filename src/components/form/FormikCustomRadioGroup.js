@@ -5,7 +5,7 @@
 /* eslint-disable import/prefer-default-export */
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import { Input } from 'reactstrap';
+import { Input, Label } from 'reactstrap';
 
 export const FormikCustomRadioGroup = ({
   name,
@@ -27,18 +27,20 @@ export const FormikCustomRadioGroup = ({
     <div className="form-options">
       {options.map((child, index) => {
         return (
-          <Input
-            key={`${name}_${child.value}_${index}`}
-            type="radio"
-            id={`${name}_${child.value}_${index}`}
-            name={child.name}
-            label={child.label}
-            onChange={() => handleChange(child.value)}
-            onBlur={handleBlur}
-            checked={value === child.value}
-            disabled={child.disabled}
-            inline={inline}
-          />
+          <div key={child} style={{ display: 'flex' }}>
+            <Input
+              key={`${name}_${child.value}_${index}`}
+              type="radio"
+              id={`${name}_${child.value}_${index}`}
+              name={child.name}
+              onChange={() => handleChange(child.value)}
+              onBlur={handleBlur}
+              checked={value === child.value}
+              disabled={child.disabled}
+              inline={inline}
+            />
+            <Label className="mx-2">{child.label}</Label>
+          </div>
         );
       })}
     </div>

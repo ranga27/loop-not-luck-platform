@@ -134,12 +134,12 @@ export const CheckBox = ({ label, name, control }) => {
             onChange={field.onChange}
             innerRef={field.ref}
             type="checkbox"
-            label={label}
           />
         )}
         name={name}
         control={control}
       />
+      <Label className="mx-2">{label}</Label>
     </FormGroup>
   );
 };

@@ -274,6 +274,7 @@ hr {
 a {
   color: $primary-color;
   transition: color $animation-time-short;
+  text-decoration: none;
 
   &:hover,
   &:active {
