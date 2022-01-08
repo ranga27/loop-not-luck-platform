@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 import UserLayout from '../../layout/UserLayout';
@@ -17,27 +17,28 @@ const ResetPassword = React.lazy(() =>
   import(/* webpackChunkName: "user-reset-password" */ './reset-password')
 );
 // TODO: Replace Laoding Suspense with a framer motion effect
-const User = ({ match }) => {
+const User = () => {
+  const { path } = useRouteMatch();
   return (
     <UserLayout>
       <AnimatePresence exitBeforeEnter>
         <Suspense fallback={<div className="loading" />}>
           <Switch>
-            <Redirect exact from={`${match.url}/`} to={`${match.url}/login`} />
+            <Redirect exact from={`${path}/`} to={`${path}/login`} />
             <Route
-              path={`${match.url}/login`}
+              path={`${path}/login`}
               render={(props) => <Login {...props} />}
             />
             <Route
-              path={`${match.url}/register`}
+              path={`${path}/register`}
               render={(props) => <Register {...props} />}
             />
             <Route
-              path={`${match.url}/forgot-password`}
+              path={`${path}/forgot-password`}
               render={(props) => <ForgotPassword {...props} />}
             />
             <Route
-              path={`${match.url}/reset-password`}
+              path={`${path}/reset-password`}
               render={(props) => <ResetPassword {...props} />}
             />
             <Redirect to="/error" />

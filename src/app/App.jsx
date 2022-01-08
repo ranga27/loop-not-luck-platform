@@ -72,10 +72,9 @@ class App extends React.Component {
                       UserRole.candidate,
                     ]}
                   />
-                  <Route
-                    path="/user"
-                    render={(props) => <ViewUser {...props} />}
-                  />
+                  <Route path="/user">
+                    <ViewUser />
+                  </Route>
                   <Route
                     path="/error"
                     exact
