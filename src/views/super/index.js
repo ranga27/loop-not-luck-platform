@@ -14,7 +14,7 @@ const App = ({ match }) => (
   <AppLayout>
     <Suspense fallback={<div className="loading" />}>
       <Switch>
-        <Redirect exact from={`${match.url}/`} to={`${match.url}/users`} />
+        <Redirect exact from={`${match.url}/`} to={`${match.url}/test`} />
         <Route
           path={`${match.url}/users`}
           render={(props) => <Users {...props} />}

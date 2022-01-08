@@ -21,19 +21,23 @@ const ViewSuper = React.lazy(() =>
   import(/* webpackChunkName: "views-super" */ '../views/super')
 );
 
-const getRoute = (role, props) => {
+const getRoute = (user, props) => {
   const routes = {
     super: <ViewSuper {...props} />,
-    candidate: <ViewCandidate {...props} />,
+    candidate: user.isOnboarded ? (
+      <ViewCandidate {...props} />
+    ) : (
+      <ViewOnboarding {...props} />
+    ),
   };
-  return routes[role];
+  return routes[user.role];
 };
 
 const AppRouter = ({ component: Component, ...rest }) => {
   const { currentUser } = useSelector((state) => state.authUser);
   return (
     <Suspense fallback={<div className="loading" />}>
-      <Route {...rest} render={(props) => getRoute(currentUser.role, props)} />
+      <Route {...rest} render={(props) => getRoute(currentUser, props)} />
     </Suspense>
   );
 };
