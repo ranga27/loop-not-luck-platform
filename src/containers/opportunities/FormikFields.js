@@ -5,7 +5,7 @@
 /* eslint-disable max-classes-per-file */
 import React from 'react';
 import Select from 'react-select';
-import { CustomInput } from 'reactstrap';
+import { Input } from 'reactstrap';
 
 import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
@@ -118,7 +118,7 @@ const FormikCustomCheckboxGroup = ({
     <>
       {options.map((child, index) => {
         return (
-          <CustomInput
+          <Input
             key={`${name}_${child.value}_${index}`}
             id={`${name}_${child.value}_${index}`}
             type="checkbox"
@@ -174,7 +174,7 @@ const FormikCustomCheckbox = ({
     onBlur(name, true);
   };
   return (
-    <CustomInput
+    <Input
       type="checkbox"
       id={name}
       name={name}
@@ -252,7 +252,7 @@ const FormikCustomRadioGroup = ({
     <>
       {options.map((child, index) => {
         return (
-          <CustomInput
+          <Input
             key={`${name}_${child.value}_${index}`}
             type="radio"
             id={`${name}_${child.value}_${index}`}

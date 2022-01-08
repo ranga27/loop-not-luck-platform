@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-  CustomInput,
+  Input,
   Collapse,
 } from 'reactstrap';
 import { injectIntl } from 'react-intl';
@@ -71,7 +71,7 @@ const ListPageHeading = ({
               toggle={() => setDropdownSplitOpen(!dropdownSplitOpen)}
             >
               <div className="btn btn-primary btn-lg pl-4 pr-0 check-button check-all">
-                <CustomInput
+                <Input
                   className="custom-checkbox mb-0 d-inline-block"
                   type="checkbox"
                   id="checkAll"

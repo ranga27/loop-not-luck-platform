@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CustomInput, Badge } from 'reactstrap';
+import { Card, Input, Badge } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import { ContextMenuTrigger } from 'react-contextmenu';
@@ -35,7 +35,7 @@ const DataListView = ({ product, isSelect, collect, onCheckItem }) => {
               </div>
             </div>
             <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
-              <CustomInput
+              <Input
                 className="item-check mb-0"
                 type="checkbox"
                 id={`check_${product.id}`}

@@ -10,14 +10,13 @@ import {
   FormGroup,
   Label,
   Button,
-  CustomInput,
+  Input,
   CardImg,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
-import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
@@ -29,7 +28,7 @@ import {
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { locations, applicationOptions, positionTypes } from '../../data';
 
-import { updateOpportunityInFirestore } from '../../app/firestore/firestoreService';
+import { updateOpportunityInFirestore } from '../../helpers/firestoreService';
 import { selectedRole } from '../../redux/actions';
 import { uploadFile } from '../../helpers/uploadFile';
 
@@ -93,7 +92,6 @@ const RoleDetails = () => {
       actions.resetForm(values);
       actions.setSubmitting(false);
     } catch (error) {
-      toast.error(error.message);
       console.log(error);
       actions.setSubmitting(false);
     }
@@ -342,7 +340,7 @@ const RoleDetails = () => {
                       </div>
                     </Card>
                     <Label>Update Company Logo</Label>
-                    <CustomInput
+                    <Input
                       type="file"
                       name="customLogoFile"
                       id="customLogoFile"

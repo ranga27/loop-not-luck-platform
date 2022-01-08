@@ -7,7 +7,7 @@ import {
   FormGroup,
   Label,
   Button,
-  CustomInput,
+  Input,
   Modal,
   ModalHeader,
   ModalBody,
@@ -15,7 +15,6 @@ import {
 } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import Select from 'react-select';
-import { toast } from 'react-toastify';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
 import {
   FormikReactSelect,
@@ -73,7 +72,6 @@ const PostOpportunityContainer = () => {
       });
       setSubmitting(false);
     } catch (error) {
-      toast.error(error.message);
       console.error(error);
       setSubmitting(false);
     }
@@ -291,7 +289,7 @@ const PostOpportunityContainer = () => {
                   </FormGroup>
                   <FormGroup>
                     <Label>Upload Company Logo (120 x 120)</Label>
-                    <CustomInput
+                    <Input
                       type="file"
                       name="customLogoFile"
                       id="customLogoFile"

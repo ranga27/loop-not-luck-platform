@@ -6,7 +6,7 @@ import {
   CardSubtitle,
   CardImg,
   CardText,
-  CustomInput,
+  Input,
   Badge,
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
@@ -39,7 +39,7 @@ const ImageListView = ({ product, isSelect, collect, onCheckItem }) => {
           <CardBody>
             <Row>
               <Colxx xxs="2">
-                <CustomInput
+                <Input
                   className="item-check mb-0"
                   type="checkbox"
                   id={`check_${product.id}`}

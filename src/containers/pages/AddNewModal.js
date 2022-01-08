@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  CustomInput,
+  Input,
   Button,
   Modal,
   ModalHeader,
@@ -46,13 +46,13 @@ const AddNewModal = ({ modalOpen, toggleModal, categories }) => {
         <Label className="mt-4">
           <IntlMessages id="pages.status" />
         </Label>
-        <CustomInput
+        <Input
           type="radio"
           id="exCustomRadio"
           name="customRadio"
           label="ON HOLD"
         />
-        <CustomInput
+        <Input
           type="radio"
           id="exCustomRadio2"
           name="customRadio"

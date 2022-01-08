@@ -5,7 +5,7 @@
 /* eslint-disable import/prefer-default-export */
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import { CustomInput } from 'reactstrap';
+import { Input } from 'reactstrap';
 
 export const FormikCustomRadioGroup = ({
   name,
@@ -27,7 +27,7 @@ export const FormikCustomRadioGroup = ({
     <div className="form-options">
       {options.map((child, index) => {
         return (
-          <CustomInput
+          <Input
             key={`${name}_${child.value}_${index}`}
             type="radio"
             id={`${name}_${child.value}_${index}`}

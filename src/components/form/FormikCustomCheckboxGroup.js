@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { CustomInput } from 'reactstrap';
+import {Input } from 'reactstrap';
 
 export const FormikCustomCheckboxGroup = ({
   name,
@@ -31,7 +31,7 @@ export const FormikCustomCheckboxGroup = ({
     <div className="form-options justify-content-center">
       {options.map((child, index) => {
         return (
-          <CustomInput
+          <Input
             key={`${name}_${child.value}_${index}`}
             id={`${name}_${child.value}_${index}`}
             type="checkbox"

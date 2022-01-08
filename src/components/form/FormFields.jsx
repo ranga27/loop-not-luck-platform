@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import ReactDatePicker from 'react-datepicker';
-import { FormGroup, Label, Input, CustomInput } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -128,7 +128,7 @@ export const CheckBox = ({ label, name, control }) => {
     <FormGroup>
       <Controller
         render={({ field }) => (
-          <CustomInput
+          <Input
             id={name}
             value={field.value}
             onChange={field.onChange}
@@ -149,7 +149,7 @@ export const FileUpload = ({ label, errors, name, control }) => {
     <Group label={label} errors={errors}>
       <Controller
         render={({ field: { onChange, ref } }) => (
-          <CustomInput
+          <Input
             type="file"
             id="logoFile"
             onChange={(e) => onChange(e.target.files[0])}
