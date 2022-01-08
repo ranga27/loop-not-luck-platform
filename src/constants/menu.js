@@ -39,22 +39,31 @@ const data = [
     icon: 'iconsminds-security-settings',
     label: 'menu.admin',
     to: `${adminRoot}/admin`,
-    roles: [UserRole.super],
+    roles: [UserRole.admin],
     subs: [
-      {
-        icon: 'iconsminds-3d-eyeglasses',
-        label: 'menu.users',
-        to: `${adminRoot}/admin/users`,
-      },
       {
         icon: 'iconsminds-shop-4',
         label: 'menu.companies',
         to: `${adminRoot}/admin/companies`,
       },
+    ],
+  },
+  {
+    id: 'super',
+    icon: 'iconsminds-security-settings',
+    label: 'menu.admin',
+    to: `${adminRoot}`,
+    roles: [UserRole.super],
+    subs: [
+      {
+        icon: 'iconsminds-3d-eyeglasses',
+        label: 'menu.users',
+        to: `${adminRoot}/users`,
+      },
       {
         icon: 'iconsminds-idea',
         label: 'menu.test',
-        to: `${adminRoot}/admin/test`,
+        to: `${adminRoot}/test`,
       },
     ],
   },

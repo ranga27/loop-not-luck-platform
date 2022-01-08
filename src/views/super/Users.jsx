@@ -14,11 +14,11 @@ import {
 } from 'reactstrap';
 import Select from 'react-select';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUsers, updateRole } from '../../../redux/actions';
-import CustomSelectInput from '../../../components/common/CustomSelectInput';
-import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
-import ThumbnailLetters from '../../../components/cards/ThumbnailLetters';
-import Breadcrumb from '../../../containers/navs/Breadcrumb';
+import { getUsers, updateRole } from '../../redux/actions';
+import CustomSelectInput from '../../components/common/CustomSelectInput';
+import { Colxx, Separator } from '../../components/common/CustomBootstrap';
+import ThumbnailLetters from '../../components/cards/ThumbnailLetters';
+import Breadcrumb from '../../containers/navs/Breadcrumb';
 
 const selectData = [
   { label: 'Super Admin', value: 'super', key: 0 },

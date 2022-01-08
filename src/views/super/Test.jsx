@@ -9,9 +9,9 @@ import {
   Button,
   CardSubtitle,
 } from 'reactstrap';
-import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
-import Breadcrumb from '../../../containers/navs/Breadcrumb';
-import { MultiSelect } from '../../../components/form/FormFields';
+import { Colxx, Separator } from '../../components/common/CustomBootstrap';
+import Breadcrumb from '../../containers/navs/Breadcrumb';
+import { MultiSelect } from '../../components/form/FormFields';
 
 const Test = ({ match }) => {
   const { control, setValue, handleSubmit } = useForm();

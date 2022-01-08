@@ -4,25 +4,22 @@ import { FormGroup, Label } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form } from 'formik';
-import { diversityOptions } from '../../data/diversityOptions';
-import { FormikCustomCheckboxGroup } from '../../components/form/FormikCustomCheckboxGroup';
-import { StepLayout } from '../../layout/stepLayout';
+import { FormikCustomCheckboxGroup } from '../../../components/form/FormikCustomCheckboxGroup';
+import { StepLayout } from '../../../layout/stepLayout';
+import { interestOptions } from '../../../data/interestOptions';
 
-// TODO: pass schema from parent
 const validationSchema = Yup.object().shape({
-  diversity: Yup.array()
-    .required('Select at least one option')
-    .min(1, 'Select at least one option'),
+  interests: Yup.array().required('Please select at least one').min(1),
 });
-export function Step2(form, fields, messages) {
+export function Step7(form, fields, messages) {
   return (
-    <Step id="step2">
+    <Step id="step7">
       <StepLayout>
         <Formik
           validationSchema={validationSchema}
           innerRef={form}
           initialValues={{
-            diversity: fields.diversity,
+            interests: fields.interests,
           }}
           validateOnMount
           onSubmit={() => {}}
@@ -30,20 +27,20 @@ export function Step2(form, fields, messages) {
           {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
             <Form className="av-tooltip tooltip-label-right error-l-75">
               <FormGroup>
-                <Label>{messages['forms.diversity']}</Label>
+                <Label>{messages['forms.interests']}</Label>
                 <FormikCustomCheckboxGroup
-                  name="diversity"
-                  id="diversity"
-                  value={values.diversity}
+                  name="interests"
+                  id="interests"
+                  value={values.interests}
                   onChange={setFieldValue}
                   onBlur={setFieldTouched}
-                  options={diversityOptions}
+                  options={interestOptions}
                 />
-                {errors.diversity && touched.diversity && (
+                {errors.interests && touched.interests ? (
                   <div className="invalid-feedback d-block">
-                    {errors.diversity}
+                    {errors.interests}
                   </div>
-                )}
+                ) : null}
               </FormGroup>
             </Form>
           )}

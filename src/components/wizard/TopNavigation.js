@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import { WithWizard } from 'react-albus';
@@ -26,7 +25,7 @@ const TopNavigation = ({ className, disableNav, topNavClick }) => {
 
   return (
     <WithWizard
-      render={({ next, previous, step, steps, go, push }) => (
+      render={({ step, steps, push }) => (
         <ul
           className={`nav nav-tabs ${className}${
             disableNav ? ' disabled' : ''

@@ -22,8 +22,8 @@ import { ProtectedRoute } from '../helpers/authHelper';
 const ViewHome = React.lazy(() =>
   import(/* webpackChunkName: "views" */ '../views/home')
 );
-const ViewPrivate = React.lazy(() =>
-  import(/* webpackChunkName: "views-app" */ '../views/private')
+const AppRouter = React.lazy(() =>
+  import(/* webpackChunkName: "views-app" */ './AppRouter')
 );
 const ViewUser = React.lazy(() =>
   import(/* webpackChunkName: "views-user" */ '../views/user')
@@ -65,7 +65,7 @@ class App extends React.Component {
                 <Switch>
                   <ProtectedRoute
                     path={adminRoot}
-                    component={ViewPrivate}
+                    component={AppRouter}
                     roles={[
                       UserRole.super,
                       UserRole.admin,

@@ -4,39 +4,34 @@ import { FormGroup, Label } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form, Field } from 'formik';
-import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
-import { StepLayout } from '../../layout/stepLayout';
-
-// TODO: move to constants
-const options = [
-  { label: 'Yes', value: 'Yes' },
-  { label: 'No', value: 'No' },
-];
+import { FormikCustomRadioGroup } from '../../../components/form/FormikCustomRadioGroup';
+import { ethnicityOptions } from '../../../data/ethnicityOptions';
+import { StepLayout } from '../../../layout/stepLayout';
 
 const validationSchema = Yup.object().shape({
-  disability: Yup.string().required('Please select'),
+  ethnicity: Yup.string().required('Ethnicity is required'),
 });
 
-const validateAnswer = (value) => {
+const validateOther = (value) => {
   let error;
   if (!value) {
-    error = 'Please specify the disability';
+    error = 'Please enter a value for Other';
   } else if (value.length < 2) {
     error = 'Value must be longer than 2 characters';
   }
   return error;
 };
 
-export function Step4(form, fields, messages) {
+export function Step3(form, fields, messages) {
   return (
-    <Step id="step4">
+    <Step id="step3">
       <StepLayout>
         <Formik
           validationSchema={validationSchema}
           innerRef={form}
           initialValues={{
-            disability: fields.disability,
-            disabilityAnswer: '',
+            ethnicity: fields.ethnicity,
+            ethnicityOther: '',
           }}
           validateOnMount
           onSubmit={() => {}}
@@ -44,33 +39,32 @@ export function Step4(form, fields, messages) {
           {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
             <Form className="av-tooltip tooltip-label-right error-l-75">
               <FormGroup>
-                <Label>{messages['forms.disability']}</Label>
+                <Label>{messages['forms.ethnicity']}</Label>
                 <FormikCustomRadioGroup
-                  name="disability"
-                  id="disability"
-                  value={values.disability}
+                  name="ethnicity"
+                  id="ethnicity"
+                  value={values.ethnicity}
                   onChange={setFieldValue}
                   onBlur={setFieldTouched}
-                  options={options}
+                  options={ethnicityOptions}
                 />
-                {errors.disability && touched.disability && (
+                {errors.ethnicity && touched.ethnicity && (
                   <div className="invalid-feedback d-block">
-                    {errors.disability}
+                    {errors.ethnicity}
                   </div>
                 )}
               </FormGroup>
               <FormGroup>
-                {values.disability === 'Yes' && (
+                {values.ethnicity === 'Other' && (
                   <div>
                     <Field
                       className="form-control"
-                      name="disabilityAnswer"
-                      validate={validateAnswer}
-                      placeholder="Please Specify"
+                      name="ethnicityOther"
+                      validate={validateOther}
                     />
-                    {errors.disabilityAnswer && touched.disabilityAnswer && (
+                    {errors.ethnicityOther && touched.ethnicityOther && (
                       <div className="invalid-feedback d-block">
-                        {errors.disabilityAnswer}
+                        {errors.ethnicityOther}
                       </div>
                     )}
                   </div>

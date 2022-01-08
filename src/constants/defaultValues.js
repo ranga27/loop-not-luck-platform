@@ -45,7 +45,6 @@ export const defaultColor = 'light.purplemonster';
 export const isDarkSwitchActive = true;
 export const defaultDirection = 'ltr';
 export const themeRadiusStorageKey = '__theme_radius';
-export const isAuthGuardActive = true;
 export const colors = [
   'bluenavy',
   'blueyale',

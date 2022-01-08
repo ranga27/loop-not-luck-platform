@@ -5,6 +5,7 @@ const { getAuth } = require('firebase-admin/auth');
 
 initializeApp();
 
+// TODO: secure the functions using appCheck token
 /** Cloud Function that sets desired user role */
 exports.setUserRole = functions.https.onCall((data) => {
   try {
@@ -12,6 +13,7 @@ exports.setUserRole = functions.https.onCall((data) => {
     console.log(uid, role);
     // Set custom user claims on this user.
     getAuth().setCustomUserClaims(uid, { role: role });
+    // TODO: update the 'users' collection with new role
     return true;
   } catch (error) {
     console.error('Error setting user role: ', error);

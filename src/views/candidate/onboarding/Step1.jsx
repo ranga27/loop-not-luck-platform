@@ -1,15 +1,17 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
-import React from 'react';
+import React, { useState } from 'react';
 import { FormGroup, Label } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
+import { motion } from 'framer-motion';
 import { Formik, Form, Field } from 'formik';
-import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
-import { ethnicityOptions } from '../../data/ethnicityOptions';
-import { StepLayout } from '../../layout/stepLayout';
+import { FormikCustomRadioGroup } from '../../../components/form/FormikCustomRadioGroup';
+import { genderOptions } from '../../../data/genderOptions';
+import { StepLayout } from '../../../layout/stepLayout';
 
 const validationSchema = Yup.object().shape({
-  ethnicity: Yup.string().required('Ethnicity is required'),
+  gender: Yup.string().required('Gender is required'),
 });
 
 const validateOther = (value) => {
@@ -22,49 +24,49 @@ const validateOther = (value) => {
   return error;
 };
 
-export function Step3(form, fields, messages) {
+export function Step1(form, fields, messages) {
   return (
-    <Step id="step3">
+    <Step id="step1">
       <StepLayout>
         <Formik
-          validationSchema={validationSchema}
           innerRef={form}
           initialValues={{
-            ethnicity: fields.ethnicity,
-            ethnicityOther: '',
+            gender: fields.gender,
+            genderOther: '',
           }}
           validateOnMount
+          validationSchema={validationSchema}
           onSubmit={() => {}}
         >
           {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
             <Form className="av-tooltip tooltip-label-right error-l-75">
               <FormGroup>
-                <Label>{messages['forms.ethnicity']}</Label>
+                <Label>{messages['forms.gender']}</Label>
                 <FormikCustomRadioGroup
-                  name="ethnicity"
-                  id="ethnicity"
-                  value={values.ethnicity}
+                  name="gender"
+                  id="gender"
+                  value={values.gender}
                   onChange={setFieldValue}
                   onBlur={setFieldTouched}
-                  options={ethnicityOptions}
+                  options={genderOptions}
                 />
-                {errors.ethnicity && touched.ethnicity && (
+                {errors.gender && touched.gender && (
                   <div className="invalid-feedback d-block">
-                    {errors.ethnicity}
+                    {errors.gender}
                   </div>
                 )}
               </FormGroup>
               <FormGroup>
-                {values.ethnicity === 'Other' && (
+                {values.gender === 'Other' && (
                   <div>
                     <Field
                       className="form-control"
-                      name="ethnicityOther"
+                      name="genderOther"
                       validate={validateOther}
                     />
-                    {errors.ethnicityOther && touched.ethnicityOther && (
+                    {errors.genderOther && touched.genderOther && (
                       <div className="invalid-feedback d-block">
-                        {errors.ethnicityOther}
+                        {errors.genderOther}
                       </div>
                     )}
                   </div>

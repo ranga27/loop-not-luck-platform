@@ -17,10 +17,10 @@ const ViewRolesContainer = () => {
       }, 2000);
     });
   };
-  const handleApplyButtonClick = () => {
+  const handleApplyButtonClick = (currentSlide) => {
     return new Promise((success) => {
       setTimeout(() => {
-        success('Saved!');
+        success(`Applied: ${roles[currentSlide].title}`);
       }, 2000);
     });
   };
