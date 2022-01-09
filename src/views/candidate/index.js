@@ -1,5 +1,12 @@
+/* eslint-disable react/no-children-prop */
 import React, { Suspense } from 'react';
-import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
+import {
+  Route,
+  withRouter,
+  Switch,
+  Redirect,
+  useRouteMatch,
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppLayout from '../../layout/AppLayout';
 
@@ -10,26 +17,21 @@ const Account = React.lazy(() =>
   import(/* webpackChunkName: "account" */ './Account')
 );
 
-const App = ({ match }) => {
+const App = () => {
+  const { url } = useRouteMatch();
   return (
     <AppLayout>
       <div className="dashboard-wrapper">
         <Suspense fallback={<div className="loading" />}>
           <Switch>
-            <Redirect
+            <Route
               exact
-              from={`${match.url}/`}
-              to={`${match.url}/opportunities`}
+              path={`${url}/`}
+              render={() => <Redirect to={`${url}/opportunities`} />}
             />
-            <Route
-              path={`${match.url}/opportunities`}
-              render={(props) => <Opportunities {...props} />}
-            />
-            <Route
-              path={`${match.url}/account`}
-              render={(props) => <Account {...props} />}
-            />
-            <Redirect to="/error" />
+            <Route path={`${url}/opportunities`} children={<Opportunities />} />
+            <Route path={`${url}/account`} children={<Account />} />
+            <Route path="*" render={() => <Redirect to="/error" />} />
           </Switch>
         </Suspense>
       </div>

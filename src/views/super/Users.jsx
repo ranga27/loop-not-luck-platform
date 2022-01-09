@@ -13,6 +13,7 @@ import {
   ModalFooter,
 } from 'reactstrap';
 import Select from 'react-select';
+import { useRouteMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsers, updateRole } from '../../redux/actions';
 import CustomSelectInput from '../../components/common/CustomSelectInput';
@@ -28,7 +29,8 @@ const selectData = [
   { label: 'Employer', value: 'employer', key: 4 },
 ];
 
-export const Users = ({ match }) => {
+export const Users = () => {
+  const match = useRouteMatch();
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.admin);
   const [modalBasic, setModalBasic] = useState(false);

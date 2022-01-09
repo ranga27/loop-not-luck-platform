@@ -1,5 +1,6 @@
+/* eslint-disable react/no-children-prop */
 import React, { Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import AppLayout from '../../layout/AppLayout';
 
 const Users = React.lazy(() =>
@@ -10,22 +11,23 @@ const Test = React.lazy(() =>
   import(/* webpackChunkName: "admin-test" */ './Test')
 );
 
-const App = ({ match }) => (
-  <AppLayout>
-    <Suspense fallback={<div className="loading" />}>
-      <Switch>
-        <Redirect exact from={`${match.url}/`} to={`${match.url}/test`} />
-        <Route
-          path={`${match.url}/users`}
-          render={(props) => <Users {...props} />}
-        />
-        <Route
-          path={`${match.url}/test`}
-          render={(props) => <Test {...props} />}
-        />
-        <Redirect to="/error" />
-      </Switch>
-    </Suspense>
-  </AppLayout>
-);
+const App = () => {
+  const { url } = useRouteMatch();
+  return (
+    <AppLayout>
+      <Suspense fallback={<div className="loading" />}>
+        <Switch>
+          <Route
+            exact
+            path={`${url}/`}
+            render={() => <Redirect to={`${url}/test`} />}
+          />
+          <Route path={`${url}/users`} children={<Users />} />
+          <Route path={`${url}/test`} children={<Test />} />
+          <Route path="*" render={() => <Redirect to="/error" />} />
+        </Switch>
+      </Suspense>
+    </AppLayout>
+  );
+};
 export default App;
