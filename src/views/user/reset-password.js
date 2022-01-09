@@ -16,7 +16,7 @@ const validateNewPassword = (values) => {
   }
   return errors;
 };
-
+// TODO: implement & test reset functionality
 const ResetPassword = ({
   location,
   history,

@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { FormGroup, Label } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // TODO: Use RHF
 import { Formik, Form, Field } from 'formik';
@@ -14,7 +14,8 @@ import { SignUpSchema } from './SignupSchema';
 import AuthButton from './AuthButton';
 import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
 
-const Register = ({ history }) => {
+const Register = () => {
+  const history = useHistory();
   const { loading, error, currentUser } = useSelector(
     (state) => state.authUser
   );

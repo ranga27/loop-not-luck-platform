@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React, { Suspense } from 'react';
 import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -24,23 +25,22 @@ const User = () => {
       <AnimatePresence exitBeforeEnter>
         <Suspense fallback={<div className="loading" />}>
           <Switch>
-            <Redirect exact from={`${path}/`} to={`${path}/login`} />
-            <Route path={`${path}/login`}>
-              <Login />
-            </Route>
             <Route
-              path={`${path}/register`}
-              render={(props) => <Register {...props} />}
+              exact
+              path={`${path}/`}
+              render={() => <Redirect to={`${path}/login`} />}
             />
+            <Route path={`${path}/login`} children={<Login />} />
+            <Route path={`${path}/register`} children={<Register />} />
             <Route
               path={`${path}/forgot-password`}
-              render={(props) => <ForgotPassword {...props} />}
+              children={<ForgotPassword />}
             />
             <Route
               path={`${path}/reset-password`}
-              render={(props) => <ResetPassword {...props} />}
+              children={<ResetPassword />}
             />
-            <Redirect to="/error" />
+            <Route path="*" render={() => <Redirect to="/error" />} />
           </Switch>
         </Suspense>
       </AnimatePresence>

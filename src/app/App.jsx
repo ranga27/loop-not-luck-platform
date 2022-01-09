@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -7,7 +8,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
-import '../helpers/Firebase';
 import AppLocale from '../lang';
 import ColorSwitcher from '../components/common/ColorSwitcher';
 import {
@@ -16,11 +16,8 @@ import {
   UserRole,
 } from '../constants/defaultValues';
 import { getDirection } from '../helpers/Utils';
-import { ProtectedRoute } from '../helpers/authHelper';
+import { ProtectedRoute } from '../helpers/ProtectedRoute';
 
-const ViewHome = React.lazy(() =>
-  import(/* webpackChunkName: "views" */ '../views/home')
-);
 const AppRouter = React.lazy(() =>
   import(/* webpackChunkName: "views-app" */ './AppRouter')
 );
@@ -33,6 +30,7 @@ const ViewError = React.lazy(() =>
 const ViewUnauthorized = React.lazy(() =>
   import(/* webpackChunkName: "views-unauthorized" */ '../views/unauthorized')
 );
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -72,23 +70,15 @@ class App extends React.Component {
                       UserRole.candidate,
                     ]}
                   />
-                  <Route path="/user">
-                    <ViewUser />
-                  </Route>
-                  <Route path="/error" exact>
-                    <ViewError />
-                  </Route>
-                  <Route path="/unauthorized" exact>
-                    <ViewUnauthorized />
-                  </Route>
+                  <Route path="/user" children={<ViewUser />} />
+                  <Route path="/error" exact children={<ViewError />} />
                   <Route
-                    path="/"
+                    path="/unauthorized"
                     exact
-                    render={(props) => <ViewHome {...props} />}
-                  >
-                    <Redirect exact from="/" to={adminRoot} />
-                  </Route>
-                  <Redirect to="/error" />
+                    children={<ViewUnauthorized />}
+                  />
+                  <Route path="/" render={() => <Redirect to={adminRoot} />} />
+                  <Route path="*" render={() => <Redirect to="/error" />} />
                 </Switch>
               </Router>
             </Suspense>
