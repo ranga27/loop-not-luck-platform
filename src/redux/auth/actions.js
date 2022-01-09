@@ -21,9 +21,9 @@ import {
   SET_AUTH_ERROR,
 } from '../actions';
 
-export const loginUser = (user, history) => ({
+export const loginUser = (user) => ({
   type: LOGIN_USER,
-  payload: { user, history },
+  payload: { user },
 });
 export const loginUserSuccess = (user) => ({
   type: LOGIN_USER_SUCCESS,

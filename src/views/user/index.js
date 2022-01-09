@@ -25,10 +25,9 @@ const User = () => {
         <Suspense fallback={<div className="loading" />}>
           <Switch>
             <Redirect exact from={`${path}/`} to={`${path}/login`} />
-            <Route
-              path={`${path}/login`}
-              render={(props) => <Login {...props} />}
-            />
+            <Route path={`${path}/login`}>
+              <Login />
+            </Route>
             <Route
               path={`${path}/register`}
               render={(props) => <Register {...props} />}

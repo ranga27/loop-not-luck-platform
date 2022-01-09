@@ -39,13 +39,10 @@ const loginWithEmailPasswordAsync = async (email, password) => {
 
 function* loginWithEmailPassword({ payload }) {
   const { email, password } = payload.user;
-  const { history } = payload;
   try {
     const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
     if (!loginUser.message) {
       yield put(loginUserSuccess(loginUser));
-      // HACK: routing in saga, move to login component
-      history.push(adminRoot);
     } else {
       yield put(loginUserError(loginUser.message));
     }

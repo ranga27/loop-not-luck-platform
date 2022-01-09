@@ -1,4 +1,5 @@
 /* eslint-disable import/no-cycle */
+/* eslint-disable import/no-import-module-exports */
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
@@ -11,6 +12,14 @@ import menu from './menu/reducer';
 import authUser from './auth/reducer';
 import roles from './roles/reducer';
 import admin from './admin/reducer';
+
+const composeEnhancers =
+  (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      trace: true,
+      traceLimit: 25,
+    })) ||
+  composeWithDevTools;
 
 const authConfig = {
   key: 'auth',
@@ -26,8 +35,6 @@ const adminConfig = {
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middlewares = [sagaMiddleware];
-
 const rootReducer = combineReducers({
   menu,
   roles,
@@ -38,7 +45,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(...middlewares))
+  composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
 export const persistor = persistStore(store);

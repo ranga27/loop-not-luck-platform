@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Label, FormGroup } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // TODO: change to RHF smartform
 import { Formik, Form, Field } from 'formik';
@@ -11,11 +11,15 @@ import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
 import AuthButton from './AuthButton';
 import { SignInSchema } from './SignInSchema';
+import { adminRoot } from '../../constants/defaultValues';
 
 // TODO: check for email verified?
 
-const Login = ({ history }) => {
-  const { loading, error } = useSelector((state) => state.authUser);
+const Login = () => {
+  const history = useHistory();
+  const { loading, error, currentUser } = useSelector(
+    (state) => state.authUser
+  );
   const dispatch = useDispatch();
   const [email] = useState('sarang@loopnotluck.com');
   const [password] = useState('hanumant');
@@ -31,12 +35,15 @@ const Login = ({ history }) => {
           dispatch(setAuthError(''));
         }
       });
-  }, [error]);
+    if (currentUser) {
+      history.push(adminRoot);
+    }
+  }, [error, currentUser]);
 
   const onUserLogin = (values) => {
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
-        dispatch(loginUser(values, history));
+        dispatch(loginUser(values));
       }
     }
   };
