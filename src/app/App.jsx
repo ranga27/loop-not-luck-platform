@@ -75,16 +75,12 @@ class App extends React.Component {
                   <Route path="/user">
                     <ViewUser />
                   </Route>
-                  <Route
-                    path="/error"
-                    exact
-                    render={(props) => <ViewError {...props} />}
-                  />
-                  <Route
-                    path="/unauthorized"
-                    exact
-                    render={(props) => <ViewUnauthorized {...props} />}
-                  />
+                  <Route path="/error" exact>
+                    <ViewError />
+                  </Route>
+                  <Route path="/unauthorized" exact>
+                    <ViewUnauthorized />
+                  </Route>
                   <Route
                     path="/"
                     exact
