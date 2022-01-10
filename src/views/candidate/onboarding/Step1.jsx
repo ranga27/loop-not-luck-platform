@@ -24,14 +24,14 @@ const validateOther = (value) => {
   return error;
 };
 
-export function Step1(form, fields, messages) {
+export const Step1 = (form, { gender }, messages) => {
   return (
     <Step id="step1">
       <StepLayout>
         <Formik
           innerRef={form}
           initialValues={{
-            gender: fields.gender,
+            gender,
             genderOther: '',
           }}
           validateOnMount
@@ -78,4 +78,4 @@ export function Step1(form, fields, messages) {
       </StepLayout>
     </Step>
   );
-}
+};

@@ -13,14 +13,6 @@ import authUser from './auth/reducer';
 import roles from './roles/reducer';
 import admin from './admin/reducer';
 
-const composeEnhancers =
-  (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      trace: true,
-      traceLimit: 25,
-    })) ||
-  composeWithDevTools;
-
 const authConfig = {
   key: 'auth',
   storage,
@@ -45,7 +37,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
 export const persistor = persistStore(store);

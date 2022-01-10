@@ -7,7 +7,7 @@ import IntlMessages from '../../../helpers/IntlMessages';
 import { StepLayout } from '../../../layout/stepLayout';
 import { updateUser } from '../../../redux/actions';
 
-export function Step8({ loading, fields }) {
+export const Step8 = ({ loading, fields }) => {
   const dispatch = useDispatch();
   const { uid } = useSelector((state) => state.authUser.currentUser);
   const handleClick = () => {
@@ -45,4 +45,4 @@ export function Step8({ loading, fields }) {
       </StepLayout>
     </Step>
   );
-}
+};

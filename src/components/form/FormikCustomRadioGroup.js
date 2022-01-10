@@ -27,7 +27,7 @@ export const FormikCustomRadioGroup = ({
     <div className="form-options">
       {options.map((child, index) => {
         return (
-          <div key={child.name} style={{ display: 'flex' }}>
+          <div key={child.label} style={{ display: 'flex' }}>
             <Input
               key={`${name}_${child.value}_${index}`}
               type="radio"

@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 import { CHANGE_LOCALE } from '../actions';
 import { getCurrentLanguage } from '../../helpers/Utils';
 

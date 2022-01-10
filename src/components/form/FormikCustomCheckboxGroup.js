@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import {Input } from 'reactstrap';
+import { Input } from 'reactstrap';
 
 export const FormikCustomCheckboxGroup = ({
   name,

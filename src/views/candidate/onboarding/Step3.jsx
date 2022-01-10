@@ -22,7 +22,7 @@ const validateOther = (value) => {
   return error;
 };
 
-export function Step3(form, fields, messages) {
+export const Step3 = (form, { ethnicity }, messages) => {
   return (
     <Step id="step3">
       <StepLayout>
@@ -30,7 +30,7 @@ export function Step3(form, fields, messages) {
           validationSchema={validationSchema}
           innerRef={form}
           initialValues={{
-            ethnicity: fields.ethnicity,
+            ethnicity,
             ethnicityOther: '',
           }}
           validateOnMount
@@ -76,4 +76,4 @@ export function Step3(form, fields, messages) {
       </StepLayout>
     </Step>
   );
-}
+};

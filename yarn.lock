@@ -1568,19 +1568,19 @@
     "@formatjs/ecma402-abstract" "1.11.1"
     tslib "^2.1.0"
 
-"@formatjs/intl-displaynames@5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl-displaynames/-/intl-displaynames-5.3.1.tgz#29c57d11ce23d387be93c07039ad822babad4cbf"
-  integrity sha512-VJ9Aol+mxxYVFVuix06fEbz+SR3uneZltrjGoG16hh83rF5Pjgb5BN6yAQXSvZwUvr+npk62uqKrjajOga4M6g==
+"@formatjs/intl-displaynames@5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-displaynames/-/intl-displaynames-5.4.0.tgz#0046fcd241417d4114fba93b2480f663ffe1a004"
+  integrity sha512-zWmTkq9eGOeJCmw22KPXW6rlnx3Z3CIV+rc/jh9ytEfm1Ps/OgOITe4h6ZTDrQC+nXVACvLO1Kpes4jMWcjWuQ==
   dependencies:
     "@formatjs/ecma402-abstract" "1.11.1"
     "@formatjs/intl-localematcher" "0.2.22"
     tslib "^2.1.0"
 
-"@formatjs/intl-listformat@6.4.1":
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl-listformat/-/intl-listformat-6.4.1.tgz#11ce26fcfba814195ce7132e3e1b86a673d093d5"
-  integrity sha512-vQeTRBwRoTDcXAkJ3WGk+ReA0sKq8ldYFwKvf/J3PCd98BlZwuxPaXhTsl1iqKEh0mTdHl8zZ9iohIJTi/u1cg==
+"@formatjs/intl-listformat@6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-listformat/-/intl-listformat-6.5.0.tgz#d2a8fe10f2900feeb20583be52ee603c41713f7f"
+  integrity sha512-gVyAV5QWWtq84MK4cAyJITW+Wb74c2+FT+wa8jhSPxXUky9B5z/k/Ff7or4Vb3KV0YYZuVBQ/vMIoD8Gr182ww==
   dependencies:
     "@formatjs/ecma402-abstract" "1.11.1"
     "@formatjs/intl-localematcher" "0.2.22"
@@ -1593,16 +1593,16 @@
   dependencies:
     tslib "^2.1.0"
 
-"@formatjs/intl@1.18.1":
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl/-/intl-1.18.1.tgz#3ed9e72c18b117d16280fc8e7513d71b20d51444"
-  integrity sha512-xmkefWqqiCWNUbGvMwykNG+kRs2o9DsEBTulimRKTUtdA9+OfIWDtg6XFZop5aWsMIpNQqnL2uW3IzWFidWgrQ==
+"@formatjs/intl@1.18.2":
+  version "1.18.2"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl/-/intl-1.18.2.tgz#df9cde24670c9dc8349651e20519c867bc6805c6"
+  integrity sha512-n84m7x5GGOK8jYRu6/t0iy3FO/fmpOK0qkrL4XbEe6ve0Vz59JwH9XQrQpYRPhhvAD4NYAUNcsxZ5q5AKWSkNg==
   dependencies:
     "@formatjs/ecma402-abstract" "1.11.1"
     "@formatjs/fast-memoize" "1.2.1"
     "@formatjs/icu-messageformat-parser" "2.0.16"
-    "@formatjs/intl-displaynames" "5.3.1"
-    "@formatjs/intl-listformat" "6.4.1"
+    "@formatjs/intl-displaynames" "5.4.0"
+    "@formatjs/intl-listformat" "6.5.0"
     intl-messageformat "9.11.1"
     tslib "^2.1.0"
 
@@ -2680,7 +2680,7 @@
     semver "^7.3.5"
     tsutils "^3.21.0"
 
-"@typescript-eslint/experimental-utils@5.9.0", "@typescript-eslint/experimental-utils@^5.0.0", "@typescript-eslint/experimental-utils@^5.5.0":
+"@typescript-eslint/experimental-utils@5.9.0", "@typescript-eslint/experimental-utils@^5.0.0", "@typescript-eslint/experimental-utils@^5.9.0":
   version "5.9.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-5.9.0.tgz#652762d37d6565ef07af285021b8347b6c79a827"
   integrity sha512-ZnLVjBrf26dn7ElyaSKa6uDhqwvAi4jBBmHK1VxuFGPRAxhdi18ubQYSGA7SRiFiES3q9JiBOBHEBStOFkwD2g==
@@ -4983,11 +4983,11 @@ eslint-plugin-react@^7.27.1, eslint-plugin-react@^7.28.0:
     string.prototype.matchall "^4.0.6"
 
 eslint-plugin-testing-library@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-5.0.1.tgz#2c963211dd6e9e7cd196a8096000f20ecf846712"
-  integrity sha512-8ZV4HbbacvOwu+adNnGpYd8E64NRcil2a11aFAbc/TZDUB/xxK2c8Z+LoeoHUbxNBGbTUdpAE4YUugxK85pcwQ==
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-5.0.3.tgz#466ac181ecafc91f29c9346ca190b91d090734b3"
+  integrity sha512-tKZ9G+HnIOnYAhXeoBCiAT8LOdU3m1VquBTKsBW/5zAaB30vq7gC60DIayPfMJt8EZBlqPVzGqSN57sIFmTunQ==
   dependencies:
-    "@typescript-eslint/experimental-utils" "^5.5.0"
+    "@typescript-eslint/experimental-utils" "^5.9.0"
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
@@ -5257,9 +5257,9 @@ fast-diff@^1.1.2:
   integrity sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
 
 fast-glob@^3.2.7, fast-glob@^3.2.9:
-  version "3.2.9"
-  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.9.tgz#8f55f664b68a236bd29fa165817fc44f2b11faba"
-  integrity sha512-MBwILhhD92sziIrMQwpqcuGERF+BH99ei2a3XsGJuqEKcSycAL+w0HWokFenZXona+kjFr82Lf71eTxNRC06XQ==
+  version "3.2.10"
+  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.10.tgz#2734f83baa7f43b7fd41e13bc34438f4ffe284ee"
+  integrity sha512-s9nFhFnvR63wls6/kM88kQqDhMu0AfdjqouE2l5GVQPbqLgyFjjU5ry/r2yKsJxpb9Py1EYNqieFrmMaX4v++A==
   dependencies:
     "@nodelib/fs.stat" "^2.0.2"
     "@nodelib/fs.walk" "^1.2.3"
@@ -9366,15 +9366,15 @@ react-image-lightbox@^5.1.4:
     react-modal "^3.11.1"
 
 react-intl@^5.24.1:
-  version "5.24.1"
-  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-5.24.1.tgz#5b49f2af2472db590a51b62713e7e99ba3b3c303"
-  integrity sha512-GP9ZP4UlWPGjleY2Yu0wJggz4/14VsjGaTduq+jGGsLBsuAVq6Gxa+K58mbn5rRU9E10sHxH75Q73oJMqiGBiw==
+  version "5.24.2"
+  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-5.24.2.tgz#1c8ee7724c849418d024d47ab5a5fc0052ce861b"
+  integrity sha512-nYdqH+CWNV187/GPrjC1/SJdadz9zi7d5Gsz6c899K+sWGLFH4v9+cnEWUp5PuEcGr6DxtNA+EepWRpYp8FeUg==
   dependencies:
     "@formatjs/ecma402-abstract" "1.11.1"
     "@formatjs/icu-messageformat-parser" "2.0.16"
-    "@formatjs/intl" "1.18.1"
-    "@formatjs/intl-displaynames" "5.3.1"
-    "@formatjs/intl-listformat" "6.4.1"
+    "@formatjs/intl" "1.18.2"
+    "@formatjs/intl-displaynames" "5.4.0"
+    "@formatjs/intl-listformat" "6.5.0"
     "@types/hoist-non-react-statics" "^3.3.1"
     "@types/react" "16 || 17"
     hoist-non-react-statics "^3.3.2"
@@ -11193,9 +11193,9 @@ v8-compile-cache@^2.0.3:
   integrity sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==
 
 v8-to-istanbul@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/v8-to-istanbul/-/v8-to-istanbul-8.1.0.tgz#0aeb763894f1a0a1676adf8a8b7612a38902446c"
-  integrity sha512-/PRhfd8aTNp9Ggr62HPzXg2XasNFGy5PBt0Rp04du7/8GNNSgxFL6WBTkgMKSL9bFjH+8kKEG3f37FmxiTqUUA==
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/v8-to-istanbul/-/v8-to-istanbul-8.1.1.tgz#77b752fd3975e31bbcef938f85e9bd1c7a8d60ed"
+  integrity sha512-FGtKtv3xIpR6BYhvgH8MI/y78oT7d8Au3ww4QIxymrCtZEh5b8gCw2siywE+puhEmuWKDtmfrvF5UlB298ut3w==
   dependencies:
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^1.6.0"

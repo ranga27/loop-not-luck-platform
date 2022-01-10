@@ -13,7 +13,7 @@ import { FormikDatePicker } from '../../../components/form/FormikDatePicker';
 const validationSchema = Yup.object().shape({
   start: Yup.string().required('Start Date is required'),
 });
-export function Step6(form, fields, messages) {
+export const Step6 = (form, { start }, messages) => {
   return (
     <Step id="step6">
       <StepLayout>
@@ -21,7 +21,7 @@ export function Step6(form, fields, messages) {
           validationSchema={validationSchema}
           innerRef={form}
           initialValues={{
-            start: fields.start,
+            start,
           }}
           validateOnMount
           onSubmit={() => {}}
@@ -46,4 +46,4 @@ export function Step6(form, fields, messages) {
       </StepLayout>
     </Step>
   );
-}
+};

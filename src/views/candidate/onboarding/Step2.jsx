@@ -14,7 +14,7 @@ const validationSchema = Yup.object().shape({
     .required('Select at least one option')
     .min(1, 'Select at least one option'),
 });
-export function Step2(form, fields, messages) {
+export const Step2 = (form, { diversity }, messages) => {
   return (
     <Step id="step2">
       <StepLayout>
@@ -22,7 +22,7 @@ export function Step2(form, fields, messages) {
           validationSchema={validationSchema}
           innerRef={form}
           initialValues={{
-            diversity: fields.diversity,
+            diversity,
           }}
           validateOnMount
           onSubmit={() => {}}
@@ -51,4 +51,4 @@ export function Step2(form, fields, messages) {
       </StepLayout>
     </Step>
   );
-}
+};

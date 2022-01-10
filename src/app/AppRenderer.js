@@ -1,19 +1,22 @@
-import React, { Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { configureStore, persistor } from '../redux/store';
 import reportWebVitals from './reportWebVitals';
 
-const App = React.lazy(() => import(/* webpackChunkName: "App" */ './App'));
+const App = lazy(() => import(/* webpackChunkName: "app-main" */ './App'));
 
 const Main = () => {
   return (
     <Provider store={configureStore()}>
       <PersistGate loading={null} persistor={persistor}>
-        <Suspense fallback={<div className="loading" />}>
-          <App />
-        </Suspense>
+        <BrowserRouter>
+          <Suspense fallback={<div className="loading" />}>
+            <App />
+          </Suspense>
+        </BrowserRouter>
       </PersistGate>
     </Provider>
   );

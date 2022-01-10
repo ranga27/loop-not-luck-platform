@@ -11,7 +11,7 @@ import { interestOptions } from '../../../data/interestOptions';
 const validationSchema = Yup.object().shape({
   interests: Yup.array().required('Please select at least one').min(1),
 });
-export function Step7(form, fields, messages) {
+export const Step7 = (form, { interests }, messages) => {
   return (
     <Step id="step7">
       <StepLayout>
@@ -19,7 +19,7 @@ export function Step7(form, fields, messages) {
           validationSchema={validationSchema}
           innerRef={form}
           initialValues={{
-            interests: fields.interests,
+            interests,
           }}
           validateOnMount
           onSubmit={() => {}}
@@ -48,4 +48,4 @@ export function Step7(form, fields, messages) {
       </StepLayout>
     </Step>
   );
-}
+};

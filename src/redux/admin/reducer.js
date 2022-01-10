@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 import {
   GET_USERS_ERROR,
   GET_USERS_REQUESTED,

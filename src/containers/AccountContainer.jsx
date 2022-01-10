@@ -81,12 +81,10 @@ const AccountContainer = () => {
     }
   };
   return (
-    <>
-      <AccountForm
-        defaultValues={defaultValues}
-        onSubmit={(data) => onSubmit(data)}
-      />
-    </>
+    <AccountForm
+      defaultValues={defaultValues}
+      onSubmit={(data) => onSubmit(data)}
+    />
   );
 };
 
