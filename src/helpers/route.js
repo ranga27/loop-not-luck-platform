@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { lazy } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const ViewUser = lazy(() =>
   import(/* webpackChunkName: "views-user" */ '../views/user')
@@ -11,7 +11,6 @@ const ViewError = lazy(() =>
 const ViewUnauthorized = lazy(() =>
   import(/* webpackChunkName: "views-unauthorized" */ '../views/unauthorized')
 );
-
 const Login = lazy(() =>
   import(/* webpackChunkName: "user-login" */ '../views/user/login')
 );
@@ -28,23 +27,19 @@ const ResetPassword = lazy(() =>
     /* webpackChunkName: "user-reset-password" */ '../views/user/reset-password'
   )
 );
-
 const ViewCandidate = React.lazy(() =>
   import(/* webpackChunkName: "views-candidate" */ '../views/candidate')
 );
-
 const Opportunities = React.lazy(() =>
   import(
     /* webpackChunkName: "opportunities" */ '../views/candidate/opportunities'
   )
 );
-
 const ViewRoles = React.lazy(() =>
   import(
     /* webpackChunkName: "view-roles" */ '../views/candidate/opportunities/ViewRoles'
   )
 );
-
 const Account = React.lazy(() =>
   import(/* webpackChunkName: "account" */ '../views/candidate/Account')
 );
@@ -52,7 +47,7 @@ const Account = React.lazy(() =>
 const routes = (user) => [
   {
     path: '/',
-    element: <Outlet />,
+    element: !user ? <Outlet /> : <Navigate to="/app" />,
     children: [
       {
         path: 'user/*',
@@ -62,6 +57,7 @@ const routes = (user) => [
             path: 'login',
             element: <Login />,
           },
+          { path: '/', element: <Navigate to="/user/login" /> },
           {
             path: 'register',
             element: <Register />,
@@ -80,6 +76,7 @@ const routes = (user) => [
           },
         ],
       },
+      { path: '/', element: <Navigate to="/user" /> },
       {
         path: 'error',
         element: <ViewError />,
@@ -96,13 +93,14 @@ const routes = (user) => [
   },
   {
     path: 'app/*',
-    element: <ViewCandidate />,
+    element: user ? <ViewCandidate /> : <Navigate to="/" />,
     children: [
       {
         path: 'opportunities',
         element: <Opportunities />,
         children: [{ path: 'view', element: <ViewRoles /> }],
       },
+      { path: '/', element: <Navigate to="/app" /> },
       { path: 'account', element: <Account /> },
     ],
   },

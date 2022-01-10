@@ -1,5 +1,5 @@
 main {
-  margin-left: $sub-menu-width + $main-menu-width + $main-margin;
+  margin-left:  $main-margin;
   margin-top: $navbar-height + $main-margin - 15;
   margin-right: $main-margin;
   margin-bottom: $main-margin - 20;
@@ -19,14 +19,14 @@ main {
   }
 
   @include respond-below(xl) {
-    margin-left: $sub-menu-width-lg + $main-menu-width-lg + $main-margin-lg;
+    margin-left: $main-margin-lg;
     margin-right: $main-margin-lg;
     margin-top: $main-margin-lg + $navbar-height-lg -10;
     margin-bottom: 30px;
   }
 
   @include respond-below(lg) {
-    margin-left: $sub-menu-width-md + $main-menu-width-md + $main-margin-md;
+    margin-left: $main-margin-md;
     margin-right: $main-margin-md;
     margin-top: $main-margin-md + $navbar-height-md -10;
     margin-bottom: 20px;
