@@ -73,9 +73,9 @@ export const registerUserError = (message) => ({
   payload: { message },
 });
 
-export const logoutUser = (navigate) => ({
+export const logoutUser = (user) => ({
   type: LOGOUT_USER,
-  payload: navigate,
+  payload: user,
 });
 
 export const verifyEmail = (message) => ({

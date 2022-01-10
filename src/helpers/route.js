@@ -57,7 +57,6 @@ const routes = (user) => [
             path: 'login',
             element: <Login />,
           },
-          { path: '/', element: <Navigate to="/user/login" /> },
           {
             path: 'register',
             element: <Register />,
@@ -76,7 +75,7 @@ const routes = (user) => [
           },
         ],
       },
-      { path: '/', element: <Navigate to="/user" /> },
+      { path: '/', element: <Navigate to="user/login" /> },
       {
         path: 'error',
         element: <ViewError />,
@@ -100,10 +99,10 @@ const routes = (user) => [
         element: <Opportunities />,
         children: [{ path: 'view', element: <ViewRoles /> }],
       },
-      { path: '/', element: <Navigate to="/app" /> },
       { path: 'account', element: <Account /> },
     ],
   },
+  { path: '/app', element: <Navigate to="opportunities/view" /> },
 ];
 
 export default routes;

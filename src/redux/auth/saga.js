@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { auth } from '../../helpers/Firebase';
 
@@ -66,9 +67,9 @@ const verifyEmailAsync = async () => {
   return verifyEmail();
 };
 
-function* registerWithEmailPassword({ user }) {
+function* registerWithEmailPassword({ payload }) {
   try {
-    const registerUser = yield call(registerWithEmailPasswordAsync, user);
+    const registerUser = yield call(registerWithEmailPasswordAsync, payload);
     if (!registerUser.message) {
       yield call(verifyEmailAsync);
       yield put(registerUserSuccess('success'));
@@ -85,17 +86,16 @@ export function* watchLogoutUser() {
   yield takeEvery(LOGOUT_USER, logout);
 }
 
-const logoutAsync = async (navigate) => {
+const logoutAsync = async () => {
   await auth
     .signOut()
     .then((user) => user)
     .catch((error) => error);
-  navigate(adminRoot);
 };
 
-function* logout(navigate) {
+function* logout({ user }) {
   yield call(persistor.purge);
-  yield call(logoutAsync, navigate);
+  yield call(logoutAsync);
 }
 
 export function* watchForgotPassword() {

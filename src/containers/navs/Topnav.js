@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-use-before-define */
@@ -171,7 +172,7 @@ const TopNav = ({
 
   const handleLogout = () => {
     try {
-      logoutUserAction(history);
+      logoutUserAction(currentUser);
     } catch (e) {
       throw new Error('Error while signing out');
     }
@@ -200,68 +201,7 @@ const TopNav = ({
   const { messages } = intl;
   return (
     <nav className="navbar fixed-top">
-      <div className="d-flex align-items-center navbar-left">
-        <NavLink
-          to="#"
-          location={{}}
-          className="menu-button d-none d-md-block"
-          onClick={(e) =>
-            menuButtonClick(e, menuClickCount, containerClassnames)
-          }
-        >
-          <MenuIcon />
-        </NavLink>
-        <NavLink
-          to="#"
-          location={{}}
-          className="menu-button-mobile d-xs-block d-sm-block d-md-none"
-          onClick={(e) => mobileMenuButtonClick(e, containerClassnames)}
-        >
-          <MobileMenuIcon />
-        </NavLink>
-
-        <div className="search">
-          <Input
-            name="searchKeyword"
-            id="searchKeyword"
-            placeholder={messages['menu.search']}
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            onKeyPress={(e) => handleSearchInputKeyPress(e)}
-          />
-          <span
-            className="search-icon"
-            onClick={(e) => handleSearchIconClick(e)}
-          >
-            <i className="simple-icon-magnifier" />
-          </span>
-        </div>
-
-        <div className="d-inline-block">
-          <UncontrolledDropdown className="ml-2">
-            <DropdownToggle
-              caret
-              color="light"
-              size="sm"
-              className="language-button"
-            >
-              <span className="name">{locale.toUpperCase()}</span>
-            </DropdownToggle>
-            <DropdownMenu className="mt-3" right>
-              {localeOptions.map((l) => {
-                return (
-                  <DropdownItem
-                    onClick={() => handleChangeLocale(l.id, l.direction)}
-                    key={l.id}
-                  >
-                    {l.name}
-                  </DropdownItem>
-                );
-              })}
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </div>
-      </div>
+      <div className="d-flex align-items-center navbar-left" />
       <NavLink className="navbar-logo" to={adminRoot}>
         <span className="logo d-none d-xs-block" />
         <span className="logo-mobile d-block d-xs-none" />
@@ -292,8 +232,8 @@ const TopNav = ({
                 <img alt="Profile" src="/assets/img/profiles/l-1.jpg" />
               </span>
             </DropdownToggle>
-            <DropdownMenu className="mt-3" right>
-              <DropdownItem tag={Link} to={`${adminRoot}/account`}>
+            <DropdownMenu className="mt-3" end>
+              <DropdownItem tag={Link} to="account">
                 Account
               </DropdownItem>
               <DropdownItem>Features</DropdownItem>
