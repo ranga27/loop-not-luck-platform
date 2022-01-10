@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
 import { FormGroup, Label } from 'reactstrap';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // TODO: Use RHF
 import { Formik, Form, Field } from 'formik';
@@ -15,7 +15,7 @@ import AuthButton from './AuthButton';
 import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
 
 const Register = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { loading, error, currentUser } = useSelector(
     (state) => state.authUser
   );
@@ -41,8 +41,9 @@ const Register = () => {
         if (result.isConfirmed || result.isDismissed) {
           // Firebase signs in user, hence sign out immediately to verify email
           dispatch(setAuthError(''));
-          dispatch(logoutUser(history));
-          history.push('/');
+          // TODO: remove navigate from logout saga
+          dispatch(logoutUser(navigate));
+          navigate('/');
         }
       });
     }
@@ -52,7 +53,7 @@ const Register = () => {
   const onUserRegister = (values) => {
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
-        dispatch(registerUser(values, history));
+        dispatch(registerUser(values));
       }
     }
   };
@@ -107,7 +108,7 @@ const Register = () => {
               <FormGroup className="form-group">
                 <Label className="d-block">Select One</Label>
                 <FormikCustomRadioGroup
-                  inline
+                  inline="true"
                   name="role"
                   id="role"
                   value={values.role}

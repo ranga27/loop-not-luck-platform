@@ -34,7 +34,7 @@ export const firebaseConfig = {
 
 export const storageRootUrl = `https://storage.googleapis.com/${firebaseConfig.storageBucket}/`;
 
-export const adminRoot = '/app';
+export const adminRoot = '/';
 export const buyUrl = '';
 export const searchPath = `${adminRoot}/#`;
 export const servicePath = '';

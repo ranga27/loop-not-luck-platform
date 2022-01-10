@@ -126,7 +126,7 @@ const ColorSwitcher = () => {
               type="radio"
               name="radiusRadio"
               id="rounded"
-              inline
+              inline="true"
               defaultChecked={radius === 'rounded'}
               onChange={() => setRadius('rounded')}
             />
@@ -136,7 +136,7 @@ const ColorSwitcher = () => {
               name="radiusRadio"
               id="flat"
               label="Flat"
-              inline
+              inline="true"
               defaultChecked={radius === 'flat'}
               onChange={() => setRadius('flat')}
             />
@@ -153,7 +153,6 @@ const ColorSwitcher = () => {
           setIsOpen(!isOpen);
         }}
       >
-        {' '}
         <i className="simple-icon-magic-wand" />{' '}
       </a>
     </div>

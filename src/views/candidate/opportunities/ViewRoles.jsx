@@ -1,13 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { Row } from 'reactstrap';
-import { useRouteMatch } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
 import ViewRolesContainer from '../../../containers/candidate/ViewRolesContainer';
 import Breadcrumb from '../../../containers/navs/Breadcrumb';
 
 const ViewRoles = () => {
-  const match = useRouteMatch();
+  const match = useMatch();
   return (
     <>
       <Row>

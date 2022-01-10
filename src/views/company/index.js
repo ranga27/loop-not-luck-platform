@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ProtectedRoute } from '../../helpers/authHelper';
 import AppLayout from '../../layout/AppLayout';
@@ -23,8 +23,8 @@ const App = ({ match }) => {
     <AppLayout>
       <div className="dashboard-wrapper">
         <Suspense fallback={<div className="loading" />}>
-          <Switch>
-            <Redirect
+          <Routes>
+            <Navigate
               exact
               from={`${match.url}/`}
               to={`${match.url}/opportunities`}
@@ -47,8 +47,8 @@ const App = ({ match }) => {
               component={Admin}
               roles={[UserRole.admin]}
             />
-            <Redirect to="/error" />
-          </Switch>
+            <Navigate to="/error" />
+          </Routes>
         </Suspense>
       </div>
     </AppLayout>
@@ -60,4 +60,4 @@ const mapStateToProps = ({ menu }) => {
   return { containerClassnames };
 };
 
-export default withRouter(connect(mapStateToProps, {})(App));
+export default connect(mapStateToProps, {})(App);

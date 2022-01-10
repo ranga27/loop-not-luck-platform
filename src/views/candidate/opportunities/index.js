@@ -1,24 +1,24 @@
 /* eslint-disable react/no-children-prop */
 import React, { Suspense } from 'react';
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Navigate, Route, Routes, useMatch } from 'react-router-dom';
 
 const ViewRoles = React.lazy(() =>
   import(/* webpackChunkName: "view-roles" */ './ViewRoles')
 );
 // TODO: use protected route based on the role, for additional security add firebase rules on document & collection level
 const OpportunitiesMenu = () => {
-  const { url } = useRouteMatch();
+  const { url } = useMatch();
   return (
     <Suspense fallback={<div className="loading" />}>
-      <Switch>
+      <Routes>
         <Route
           exact
           path={`${url}/`}
-          render={() => <Redirect to={`${url}/view`} />}
+          render={() => <Navigate to={`${url}/view`} />}
         />
         <Route path={`${url}/view`} children={<ViewRoles />} />
-        <Route path="*" render={() => <Redirect to="/error" />} />
-      </Switch>
+        <Route path="*" render={() => <Navigate to="/error" />} />
+      </Routes>
     </Suspense>
   );
 };

@@ -33,14 +33,13 @@ import {
 } from '../../helpers/firebaseService';
 import { getUserError } from './getUserError';
 
-const loginWithEmailPasswordAsync = async (email, password) => {
-  return signInWithEmail(email, password);
+const loginWithEmailPasswordAsync = async (user) => {
+  return signInWithEmail(user);
 };
 
 function* loginWithEmailPassword({ payload }) {
-  const { email, password } = payload.user;
   try {
-    const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
+    const loginUser = yield call(loginWithEmailPasswordAsync, payload);
     if (!loginUser.message) {
       yield put(loginUserSuccess(loginUser));
     } else {
@@ -67,12 +66,9 @@ const verifyEmailAsync = async () => {
   return verifyEmail();
 };
 
-function* registerWithEmailPassword({ payload }) {
+function* registerWithEmailPassword({ user }) {
   try {
-    const registerUser = yield call(
-      registerWithEmailPasswordAsync,
-      payload.user
-    );
+    const registerUser = yield call(registerWithEmailPasswordAsync, user);
     if (!registerUser.message) {
       yield call(verifyEmailAsync);
       yield put(registerUserSuccess('success'));
@@ -89,19 +85,17 @@ export function* watchLogoutUser() {
   yield takeEvery(LOGOUT_USER, logout);
 }
 
-const logoutAsync = async (history) => {
+const logoutAsync = async (navigate) => {
   await auth
     .signOut()
     .then((user) => user)
     .catch((error) => error);
-  history.push(adminRoot);
+  navigate(adminRoot);
 };
 
-function* logout({ payload }) {
-  const { history } = payload;
-  // setCurrentUser();
+function* logout(navigate) {
   yield call(persistor.purge);
-  yield call(logoutAsync, history);
+  yield call(logoutAsync, navigate);
 }
 
 export function* watchForgotPassword() {

@@ -13,7 +13,7 @@ import {
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
 import {
@@ -27,7 +27,7 @@ import { addOpportunityToFirestore } from '../../helpers/firestoreService';
 import { uploadFile } from '../../helpers/uploadFile';
 
 const PostOpportunityContainer = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [modalBasic, setModalBasic] = useState(false);
   const [isEmail, setEmail] = useState(false);
   const [isWebsite, setWebsite] = useState(false);
@@ -315,7 +315,7 @@ const PostOpportunityContainer = () => {
               <ModalFooter>
                 <Button
                   color="secondary"
-                  onClick={() => history.push('/app/opportunities/review')}
+                  onClick={() => navigate('/app/opportunities/review')}
                 >
                   Go To Review
                 </Button>

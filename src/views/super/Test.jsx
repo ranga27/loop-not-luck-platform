@@ -9,13 +9,13 @@ import {
   Button,
   CardSubtitle,
 } from 'reactstrap';
-import { useRouteMatch } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import Breadcrumb from '../../containers/navs/Breadcrumb';
 import { MultiSelect } from '../../components/form/FormFields';
 
 const Test = () => {
-  const match = useRouteMatch();
+  const match = useMatch();
   const { control, setValue, handleSubmit } = useForm();
   const tagsOptions = [
     {

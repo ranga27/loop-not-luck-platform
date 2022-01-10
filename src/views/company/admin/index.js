@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 const Companies = React.lazy(() =>
   import(/* webpackChunkName: "admin-companies" */ './Companies')
@@ -15,8 +15,7 @@ const EditCompany = React.lazy(() =>
 
 const AdminMenu = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
-    <Switch>
-
+    <Routes>
       <Route
         path={`${match.url}/companies`}
         render={(props) => <Companies {...props} />}
@@ -29,8 +28,8 @@ const AdminMenu = ({ match }) => (
         path={`${match.url}/editcompany`}
         render={(props) => <EditCompany {...props} />}
       />
-      <Redirect to="/error" />
-    </Switch>
+      <Navigate to="/error" />
+    </Routes>
   </Suspense>
 );
 export default AdminMenu;

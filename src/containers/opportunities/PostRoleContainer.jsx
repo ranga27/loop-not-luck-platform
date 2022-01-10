@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getCompanies } from '../../redux/actions';
 import PostRoleForm from '../../components/PostRoleForm';
 
@@ -12,7 +12,7 @@ const PostRoleContainer = () => {
   useEffect(() => {
     dispatch(getCompanies());
   }, [dispatch]);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [modalBasic, setModalBasic] = useState(false);
 
   return (
@@ -37,7 +37,7 @@ const PostRoleContainer = () => {
             <ModalFooter>
               <Button
                 color="secondary"
-                onClick={() => history.push('/app/opportunities/review')}
+                onClick={() => navigate('/app/opportunities/review')}
               >
                 Go To Review
               </Button>

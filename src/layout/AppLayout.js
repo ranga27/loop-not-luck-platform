@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import TopNav from '../containers/navs/Topnav';
 import Sidebar from '../containers/navs/Sidebar';
@@ -24,6 +23,4 @@ const mapStateToProps = ({ menu }) => {
 };
 const mapActionToProps = {};
 
-export default withRouter(
-  connect(mapStateToProps, mapActionToProps)(AppLayout)
-);
+export default connect(mapStateToProps, mapActionToProps)(AppLayout);

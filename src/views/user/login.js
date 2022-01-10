@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { Label, FormGroup } from 'reactstrap';
-import { NavLink, useHistory, useRouteMatch } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 // TODO: change to RHF smartform
 import { Formik, Form, Field } from 'formik';
@@ -17,7 +17,7 @@ import { adminRoot } from '../../constants/defaultValues';
 // TODO: check for email verified?
 
 const Login = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { loading, error, currentUser } = useSelector(
     (state) => state.authUser
   );
@@ -37,7 +37,7 @@ const Login = () => {
         }
       });
     if (currentUser) {
-      history.push(adminRoot);
+      navigate(adminRoot);
     }
   }, [error, currentUser]);
 

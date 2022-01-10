@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import React, { Suspense } from 'react';
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Navigate, Route, Routes, useMatch } from 'react-router-dom';
 import AppLayout from '../../layout/AppLayout';
 
 const Users = React.lazy(() =>
@@ -12,20 +12,20 @@ const Test = React.lazy(() =>
 );
 
 const App = () => {
-  const { url } = useRouteMatch();
+  const { url } = useMatch();
   return (
     <AppLayout>
       <Suspense fallback={<div className="loading" />}>
-        <Switch>
+        <Routes>
           <Route
             exact
             path={`${url}/`}
-            render={() => <Redirect to={`${url}/test`} />}
+            render={() => <Navigate to={`${url}/test`} />}
           />
-          <Route path={`${url}/users`} children={<Users />} />
-          <Route path={`${url}/test`} children={<Test />} />
-          <Route path="*" render={() => <Redirect to="/error" />} />
-        </Switch>
+          <Route path={`${url}/users`} element={<Users />} />
+          <Route path={`${url}/test`} element={<Test />} />
+          <Route path="*" render={() => <Navigate to="/error" />} />
+        </Routes>
       </Suspense>
     </AppLayout>
   );

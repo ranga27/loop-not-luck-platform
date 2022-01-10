@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { Nav, NavItem, Collapse } from 'reactstrap';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
@@ -549,11 +549,9 @@ const mapStateToProps = ({ menu, authUser }) => {
     currentUser,
   };
 };
-export default withRouter(
-  connect(mapStateToProps, {
-    setContainerClassnames,
-    addContainerClassname,
-    changeDefaultClassnames,
-    changeSelectedMenuHasSubItems,
-  })(Sidebar)
-);
+export default connect(mapStateToProps, {
+  setContainerClassnames,
+  addContainerClassname,
+  changeDefaultClassnames,
+  changeSelectedMenuHasSubItems,
+})(Sidebar);

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const ProtectedRoute = ({
@@ -17,7 +17,7 @@ const ProtectedRoute = ({
           return <Component {...props} />;
         }
         return (
-          <Redirect
+          <Navigate
             to={{
               pathname: '/unauthorized',
               state: { from: props.location },
@@ -28,7 +28,7 @@ const ProtectedRoute = ({
       return <Component {...props} />;
     }
     return (
-      <Redirect
+      <Navigate
         to={{
           pathname: '/user/login',
           state: { from: props.location },

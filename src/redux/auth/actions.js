@@ -23,7 +23,7 @@ import {
 
 export const loginUser = (user) => ({
   type: LOGIN_USER,
-  payload: { user },
+  payload: user,
 });
 export const loginUserSuccess = (user) => ({
   type: LOGIN_USER_SUCCESS,
@@ -60,9 +60,9 @@ export const resetPasswordError = (message) => ({
   payload: { message },
 });
 
-export const registerUser = (user, history) => ({
+export const registerUser = (user) => ({
   type: REGISTER_USER,
-  payload: { user, history },
+  payload: user,
 });
 export const registerUserSuccess = (user) => ({
   type: REGISTER_USER_SUCCESS,
@@ -73,9 +73,9 @@ export const registerUserError = (message) => ({
   payload: { message },
 });
 
-export const logoutUser = (history) => ({
+export const logoutUser = (navigate) => ({
   type: LOGOUT_USER,
-  payload: { history },
+  payload: navigate,
 });
 
 export const verifyEmail = (message) => ({

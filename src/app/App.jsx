@@ -1,12 +1,8 @@
 /* eslint-disable react/no-children-prop */
+/* eslint-disable no-unused-vars */
 import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import AppLocale from '../lang';
 import ColorSwitcher from '../components/common/ColorSwitcher';
@@ -31,6 +27,22 @@ const ViewUnauthorized = React.lazy(() =>
   import(/* webpackChunkName: "views-unauthorized" */ '../views/unauthorized')
 );
 
+const Login = React.lazy(() =>
+  import(/* webpackChunkName: "user-login" */ '../views/user/login')
+);
+const Register = React.lazy(() =>
+  import(/* webpackChunkName: "user-register" */ '../views/user/register')
+);
+const ForgotPassword = React.lazy(() =>
+  import(
+    /* webpackChunkName: "user-forgot-password" */ '../views/user/forgot-password'
+  )
+);
+const ResetPassword = React.lazy(() =>
+  import(
+    /* webpackChunkName: "user-reset-password" */ '../views/user/reset-password'
+  )
+);
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -57,9 +69,9 @@ class App extends React.Component {
           <>
             {isMultiColorActive && <ColorSwitcher />}
             <Suspense fallback={<div className="loading" />}>
-              <Router>
-                <Switch>
-                  <ProtectedRoute
+              <BrowserRouter>
+                <Routes>
+                  {/* <ProtectedRoute
                     path={adminRoot}
                     component={AppRouter}
                     roles={[
@@ -69,18 +81,21 @@ class App extends React.Component {
                       UserRole.employer,
                       UserRole.candidate,
                     ]}
-                  />
-                  <Route path="/user" children={<ViewUser />} />
-                  <Route path="/error" exact children={<ViewError />} />
-                  <Route
-                    path="/unauthorized"
-                    exact
-                    children={<ViewUnauthorized />}
-                  />
-                  <Route path="/" render={() => <Redirect to={adminRoot} />} />
-                  <Route path="*" render={() => <Redirect to="/error" />} />
-                </Switch>
-              </Router>
+                  /> */}
+                  <Route path="user" element={<ViewUser />}>
+                    <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
+                    <Route
+                      path="forgot-password"
+                      element={<ForgotPassword />}
+                    />
+                    <Route path="reset-password" element={<ResetPassword />} />
+                  </Route>
+                  <Route path="/error" element={<ViewError />} />
+                  <Route path="/unauthorized" element={<ViewUnauthorized />} />
+                  <Route path="*" element={<ViewError />} />
+                </Routes>
+              </BrowserRouter>
             </Suspense>
           </>
         </IntlProvider>

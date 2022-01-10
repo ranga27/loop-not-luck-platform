@@ -1,12 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import React, { Suspense } from 'react';
-import {
-  Route,
-  withRouter,
-  Switch,
-  Redirect,
-  useRouteMatch,
-} from 'react-router-dom';
+import { Route, Routes, Navigate, useMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppLayout from '../../layout/AppLayout';
 
@@ -18,21 +12,21 @@ const Account = React.lazy(() =>
 );
 
 const App = () => {
-  const { url } = useRouteMatch();
+  const { url } = useMatch();
   return (
     <AppLayout>
       <div className="dashboard-wrapper">
         <Suspense fallback={<div className="loading" />}>
-          <Switch>
+          <Routes>
             <Route
               exact
               path={`${url}/`}
-              render={() => <Redirect to={`${url}/opportunities`} />}
+              render={() => <Navigate to={`${url}/opportunities`} />}
             />
-            <Route path={`${url}/opportunities`} children={<Opportunities />} />
-            <Route path={`${url}/account`} children={<Account />} />
-            <Route path="*" render={() => <Redirect to="/error" />} />
-          </Switch>
+            <Route path={`${url}/opportunities`} element={<Opportunities />} />
+            <Route path={`${url}/account`} element={<Account />} />
+            <Route path="*" render={() => <Navigate to="/error" />} />
+          </Routes>
         </Suspense>
       </div>
     </AppLayout>
@@ -44,4 +38,4 @@ const mapStateToProps = ({ menu }) => {
   return { containerClassnames };
 };
 
-export default withRouter(connect(mapStateToProps, {})(App));
+export default connect(mapStateToProps, {})(App);

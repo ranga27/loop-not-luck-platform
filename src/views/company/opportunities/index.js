@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 const Post = React.lazy(() =>
   import(/* webpackChunkName: "post-opp" */ './PostOpportunityPage')
@@ -23,8 +23,8 @@ const View = React.lazy(() =>
 // TODO: protect routes according to the role, currently unprotected
 const OpportunitiesMenu = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
-    <Switch>
-      <Redirect exact from={`${match.url}/`} to={`${match.url}/view`} />
+    <Routes>
+      <Navigate exact from={`${match.url}/`} to={`${match.url}/view`} />
       <Route
         path={`${match.url}/post`}
         render={(props) => <Post {...props} />}
@@ -45,8 +45,8 @@ const OpportunitiesMenu = ({ match }) => (
         path={`${match.url}/view`}
         render={(props) => <View {...props} />}
       />
-      <Redirect to="/error" />
-    </Switch>
+      <Navigate to="/error" />
+    </Routes>
   </Suspense>
 );
 export default OpportunitiesMenu;

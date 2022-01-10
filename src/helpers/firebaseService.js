@@ -55,7 +55,7 @@ export async function registerInFirebase({ email, password, firstName, role }) {
   }
 }
 
-export async function signInWithEmail(email, password) {
+export async function signInWithEmail({ email, password }) {
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
