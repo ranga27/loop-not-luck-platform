@@ -91,6 +91,15 @@ const routes = (user) => [
     ],
   },
   {
+    path: '/app',
+    element:
+      user.role === 'candidate' ? (
+        <Navigate to="opportunities/view" />
+      ) : (
+        <Navigate to="test" />
+      ),
+  },
+  {
     path: 'app/*',
     element: user ? <ViewCandidate /> : <Navigate to="/" />,
     children: [
@@ -102,7 +111,6 @@ const routes = (user) => [
       { path: 'account', element: <Account /> },
     ],
   },
-  { path: '/app', element: <Navigate to="opportunities/view" /> },
 ];
 
 export default routes;
