@@ -44,6 +44,54 @@ const Account = React.lazy(() =>
   import(/* webpackChunkName: "account" */ '../views/candidate/Account')
 );
 
+const publicRoutes = () => [
+  {
+    path: '/',
+    element: <Outlet />,
+    children: [
+      {
+        path: 'user/*',
+        element: <ViewUser />,
+        children: [
+          {
+            path: 'login',
+            element: <Login />,
+          },
+          {
+            path: 'register',
+            element: <Register />,
+          },
+          {
+            path: 'forgot-password',
+            element: <ForgotPassword />,
+          },
+          {
+            path: 'reset-password',
+            element: <ResetPassword />,
+          },
+          {
+            path: '*',
+            element: <ViewError />,
+          },
+        ],
+      },
+      { path: '/', element: <Navigate to="user/login" /> },
+      {
+        path: 'error',
+        element: <ViewError />,
+      },
+      {
+        path: 'unauthorised',
+        element: <ViewUnauthorized />,
+      },
+      {
+        path: '*',
+        element: <ViewError />,
+      },
+    ],
+  },
+];
+
 const routes = (user) => [
   {
     path: '/',
@@ -113,4 +161,4 @@ const routes = (user) => [
   },
 ];
 
-export default routes;
+export { publicRoutes, routes };

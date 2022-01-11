@@ -1,14 +1,14 @@
-/* eslint-disable react/no-children-prop */
 /* eslint-disable no-unused-vars */
 import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
-import { useRoutes } from 'react-router-dom';
+import { Route, Routes, useRoutes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import AppLocale from '../lang';
 import ColorSwitcher from '../components/common/ColorSwitcher';
 import { isMultiColorActive } from '../constants/defaultValues';
 import { getDirection } from '../helpers/Utils';
-import routes from '../helpers/route';
+import { routes } from '../helpers/route';
+import Public from './Public';
 
 const App = () => {
   const direction = getDirection();
@@ -24,7 +24,6 @@ const App = () => {
   const currentAppLocale = AppLocale[locale];
 
   const { currentUser } = useSelector((state) => state.authUser);
-
   const elements = useRoutes(routes(currentUser));
 
   return (
@@ -35,7 +34,11 @@ const App = () => {
       >
         <>
           {isMultiColorActive && <ColorSwitcher />}
-          <Suspense fallback={<div className="loading" />}>{elements}</Suspense>
+          <Suspense fallback={<div className="loading" />}>
+            <Routes>
+              <Route path="/" element={<Public />} />
+            </Routes>
+          </Suspense>
         </>
       </IntlProvider>
     </div>
