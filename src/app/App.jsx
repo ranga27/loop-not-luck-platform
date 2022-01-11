@@ -7,7 +7,6 @@ import AppLocale from '../lang';
 import ColorSwitcher from '../components/common/ColorSwitcher';
 import { getDirection } from '../helpers/Utils';
 import { routes } from '../helpers/route';
-import Public from './Public';
 import Auth from '../views/auth';
 import Login from '../views/auth/login';
 import Register from '../views/auth/register';

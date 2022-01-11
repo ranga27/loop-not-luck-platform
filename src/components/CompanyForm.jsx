@@ -1,15 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Button } from 'reactstrap';
 import { companySchema } from '../constants/companySchema';
 import { TextInput, MultiSelect, FileUpload } from './form/FormFields';
 import tagOptions from '../data/tagOptions';
-import { uploadFile } from '../helpers/uploadFile';
-import { addCompany, getCompanies } from '../redux/actions';
 
 const CompanyForm = ({ match }) => {
   const {

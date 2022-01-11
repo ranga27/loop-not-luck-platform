@@ -2,7 +2,7 @@
 import React from 'react';
 import { Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+// Decides what routes to render for what roles
 const ProtectedRoute = ({
   component: Component,
   roles = undefined,
