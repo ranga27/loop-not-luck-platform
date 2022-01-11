@@ -11,6 +11,7 @@ import Auth from '../views/auth';
 import Login from '../views/auth/login';
 import Register from '../views/auth/register';
 import ForgotPassword from '../views/auth/forgot-password';
+import RequireAuth from './RequireAuth';
 
 const App = () => {
   const direction = getDirection();
@@ -38,6 +39,11 @@ const App = () => {
           <ColorSwitcher />
           <Suspense fallback={<div className="loading" />}>
             <Routes>
+              <Route element={<RequireAuth />}>
+                <Route path='/app' element={}>
+                  
+                </Route>
+              </Route>
               <Route path="/" element={<Auth />}>
                 <Route index path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
