@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const UserLayout = ({ children }) => {
+const AuthLayout = ({ children }) => {
   useEffect(() => {
     document.body.classList.add('background');
     document.body.classList.add('no-footer');
@@ -21,4 +21,4 @@ const UserLayout = ({ children }) => {
   );
 };
 
-export default UserLayout;
+export default AuthLayout;

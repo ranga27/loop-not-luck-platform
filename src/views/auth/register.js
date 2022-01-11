@@ -123,7 +123,7 @@ const Register = () => {
               <AuthButton loading={loading} label="user.register-button" />
               <p className="my-4">
                 If you are a member, please{' '}
-                <NavLink to="/user/login" style={{ color: 'green' }}>
+                <NavLink to="/login" style={{ color: 'green' }}>
                   login
                 </NavLink>
                 .

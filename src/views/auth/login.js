@@ -15,7 +15,7 @@ import { SignInSchema } from './SignInSchema';
 import { adminRoot } from '../../constants/defaultValues';
 
 // TODO: check for email verified?
-
+// TODO: merge Layout with AuthLayout
 const Login = () => {
   const navigate = useNavigate();
   const { loading, error, currentUser } = useSelector(
@@ -80,14 +80,14 @@ const Login = () => {
               )}
             </FormGroup>
             <div className="d-flex flex-column justify-content-center align-items-center">
-              <NavLink to="/user/forgot-password">
+              <NavLink to="/forgot-password">
                 <IntlMessages id="user.forgot-password-question" />
               </NavLink>
               <AuthButton loading={loading} label="user.login-button" />
               <p>
                 <br />
                 If you are not a member, please{' '}
-                <NavLink to="/user/register" style={{ color: 'green' }}>
+                <NavLink to="/register" style={{ color: 'green' }}>
                   register
                 </NavLink>
                 .

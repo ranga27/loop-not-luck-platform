@@ -3,7 +3,7 @@ import React, { lazy } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const ViewUser = lazy(() =>
-  import(/* webpackChunkName: "views-user" */ '../views/user')
+  import(/* webpackChunkName: "views-user" */ '../views/auth')
 );
 const ViewError = lazy(() =>
   import(/* webpackChunkName: "views-error" */ '../views/error')
@@ -12,19 +12,19 @@ const ViewUnauthorized = lazy(() =>
   import(/* webpackChunkName: "views-unauthorized" */ '../views/unauthorized')
 );
 const Login = lazy(() =>
-  import(/* webpackChunkName: "user-login" */ '../views/user/login')
+  import(/* webpackChunkName: "user-login" */ '../views/auth/login')
 );
 const Register = lazy(() =>
-  import(/* webpackChunkName: "user-register" */ '../views/user/register')
+  import(/* webpackChunkName: "user-register" */ '../views/auth/register')
 );
 const ForgotPassword = lazy(() =>
   import(
-    /* webpackChunkName: "user-forgot-password" */ '../views/user/forgot-password'
+    /* webpackChunkName: "user-forgot-password" */ '../views/auth/forgot-password'
   )
 );
 const ResetPassword = lazy(() =>
   import(
-    /* webpackChunkName: "user-reset-password" */ '../views/user/reset-password'
+    /* webpackChunkName: "user-reset-password" */ '../views/auth/reset-password'
   )
 );
 const ViewCandidate = React.lazy(() =>

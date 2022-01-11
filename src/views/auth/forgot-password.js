@@ -64,7 +64,7 @@ const ForgotPassword = ({
       <CardSubtitle>
         Please use your e-mail to reset your password. <br />
         If you are not a member, please{' '}
-        <NavLink to="/user/register" style={{ color: 'green' }}>
+        <NavLink to="/register" style={{ color: 'green' }}>
           register
         </NavLink>
         .
