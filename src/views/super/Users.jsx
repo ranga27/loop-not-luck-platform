@@ -20,6 +20,7 @@ import CustomSelectInput from '../../components/common/CustomSelectInput';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import ThumbnailLetters from '../../components/cards/ThumbnailLetters';
 import Breadcrumb from '../../containers/navs/Breadcrumb';
+import IntlMessages from '../../helpers/IntlMessages';
 
 const selectData = [
   { label: 'Super Admin', value: 'super', key: 0 },
@@ -30,7 +31,6 @@ const selectData = [
 ];
 
 const EditUsers = () => {
-  const match = useMatch();
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.admin);
   const [modalBasic, setModalBasic] = useState(false);
@@ -55,7 +55,9 @@ const EditUsers = () => {
     <>
       <Row>
         <Colxx xxs="12">
-          <Breadcrumb heading="menu.users" match={match} />
+          <h1>
+            <IntlMessages id="menu.users" />
+          </h1>
           <Separator className="mb-5" />
         </Colxx>
       </Row>

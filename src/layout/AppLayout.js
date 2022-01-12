@@ -1,13 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import TopNav from '../containers/navs/Topnav';
 import Footer from '../containers/navs/Footer';
 
-const AppLayout = ({ containerClassnames, children, history }) => {
+const AppLayout = ({ children }) => {
+  const { containerClassnames } = useSelector((state) => state.menu);
   return (
     <div id="app-container" className={containerClassnames}>
-      <TopNav history={history} />
+      <TopNav />
       <main>
         <div className="container-fluid">{children}</div>
       </main>
@@ -15,10 +15,5 @@ const AppLayout = ({ containerClassnames, children, history }) => {
     </div>
   );
 };
-const mapStateToProps = ({ menu }) => {
-  const { containerClassnames } = menu;
-  return { containerClassnames };
-};
-const mapActionToProps = {};
 
-export default connect(mapStateToProps, mapActionToProps)(AppLayout);
+export default AppLayout;

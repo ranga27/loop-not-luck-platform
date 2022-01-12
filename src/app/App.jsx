@@ -12,8 +12,6 @@ import Register from '../views/public/register';
 import ForgotPassword from '../views/public/forgot-password';
 import RequireAuth from './RequireAuth';
 import ProtectedRoute from './ProtectedRoute';
-import ViewRoles from '../views/candidate/roles/ViewRoles';
-import Account from '../views/candidate/Account';
 import Error from '../views/error';
 import Unauthorised from '../views/unauthorised';
 
