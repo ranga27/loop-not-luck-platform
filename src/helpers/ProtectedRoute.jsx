@@ -19,7 +19,7 @@ const ProtectedRoute = ({
         return (
           <Navigate
             to={{
-              pathname: '/unauthorized',
+              pathname: '/unauthorised',
               state: { from: props.location },
             }}
           />

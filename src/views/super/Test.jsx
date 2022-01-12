@@ -9,13 +9,11 @@ import {
   Button,
   CardSubtitle,
 } from 'reactstrap';
-import { useMatch } from 'react-router-dom';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import Breadcrumb from '../../containers/navs/Breadcrumb';
 import { MultiSelect } from '../../components/form/FormFields';
 
 const Test = () => {
-  const match = useMatch();
   const { control, setValue, handleSubmit } = useForm();
   const tagsOptions = [
     {
@@ -55,60 +53,52 @@ const Test = () => {
   };
 
   return (
-    <>
-      <Row>
-        <Colxx xxs="12">
-          <Breadcrumb heading="menu.test" match={match} />
-          <Separator className="mb-5" />
-        </Colxx>
-      </Row>
-      <Row className="mb-4">
-        <Colxx md="12" xl="6" className="mb-4 col-item">
-          <Card>
-            <CardBody>
-              <CardTitle>Candidate Tags</CardTitle>
-              <MultiSelect
-                name="candidateTags"
-                control={control}
-                options={tagsOptions}
-                setValue={setValue}
-              />
-            </CardBody>
-          </Card>
-        </Colxx>
+    <Row className="mb-4">
+      <Colxx md="12" xl="6" className="mb-4 col-item">
+        <Card>
+          <CardBody>
+            <CardTitle>Candidate Tags</CardTitle>
+            <MultiSelect
+              name="candidateTags"
+              control={control}
+              options={tagsOptions}
+              setValue={setValue}
+            />
+          </CardBody>
+        </Card>
+      </Colxx>
 
-        <Colxx md="12" xl="6" className="mb-4 col-item">
-          <Card>
-            <CardBody>
-              <CardTitle>Company Tags</CardTitle>
-              <MultiSelect
-                name="companyTags"
-                control={control}
-                options={tagsOptions}
-                setValue={setValue}
-              />
-            </CardBody>
-          </Card>
-        </Colxx>
-        <Colxx xxs="12" className="mb-4">
-          <Card>
-            <CardBody>
-              <CardTitle>Run Matching & Scoring Algorithm</CardTitle>
-              <CardSubtitle>Candidate Matching Score: {score}%</CardSubtitle>
-              <Button
-                color="primary"
-                size="lg"
-                className="mb-2"
-                type="submit"
-                onClick={handleSubmit(onSubmit)}
-              >
-                Run Algorithm
-              </Button>
-            </CardBody>
-          </Card>
-        </Colxx>
-      </Row>
-    </>
+      <Colxx md="12" xl="6" className="mb-4 col-item">
+        <Card>
+          <CardBody>
+            <CardTitle>Company Tags</CardTitle>
+            <MultiSelect
+              name="companyTags"
+              control={control}
+              options={tagsOptions}
+              setValue={setValue}
+            />
+          </CardBody>
+        </Card>
+      </Colxx>
+      <Colxx xxs="12" className="mb-4">
+        <Card>
+          <CardBody>
+            <CardTitle>Run Matching & Scoring Algorithm</CardTitle>
+            <CardSubtitle>Candidate Matching Score: {score}%</CardSubtitle>
+            <Button
+              color="primary"
+              size="lg"
+              className="mb-2"
+              type="submit"
+              onClick={handleSubmit(onSubmit)}
+            >
+              Run Algorithm
+            </Button>
+          </CardBody>
+        </Card>
+      </Colxx>
+    </Row>
   );
 };
 

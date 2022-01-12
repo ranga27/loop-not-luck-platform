@@ -12,9 +12,9 @@ module.exports = {
   /* 01.General */
   'general.copyright': 'Gogo React © Todos los derechos reservados.',
 
-  'unauthorized.title': 'Unauthorized Access Attempt',
-  'unauthorized.detail':
-    'You are not authorized to view the page you are trying to access.',
+  'unauthorised.title': 'Unauthorised Access Attempt',
+  'unauthorised.detail':
+    'You are not authorised to view the page you are trying to access.',
 
   /* 02.Inicio de sesión de usuario, cierre de sesión, registro */
   'user.login-title': 'Iniciar sesión',

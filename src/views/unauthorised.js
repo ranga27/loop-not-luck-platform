@@ -5,7 +5,7 @@ import { Colxx } from '../components/common/CustomBootstrap';
 import IntlMessages from '../helpers/IntlMessages';
 import { adminRoot } from '../constants/defaultValues';
 
-const Unauthorized = () => {
+const Unauthorised = () => {
   useEffect(() => {
     document.body.classList.add('background');
     document.body.classList.add('no-footer');
@@ -27,10 +27,10 @@ const Unauthorized = () => {
                 <div className="position-relative image-side " />
                 <div className="form-side">
                   <CardTitle className="mb-4">
-                    <IntlMessages id="unauthorized.title" />
+                    <IntlMessages id="unauthorised.title" />
                   </CardTitle>
                   <p className="mb-0 text-muted text-small mb-0">
-                    <IntlMessages id="unauthorized.detail" />
+                    <IntlMessages id="unauthorised.detail" />
                   </p>
                   <p className="display-1 font-weight-bold mb-5">503</p>
                   <NavLink
@@ -49,4 +49,4 @@ const Unauthorized = () => {
   );
 };
 
-export default Unauthorized;
+export default Unauthorised;

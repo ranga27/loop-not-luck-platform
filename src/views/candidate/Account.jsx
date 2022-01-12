@@ -1,5 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
 import { Colxx } from '../../components/common/CustomBootstrap';

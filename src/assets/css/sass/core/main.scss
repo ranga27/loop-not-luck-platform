@@ -1,7 +1,7 @@
 main {
-  margin-left:  $main-margin;
+  margin-left:  $main-margin*2;
   margin-top: $navbar-height + $main-margin - 15;
-  margin-right: $main-margin;
+  margin-right: $main-margin*2;
   margin-bottom: $main-margin - 20;
   transition: margin-left $menu-collapse-time;
 

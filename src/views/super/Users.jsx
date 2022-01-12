@@ -29,7 +29,7 @@ const selectData = [
   { label: 'Employer', value: 'employer', key: 4 },
 ];
 
-export const Users = () => {
+const EditUsers = () => {
   const match = useMatch();
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.admin);
@@ -146,4 +146,4 @@ export const Users = () => {
   );
 };
 
-export default Users;
+export default EditUsers;

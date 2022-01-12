@@ -37,7 +37,7 @@ const Login = () => {
         }
       });
     if (currentUser) {
-      navigate(adminRoot);
+      navigate('/');
     }
   }, [error, currentUser]);
 
