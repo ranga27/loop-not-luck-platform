@@ -9,15 +9,11 @@ import {
   CardTitle,
   Button,
   CardSubtitle,
-  Col,
 } from 'reactstrap';
 import { getRoles } from '../../redux/actions';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import { MultiSelect } from '../../components/form/FormFields';
-import {
-  addRoleInUserDoc,
-  fetchRolesFromFirestore,
-} from '../../helpers/firestoreService';
+import { addRoleInUserDoc } from '../../helpers/firestoreService';
 import IntlMessages from '../../helpers/IntlMessages';
 
 const Test = () => {
