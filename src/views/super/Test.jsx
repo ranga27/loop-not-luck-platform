@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Row,
   Card,
@@ -10,15 +11,19 @@ import {
   CardSubtitle,
   Col,
 } from 'reactstrap';
+import { getRoles } from '../../redux/actions';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import { MultiSelect } from '../../components/form/FormFields';
 import {
-  addRolesinUserDoc,
+  addRoleInUserDoc,
   fetchRolesFromFirestore,
 } from '../../helpers/firestoreService';
 import IntlMessages from '../../helpers/IntlMessages';
 
 const Test = () => {
+  const { roles } = useSelector((state) => state.roles);
+  const dispatch = useDispatch();
+
   const { control, setValue, handleSubmit } = useForm();
   const tagsOptions = [
     {
@@ -57,9 +62,24 @@ const Test = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchRoles = async () => {
+      // TODO: avoid multiple firestore reads, keep role list updated via a listener
+      // TODO: add logic for no roles found
+      dispatch(getRoles());
+    };
+    fetchRoles();
+  }, [dispatch]);
+
+  const addRoleInFirestore = (role) => {
+    console.log(`Starting to add role: ${role.id}`);
+    addRoleInUserDoc('XWqscmEUEwbFvlN4mHPJl5cFtH63', role);
+  };
+
   const addRoles = async () => {
-    const roles = await fetchRolesFromFirestore();
-    await addRolesinUserDoc('XWqscmEUEwbFvlN4mHPJl5cFtH63', roles);
+    if (roles) {
+      roles.forEach(addRoleInFirestore);
+    }
   };
 
   return (
