@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import React, { Suspense, createRef, useState } from 'react';
 import { Card, CardBody, Row } from 'reactstrap';
 import { Wizard, Steps } from 'react-albus';
 import { injectIntl } from 'react-intl';
 import { BottomNavigation, Colxx, TopNavigation } from '../../../components';
-import UserLayout from '../../../layout/UserLayout';
+import UserLayout from '../../../layout/PublicLayout';
 import { Step1 } from './Step1';
 import { Step2 } from './Step2';
 import { Step3 } from './Step3';
@@ -17,7 +15,6 @@ import { Step7 } from './Step7';
 import { Step8 } from './Step8';
 // TODO: Move onboarding to candidate folder
 const Onboarding = ({ intl }) => {
-  // TODO: use array.fill
   // Array of form refs. To use RHF explore ref options
   const forms = new Array(7).fill(createRef(null));
   const [bottomNavHidden, setBottomNavHidden] = useState(false);

@@ -20,7 +20,7 @@ export async function updateUserInFirestore({ uid, ...details }) {
   return setDoc(doc(db, 'users', uid), details, { merge: true });
 }
 
-// Test function, delete or move to separate file
+// TODO: Test function, delete or move to separate file
 export async function addRoleInUserDoc(uid, role) {
   const { id, ...data } = role;
   const roleRef = doc(db, 'users', uid, 'matchedRoles', role.id);

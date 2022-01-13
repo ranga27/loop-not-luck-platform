@@ -7,6 +7,7 @@ import Account from '../views/candidate/Account';
 import EditUsers from '../views/super/Users';
 import Test from '../views/super/Test';
 
+// TODO: onboarding flow missing
 const getRoute = (user) => {
   const route = {
     super: <SuperRoute />,

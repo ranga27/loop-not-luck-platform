@@ -7,13 +7,8 @@ import AppLocale from '../lang';
 import ColorSwitcher from '../components/common/ColorSwitcher';
 import { getDirection } from '../helpers/Utils';
 import Public from '../views/public';
-import Login from '../views/public/login';
-import Register from '../views/public/register';
-import ForgotPassword from '../views/public/forgot-password';
 import RequireAuth from './RequireAuth';
 import ProtectedRoute from './ProtectedRoute';
-import Error from '../views/error';
-import Unauthorised from '../views/unauthorised';
 
 const App = () => {
   const direction = getDirection();
@@ -42,16 +37,7 @@ const App = () => {
                 <Route path="app/*" element={<ProtectedRoute />} />
                 <Route path="/" element={<Navigate to="app" />} />
               </Route>
-              <Route element={<Public />}>
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-                <Route path="forgot-password" element={<ForgotPassword />} />
-                <Route path="register" element={<Register />} />
-                <Route path="error" element={<Error />} />
-                <Route path="unauthorised" element={<Unauthorised />} />
-                <Route path="*" element={<Error />} />
-                <Route path="/" element={<Navigate to="login" />} />
-              </Route>
+              <Route path="/*" element={<Public />} />
             </Routes>
           </Suspense>
         </>

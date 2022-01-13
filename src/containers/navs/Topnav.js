@@ -77,8 +77,12 @@ const TopNav = ({ logoutUserAction }) => {
       </NavLink>
 
       <div className="navbar-right">
-        <NavLink to="/app/test">Test</NavLink>
-        <NavLink to="/app/users">Users</NavLink>
+        {currentUser.role === 'super' && (
+          <div>
+            <NavLink to="/app/test">Test</NavLink>
+            <NavLink to="/app/users">Users</NavLink>
+          </div>
+        )}
         {isDarkSwitchActive && <TopnavDarkSwitch />}
         <div className="header-icons d-inline-block align-middle">
           <button
@@ -98,9 +102,6 @@ const TopNav = ({ logoutUserAction }) => {
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
               <span className="name mr-1">{currentUser.firstName}</span>
-              <span>
-                <img alt="Profile" src="/assets/img/profiles/l-1.jpg" />
-              </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" end>
               <DropdownItem tag={Link} to="account">
