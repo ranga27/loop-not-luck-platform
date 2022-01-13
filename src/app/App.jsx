@@ -37,7 +37,7 @@ const App = () => {
                 <Route path="app/*" element={<ProtectedRoute />} />
                 <Route path="/" element={<Navigate to="app" />} />
               </Route>
-              <Route path="/*" element={<Public />} />
+              <Route path="*" element={<Public />} />
             </Routes>
           </Suspense>
         </>

@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { Input } from 'reactstrap';
+import { Input, Label } from 'reactstrap';
 
 export const FormikCustomCheckboxGroup = ({
   name,
@@ -31,18 +31,20 @@ export const FormikCustomCheckboxGroup = ({
     <div className="form-options justify-content-center">
       {options.map((child, index) => {
         return (
-          <Input
-            key={`${name}_${child.value}_${index}`}
-            id={`${name}_${child.value}_${index}`}
-            type="checkbox"
-            name={child.name}
-            label={child.label}
-            onChange={() => handleChange(child.value)}
-            onBlur={handleBlur}
-            checked={value.includes(child.value)}
-            disabled={child.disabled}
-            inline={inline}
-          />
+          <div key={child.label} style={{ display: 'flex' }}>
+            <Input
+              key={`${name}_${child.value}_${index}`}
+              id={`${name}_${child.value}_${index}`}
+              type="checkbox"
+              name={child.name}
+              onChange={() => handleChange(child.value)}
+              onBlur={handleBlur}
+              checked={value.includes(child.value)}
+              disabled={child.disabled}
+              inline={inline}
+            />
+            <Label className="mx-2">{child.label}</Label>
+          </div>
         );
       })}
     </div>

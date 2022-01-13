@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import { WithWizard } from 'react-albus';
@@ -35,7 +34,7 @@ const TopNavigation = ({ className, disableNav, topNavClick }) => {
             if (!stepItem.hideTopNav) {
               return (
                 <li
-                  key={`topNavStep_${index}`}
+                  key={`topNavStep_${stepItem.id}`}
                   className={`nav-item ${getClassName(
                     steps,
                     step,
@@ -55,7 +54,7 @@ const TopNavigation = ({ className, disableNav, topNavClick }) => {
                 </li>
               );
             }
-            return <span key={`topNavStep_${index}`} />;
+            return <span key={`topNavStep_${stepItem.id}`} />;
           })}
         </ul>
       )}
