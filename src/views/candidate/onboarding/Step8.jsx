@@ -3,15 +3,18 @@ import React from 'react';
 import { Button, Spinner } from 'reactstrap';
 import { Step } from 'react-albus';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import IntlMessages from '../../../helpers/IntlMessages';
 import { StepLayout } from '../../../layout/stepLayout';
 import { updateUser } from '../../../redux/actions';
 
 export const Step8 = ({ loading, fields }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { uid } = useSelector((state) => state.authUser.currentUser);
   const handleClick = () => {
     dispatch(updateUser({ uid, ...fields, isOnboarded: true }));
+    navigate('/app/roles');
   };
   return (
     <Step id="step8" hideTopNav>

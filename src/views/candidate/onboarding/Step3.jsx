@@ -41,6 +41,7 @@ export const Step3 = (form, { ethnicity }, messages) => {
               <FormGroup>
                 <Label>{messages['forms.ethnicity']}</Label>
                 <FormikCustomRadioGroup
+                  inline="true"
                   name="ethnicity"
                   id="ethnicity"
                   value={values.ethnicity}

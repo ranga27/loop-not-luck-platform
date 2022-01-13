@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-param-reassign */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-prototype-builtins */
@@ -12,6 +11,7 @@ import {
   getDocs,
   Timestamp,
   collection,
+  where,
 } from 'firebase/firestore';
 import { format } from 'date-fns';
 import { db } from './Firebase';
@@ -20,7 +20,7 @@ export async function updateUserInFirestore({ uid, ...details }) {
   return setDoc(doc(db, 'users', uid), details, { merge: true });
 }
 
-// TODO: Test function, delete or move to separate file
+// TODO: Test function, move to cloud function
 export async function addRoleInUserDoc(uid, role) {
   const { id, ...data } = role;
   const roleRef = doc(db, 'users', uid, 'matchedRoles', role.id);
@@ -32,8 +32,9 @@ export async function addOpportunityToFirestore(opportunity) {
   await addDoc(docRef, opportunity);
 }
 
-export async function fetchRolesFromFirestore() {
-  const q = query(collection(db, 'opportunities'));
+export async function fetchRolesFromFirestore(uid) {
+  const roleRef = collection(db, 'users', uid, 'matchedRoles');
+  const q = query(roleRef, where('seen', '==', ''));
   const querySnapshot = await getDocs(q);
   const roles = querySnapshot.docs.map((docu) => ({
     ...docu.data(),

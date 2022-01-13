@@ -1,14 +1,6 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
-import {
-  UncontrolledDropdown,
-  DropdownItem,
-  DropdownToggle,
-  DropdownMenu,
-} from 'reactstrap';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import {
   setContainerClassnames,
@@ -98,25 +90,10 @@ const TopNav = ({ logoutUserAction }) => {
             )}
           </button>
         </div>
-        <div className="user d-inline-block">
-          <UncontrolledDropdown className="dropdown-menu-right">
-            <DropdownToggle className="p-0" color="empty">
-              <span className="name mr-1">{currentUser.firstName}</span>
-            </DropdownToggle>
-            <DropdownMenu className="mt-3" end>
-              <DropdownItem tag={Link} to="account">
-                Account
-              </DropdownItem>
-              <DropdownItem>Features</DropdownItem>
-              <DropdownItem>History</DropdownItem>
-              <DropdownItem>Support</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem onClick={() => handleLogout()}>
-                Sign out
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </div>
+        <NavLink to="account">Account</NavLink>
+        <NavLink to="/" onClick={() => handleLogout()}>
+          Logout
+        </NavLink>
       </div>
     </nav>
   );

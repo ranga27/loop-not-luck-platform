@@ -9,6 +9,7 @@ import { renderTopCenterControls } from './renderTopCenterControls';
 
 const ViewRolesContainer = () => {
   const { roles } = useSelector((state) => state.roles);
+  const { currentUser } = useSelector((state) => state.authUser);
   const dispatch = useDispatch();
   const handleSaveButtonClick = (currentSlide) => {
     return new Promise((success) => {
@@ -28,10 +29,10 @@ const ViewRolesContainer = () => {
     const fetchRoles = async () => {
       // TODO: avoid multiple firestore reads, keep role list updated via a listener
       // TODO: add logic for no roles found
-      dispatch(getRoles());
+      dispatch(getRoles(currentUser.uid));
     };
     fetchRoles();
-  }, [dispatch]);
+  }, [dispatch, currentUser]);
   return (
     <Carousel
       enableKeyboardControls

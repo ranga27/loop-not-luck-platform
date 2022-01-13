@@ -12,8 +12,9 @@ export const selectedRole = (role) => ({
   payload: role,
 });
 
-export const getRoles = () => ({
+export const getRoles = (uid) => ({
   type: GET_ROLES_REQUESTED,
+  payload: uid,
 });
 export const getRolesSuccess = (roles) => ({
   type: GET_ROLES_SUCCESS,

@@ -13,7 +13,7 @@ import { Step5 } from './Step5';
 import { Step6 } from './Step6';
 import { Step7 } from './Step7';
 import { Step8 } from './Step8';
-// TODO: Move onboarding to candidate folder
+// TODO: Re-implement using Carousel.
 const Onboarding = ({ intl }) => {
   // Array of form refs. To use RHF explore ref options
   const forms = new Array(7).fill(createRef(null));
@@ -24,6 +24,7 @@ const Onboarding = ({ intl }) => {
     diversity: '',
     disability: '',
     roles: '',
+    rolesInterestedIn: '',
   });
 
   const onClickNext = (goToNext, steps, step) => {

@@ -3,18 +3,18 @@ import { fetchRolesFromFirestore } from '../../helpers/firestoreService';
 import { GET_ROLES_REQUESTED } from '../actions';
 import { getRolesSuccess, getRolesError } from './actions';
 
-const fetchRolesAsync = async () => {
+const fetchRolesAsync = async (uid) => {
   try {
-    const roles = await fetchRolesFromFirestore();
+    const roles = await fetchRolesFromFirestore(uid);
     return { roles, error: null };
   } catch (error) {
     return { roles: null, error };
   }
 };
 
-function* fetchRoles() {
+function* fetchRoles({ payload }) {
   try {
-    const data = yield call(fetchRolesAsync);
+    const data = yield call(fetchRolesAsync, payload);
     if (data.roles !== null) {
       yield put(getRolesSuccess(data.roles));
     } else if (data.error != null) {

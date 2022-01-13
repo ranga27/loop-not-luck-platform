@@ -32,6 +32,7 @@ export const Step5 = (form, { rolesInterestedIn }, messages) => {
                 <Label>{messages['forms.roles']}</Label>
                 <FormikCustomCheckboxGroup
                   name="rolesInterestedIn"
+                  inline="true"
                   id="rolesInterestedIn"
                   value={values.rolesInterestedIn}
                   onChange={setFieldValue}

@@ -38,6 +38,7 @@ export const Step2 = (form, { diversity }, messages) => {
                   onChange={setFieldValue}
                   onBlur={setFieldTouched}
                   options={diversityOptions}
+                  inline="true"
                 />
                 {errors.diversity && touched.diversity && (
                   <div className="invalid-feedback d-block">

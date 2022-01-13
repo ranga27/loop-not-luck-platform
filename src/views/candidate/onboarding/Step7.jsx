@@ -29,6 +29,7 @@ export const Step7 = (form, { interests }, messages) => {
               <FormGroup>
                 <Label>{messages['forms.interests']}</Label>
                 <FormikCustomCheckboxGroup
+                  inline="true"
                   name="interests"
                   id="interests"
                   value={values.interests}
