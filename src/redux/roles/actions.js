@@ -4,6 +4,7 @@ import {
   GET_ROLES_REQUESTED,
   GET_ROLES_SUCCESS,
   GET_ROLES_ERROR,
+  UPDATE_ROLE_DATA,
 } from '../actions';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -23,4 +24,8 @@ export const getRolesSuccess = (roles) => ({
 export const getRolesError = (message) => ({
   type: GET_ROLES_ERROR,
   payload: message,
+});
+export const updateRole = ({ id, data }) => ({
+  type: UPDATE_ROLE_DATA,
+  payload: { id, data },
 });
