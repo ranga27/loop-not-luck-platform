@@ -62,14 +62,17 @@ const Test = () => {
     const fetchRoles = async () => {
       // TODO: avoid multiple firestore reads, keep role list updated via a listener
       // TODO: add logic for no roles found
-      dispatch(getRoles());
+      dispatch(getRoles('XWqscmEUEwbFvlN4mHPJl5cFtH63'));
     };
     fetchRoles();
   }, [dispatch]);
 
   const addRoleInFirestore = (role) => {
-    console.log(`Starting to add role: ${role.id}`);
-    addRoleInUserDoc('XWqscmEUEwbFvlN4mHPJl5cFtH63', role);
+    console.log(`Adding role: ${role.id}`);
+    addRoleInUserDoc('XWqscmEUEwbFvlN4mHPJl5cFtH63', {
+      ...role,
+      matchedScore: Math.floor(Math.random() * 99),
+    });
   };
 
   const addRoles = async () => {

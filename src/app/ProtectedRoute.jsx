@@ -51,10 +51,12 @@ const CandidateOnboarding = () => {
 
 const SuperRoute = () => {
   return (
-    <Routes>
-      <Route path="test" element={<Test />} />
-      <Route path="users" element={<EditUsers />} />
-      <Route path="/" element={<Navigate to="test" />} />
-    </Routes>
+    <AppLayout>
+      <Routes>
+        <Route path="test" element={<Test />} />
+        <Route path="users" element={<EditUsers />} />
+        <Route path="/" element={<Navigate to="test" />} />
+      </Routes>
+    </AppLayout>
   );
 };

@@ -13,7 +13,7 @@ import { Step5 } from './Step5';
 import { Step6 } from './Step6';
 import { Step7 } from './Step7';
 import { Step8 } from './Step8';
-// TODO: Re-implement using Carousel.
+// TODO: Re-implement using Carousel or SweetAlert Queue with a back Button
 const Onboarding = ({ intl }) => {
   // Array of form refs. To use RHF explore ref options
   const forms = new Array(7).fill(createRef(null));

@@ -34,7 +34,7 @@ export async function addOpportunityToFirestore(opportunity) {
 
 export async function fetchRolesFromFirestore(uid) {
   const roleRef = collection(db, 'users', uid, 'matchedRoles');
-  const q = query(roleRef, where('seen', '==', ''));
+  const q = query(roleRef, where('matchedScore', '>', 0));
   const querySnapshot = await getDocs(q);
   const roles = querySnapshot.docs.map((docu) => ({
     ...docu.data(),

@@ -70,10 +70,10 @@ const TopNav = ({ logoutUserAction }) => {
 
       <div className="navbar-right">
         {currentUser.role === 'super' && (
-          <div>
+          <>
             <NavLink to="/app/test">Test</NavLink>
             <NavLink to="/app/users">Users</NavLink>
-          </div>
+          </>
         )}
         {isDarkSwitchActive && <TopnavDarkSwitch />}
         <div className="header-icons d-inline-block align-middle">
