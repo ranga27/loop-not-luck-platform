@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
+import { Nav, NavItem } from 'reactstrap';
 import {
   setContainerClassnames,
   clickOnMobileMenu,
@@ -90,10 +91,16 @@ const TopNav = ({ logoutUserAction }) => {
             )}
           </button>
         </div>
-        <NavLink to="account">Account</NavLink>
-        <NavLink to="/" onClick={() => handleLogout()}>
-          Logout
-        </NavLink>
+        <Nav pills className="nav-pills">
+          <NavItem className="mx-3">
+            <NavLink to="account">Account</NavLink>
+          </NavItem>
+          <NavItem className="mx-3">
+            <NavLink to="/" onClick={() => handleLogout()}>
+              Logout
+            </NavLink>
+          </NavItem>
+        </Nav>
       </div>
     </nav>
   );
