@@ -26,6 +26,7 @@ const adminConfig = {
 };
 
 const sagaMiddleware = createSagaMiddleware();
+const sagaMiddlewareEnhancer = applyMiddleware(sagaMiddleware);
 
 const rootReducer = combineReducers({
   menu,
@@ -37,7 +38,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(sagaMiddlewareEnhancer)
 );
 
 export const persistor = persistStore(store);

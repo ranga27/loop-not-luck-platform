@@ -8,7 +8,7 @@ import {
 } from 'redux-saga/effects';
 import {
   GET_USERS_REQUESTED,
-  UPDATE_ROLE,
+  UPDATE_USER_ROLE,
   GET_COMPANIES_REQUESTED,
   ADD_COMPANY,
   EDIT_COMPANY,
@@ -126,7 +126,7 @@ export function* watchGetUsers() {
   yield takeEvery(GET_USERS_REQUESTED, fetchUsers);
 }
 export function* watchUpdateRole() {
-  yield takeEvery(UPDATE_ROLE, updateUserRole);
+  yield takeEvery(UPDATE_USER_ROLE, updateUserRole);
 }
 export function* watchGetCompanies() {
   yield takeEvery(GET_COMPANIES_REQUESTED, fetchCompanies);

@@ -3,9 +3,9 @@ import {
   GET_USERS_ERROR,
   GET_USERS_REQUESTED,
   GET_USERS_SUCCESS,
-  UPDATE_ROLE,
-  UPDATE_ROLE_SUCCESS,
-  UPDATE_ROLE_ERROR,
+  UPDATE_USER_ROLE,
+  UPDATE_USER_ROLE_SUCCESS,
+  UPDATE_USER_ROLE_ERROR,
   GET_COMPANIES_REQUESTED,
   GET_COMPANIES_SUCCESS,
   GET_COMPANIES_ERROR,
@@ -40,12 +40,12 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
         error: payload,
       };
-    case UPDATE_ROLE:
+    case UPDATE_USER_ROLE:
       return {
         ...state,
         loading: true,
       };
-    case UPDATE_ROLE_SUCCESS:
+    case UPDATE_USER_ROLE_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -53,7 +53,7 @@ export default (state = initialState, { type, payload }) => {
           user.uid === payload.uid ? payload : user
         ),
       };
-    case UPDATE_ROLE_ERROR:
+    case UPDATE_USER_ROLE_ERROR:
       return {
         ...state,
         loading: false,
