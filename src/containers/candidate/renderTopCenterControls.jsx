@@ -6,8 +6,8 @@ export const renderTopCenterControls = (
   roles,
   currentSlide,
   goToSlide,
-  handleSaveButtonClick,
-  handleApplyButtonClick
+  saveRole,
+  applyRole
 ) => {
   return (
     <div>
@@ -29,7 +29,7 @@ export const renderTopCenterControls = (
         <StateButton
           id="saveButton"
           color="primary"
-          onClick={() => handleSaveButtonClick(currentSlide)}
+          onClick={() => saveRole(currentSlide)}
         >
           <i className="simple-icon-star pr-3" />
           Save
@@ -37,7 +37,7 @@ export const renderTopCenterControls = (
         <StateButton
           id="applyButton"
           color="info"
-          onClick={() => handleApplyButtonClick(currentSlide)}
+          onClick={() => applyRole(currentSlide)}
         >
           <i
             className="simple-icon-pencil
