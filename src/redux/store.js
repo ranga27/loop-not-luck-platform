@@ -41,7 +41,7 @@ const store = createStore(rootReducer, composedEnhancer);
 
 export const persistor = persistStore(store);
 
-export default function configureStore() {
+export function configureStore() {
   sagaMiddleware.run(sagas);
 
   if (process.env.NODE_ENV !== 'production' && module.hot) {
