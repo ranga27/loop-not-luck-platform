@@ -16,7 +16,23 @@ const initialState = {
 export const menuSlice = createSlice({
   name: 'menu',
   initialState,
-  reducers: {},
+  reducers: {
+    changeSelectedMenuHasSubItems: (state, action) => {
+      return { ...state, selectedMenuHasSubItems: action.payload };
+    },
+    changeDefaultClassnames: (state, action) => {
+      return { ...state, containerClassnames: action.payload };
+    },
+    addContainerClassname: (state, action) => {
+      return { ...state, containerClassnames: action.payload };
+    },
+    clickOnMobileMenu: (state, action) => {
+      return { ...state, containerClassnames: action.payload };
+    },
+    setContainerClassnames: (state, action) => {
+      return { ...state, containerClassnames: action.payload };
+    },
+  },
 });
 
 export default menuSlice.reducer;
