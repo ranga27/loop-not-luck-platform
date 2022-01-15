@@ -1,3 +1,4 @@
+/* eslint-disable import/no-import-module-exports */
 /* eslint-disable import/no-cycle */
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
@@ -10,10 +11,17 @@ const reducer = combineReducers({
   auth: authReducer,
 });
 
-const store = configureStore({
-  reducer,
-  middleware: [sagaMiddleware],
-});
-sagaMiddleware.run(sagas);
+const configureAppStore = (preloadedState) => {
+  const store = configureStore({
+    reducer,
+    middleware: [sagaMiddleware],
+    preloadedState,
+  });
+  sagaMiddleware.run(sagas);
+  if (process.env.NODE_ENV !== 'production' && module.hot) {
+    module.hot.accept('./reducers', () => store.replaceReducer(reducer));
+  }
+  return store;
+};
 
-export default store;
+export default configureAppStore;
