@@ -5,6 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 import sagas from './sagas';
 import authReducer from './auth/authSlice';
 
+// TODO: use redux-injector
 const sagaMiddleware = createSagaMiddleware();
 
 const reducer = combineReducers({
