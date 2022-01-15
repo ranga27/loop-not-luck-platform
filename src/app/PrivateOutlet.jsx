@@ -34,7 +34,7 @@ const getRoute = (user, props) => {
 };
 
 const AppRouter = ({ component: Component, ...rest }) => {
-  const { currentUser } = useSelector((state) => state.authUser);
+  const { currentUser } = useSelector((state) => state.auth);
   return (
     <Suspense fallback={<div className="loading" />}>
       <Route {...rest} render={(props) => getRoute(currentUser, props)} />

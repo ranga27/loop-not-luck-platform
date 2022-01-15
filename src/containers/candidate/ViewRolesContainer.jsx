@@ -10,7 +10,7 @@ import RolesCarousel from './RolesCarousel';
 
 const ViewRolesContainer = () => {
   const { roles } = useSelector((state) => state.roles);
-  const { currentUser } = useSelector((state) => state.authUser);
+  const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const saveRole = (currentSlide) => {
     return new Promise((success) => {

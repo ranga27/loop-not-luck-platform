@@ -1,8 +1,5 @@
 /* eslint-disable default-param-last */
 import {
-  LOGIN_USER,
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_ERROR,
   REGISTER_USER,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
@@ -31,22 +28,6 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, { type, payload }) => {
   switch (type) {
-    case LOGIN_USER:
-      return { ...state, loading: true, error: '' };
-    case LOGIN_USER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        currentUser: payload,
-        error: '',
-      };
-    case LOGIN_USER_ERROR:
-      return {
-        ...state,
-        loading: false,
-        currentUser: null,
-        error: payload.message,
-      };
     case FORGOT_PASSWORD:
       return { ...state, loading: true, error: '' };
     case FORGOT_PASSWORD_SUCCESS:

@@ -20,8 +20,8 @@ const App = () => {
     document.body.classList.remove('rtl');
   }
 
-  const { locale } = useSelector((state) => state.settings);
-  const currentAppLocale = AppLocale[locale];
+  // const { locale } = useSelector((state) => state.settings);
+  const currentAppLocale = AppLocale.en;
   // TODO: Import as lazy loading
   return (
     <div className="h-100">

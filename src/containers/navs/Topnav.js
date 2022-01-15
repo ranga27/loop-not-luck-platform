@@ -13,7 +13,7 @@ import { isDarkSwitchActive, adminRoot } from '../../constants/defaultValues';
 import TopnavDarkSwitch from './Topnav.DarkSwitch';
 
 const TopNav = ({ logoutUserAction }) => {
-  const { currentUser } = useSelector((state) => state.authUser);
+  const { currentUser } = useSelector((state) => state.auth);
   const [isInFullScreen, setIsInFullScreen] = useState(false);
 
   const isInFullScreenFn = () => {

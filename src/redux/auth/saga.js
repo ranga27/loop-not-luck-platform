@@ -3,7 +3,6 @@ import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { auth } from '../../helpers/Firebase';
 
 import {
-  LOGIN_USER,
   REGISTER_USER,
   LOGOUT_USER,
   FORGOT_PASSWORD,
@@ -12,8 +11,6 @@ import {
 } from '../actions';
 
 import {
-  loginUserSuccess,
-  loginUserError,
   registerUserSuccess,
   registerUserError,
   forgotPasswordSuccess,
@@ -23,10 +20,10 @@ import {
   updateUserSuccess,
   updateUserError,
 } from './actions';
+import { loginUserSuccess, loginUserError, loginUser } from './authSlice';
 import { adminRoot } from '../../constants/defaultValues';
 import { updateUserInFirestore } from '../../helpers/firestoreService';
 // eslint-disable-next-line import/no-cycle
-import { persistor } from '../store';
 import {
   registerInFirebase,
   signInWithEmail,
@@ -40,11 +37,11 @@ const loginWithEmailPasswordAsync = async (user) => {
 
 function* loginWithEmailPassword({ payload }) {
   try {
-    const loginUser = yield call(loginWithEmailPasswordAsync, payload);
-    if (!loginUser.message) {
-      yield put(loginUserSuccess(loginUser));
+    const user = yield call(loginWithEmailPasswordAsync, payload);
+    if (!user.message) {
+      yield put(loginUserSuccess(user));
     } else {
-      yield put(loginUserError(loginUser.message));
+      yield put(loginUserError(user.message));
     }
   } catch (error) {
     console.error(error);
@@ -52,7 +49,7 @@ function* loginWithEmailPassword({ payload }) {
   }
 }
 export function* watchLoginUser() {
-  yield takeEvery(LOGIN_USER, loginWithEmailPassword);
+  yield takeEvery(loginUser, loginWithEmailPassword);
 }
 export function* watchRegisterUser() {
   // eslint-disable-next-line no-use-before-define
@@ -94,7 +91,7 @@ const logoutAsync = async () => {
 };
 
 function* logout({ user }) {
-  yield call(persistor.purge);
+  // yield call(persistor.purge);
   yield call(logoutAsync);
 }
 

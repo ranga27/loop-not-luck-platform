@@ -1,11 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 import {
-  LOGIN_USER,
-  LOGIN_USER_SUCCESS,
   LOGOUT_USER,
   REGISTER_USER,
   REGISTER_USER_SUCCESS,
-  LOGIN_USER_ERROR,
   REGISTER_USER_ERROR,
   FORGOT_PASSWORD,
   FORGOT_PASSWORD_SUCCESS,
@@ -20,19 +17,6 @@ import {
   SET_USER_ROLE,
   SET_AUTH_ERROR,
 } from '../actions';
-
-export const loginUser = (user) => ({
-  type: LOGIN_USER,
-  payload: user,
-});
-export const loginUserSuccess = (user) => ({
-  type: LOGIN_USER_SUCCESS,
-  payload: user,
-});
-export const loginUserError = (message) => ({
-  type: LOGIN_USER_ERROR,
-  payload: { message },
-});
 
 export const forgotPassword = (forgotUserMail, history) => ({
   type: FORGOT_PASSWORD,

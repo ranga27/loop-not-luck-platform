@@ -99,8 +99,8 @@ const ForgotPassword = ({
   );
 };
 
-const mapStateToProps = ({ authUser }) => {
-  const { forgotUserMail, loading, error } = authUser;
+const mapStateToProps = ({ auth }) => {
+  const { forgotUserMail, loading, error } = auth;
   return { forgotUserMail, loading, error };
 };
 

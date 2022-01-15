@@ -18,7 +18,7 @@ const getRoute = (user) => {
 };
 
 const ProtectedRoute = () => {
-  const { currentUser } = useSelector((state) => state.authUser);
+  const { currentUser } = useSelector((state) => state.auth);
   return (
     <Suspense fallback={<div className="loading" />}>
       {getRoute(currentUser)}

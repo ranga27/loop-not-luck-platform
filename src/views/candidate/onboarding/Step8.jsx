@@ -11,7 +11,7 @@ import { updateUser } from '../../../redux/actions';
 export const Step8 = ({ loading, fields }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { uid } = useSelector((state) => state.authUser.currentUser);
+  const { uid } = useSelector((state) => state.auth.currentUser);
   const handleClick = () => {
     dispatch(updateUser({ uid, ...fields, isOnboarded: true }));
     navigate('/app/roles');

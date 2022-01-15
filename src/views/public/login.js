@@ -7,20 +7,19 @@ import { useSelector, useDispatch } from 'react-redux';
 // TODO: change to RHF smartform
 import { Formik, Form, Field } from 'formik';
 import Swal from 'sweetalert2';
-import { loginUser, setAuthError } from '../../redux/actions';
+import { setAuthError } from '../../redux/actions';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
 import AuthButton from './AuthButton';
 import { SignInSchema } from './SignInSchema';
 import { adminRoot } from '../../constants/defaultValues';
+import { loginUser } from '../../redux/auth/authSlice';
 
 // TODO: check for email verified?
 // TODO: merge Layout with AuthLayout
 const Login = () => {
   const navigate = useNavigate();
-  const { loading, error, currentUser } = useSelector(
-    (state) => state.authUser
-  );
+  const { loading, error, currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [email] = useState('sarang@loopnotluck.com');
   const [password] = useState('hanumant');

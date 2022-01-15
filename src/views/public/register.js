@@ -16,9 +16,7 @@ import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioG
 
 const Register = () => {
   const navigate = useNavigate();
-  const { loading, error, currentUser } = useSelector(
-    (state) => state.authUser
-  );
+  const { loading, error, currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [firstName] = useState('sarang');
   const [email] = useState('sarang@loopnotluck.com');

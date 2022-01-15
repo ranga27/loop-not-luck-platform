@@ -8,7 +8,7 @@ const ProtectedRoute = ({
   roles = undefined,
   ...rest
 }) => {
-  const { currentUser } = useSelector((state) => state.authUser);
+  const { currentUser } = useSelector((state) => state.auth);
 
   const children = (props) => {
     if (currentUser) {

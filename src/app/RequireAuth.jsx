@@ -3,7 +3,7 @@ const { useSelector } = require('react-redux');
 const { useLocation, Navigate, Outlet } = require('react-router-dom');
 
 const RequireAuth = () => {
-  const { currentUser } = useSelector((state) => state.authUser);
+  const { currentUser } = useSelector((state) => state.auth);
   const location = useLocation();
 
   if (currentUser) {

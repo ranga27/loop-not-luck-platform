@@ -159,8 +159,8 @@ const ResetPassword = ({
   );
 };
 
-const mapStateToProps = ({ authUser }) => {
-  const { newPassword, resetPasswordCode, loading, error } = authUser;
+const mapStateToProps = ({ auth }) => {
+  const { newPassword, resetPasswordCode, loading, error } = auth;
   return { newPassword, resetPasswordCode, loading, error };
 };
 

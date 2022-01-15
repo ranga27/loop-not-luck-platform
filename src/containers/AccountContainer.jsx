@@ -39,7 +39,7 @@ const uploadFile = async (data) => {
 
 const AccountContainer = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.authUser);
+  const { currentUser } = useSelector((state) => state.auth);
   const {
     uid,
     firstName,
