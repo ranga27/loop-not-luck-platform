@@ -1,7 +1,6 @@
 import { takeEvery, all, fork, call, put } from 'redux-saga/effects';
 import { fetchRolesFromFirestore } from '../../helpers/firestoreService';
-import { GET_ROLES_REQUESTED } from '../actions';
-import { getRolesSuccess, getRolesError } from './actions';
+import { getRoles, getRolesSuccess, getRolesError } from './rolesSlice';
 
 const fetchRolesAsync = async (uid) => {
   try {
@@ -26,7 +25,7 @@ function* fetchRoles({ payload }) {
 }
 
 export function* watchGetRoles() {
-  yield takeEvery(GET_ROLES_REQUESTED, fetchRoles);
+  yield takeEvery(getRoles, fetchRoles);
 }
 export default function* rootSaga() {
   yield all([fork(watchGetRoles)]);

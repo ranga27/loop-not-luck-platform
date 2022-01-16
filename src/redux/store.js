@@ -4,12 +4,20 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import sagas from './sagas';
 import authReducer from './auth/authSlice';
+import menu from './menu/reducer';
+import settings from './settings/reducer';
+import admin from './admin/reducer';
+import roles from './roles/rolesSlice';
 
 // TODO: use redux-injector
 const sagaMiddleware = createSagaMiddleware();
 
 const reducer = combineReducers({
   auth: authReducer,
+  menu,
+  roles,
+  admin,
+  settings,
 });
 
 const configureAppStore = (preloadedState) => {

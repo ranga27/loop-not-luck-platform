@@ -5,7 +5,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRoles } from '../../redux/actions';
+import Swal from 'sweetalert2';
+import { getRoles } from '../../redux/roles/rolesSlice';
 import RolesCarousel from './RolesCarousel';
 
 const ViewRolesContainer = () => {
@@ -19,7 +20,20 @@ const ViewRolesContainer = () => {
       }, 2000);
     });
   };
-  const applyRole = (currentSlide) => {
+  const applyRole = async (currentSlide) => {
+    const { value: text } = await Swal.fire({
+      input: 'textarea',
+      inputLabel: 'Message',
+      inputPlaceholder: 'Type your Cover Letter here...',
+      inputAttributes: {
+        'aria-label': 'Type your Cover Letter here',
+      },
+      showCancelButton: true,
+    });
+
+    if (text) {
+      Swal.fire(text);
+    }
     return new Promise((success) => {
       setTimeout(() => {
         success(`Applied: ${roles[currentSlide].title}`);

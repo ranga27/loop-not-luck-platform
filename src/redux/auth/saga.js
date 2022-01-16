@@ -21,7 +21,6 @@ import {
   updateUserError,
 } from './actions';
 import { loginUserSuccess, loginUserError, loginUser } from './authSlice';
-import { adminRoot } from '../../constants/defaultValues';
 import { updateUserInFirestore } from '../../helpers/firestoreService';
 // eslint-disable-next-line import/no-cycle
 import {
