@@ -1,36 +1,42 @@
-/* eslint-disable import/no-import-module-exports */
 /* eslint-disable import/no-cycle */
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+/* eslint-disable import/no-import-module-exports */
+import { configureStore } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
 import sagas from './sagas';
-import authReducer from './auth/authSlice';
-import menu from './menu/reducer';
-import settings from './settings/reducer';
-import admin from './admin/reducer';
-import roles from './roles/rolesSlice';
+import rootReducer from './reducers';
 
-// TODO: use redux-injector
+// TODO: use redux-injector & react-boilerplate code
 const sagaMiddleware = createSagaMiddleware();
 
-const reducer = combineReducers({
-  auth: authReducer,
-  menu,
-  roles,
-  admin,
-  settings,
-});
-
-const configureAppStore = (preloadedState) => {
+const configureAppStore = () => {
   const store = configureStore({
-    reducer,
-    middleware: [sagaMiddleware],
-    preloadedState,
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        thunk: false,
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }).concat(sagaMiddleware),
   });
   sagaMiddleware.run(sagas);
   if (process.env.NODE_ENV !== 'production' && module.hot) {
-    module.hot.accept('./reducers', () => store.replaceReducer(reducer));
+    module.hot.accept('./reducers', () => store.replaceReducer(rootReducer));
   }
   return store;
 };
 
-export default configureAppStore;
+const store = configureAppStore();
+
+const persistor = persistStore(store);
+
+export { store, persistor };

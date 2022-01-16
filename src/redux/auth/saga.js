@@ -1,10 +1,10 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-vars */
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { auth } from '../../helpers/Firebase';
 
 import {
   REGISTER_USER,
-  LOGOUT_USER,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
   UPDATE_USER,
@@ -20,7 +20,12 @@ import {
   updateUserSuccess,
   updateUserError,
 } from './actions';
-import { loginUserSuccess, loginUserError, loginUser } from './authSlice';
+import {
+  loginUserSuccess,
+  loginUserError,
+  loginUser,
+  logoutUser,
+} from './authSlice';
 import { updateUserInFirestore } from '../../helpers/firestoreService';
 // eslint-disable-next-line import/no-cycle
 import {
@@ -79,7 +84,7 @@ function* registerWithEmailPassword({ payload }) {
 
 export function* watchLogoutUser() {
   // eslint-disable-next-line no-use-before-define
-  yield takeEvery(LOGOUT_USER, logout);
+  yield takeEvery(logoutUser, logout);
 }
 
 const logoutAsync = async () => {
@@ -90,7 +95,6 @@ const logoutAsync = async () => {
 };
 
 function* logout({ user }) {
-  // yield call(persistor.purge);
   yield call(logoutAsync);
 }
 

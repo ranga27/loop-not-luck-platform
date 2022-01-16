@@ -7,10 +7,10 @@ import {
   setContainerClassnames,
   clickOnMobileMenu,
   changeLocale,
-  logoutUser,
 } from '../../redux/actions';
 import { isDarkSwitchActive, adminRoot } from '../../constants/defaultValues';
 import TopnavDarkSwitch from './Topnav.DarkSwitch';
+import { logoutUser } from '../../redux/auth/authSlice';
 
 const TopNav = ({ logoutUserAction }) => {
   const { currentUser } = useSelector((state) => state.auth);

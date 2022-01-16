@@ -3,12 +3,13 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import settings from './settings/reducer';
+import authReducer from './auth/authSlice';
 import menu from './menu/reducer';
-import auth from './auth/const ';
-import roles from './roles/reducer';
+import settings from './settings/reducer';
 import admin from './admin/reducer';
-import authSlice from './auth/authSlice';
+import roles from './roles/rolesSlice';
+
+// https://stackoverflow.com/a/35641992/14873941
 
 const authConfig = {
   key: 'auth',
@@ -16,11 +17,21 @@ const authConfig = {
   whitelist: ['currentUser'],
 };
 
-export default function createReducer(injectedReducers = {}) {
-  const rootReducer = combineReducers({
-    auth: persistReducer(authConfig, auth),
-    ...injectedReducers,
-  });
+const appReducer = combineReducers({
+  auth: persistReducer(authConfig, authReducer),
+  menu,
+  roles,
+  admin,
+  settings,
+});
 
-  return rootReducer;
-}
+const rootReducer = (state, action) => {
+  if (action.type === 'auth/logoutUser') {
+    // for all keys defined in persistConfig(s)
+    storage.removeItem('persist:auth');
+    return appReducer(undefined, action);
+  }
+  return appReducer(state, action);
+};
+
+export default rootReducer;

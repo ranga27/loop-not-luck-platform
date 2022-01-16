@@ -32,10 +32,14 @@ export const authSlice = createSlice({
         error: action.payload,
       };
     },
+    logoutUser: () => {
+      // Note that this should be left intentionally empty.
+      // Clearing redux state and localStorage happens in rootReducer.js
+    },
   },
 });
 
-export const { loginUser, loginUserSuccess, loginUserError } =
+export const { loginUser, loginUserSuccess, loginUserError, logoutUser } =
   authSlice.actions;
 
 export default authSlice.reducer;
