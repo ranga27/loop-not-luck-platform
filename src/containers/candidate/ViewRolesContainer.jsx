@@ -23,7 +23,7 @@ const ViewRolesContainer = () => {
   const applyRole = async (currentSlide) => {
     const { value: text } = await Swal.fire({
       input: 'textarea',
-      inputLabel: 'Message',
+      inputLabel: 'Please type your cover letter',
       inputPlaceholder: 'Type your Cover Letter here...',
       inputAttributes: {
         'aria-label': 'Type your Cover Letter here',
