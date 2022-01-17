@@ -1,29 +1,23 @@
 import React, { useState } from 'react';
-import { Button, Popover, PopoverBody } from 'reactstrap';
+import { Button } from 'reactstrap';
 import classnames from 'classnames';
 
 const StateButton = ({ id, className, color, children, onClick }) => {
   const [status, setStatus] = useState('default');
-  const [message, setMessage] = useState('');
-  const [messageShow, setMessageShow] = useState(false);
 
   const handleOnClick = () => {
     setStatus('processing');
 
     onClick()
-      .then((res) => {
-        setMessage(res);
+      .then(() => {
         setStatus('success');
       })
-      .catch((err) => {
-        setMessage(err);
+      .catch(() => {
         setStatus('fail');
       })
       .finally(() => {
-        setMessageShow(true);
         setTimeout(() => {
           setStatus('default');
-          setMessageShow(false);
         }, 3000);
       });
   };
@@ -43,9 +37,6 @@ const StateButton = ({ id, className, color, children, onClick }) => {
         onClick={handleOnClick}
         disabled={status !== 'default'}
       >
-        <Popover placement="top" isOpen={messageShow} target={id}>
-          <PopoverBody>{message}</PopoverBody>
-        </Popover>
         <span className="spinner d-inline-block">
           <span className="bounce1" />
           <span className="bounce2" />

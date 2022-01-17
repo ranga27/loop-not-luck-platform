@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -23,9 +24,13 @@ export const rolesSlice = createSlice({
         error: action.payload,
       };
     },
+    updateRoleApplied: (state, action) => {
+      state.roles[action.payload].applied = true;
+    },
   },
 });
 
-export const { getRoles, getRolesSuccess, getRolesError } = rolesSlice.actions;
+export const { getRoles, getRolesSuccess, getRolesError, updateRoleApplied } =
+  rolesSlice.actions;
 
 export default rolesSlice.reducer;

@@ -31,7 +31,7 @@ export const renderTopCenterControls = (
           color="primary"
           onClick={() => saveRole(currentSlide)}
         >
-          <i className="simple-icon-star pr-3" />
+          <i className="simple-icon-star px-1" />
           Save
         </StateButton>
         <StateButton
@@ -41,9 +41,9 @@ export const renderTopCenterControls = (
         >
           <i
             className="simple-icon-pencil
- pr-3"
+ px-1"
           />
-          Apply
+          {roles[currentSlide]?.applied ? 'Applied' : 'Apply'}
         </StateButton>
       </div>
     </div>

@@ -6,7 +6,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getRoles } from '../../redux/roles/rolesSlice';
+import { getRoles, updateRoleApplied } from '../../redux/roles/rolesSlice';
 import RolesCarousel from './RolesCarousel';
 
 const ViewRolesContainer = () => {
@@ -32,13 +32,9 @@ const ViewRolesContainer = () => {
     });
 
     if (text) {
-      Swal.fire(text);
+      dispatch(updateRoleApplied(currentSlide));
+      Swal.fire('Email Sent');
     }
-    return new Promise((success) => {
-      setTimeout(() => {
-        success(`Applied: ${roles[currentSlide].title}`);
-      }, 2000);
-    });
   };
   const seenRole = (currentSlide) => {
     console.log(`seen role: ${roles[currentSlide].title}`);
