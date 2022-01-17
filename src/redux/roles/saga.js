@@ -1,6 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { takeEvery, all, fork, call, put } from 'redux-saga/effects';
-import { fetchRolesFromFirestore } from '../../helpers/firestoreService';
-import { getRoles, getRolesSuccess, getRolesError } from './rolesSlice';
+import {
+  fetchRolesFromFirestore,
+  updateRoleInFirestore,
+} from '../../helpers/firestoreService';
+import {
+  getRoles,
+  getRolesSuccess,
+  getRolesError,
+  updateRoleData,
+} from './rolesSlice';
 
 const fetchRolesAsync = async (uid) => {
   try {
@@ -24,8 +33,22 @@ function* fetchRoles({ payload }) {
   }
 }
 
+const updateRoleAsync = async (payload) => {
+  return updateRoleInFirestore(payload);
+};
+
+function* updateRole({ payload }) {
+  try {
+    yield call(updateRoleAsync, payload);
+  } catch (error) {
+    // TODO: write updateRoleSuccess & updateRoleError
+    console.log(error);
+  }
+}
+
 export function* watchGetRoles() {
   yield takeEvery(getRoles, fetchRoles);
+  // yield takeEvery(updateRoleApplied, updateRole);
 }
 export default function* rootSaga() {
   yield all([fork(watchGetRoles)]);

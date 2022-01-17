@@ -12,12 +12,19 @@ import {
   Timestamp,
   collection,
   where,
+  updateDoc,
 } from 'firebase/firestore';
 import { format } from 'date-fns';
 import { db } from './Firebase';
+
 // Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore({ uid, ...details }) {
   return setDoc(doc(db, 'users', uid), details, { merge: true });
+}
+
+export async function updateRoleInFirestore({ uid, roleId, data }) {
+  const roleRef = doc(db, 'users', uid, 'matchedRoles', roleId);
+  return updateDoc(roleRef, data);
 }
 
 // TODO: Test function, move to cloud function

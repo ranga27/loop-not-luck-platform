@@ -3,6 +3,9 @@
   "version": "0.0.6",
   "description": "Loop Not Luck Platform",
   "private": true,
+  "overrides": {
+    "mini-css-extract-plugin": "2.4.2"
+  },
   "dependencies": {
     "@hookform/resolvers": "^2.8.5",
     "@reduxjs/toolkit": "^1.7.1",
@@ -84,6 +87,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
+    "mini-css-extract-plugin": "2.4.2",
     "prettier": "^2.5.1",
     "redux-devtools-extension": "^2.13.9"
   }
