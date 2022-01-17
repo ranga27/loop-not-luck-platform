@@ -8,7 +8,7 @@ import {
   getRoles,
   getRolesSuccess,
   getRolesError,
-  updateRoleData,
+  updateRole,
 } from './rolesSlice';
 
 const fetchRolesAsync = async (uid) => {
@@ -37,7 +37,7 @@ const updateRoleAsync = async (payload) => {
   return updateRoleInFirestore(payload);
 };
 
-function* updateRole({ payload }) {
+function* updateRoleData({ payload }) {
   try {
     yield call(updateRoleAsync, payload);
   } catch (error) {
@@ -48,7 +48,7 @@ function* updateRole({ payload }) {
 
 export function* watchGetRoles() {
   yield takeEvery(getRoles, fetchRoles);
-  // yield takeEvery(updateRoleApplied, updateRole);
+  yield takeEvery(updateRole, updateRoleData);
 }
 export default function* rootSaga() {
   yield all([fork(watchGetRoles)]);

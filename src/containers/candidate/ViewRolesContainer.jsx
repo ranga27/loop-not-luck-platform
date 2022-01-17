@@ -6,12 +6,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getRoles, updateRoleData } from '../../redux/roles/rolesSlice';
+import { getRoles, updateRole } from '../../redux/roles/rolesSlice';
 import RolesCarousel from './RolesCarousel';
 
 const ViewRolesContainer = () => {
   const { roles } = useSelector((state) => state.roles);
   const { currentUser } = useSelector((state) => state.auth);
+  const { uid } = currentUser;
   const dispatch = useDispatch();
   const saveRole = (currentSlide) => {
     return new Promise((success) => {
@@ -34,7 +35,7 @@ const ViewRolesContainer = () => {
     if (text) {
       const roleId = roles[currentSlide].id;
       const data = { applied: Date.now() };
-      dispatch(updateRoleData({ index: currentSlide, roleId, data }));
+      dispatch(updateRole({ uid, index: currentSlide, roleId, data }));
       Swal.fire('Email Sent');
     }
   };
@@ -49,6 +50,7 @@ const ViewRolesContainer = () => {
     };
     fetchRoles();
   }, [dispatch, currentUser]);
+  // TODO: combine save, apply, seen actions
   return RolesCarousel(roles, saveRole, applyRole, seenRole);
 };
 
