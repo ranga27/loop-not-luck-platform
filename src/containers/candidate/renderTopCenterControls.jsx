@@ -32,11 +32,12 @@ export const renderTopCenterControls = (
           onClick={() => saveRole(currentSlide)}
         >
           <i className="simple-icon-star px-1" />
-          Save
+          {roles[currentSlide]?.saved ? 'Saved' : 'Save'}
         </StateButton>
         <StateButton
           id="applyButton"
           color="info"
+          disabled={roles[currentSlide]?.applied}
           onClick={() => applyRole(currentSlide)}
         >
           <i

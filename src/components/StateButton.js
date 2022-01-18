@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'reactstrap';
 import classnames from 'classnames';
 
-const StateButton = ({ id, className, color, children, onClick }) => {
+const StateButton = ({ id, className, color, children, onClick, disabled }) => {
   const [status, setStatus] = useState('default');
 
   const handleOnClick = () => {
@@ -35,7 +35,7 @@ const StateButton = ({ id, className, color, children, onClick }) => {
         )}`}
         color={color}
         onClick={handleOnClick}
-        disabled={status !== 'default'}
+        disabled={disabled}
       >
         <span className="spinner d-inline-block">
           <span className="bounce1" />

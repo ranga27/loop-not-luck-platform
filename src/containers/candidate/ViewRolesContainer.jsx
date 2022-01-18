@@ -14,7 +14,7 @@ const ViewRolesContainer = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const { uid } = currentUser;
   const dispatch = useDispatch();
-  const saveRole = (currentSlide) => {
+  const saveRole = async (currentSlide) => {
     const roleId = roles[currentSlide].id;
     const data = { saved: Date.now() };
     dispatch(updateRole({ uid, index: currentSlide, roleId, data }));
@@ -32,7 +32,7 @@ const ViewRolesContainer = () => {
 
     if (text) {
       const roleId = roles[currentSlide].id;
-      const data = { applied: Date.now() };
+      const data = { applied: Date.now(), coverLetter: text };
       dispatch(updateRole({ uid, index: currentSlide, roleId, data }));
       Swal.fire('Email Sent');
     }
