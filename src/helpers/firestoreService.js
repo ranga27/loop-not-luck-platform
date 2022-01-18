@@ -24,9 +24,9 @@ export async function updateUserInFirestore({ uid, ...details }) {
 
 export async function updateRoleInFirestore({ uid, roleId, data }) {
   const roleRef = doc(db, 'users', uid, 'matchedRoles', roleId);
-  const value = Timestamp.fromMillis(Object.values(data)[0]);
   const key = Object.keys(data)[0];
-  return updateDoc(roleRef, { key: value });
+  data[key] = Timestamp.fromMillis(data[key]);
+  return updateDoc(roleRef, data);
 }
 
 // TODO: Test function, move to cloud function

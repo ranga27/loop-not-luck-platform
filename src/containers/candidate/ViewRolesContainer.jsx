@@ -15,11 +15,9 @@ const ViewRolesContainer = () => {
   const { uid } = currentUser;
   const dispatch = useDispatch();
   const saveRole = (currentSlide) => {
-    return new Promise((success) => {
-      setTimeout(() => {
-        success(`Saved: ${roles[currentSlide].title}`);
-      }, 2000);
-    });
+    const roleId = roles[currentSlide].id;
+    const data = { saved: Date.now() };
+    dispatch(updateRole({ uid, index: currentSlide, roleId, data }));
   };
   const applyRole = async (currentSlide) => {
     const { value: text } = await Swal.fire({
