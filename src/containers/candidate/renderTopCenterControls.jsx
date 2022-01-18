@@ -37,7 +37,7 @@ export const renderTopCenterControls = (
         <StateButton
           id="applyButton"
           color="info"
-          disabled={roles[currentSlide]?.applied}
+          disabled={!!roles[currentSlide]?.applied}
           onClick={() => applyRole(currentSlide)}
         >
           <i

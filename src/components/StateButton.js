@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { Button } from 'reactstrap';
 import classnames from 'classnames';
 
-const StateButton = ({ id, className, color, children, onClick, disabled }) => {
+const StateButton = ({
+  id,
+  className,
+  color,
+  children,
+  onClick,
+  disabled = false,
+}) => {
   const [status, setStatus] = useState('default');
 
   const handleOnClick = () => {

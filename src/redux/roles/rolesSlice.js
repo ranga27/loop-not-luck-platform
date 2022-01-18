@@ -28,10 +28,19 @@ export const rolesSlice = createSlice({
       const { index, data } = payload;
       Object.assign(state.roles[index], data);
     },
+    unSaveRole: (state, { payload }) => {
+      const { index } = payload;
+      delete state.roles[index].saved;
+    },
   },
 });
 
-export const { getRoles, getRolesSuccess, getRolesError, updateRole } =
-  rolesSlice.actions;
+export const {
+  getRoles,
+  getRolesSuccess,
+  getRolesError,
+  updateRole,
+  unSaveRole,
+} = rolesSlice.actions;
 
 export default rolesSlice.reducer;

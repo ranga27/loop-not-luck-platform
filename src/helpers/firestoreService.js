@@ -13,6 +13,7 @@ import {
   collection,
   where,
   updateDoc,
+  deleteField,
 } from 'firebase/firestore';
 import { format } from 'date-fns';
 import { db } from './Firebase';
@@ -27,6 +28,11 @@ export async function updateRoleInFirestore({ uid, roleId, data }) {
   const key = Object.keys(data)[0];
   data[key] = Timestamp.fromMillis(data[key]);
   return updateDoc(roleRef, data);
+}
+
+export async function unSaveRoleInFirestore({ uid, roleId }) {
+  const roleRef = doc(db, 'users', uid, 'matchedRoles', roleId);
+  return updateDoc(roleRef, { saved: deleteField() });
 }
 
 // TODO: Test function, move to cloud function

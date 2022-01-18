@@ -6,7 +6,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getRoles, updateRole } from '../../redux/roles/rolesSlice';
+import { getRoles, unSaveRole, updateRole } from '../../redux/roles/rolesSlice';
 import RolesCarousel from './RolesCarousel';
 
 const ViewRolesContainer = () => {
@@ -14,11 +14,15 @@ const ViewRolesContainer = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const { uid } = currentUser;
   const dispatch = useDispatch();
+
   const saveRole = async (currentSlide) => {
     const roleId = roles[currentSlide].id;
     const data = { saved: Date.now() };
-    dispatch(updateRole({ uid, index: currentSlide, roleId, data }));
+    if (roles[currentSlide]?.saved) {
+      dispatch(unSaveRole({ uid, index: currentSlide, roleId }));
+    } else dispatch(updateRole({ uid, index: currentSlide, roleId, data }));
   };
+
   const applyRole = async (currentSlide) => {
     const { value: text } = await Swal.fire({
       input: 'textarea',
