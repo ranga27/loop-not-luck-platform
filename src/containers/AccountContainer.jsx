@@ -4,8 +4,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import AccountForm from '../components/AccountForm';
-import { updateUser } from '../redux/actions';
 import { uploadToStorage } from '../helpers/uploadToStorage';
+import { updateUser } from '../redux/auth/authSlice';
 
 async function confirmOverwrite() {
   return Swal.fire({

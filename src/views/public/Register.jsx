@@ -7,13 +7,16 @@ import { useSelector, useDispatch } from 'react-redux';
 // TODO: Use RHF
 import { Formik, Form, Field } from 'formik';
 import Swal from 'sweetalert2';
-import { setAuthError } from '../../redux/actions';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
 import { SignUpSchema } from './SignupSchema';
 import AuthButton from './AuthButton';
 import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
-import { logoutUser, registerUser } from '../../redux/auth/authSlice';
+import {
+  logoutUser,
+  registerUser,
+  setAuthError,
+} from '../../redux/auth/authSlice';
 
 const Register = () => {
   const navigate = useNavigate();

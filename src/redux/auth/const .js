@@ -1,17 +1,11 @@
 /* eslint-disable default-param-last */
 import {
-  LOGOUT_USER,
   FORGOT_PASSWORD,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_ERROR,
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
-  UPDATE_USER,
-  UPDATE_USER_SUCCESS,
-  UPDATE_USER_ERROR,
-  SET_USER_ROLE,
-  SET_AUTH_ERROR,
 } from '../actions';
 
 const INIT_STATE = {
@@ -60,40 +54,6 @@ export default (state = INIT_STATE, { type, payload }) => {
         error: payload.message,
       };
 
-    case LOGOUT_USER:
-      return { ...state, currentUser: null, error: '', loading: false };
-    case UPDATE_USER:
-      return {
-        ...state,
-        loading: true,
-        error: '',
-      };
-    case UPDATE_USER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        currentUser: {
-          ...state.currentUser,
-          ...payload,
-        },
-        error: '',
-      };
-    case UPDATE_USER_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: payload.message,
-      };
-    case SET_USER_ROLE:
-      return {
-        ...state,
-        userRole: payload,
-      };
-    case SET_AUTH_ERROR:
-      return {
-        ...state,
-        error: payload,
-      };
     default:
       return { ...state };
   }

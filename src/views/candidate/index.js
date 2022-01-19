@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import AppLayout from '../../layout/AppLayout';
 import Account from './Account';
+import Onboarding from './onboarding';
 import ViewRoles from './roles/ViewRoles';
 
 const CandidateRoute = () => {
@@ -21,4 +22,13 @@ const CandidateRoute = () => {
   );
 };
 
-export default CandidateRoute;
+const CandidateOnboarding = () => {
+  return (
+    <Routes>
+      <Route path="onboard" element={<Onboarding />} />
+      <Route path="/" element={<Navigate to="onboard" />} />
+    </Routes>
+  );
+};
+
+export { CandidateRoute, CandidateOnboarding };

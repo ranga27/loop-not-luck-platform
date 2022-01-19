@@ -2,12 +2,11 @@ import React, { Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AppLayout from '../layout/AppLayout';
-import Onboarding from '../views/candidate/onboarding';
 import EditUsers from '../views/super/Users';
 import Test from '../views/super/Test';
-import CandidateRoute from '../views/candidate';
+import { CandidateRoute, CandidateOnboarding } from '../views/candidate';
 
-// TODO: onboarding flow missing
+// TODO: implement redirect to unautorised
 const getRoute = (user) => {
   const route = {
     super: <SuperRoute />,
@@ -26,15 +25,6 @@ const ProtectedRoute = () => {
 };
 
 export default ProtectedRoute;
-
-const CandidateOnboarding = () => {
-  return (
-    <Routes>
-      <Route path="onboard" element={<Onboarding />} />
-      <Route path="/" element={<Navigate to="onboard" />} />
-    </Routes>
-  );
-};
 
 const SuperRoute = () => {
   return (

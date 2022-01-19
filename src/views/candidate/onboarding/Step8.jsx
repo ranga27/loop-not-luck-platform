@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import IntlMessages from '../../../helpers/IntlMessages';
 import { StepLayout } from '../../../layout/stepLayout';
-import { updateUser } from '../../../redux/actions';
+import { updateUser } from '../../../redux/auth/authSlice';
 
 export const Step8 = ({ loading, fields }) => {
   const navigate = useNavigate();

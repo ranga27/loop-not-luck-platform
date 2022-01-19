@@ -4,20 +4,13 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { auth } from '../../helpers/Firebase';
 
-import {
-  REGISTER_USER,
-  FORGOT_PASSWORD,
-  RESET_PASSWORD,
-  UPDATE_USER,
-} from '../actions';
+import { FORGOT_PASSWORD, RESET_PASSWORD } from '../actions';
 
 import {
   forgotPasswordSuccess,
   forgotPasswordError,
   resetPasswordSuccess,
   resetPasswordError,
-  updateUserSuccess,
-  updateUserError,
 } from './actions';
 import {
   loginUserSuccess,
@@ -27,6 +20,9 @@ import {
   registerUser,
   registerUserSuccess,
   registerUserError,
+  updateUser,
+  updateUserSuccess,
+  updateUserError,
 } from './authSlice';
 import { updateUserInFirestore } from '../../helpers/firestoreService';
 // eslint-disable-next-line import/no-cycle
@@ -160,7 +156,7 @@ const updateUserAsync = async (user) => {
   return updateUserInFirestore(user);
 };
 
-function* updateUser({ payload }) {
+function* updateUserData({ payload }) {
   try {
     yield call(updateUserAsync, payload);
     yield put(updateUserSuccess(payload));
@@ -169,7 +165,7 @@ function* updateUser({ payload }) {
   }
 }
 export function* watchUpdateUser() {
-  yield takeEvery(UPDATE_USER, updateUser);
+  yield takeEvery(updateUser, updateUserData);
 }
 
 export default function* rootSaga() {

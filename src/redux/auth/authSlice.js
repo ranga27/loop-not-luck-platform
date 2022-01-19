@@ -16,20 +16,20 @@ export const authSlice = createSlice({
     loginUser: (state) => {
       return { ...state, loading: true, error: '' };
     },
-    loginUserSuccess: (state, action) => {
+    loginUserSuccess: (state, { payload }) => {
       return {
         ...state,
         loading: false,
-        currentUser: action.payload,
+        currentUser: payload,
         error: '',
       };
     },
-    loginUserError: (state, action) => {
+    loginUserError: (state, { payload }) => {
       return {
         ...state,
         loading: false,
         currentUser: null,
-        error: action.payload,
+        error: payload,
       };
     },
     logoutUser: () => {
@@ -55,6 +55,37 @@ export const authSlice = createSlice({
         error: payload,
       };
     },
+    updateUser: (state) => {
+      return {
+        ...state,
+        loading: true,
+        error: '',
+      };
+    },
+    updateUserSuccess: (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        currentUser: {
+          ...state.currentUser,
+          ...payload,
+        },
+        error: '',
+      };
+    },
+    updateUserError: (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    },
+    setAuthError: (state, { payload }) => {
+      return {
+        ...state,
+        error: payload,
+      };
+    },
   },
 });
 
@@ -66,6 +97,10 @@ export const {
   registerUser,
   registerUserSuccess,
   registerUserError,
+  updateUser,
+  updateUserSuccess,
+  updateUserError,
+  setAuthError,
 } = authSlice.actions;
 
 export default authSlice.reducer;

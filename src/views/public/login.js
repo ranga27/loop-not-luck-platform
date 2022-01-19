@@ -7,13 +7,11 @@ import { useSelector, useDispatch } from 'react-redux';
 // TODO: change to RHF smartform
 import { Formik, Form, Field } from 'formik';
 import Swal from 'sweetalert2';
-import { setAuthError } from '../../redux/actions';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
 import AuthButton from './AuthButton';
 import { SignInSchema } from './SignInSchema';
-import { adminRoot } from '../../constants/defaultValues';
-import { loginUser } from '../../redux/auth/authSlice';
+import { loginUser, setAuthError } from '../../redux/auth/authSlice';
 
 // TODO: check for email verified?
 // TODO: merge Layout with AuthLayout
