@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import PublicLayout from '../../layout/PublicLayout';
 import Login from './login';
-import Register from './register';
+import Register from './Register';
 import ForgotPassword from './forgot-password';
 import Error from '../error';
 import Unauthorised from '../unauthorised';

@@ -2,11 +2,10 @@ import React, { Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AppLayout from '../layout/AppLayout';
-import ViewRoles from '../views/candidate/roles/ViewRoles';
 import Onboarding from '../views/candidate/onboarding';
-import Account from '../views/candidate/Account';
 import EditUsers from '../views/super/Users';
 import Test from '../views/super/Test';
+import CandidateRoute from '../views/candidate';
 
 // TODO: onboarding flow missing
 const getRoute = (user) => {
@@ -27,18 +26,6 @@ const ProtectedRoute = () => {
 };
 
 export default ProtectedRoute;
-
-const CandidateRoute = () => {
-  return (
-    <AppLayout>
-      <Routes>
-        <Route path="roles" element={<ViewRoles />} />
-        <Route path="account" element={<Account />} />
-        <Route path="/" element={<Navigate to="roles" />} />
-      </Routes>
-    </AppLayout>
-  );
-};
 
 const CandidateOnboarding = () => {
   return (

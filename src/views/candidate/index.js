@@ -1,18 +1,24 @@
 /* eslint-disable react/no-children-prop */
 import React, { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import AppLayout from '../../layout/AppLayout';
+import Account from './Account';
+import ViewRoles from './roles/ViewRoles';
 
-const App = () => {
+const CandidateRoute = () => {
   return (
     <AppLayout>
       <div className="dashboard-wrapper">
         <Suspense fallback={<div className="loading" />}>
-          <Outlet />
+          <Routes>
+            <Route path="roles" element={<ViewRoles />} />
+            <Route path="account" element={<Account />} />
+            <Route path="/" element={<Navigate to="roles" />} />
+          </Routes>{' '}
         </Suspense>
       </div>
     </AppLayout>
   );
 };
 
-export default App;
+export default CandidateRoute;
