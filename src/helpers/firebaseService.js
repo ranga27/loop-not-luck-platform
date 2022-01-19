@@ -55,7 +55,7 @@ export async function registerInFirebase({ email, password, firstName, role }) {
     });
     return uid;
   } catch (error) {
-    console.error('Could not register user: ', error);
+    console.error('Could not register user');
     throw error;
   }
 }

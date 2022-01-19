@@ -36,10 +36,36 @@ export const authSlice = createSlice({
       // Note that this should be left intentionally empty.
       // Clearing redux state and localStorage happens in rootReducer.js
     },
+    registerUser: (state) => {
+      return { ...state, loading: true, error: '' };
+    },
+    registerUserSuccess: (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        currentUser: payload,
+        error: '',
+      };
+    },
+    registerUserError: (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        currentUser: null,
+        error: payload,
+      };
+    },
   },
 });
 
-export const { loginUser, loginUserSuccess, loginUserError, logoutUser } =
-  authSlice.actions;
+export const {
+  loginUser,
+  loginUserSuccess,
+  loginUserError,
+  logoutUser,
+  registerUser,
+  registerUserSuccess,
+  registerUserError,
+} = authSlice.actions;
 
 export default authSlice.reducer;

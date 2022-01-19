@@ -11,8 +11,6 @@ import {
 } from '../actions';
 
 import {
-  registerUserSuccess,
-  registerUserError,
   forgotPasswordSuccess,
   forgotPasswordError,
   resetPasswordSuccess,
@@ -25,6 +23,9 @@ import {
   loginUserError,
   loginUser,
   logoutUser,
+  registerUser,
+  registerUserSuccess,
+  registerUserError,
 } from './authSlice';
 import { updateUserInFirestore } from '../../helpers/firestoreService';
 // eslint-disable-next-line import/no-cycle
@@ -57,7 +58,7 @@ export function* watchLoginUser() {
 }
 export function* watchRegisterUser() {
   // eslint-disable-next-line no-use-before-define
-  yield takeEvery(REGISTER_USER, registerWithEmailPassword);
+  yield takeEvery(registerUser, registerWithEmailPassword);
 }
 
 const registerWithEmailPasswordAsync = async (user) => {
@@ -70,12 +71,12 @@ const verifyEmailAsync = async () => {
 
 function* registerWithEmailPassword({ payload }) {
   try {
-    const registerUser = yield call(registerWithEmailPasswordAsync, payload);
-    if (!registerUser.message) {
+    const user = yield call(registerWithEmailPasswordAsync, payload);
+    if (!user.message) {
       yield call(verifyEmailAsync);
       yield put(registerUserSuccess('success'));
     } else {
-      yield put(registerUserError(registerUser.message));
+      yield put(registerUserError(user.message));
     }
   } catch (error) {
     yield put(registerUserError(getUserError(error.message)));
