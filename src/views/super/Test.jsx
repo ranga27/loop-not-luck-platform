@@ -81,6 +81,7 @@ const Test = () => {
     }
   };
 
+  const sendJobs = async () => {};
   return (
     <>
       <Row>
@@ -146,9 +147,24 @@ const Test = () => {
                 size="lg"
                 className="mb-2"
                 type="submit"
-                onClick={addRoles}
+                onClick={sendJobs}
               >
                 Add Roles
+              </Button>
+            </CardBody>
+          </Card>
+        </Colxx>
+        <Colxx>
+          <Card>
+            <CardBody>
+              <Button
+                color="primary"
+                size="lg"
+                className="mb-2"
+                type="submit"
+                onClick={addRoles}
+              >
+                Email Job Recommendations
               </Button>
             </CardBody>
           </Card>

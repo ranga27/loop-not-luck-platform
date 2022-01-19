@@ -33,15 +33,14 @@ import {
 import { getUsersList, setUserRole } from '../../helpers/firebaseService';
 
 const fetchUsersAsync = async () => {
-  return getUsersList;
+  return getUsersList();
 };
 
 function* fetchUsers() {
   try {
     const data = yield call(fetchUsersAsync);
-    console.log(data);
-    if (data.users != null) {
-      yield put(getUsersSuccess(data.users));
+    if (data != null) {
+      yield put(getUsersSuccess(data));
     } else if (data.error != null) {
       yield put(getUsersError(data.error));
     }

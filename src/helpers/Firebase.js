@@ -12,6 +12,6 @@ const db = getFirestore(firebaseApp);
 const functions = getFunctions(firebaseApp);
 
 // TODO: switch to development environment using const { NODE_ENV } = process.env;
-// connectFunctionsEmulator(functions, 'localhost', 5001);
+connectFunctionsEmulator(functions, 'localhost', 5001);
 
 export { auth, db, functions };
