@@ -23,6 +23,11 @@ export async function getUsersList() {
   return results.data;
 }
 
+export async function sendJobsEmail(data) {
+  const sendJobsFunction = httpsCallable(functions, 'sendJobs');
+  return sendJobsFunction(data);
+}
+
 export async function setUserRole(uid, role) {
   const updateRoleFunction = httpsCallable(functions, 'setUserRole');
   return updateRoleFunction({ uid, role });

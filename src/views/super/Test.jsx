@@ -15,39 +15,14 @@ import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import { MultiSelect } from '../../components/form/FormFields';
 import { addRoleInUserDoc } from '../../helpers/firestoreService';
 import IntlMessages from '../../helpers/IntlMessages';
+import { tagsOptions } from './tagsOptions';
+import EmailJobs from './EmailJobs';
 
 const Test = () => {
   const { roles } = useSelector((state) => state.roles);
   const dispatch = useDispatch();
 
   const { control, setValue, handleSubmit } = useForm();
-  const tagsOptions = [
-    {
-      key: 0,
-      label: 'test 1',
-      value: 'test 1',
-    },
-    {
-      key: 1,
-      label: 'test 2',
-      value: 'test 2',
-    },
-    {
-      key: 2,
-      label: 'test 3',
-      value: 'test 3',
-    },
-    {
-      key: 3,
-      label: 'test 4',
-      value: 'test 4',
-    },
-    {
-      key: 4,
-      label: 'test 5',
-      value: 'test 5',
-    },
-  ];
   const [score, setScore] = useState(0);
 
   const onSubmit = async (data) => {
@@ -81,7 +56,6 @@ const Test = () => {
     }
   };
 
-  const sendJobs = async () => {};
   return (
     <>
       <Row>
@@ -147,28 +121,14 @@ const Test = () => {
                 size="lg"
                 className="mb-2"
                 type="submit"
-                onClick={sendJobs}
+                onClick={addRoles}
               >
                 Add Roles
               </Button>
             </CardBody>
           </Card>
         </Colxx>
-        <Colxx>
-          <Card>
-            <CardBody>
-              <Button
-                color="primary"
-                size="lg"
-                className="mb-2"
-                type="submit"
-                onClick={addRoles}
-              >
-                Email Job Recommendations
-              </Button>
-            </CardBody>
-          </Card>
-        </Colxx>
+        <EmailJobs />
       </Row>
     </>
   );
