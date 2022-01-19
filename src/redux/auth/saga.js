@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-vars */
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
@@ -57,7 +58,6 @@ export function* watchLoginUser() {
   yield takeEvery(loginUser, loginWithEmailPassword);
 }
 export function* watchRegisterUser() {
-  // eslint-disable-next-line no-use-before-define
   yield takeEvery(registerUser, registerWithEmailPassword);
 }
 

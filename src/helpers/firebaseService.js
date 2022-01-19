@@ -28,9 +28,9 @@ export async function sendJobsEmail(data) {
   return sendJobsFunction(data);
 }
 
-export async function setUserRole(uid, role) {
+export async function setUserRole(data) {
   const updateRoleFunction = httpsCallable(functions, 'setUserRole');
-  return updateRoleFunction({ uid, role });
+  return updateRoleFunction(data);
 }
 
 export async function registerInFirebase({ email, password, firstName, role }) {
@@ -43,7 +43,7 @@ export async function registerInFirebase({ email, password, firstName, role }) {
     );
     const { uid } = userCredential.user;
     updateProfile(auth.currentUser, { displayName: firstName });
-    setUserRole(uid, role);
+    setUserRole({ uid, role });
     updateUserInFirestore({
       uid,
       email,

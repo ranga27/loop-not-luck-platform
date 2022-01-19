@@ -3,10 +3,8 @@ const functions = require('firebase-functions');
 const { getAuth } = require('firebase-admin/auth');
 
 /** Cloud Function that sets desired user role */
-exports.setUserRole = functions.https.onCall((data) => {
+exports.setUserRole = functions.https.onCall(({ uid, role }) => {
   try {
-    const { uid, role } = data;
-    console.log(uid, role);
     // Set custom user claims on this user.
     getAuth().setCustomUserClaims(uid, { role: role });
     // TODO: update the 'users' collection with new role

@@ -20,9 +20,12 @@ const Register = () => {
   const { loading, error, currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [firstName] = useState('sarang');
+  // TODO: for testing purposes, remove in production
   const [email] = useState('sarang@loopnotluck.com');
   const [password] = useState('hanumant');
+
   const [role] = useState('candidate');
+
   useEffect(() => {
     if (error) {
       Swal.fire({
@@ -38,10 +41,9 @@ const Register = () => {
         'success'
       ).then((result) => {
         if (result.isConfirmed || result.isDismissed) {
-          // Firebase signs in user, hence sign out immediately to verify email
+          // Firebase signs in user on registration, hence sign out immediately to verify email
           dispatch(setAuthError(''));
-          // TODO: remove navigate from logout saga
-          dispatch(logoutUser(navigate));
+          dispatch(logoutUser());
           navigate('/');
         }
       });
