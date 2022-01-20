@@ -1,16 +1,20 @@
-import React, { Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
-import AppLayout from '../layout/AppLayout';
-import EditUsers from '../views/super/Users';
-import Test from '../views/super/Test';
 import { CandidateRoute, CandidateOnboarding } from '../views/candidate';
 
+const SuperAdminRoute = lazy(() =>
+  import(/* webpackChunkName: "super-admin" */ '../views/super')
+);
+
+const CompanyRoute = lazy(() =>
+  import(/* webpackChunkName: "company" */ '../views/company')
+);
 // TODO: implement redirect to unautorised
 const getRoute = (user) => {
   const route = {
-    super: <SuperRoute />,
+    super: <SuperAdminRoute />,
     candidate: user.isOnboarded ? <CandidateRoute /> : <CandidateOnboarding />,
+    employer: <CompanyRoute />,
   };
   return route[user.role];
 };
@@ -25,15 +29,3 @@ const ProtectedRoute = () => {
 };
 
 export default ProtectedRoute;
-
-const SuperRoute = () => {
-  return (
-    <AppLayout>
-      <Routes>
-        <Route path="test" element={<Test />} />
-        <Route path="users" element={<EditUsers />} />
-        <Route path="/" element={<Navigate to="test" />} />
-      </Routes>
-    </AppLayout>
-  );
-};

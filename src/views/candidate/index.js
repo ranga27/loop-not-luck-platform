@@ -4,7 +4,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import AppLayout from '../../layout/AppLayout';
 import Account from './Account';
 import Onboarding from './onboarding';
-import ViewRoles from './roles/ViewRoles';
+import ViewRoles from './ViewRoles';
 
 const CandidateRoute = () => {
   return (

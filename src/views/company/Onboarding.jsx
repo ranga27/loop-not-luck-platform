@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
-import { Colxx } from '../../../components/common/CustomBootstrap';
-import IntlMessages from '../../../helpers/IntlMessages';
-import AddCompanyForm from '../../../containers/AddCompanyForm';
+import { Colxx } from '../../components/common/CustomBootstrap';
+import IntlMessages from '../../helpers/IntlMessages';
+import AddCompanyForm from '../../containers/AddCompanyForm';
 
-const AddCompany = () => {
+const Onboarding = () => {
   return (
     <Row className="mb-4">
       <Colxx xxs="12">
@@ -22,4 +22,4 @@ const AddCompany = () => {
   );
 };
 
-export default AddCompany;
+export default Onboarding;
