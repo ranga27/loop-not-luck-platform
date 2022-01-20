@@ -1,13 +1,19 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import PublicLayout from '../../layout/PublicLayout';
-import Login from './login';
-import Register from './Register';
-import ForgotPassword from './forgot-password';
-import Error from '../error';
-import Unauthorised from '../unauthorised';
 
+const Login = lazy(() => import(/* webpackChunkName: "login" */ './Login'));
+const Register = lazy(() =>
+  import(/* webpackChunkName: "register" */ './Register')
+);
+const ForgotPassword = lazy(() =>
+  import(/* webpackChunkName: "forgot" */ './Forgot-password')
+);
+const Error = lazy(() => import(/* webpackChunkName: "error" */ '../Error'));
+const Unauthorised = lazy(() =>
+  import(/* webpackChunkName: "unauthorised" */ '../Unauthorised')
+);
 // TODO: Replace Loading in Suspense with a framer motion effect
 const Public = () => {
   return (

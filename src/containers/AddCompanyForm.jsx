@@ -61,12 +61,14 @@ const AddCompanyForm = () => {
           label="Company Name"
           register={register}
           errors={errors.name}
+          control={control}
         />
         <TextInput
           name="email"
           label="Contact Email"
           register={register}
           errors={errors.email}
+          control={control}
         />
         <FileUpload
           label="Logo"

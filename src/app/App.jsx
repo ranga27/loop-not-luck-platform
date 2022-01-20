@@ -1,15 +1,21 @@
 /* eslint-disable no-unused-vars */
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import AppLocale from '../lang';
 import ColorSwitcher from '../components/common/ColorSwitcher';
 import { getDirection } from '../helpers/Utils';
-import Public from '../views/public';
-import RequireAuth from './RequireAuth';
-import ProtectedRoute from './ProtectedRoute';
 
+const Public = lazy(() =>
+  import(/* webpackChunkName: "public" */ '../views/public')
+);
+const RequireAuth = lazy(() =>
+  import(/* webpackChunkName: "require-auth" */ './RequireAuth')
+);
+const ProtectedRoute = lazy(() =>
+  import(/* webpackChunkName: "protected" */ './ProtectedRoute')
+);
 const App = () => {
   const direction = getDirection();
   if (direction.isRtl) {
@@ -29,18 +35,16 @@ const App = () => {
         locale={currentAppLocale.locale}
         messages={currentAppLocale.messages}
       >
-        <>
-          <ColorSwitcher />
-          <Suspense fallback={<div className="loading" />}>
-            <Routes>
-              <Route element={<RequireAuth />}>
-                <Route path="app/*" element={<ProtectedRoute />} />
-                <Route path="/" element={<Navigate to="app" />} />
-              </Route>
-              <Route path="*" element={<Public />} />
-            </Routes>
-          </Suspense>
-        </>
+        <ColorSwitcher />
+        <Suspense fallback={<div className="loading" />}>
+          <Routes>
+            <Route element={<RequireAuth />}>
+              <Route path="app/*" element={<ProtectedRoute />} />
+              <Route path="/" element={<Navigate to="app" />} />
+            </Route>
+            <Route path="*" element={<Public />} />
+          </Routes>
+        </Suspense>
       </IntlProvider>
     </div>
   );
