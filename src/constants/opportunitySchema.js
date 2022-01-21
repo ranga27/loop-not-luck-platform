@@ -2,11 +2,11 @@ import * as Yup from 'yup';
 
 // eslint-disable-next-line import/prefer-default-export
 export const OpportunitySchema = Yup.object().shape({
-  /* title: Yup.string()
+  title: Yup.string()
     .max(100, 'Title Too Long!')
     .required('Please enter the Title'),
 
-  organisation: Yup.string()
+  /*  organisation: Yup.string()
     .max(100, 'Too Long!')
     .required('Please enter the Organisation'),
 

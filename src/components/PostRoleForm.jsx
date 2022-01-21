@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
 import { OpportunitySchema } from '../constants/opportunitySchema';
@@ -27,11 +25,10 @@ const PostRoleForm = ({ companies }) => {
     startDate: null,
     coverLetter: false,
   };
-  // TODO: defualt values
+  // TODO: default values
   const {
     watch,
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -52,8 +49,8 @@ const PostRoleForm = ({ companies }) => {
       <TextInput
         name="title"
         label="Title"
-        register={register}
         errors={errors.title}
+        control={control}
       />
       <SelectField
         label="Organisation"
@@ -76,19 +73,19 @@ const PostRoleForm = ({ companies }) => {
         options={positionTypes}
         errors={errors.positionType}
       />
-      <TextInput name="department" label="Department" register={register} />
+      <TextInput name="department" label="Department" control={control} />
       <TextInput
         name="description"
         label="Description"
-        register={register}
         errors={errors.description}
         type="textarea"
+        control={control}
       />
       <TextInput
         name="qualification"
         label="Required Qualifications"
-        register={register}
         type="textarea"
+        control={control}
       />
       <SelectField
         label="How to Apply"
@@ -100,11 +97,11 @@ const PostRoleForm = ({ companies }) => {
         <TextInput
           name="email"
           label="Hiring Manager Email"
-          register={register}
+          control={control}
         />
       )}
       {howToApply === 'Apply on website' && (
-        <TextInput name="website" label="Website" register={register} />
+        <TextInput name="website" label="Website" control={control} />
       )}
       <Label>Deadline</Label>
       <CheckBox name="rolling" label="Rolling" control={control} />

@@ -76,6 +76,9 @@ const TopNav = ({ logoutUserAction }) => {
             <NavLink to="/app/users">Users</NavLink>
           </>
         )}
+        {currentUser.role === 'employer' && (
+          <NavLink to="/app/post-role">Post Role</NavLink>
+        )}
         {isDarkSwitchActive && <TopnavDarkSwitch />}
         <div className="header-icons d-inline-block align-middle">
           <button
@@ -116,6 +119,7 @@ const mapStateToProps = ({ menu, settings }) => {
     locale,
   };
 };
+
 export default injectIntl(
   connect(mapStateToProps, {
     setContainerClassnamesAction: setContainerClassnames,

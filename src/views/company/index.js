@@ -6,12 +6,16 @@ const Onboarding = lazy(() =>
   import(/* webpackChunkName: "company-onboarding" */ './Onboarding')
 );
 
+const PostRole = lazy(() =>
+  import(/* webpackChunkName: "company-post-role" */ './PostRole')
+);
 const CompanyRoute = () => {
   return (
     <AppLayout>
       <Suspense fallback={<div className="loading" />}>
         <Routes>
           <Route path="onboard" element={<Onboarding />} />
+          <Route path="post-role" element={<PostRole />} />
           <Route path="/" element={<Navigate to="onboard" />} />
         </Routes>
       </Suspense>
