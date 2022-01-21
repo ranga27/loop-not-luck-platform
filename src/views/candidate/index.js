@@ -1,12 +1,22 @@
 /* eslint-disable react/no-children-prop */
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import AppLayout from '../../layout/AppLayout';
-import Account from './Account';
-import Onboarding from './onboarding';
-import ViewRoles from './ViewRoles';
 
-const CandidateRoute = () => {
+const Account = lazy(() =>
+  import(/* webpackChunkName: "candidate-account" */ './Account')
+);
+
+const ViewRoles = lazy(() =>
+  import(/* webpackChunkName: "candidate-roles" */ './ViewRoles')
+);
+
+const Onboarding = lazy(() =>
+  import(/* webpackChunkName: "candidate-onboarding" */ './onboarding')
+);
+
+const CandidateApp = () => {
   return (
     <AppLayout>
       <div className="dashboard-wrapper">
@@ -21,7 +31,6 @@ const CandidateRoute = () => {
     </AppLayout>
   );
 };
-
 const CandidateOnboarding = () => {
   return (
     <Routes>
@@ -29,6 +38,12 @@ const CandidateOnboarding = () => {
       <Route path="/" element={<Navigate to="onboard" />} />
     </Routes>
   );
+};
+
+const CandidateRoute = () => {
+  const { currentUser } = useSelector((state) => state.auth);
+  if (!currentUser.isOnboarded) return <CandidateOnboarding />;
+  return <CandidateApp />;
 };
 
 export default CandidateRoute;

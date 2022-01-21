@@ -8,13 +8,13 @@ import ColorSwitcher from '../components/common/ColorSwitcher';
 import { getDirection } from '../helpers/Utils';
 
 const Public = lazy(() =>
-  import(/* webpackChunkName: "public" */ '../views/public')
+  import(/* webpackChunkName: "public-route" */ '../views/public')
 );
 const RequireAuth = lazy(() =>
   import(/* webpackChunkName: "require-auth" */ './RequireAuth')
 );
 const ProtectedRoute = lazy(() =>
-  import(/* webpackChunkName: "protected" */ './ProtectedRoute')
+  import(/* webpackChunkName: "protected-route" */ './ProtectedRoute')
 );
 const App = () => {
   const direction = getDirection();

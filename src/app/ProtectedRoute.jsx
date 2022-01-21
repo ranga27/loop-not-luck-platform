@@ -6,11 +6,11 @@ const SuperAdminRoute = lazy(() =>
 );
 
 const CandidateRoute = lazy(() =>
-  import(/* webpackChunkName: "super-admin" */ '../views/candidate')
+  import(/* webpackChunkName: "candidate-route" */ '../views/candidate')
 );
 
 const CompanyRoute = lazy(() =>
-  import(/* webpackChunkName: "company" */ '../views/company')
+  import(/* webpackChunkName: "company-route" */ '../views/company')
 );
 // TODO: implement redirect to unautorised
 const getRoute = (user) => {
