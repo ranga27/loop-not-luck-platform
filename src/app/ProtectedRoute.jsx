@@ -1,9 +1,12 @@
 import React, { Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
-import { CandidateRoute, CandidateOnboarding } from '../views/candidate';
 
 const SuperAdminRoute = lazy(() =>
   import(/* webpackChunkName: "super-admin" */ '../views/super')
+);
+
+const CandidateRoute = lazy(() =>
+  import(/* webpackChunkName: "super-admin" */ '../views/candidate')
 );
 
 const CompanyRoute = lazy(() =>
@@ -13,7 +16,7 @@ const CompanyRoute = lazy(() =>
 const getRoute = (user) => {
   const route = {
     super: <SuperAdminRoute />,
-    candidate: user.isOnboarded ? <CandidateRoute /> : <CandidateOnboarding />,
+    candidate: <CandidateRoute />,
     employer: <CompanyRoute />,
   };
   return route[user.role];

@@ -15,7 +15,7 @@ const CandidateRoute = () => {
             <Route path="roles" element={<ViewRoles />} />
             <Route path="account" element={<Account />} />
             <Route path="/" element={<Navigate to="roles" />} />
-          </Routes>{' '}
+          </Routes>
         </Suspense>
       </div>
     </AppLayout>
@@ -31,4 +31,4 @@ const CandidateOnboarding = () => {
   );
 };
 
-export { CandidateRoute, CandidateOnboarding };
+export default CandidateRoute;
