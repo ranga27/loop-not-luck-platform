@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   updateProfile,
   createUserWithEmailAndPassword,
@@ -33,7 +34,13 @@ export async function setUserRole(data) {
   return updateRoleFunction(data);
 }
 
-export async function registerInFirebase({ email, password, firstName, role }) {
+export async function registerInFirebase({
+  email,
+  password,
+  firstName,
+  role,
+  company,
+}) {
   try {
     // Create a new user account
     const userCredential = await createUserWithEmailAndPassword(

@@ -12,7 +12,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const Group = ({ label, errors, children }) => {
   return (
-    <FormGroup className="error-l-100 has-float-label  mb-4">
+    <FormGroup className="error-l-100 has-float-label tooltip-center-top mb-5">
       <Label>{label}</Label>
       {children}
       {errors && (
@@ -93,7 +93,7 @@ export const SelectField = ({
             value={{
               // make sure we retain the corect format for the controlled component
               value,
-              label: value,
+              label: options.find((e) => e.value === value)?.label,
             }}
             options={options}
             className="react-select"

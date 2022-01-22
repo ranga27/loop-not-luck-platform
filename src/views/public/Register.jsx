@@ -33,7 +33,11 @@ const Register = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues, resolver: yupResolver(SignUpSchema) });
+  } = useForm({
+    mode: 'onBlur',
+    defaultValues,
+    resolver: yupResolver(SignUpSchema),
+  });
   const regAlert = withReactContent(Swal);
   const navigate = useNavigate();
   const { loading, error, currentUser } = useSelector((state) => state.auth);
@@ -75,8 +79,8 @@ const Register = () => {
     }
   };
   const options = [
-    { value: 'Candidate', label: 'Candidate' },
-    { value: 'Employer', label: 'Employer' },
+    { value: 'candidate', label: 'Candidate' },
+    { value: 'employer', label: 'Employer' },
   ];
 
   return (
