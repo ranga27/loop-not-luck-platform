@@ -19,7 +19,7 @@
     "firebase": "^9.6.3",
     "firebase-admin": "^10.0.1",
     "formik": "^2.2.6",
-    "framer-motion": "^5.6.0",
+    "framer-motion": "^6.2.1",
     "mousetrap": "^1.6.5",
     "node-sass": "^7.0.1",
     "nuka-carousel": "^4.8.4",

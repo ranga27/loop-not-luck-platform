@@ -3,15 +3,6 @@
 /* eslint-disable no-unused-vars */
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { auth } from '../../helpers/Firebase';
-
-import { FORGOT_PASSWORD, RESET_PASSWORD } from '../actions';
-
-import {
-  forgotPasswordSuccess,
-  forgotPasswordError,
-  resetPasswordSuccess,
-  resetPasswordError,
-} from './actions';
 import {
   loginUserSuccess,
   loginUserError,
@@ -23,6 +14,12 @@ import {
   updateUser,
   updateUserSuccess,
   updateUserError,
+  forgotPassword,
+  forgotPasswordSuccess,
+  forgotPasswordError,
+  resetPassword,
+  resetPasswordSuccess,
+  resetPasswordError,
 } from './authSlice';
 import { updateUserInFirestore } from '../../helpers/firestoreService';
 // eslint-disable-next-line import/no-cycle
@@ -97,7 +94,7 @@ function* logout({ user }) {
 
 export function* watchForgotPassword() {
   // eslint-disable-next-line no-use-before-define
-  yield takeEvery(FORGOT_PASSWORD, forgotPassword);
+  yield takeEvery(forgotPassword, forgotPwd);
 }
 
 const forgotPasswordAsync = async (email) => {
@@ -108,7 +105,7 @@ const forgotPasswordAsync = async (email) => {
     .catch((error) => error);
 };
 
-function* forgotPassword({ payload }) {
+function* forgotPwd({ payload }) {
   const { email } = payload.forgotUserMail;
   try {
     const forgotPasswordStatus = yield call(forgotPasswordAsync, email);
@@ -124,7 +121,7 @@ function* forgotPassword({ payload }) {
 
 export function* watchResetPassword() {
   // eslint-disable-next-line no-use-before-define
-  yield takeEvery(RESET_PASSWORD, resetPassword);
+  yield takeEvery(resetPassword, resetPwd);
 }
 
 const resetPasswordAsync = async (resetPasswordCode, newPassword) => {
@@ -135,7 +132,7 @@ const resetPasswordAsync = async (resetPasswordCode, newPassword) => {
     .catch((error) => error);
 };
 
-function* resetPassword({ payload }) {
+function* resetPwd({ payload }) {
   const { newPassword, resetPasswordCode } = payload;
   try {
     const resetPasswordStatus = yield call(

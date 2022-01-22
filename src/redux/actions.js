@@ -51,7 +51,6 @@ export const EDIT_COMPANY_SUCCESS = 'EDIT_COMPANY_SUCCESS';
 export const EDIT_COMPANY_ERROR = 'EDIT_COMPANY_ERROR';
 
 export * from './menu/actions';
-export * from './auth/actions';
 export * from './admin/actions';
 export * from './roles/actions';
 export * from './settings/actions';

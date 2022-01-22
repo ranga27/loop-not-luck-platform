@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Label, FormGroup, CardSubtitle } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import IntlMessages from '../../helpers/IntlMessages';
-import { forgotPassword } from '../../redux/actions';
 import AuthButton from './AuthButton';
 import Layout from './layout';
+import { forgotPassword } from '../../redux/auth/authSlice';
 
 const validateEmail = (value) => {
   let error;
@@ -19,19 +19,16 @@ const validateEmail = (value) => {
   return error;
 };
 
-const ForgotPassword = ({
-  history,
-  forgotUserMail,
-  loading,
-  error,
-  forgotPasswordAction,
-}) => {
+const ForgotPassword = ({ history }) => {
+  const { forgotUserMail, loading, error } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [email] = useState('');
 
   const onForgotPassword = (values) => {
     if (!loading) {
       if (values.email !== '') {
-        forgotPasswordAction(values, history);
+        // TODO: remove history
+        dispatch(forgotPassword(values, history));
       }
     }
   };

@@ -26,7 +26,7 @@ const Register = () => {
     email: 'sarang@loopnotluck.com',
     password: 'hanumant',
     role: '',
-    company: 'Baby Swim',
+    company: '',
   };
   const {
     watch,
@@ -66,7 +66,8 @@ const Register = () => {
     }
   }, [currentUser, loading]);
 
-  const onUserRegister = (values) => {
+  const onUserSubmit = (values) => {
+    console.log(values);
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
         dispatch(registerUser(values));
@@ -81,7 +82,7 @@ const Register = () => {
   return (
     <Layout cardTitle="user.register">
       <Form
-        onSubmit={handleSubmit(onUserRegister)}
+        onSubmit={handleSubmit(onUserSubmit)}
         className="av-tooltip tooltip-label-bottom"
       >
         <SelectField
@@ -90,9 +91,15 @@ const Register = () => {
           control={control}
           options={options}
           isSearchable={false}
+          errors={errors.role}
         />
         {role === 'Employer' && (
-          <TextInput name="company" label="Company" control={control} />
+          <TextInput
+            name="company"
+            label="Company"
+            control={control}
+            errors={errors.company}
+          />
         )}
         <TextInput
           name="firstName"

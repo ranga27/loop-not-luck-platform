@@ -86,6 +86,51 @@ export const authSlice = createSlice({
         error: payload,
       };
     },
+    forgotPassword: (state) => {
+      return { ...state, loading: true, error: '' };
+    },
+    forgotPasswordSuccess: (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        forgotUserMail: payload,
+        error: '',
+      };
+    },
+    forgotPasswordError: (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        forgotUserMail: '',
+        error: payload,
+      };
+    },
+    resetPassword: (state) => {
+      return { ...state, loading: true, error: '' };
+    },
+    resetPasswordSuccess: (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        newPassword: payload,
+        resetPasswordCode: '',
+        error: '',
+      };
+    },
+    resetPasswordError: (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        newPassword: '',
+        resetPasswordCode: '',
+        error: payload,
+      };
+    },
+    verifyEmail: (state) => {
+      return {
+        ...state,
+      };
+    },
   },
 });
 
@@ -101,6 +146,13 @@ export const {
   updateUserSuccess,
   updateUserError,
   setAuthError,
+  forgotPassword,
+  forgotPasswordSuccess,
+  forgotPasswordError,
+  resetPassword,
+  resetPasswordSuccess,
+  resetPasswordError,
+  verifyEmail,
 } = authSlice.actions;
 
 export default authSlice.reducer;
