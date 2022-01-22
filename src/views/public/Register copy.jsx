@@ -1,35 +1,37 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { FormGroup, Label } from 'reactstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+// TODO: Use RHF
 import { useForm } from 'react-hook-form';
+import { Formik, Form, Field } from 'formik';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Form } from 'reactstrap';
+import * as yup from 'yup';
+import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
 import { SignUpSchema } from './SignupSchema';
 import AuthButton from './AuthButton';
+import { FormikCustomRadioGroup } from '../../components/form/FormikCustomRadioGroup';
 import {
   logoutUser,
   registerUser,
   setAuthError,
 } from '../../redux/auth/authSlice';
-import { SelectField, TextInput } from '../../components/form/FormFields';
 
 const Register = () => {
-  // TODO: for testing purposes, remove in production
   const defaultValues = {
     firstName: 'sarang',
     email: 'sarang@loopnotluck.com',
     password: 'hanumant',
-    role: '',
+    role: 'candidate',
     company: 'Baby Swim',
   };
   const {
-    watch,
     control,
     handleSubmit,
     formState: { errors },
@@ -39,7 +41,12 @@ const Register = () => {
   const { loading, error, currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const role = watch('role');
+  // TODO: for testing purposes, remove in production
+  const [firstName] = useState('sarang');
+  const [email] = useState('sarang@loopnotluck.com');
+  const [password] = useState('hanumant');
+  const [role] = useState('candidate');
+
   useEffect(() => {
     if (error) {
       regAlert.fire({
@@ -64,6 +71,7 @@ const Register = () => {
           }
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser, loading]);
 
   const onUserRegister = (values) => {
@@ -74,46 +82,58 @@ const Register = () => {
     }
   };
   const options = [
-    { value: 'Candidate', label: 'Candidate' },
-    { value: 'Employer', label: 'Employer' },
+    { value: 'candidate', label: 'Candidate' },
+    { value: 'employer', label: 'Employer' },
   ];
+
+  const initialValues = { firstName, email, password, role };
 
   return (
     <Layout cardTitle="user.register">
-      <Form
-        onSubmit={handleSubmit(onUserRegister)}
-        className="av-tooltip tooltip-label-bottom"
-      >
-        <SelectField
-          label="Select one"
-          name="role"
-          control={control}
-          options={options}
-          isSearchable={false}
-        />
-        {role === 'Employer' && (
-          <TextInput name="company" label="Company" control={control} />
-        )}
-        <TextInput
-          name="firstName"
-          label="First Name"
-          errors={errors.firstName}
-          control={control}
-        />
-        <TextInput
-          name="email"
-          label="Email"
-          errors={errors.email}
-          control={control}
-        />
-        <TextInput
-          name="password"
-          label="Password"
-          errors={errors.password}
-          control={control}
-          type="password"
-        />
+      <Form className="av-tooltip tooltip-label-bottom">
+        <FormGroup className="form-group has-float-label  mb-4">
+          <Label>
+            <IntlMessages id="user.first-name" />
+          </Label>
+          <Field className="form-control" name="firstName" />
+          {errors.firstName && touched.firstName && (
+            <div className="invalid-feedback d-block">{errors.firstName}</div>
+          )}
+        </FormGroup>
+        <FormGroup className="form-group has-float-label  mb-4">
+          <Label>
+            <IntlMessages id="user.email" />
+          </Label>
+          <Field className="form-control" name="email" />
+          {errors.email && touched.email && (
+            <div className="invalid-feedback d-block">{errors.email}</div>
+          )}
+        </FormGroup>
+        <FormGroup className="form-group has-float-label  mb-4">
+          <Label>
+            <IntlMessages id="user.password" />
+          </Label>
+          <Field className="form-control" type="password" name="password" />
+          {errors.password && touched.password && (
+            <div className="invalid-feedback d-block">{errors.password}</div>
+          )}
+        </FormGroup>
         <div className="d-flex flex-column justify-content-center align-items-center">
+          <FormGroup className="form-group">
+            <Label className="d-block">Select One</Label>
+            <FormikCustomRadioGroup
+              inline="true"
+              name="role"
+              id="role"
+              value={values.role}
+              onChange={setFieldValue}
+              onBlur={setFieldTouched}
+              options={options}
+            />
+            {errors.role && touched.role ? (
+              <div className="invalid-feedback d-block">{errors.role}</div>
+            ) : null}
+          </FormGroup>
           <AuthButton loading={loading} label="user.register-button" />
           <p className="my-4">
             If you are a member, please{' '}

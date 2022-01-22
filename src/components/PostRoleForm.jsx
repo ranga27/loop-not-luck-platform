@@ -13,7 +13,6 @@ import { locations, applicationOptions, positionTypes } from '../data';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const PostRoleForm = ({ companies }) => {
-  console.log(companies);
   const defaultValues = {
     department: '',
     qualification: '',

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
@@ -11,7 +12,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const Group = ({ label, errors, children }) => {
   return (
-    <FormGroup className="error-l-100 mb-5">
+    <FormGroup className="error-l-100 has-float-label  mb-4">
       <Label>{label}</Label>
       {children}
       {errors && (
@@ -134,6 +135,27 @@ export const CheckBox = ({ label, name, control }) => {
             onChange={field.onChange}
             innerRef={field.ref}
             type="checkbox"
+          />
+        )}
+        name={name}
+        control={control}
+      />
+      <Label className="mx-2">{label}</Label>
+    </FormGroup>
+  );
+};
+// TODO: implement Radio with options
+export const Radio = ({ label, name, control, options }) => {
+  return (
+    <FormGroup>
+      <Controller
+        render={({ field }) => (
+          <Input
+            id={name}
+            value={field.value}
+            onChange={field.onChange}
+            innerRef={field.ref}
+            type="radio"
           />
         )}
         name={name}
