@@ -14,6 +14,7 @@ import {
   where,
   updateDoc,
   deleteField,
+  serverTimestamp,
 } from 'firebase/firestore';
 import { format } from 'date-fns';
 import { db } from './Firebase';
@@ -124,9 +125,13 @@ export async function updateCompanyInFirestore(company) {
   const companyRef = collection(db, 'companies');
   const companyQuery = query(companyRef, where('name', '==', company));
   const querySnapshot = await getDocs(companyQuery);
-  querySnapshot.forEach((document) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(document.id, ' => ', document.data());
-    return document.id;
-  });
+  const companyId = querySnapshot.docs[0]?.id;
+  if (!companyId) {
+    const { id } = await addDoc(companyRef, {
+      name: company,
+      createdAt: serverTimestamp(),
+    });
+    return id;
+  }
+  return companyId;
 }

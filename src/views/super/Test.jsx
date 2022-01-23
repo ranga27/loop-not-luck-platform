@@ -44,7 +44,7 @@ const Test = () => {
     };
     // fetchRoles();
     const getCompanyId = async () => {
-      const companyId = await updateCompanyInFirestore('Baby Swim');
+      const companyId = await updateCompanyInFirestore('Swim');
       console.log('Company Id: ', companyId);
       return companyId;
     };
