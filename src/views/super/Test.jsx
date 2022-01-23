@@ -13,7 +13,10 @@ import {
 import { getRoles } from '../../redux/actions';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import { MultiSelect } from '../../components/form/FormFields';
-import { addRoleInUserDoc } from '../../helpers/firestoreService';
+import {
+  addRoleInUserDoc,
+  updateCompanyInFirestore,
+} from '../../helpers/firestoreService';
 import IntlMessages from '../../helpers/IntlMessages';
 import { tagsOptions } from './tagsOptions';
 import EmailJobs from './EmailJobs';
@@ -39,7 +42,13 @@ const Test = () => {
       // TODO: add logic for no roles found
       dispatch(getRoles('XWqscmEUEwbFvlN4mHPJl5cFtH63'));
     };
-    fetchRoles();
+    // fetchRoles();
+    const getCompanyId = async () => {
+      const companyId = await updateCompanyInFirestore('Baby Swim');
+      console.log('Company Id: ', companyId);
+      return companyId;
+    };
+    getCompanyId();
   }, [dispatch]);
 
   const addRoleInFirestore = (role) => {

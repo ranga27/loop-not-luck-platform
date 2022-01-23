@@ -121,7 +121,11 @@ export async function addCompanyToFirestore(company) {
 }
 
 export async function updateCompanyInFirestore(company) {
-  const companyRef = doc(db, 'companies')
-  const { id, ...comp } = company;
-  return db.collection('companies').doc(id).set(comp, { merge: true });
+  const companyRef = collec(db, 'companies');
+  const companyQuery = query(companyRef, where('name', '==', company));
+  const querySnapshot = await getDocs(companyQuery);
+  querySnapshot.forEach((document) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(document.id, ' => ', document.data());
+  });
 }
