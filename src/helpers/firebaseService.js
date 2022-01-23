@@ -10,6 +10,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { auth, functions } from './Firebase';
 import {
   fetchUserDataFromFirestore,
+  updateCompanyInFirestore,
   updateUserInFirestore,
 } from './firestoreService';
 
@@ -42,15 +43,21 @@ export async function registerInFirebase({
   company,
 }) {
   try {
-    // Create a new user account
+    // Create a new user account in firebase auth
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
     const { uid } = userCredential.user;
-    updateProfile(auth.currentUser, { displayName: firstName });
+    // Set user role in firebase auth
     setUserRole({ uid, role });
+    // Update user name in firebase auth
+    updateProfile(auth.currentUser, { displayName: firstName });
+    // Create user document in firestore
+    if (role === 'company') {
+      updateCompanyInFirestore(company);
+    }
     updateUserInFirestore({
       uid,
       email,

@@ -121,6 +121,7 @@ export async function addCompanyToFirestore(company) {
 }
 
 export async function updateCompanyInFirestore(company) {
+  const companyRef = doc(db, 'companies')
   const { id, ...comp } = company;
   return db.collection('companies').doc(id).set(comp, { merge: true });
 }
