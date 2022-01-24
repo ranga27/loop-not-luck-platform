@@ -56,7 +56,7 @@ export async function registerInFirebase({
     updateProfile(auth.currentUser, { displayName: firstName });
     // Create user document in firestore
     if (role === 'company') {
-      updateCompanyInFirestore(company);
+      updateCompanyInFirestore({ company, uid, firstName, email });
     }
     updateUserInFirestore({
       uid,

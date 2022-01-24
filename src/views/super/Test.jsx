@@ -1,40 +1,21 @@
+/* eslint-disable react/function-component-definition */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Row,
-  Card,
-  CardBody,
-  CardTitle,
-  Button,
-  CardSubtitle,
-} from 'reactstrap';
+import { Row, Card, CardBody, Button, CardTitle } from 'reactstrap';
 import { getRoles } from '../../redux/actions';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
-import { MultiSelect } from '../../components/form/FormFields';
 import {
   addRoleInUserDoc,
-  updateCompanyInFirestore,
+  updateCompanyTest,
 } from '../../helpers/firestoreService';
 import IntlMessages from '../../helpers/IntlMessages';
-import { tagsOptions } from './tagsOptions';
 import EmailJobs from './EmailJobs';
+import TestAlgorithm from './TestAlgorithm';
 
 const Test = () => {
   const { roles } = useSelector((state) => state.roles);
   const dispatch = useDispatch();
-
-  const { control, setValue, handleSubmit } = useForm();
-  const [score, setScore] = useState(0);
-
-  const onSubmit = async (data) => {
-    const { candidateTags, companyTags } = data;
-    if (companyTags && candidateTags) {
-      const intersection = companyTags.filter((x) => candidateTags.includes(x));
-      setScore(Math.round((intersection.length * 100) / companyTags.length));
-    }
-  };
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -44,11 +25,11 @@ const Test = () => {
     };
     // fetchRoles();
     const getCompanyId = async () => {
-      const companyId = await updateCompanyInFirestore('Swim');
+      const companyId = await updateCompanyTest('Swim');
       console.log('Company Id: ', companyId);
       return companyId;
     };
-    getCompanyId();
+    // getCompanyId();
   }, [dispatch]);
 
   const addRoleInFirestore = (role) => {
@@ -75,56 +56,12 @@ const Test = () => {
           <Separator className="mb-5" />
         </Colxx>
       </Row>
-      <Row className="mb-4">
-        <Colxx className="mb-4 col-item">
-          <Card>
-            <CardBody>
-              <CardTitle>Candidate Tags</CardTitle>
-              <MultiSelect
-                name="candidateTags"
-                control={control}
-                options={tagsOptions}
-                setValue={setValue}
-              />
-            </CardBody>
-          </Card>
-        </Colxx>
-
-        <Colxx className="mb-4 col-item">
-          <Card>
-            <CardBody>
-              <CardTitle>Company Tags</CardTitle>
-              <MultiSelect
-                name="companyTags"
-                control={control}
-                options={tagsOptions}
-                setValue={setValue}
-              />
-            </CardBody>
-          </Card>
-        </Colxx>
-        <Colxx className="mb-4">
-          <Card>
-            <CardBody>
-              <CardTitle>Run Matching & Scoring Algorithm</CardTitle>
-              <CardSubtitle>Candidate Matching Score: {score}%</CardSubtitle>
-              <Button
-                color="primary"
-                size="lg"
-                className="mb-2"
-                type="submit"
-                onClick={handleSubmit(onSubmit)}
-              >
-                Run Algorithm
-              </Button>
-            </CardBody>
-          </Card>
-        </Colxx>
-      </Row>
+      <TestAlgorithm />
       <Row>
         <Colxx>
           <Card>
             <CardBody>
+              <CardTitle>Match and Add roles to Candidates</CardTitle>
               <Button
                 color="primary"
                 size="lg"
@@ -144,3 +81,4 @@ const Test = () => {
 };
 
 export default Test;
+
