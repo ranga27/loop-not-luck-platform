@@ -121,12 +121,7 @@ export async function addCompanyToFirestore(company) {
   }
 }
 
-export async function updateCompanyInFirestore({
-  company,
-  uid,
-  firstName,
-  email,
-}) {
+export async function getCompanyIdFromFirestore(company) {
   const companyRef = collection(db, 'companies');
   const companyQuery = query(companyRef, where('name', '==', company));
   const querySnapshot = await getDocs(companyQuery);
@@ -135,23 +130,18 @@ export async function updateCompanyInFirestore({
     const { id } = await addDoc(companyRef, {
       name: company,
       createdAt: serverTimestamp(),
-      users: { uid, firstName, email },
     });
     return id;
   }
   return companyId;
 }
 
-export async function updateCompanyTest({ company, uid, firstName, email }) {
-  const companyRef = doc(collection(db, 'companies'));
-  const { id } = await setDoc(
-    companyRef,
-    {
-      name: company,
-      createdAt: serverTimestamp(),
-      users: { uid, firstName, email },
-    },
-    { merge: true }
-  );
-  return id;
-}
+export const updateCompanyInFirebase = async ({
+  companyId,
+  uid,
+  firstName,
+  email,
+}) => {
+  const companyRef = doc(db, 'companies', companyId);
+  await updateDoc(companyRef, { users: { uid, firstName, email } });
+};

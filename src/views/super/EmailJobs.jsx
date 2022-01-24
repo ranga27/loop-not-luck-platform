@@ -31,19 +31,11 @@ const EmailJobs = () => {
         <CardBody>
           <CardTitle>Test Email Cloud Functions</CardTitle>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <FormGroup>
-              <TextInput
-                name="firstName"
-                label="First Name"
-                control={control}
-              />
-            </FormGroup>
-            <FormGroup>
-              <TextInput name="email" label="Email" control={control} />
-            </FormGroup>
+            <TextInput name="firstName" label="First Name" control={control} />
+            <TextInput name="email" label="Email" control={control} />
 
             <Button color="primary" size="lg" className="mb-2" type="submit">
-              Send Email
+              Send
             </Button>
           </Form>
         </CardBody>

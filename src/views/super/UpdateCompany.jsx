@@ -13,37 +13,37 @@ import { useForm } from 'react-hook-form';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { sendJobsEmail } from '../../helpers/firebaseService';
 import { TextInput } from '../../components/form/FormFields';
+import {
+  getCompanyIdFromFirestore,
+  updateCompanyInFirebase,
+} from '../../helpers/firestoreService';
 
-const EmailJobs = () => {
+const UpdateCompany = () => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      firstName: '',
-      email: '',
+      firstName: 'Sarang',
+      email: 'sarang@nc.com',
+      company: 'Netco',
+      uid: 'XXX',
     },
   });
   const onSubmit = async (data) => {
     console.log(data);
-    await sendJobsEmail(data);
+    const companyId = await getCompanyIdFromFirestore(data.company);
+    console.log('Company Id: ', companyId);
+    updateCompanyInFirebase({ companyId, ...data });
   };
   return (
     <Colxx>
       <Card>
         <CardBody>
-          <CardTitle>Test Email Cloud Functions</CardTitle>
+          <CardTitle>Update Company Data</CardTitle>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <FormGroup>
-              <TextInput
-                name="firstName"
-                label="First Name"
-                control={control}
-              />
-            </FormGroup>
-            <FormGroup>
-              <TextInput name="email" label="Email" control={control} />
-            </FormGroup>
-
+            <TextInput name="firstName" label="First Name" control={control} />
+            <TextInput name="email" label="Email" control={control} />
+            <TextInput name="company" label="Company" control={control} />
             <Button color="primary" size="lg" className="mb-2" type="submit">
-              Send Email
+              Update
             </Button>
           </Form>
         </CardBody>
@@ -52,4 +52,4 @@ const EmailJobs = () => {
   );
 };
 
-export default EmailJobs;
+export default UpdateCompany;

@@ -12,6 +12,7 @@ import {
 import IntlMessages from '../../helpers/IntlMessages';
 import EmailJobs from './EmailJobs';
 import TestAlgorithm from './TestAlgorithm';
+import UpdateCompany from './UpdateCompany';
 
 const Test = () => {
   const { roles } = useSelector((state) => state.roles);
@@ -24,18 +25,13 @@ const Test = () => {
       dispatch(getRoles('XWqscmEUEwbFvlN4mHPJl5cFtH63'));
     };
     // fetchRoles();
-    const getCompanyId = async () => {
-      const companyId = await updateCompanyTest('Swim');
-      console.log('Company Id: ', companyId);
-      return companyId;
-    };
-    // getCompanyId();
   }, [dispatch]);
 
   const addRoleInFirestore = (role) => {
     console.log(`Adding role: ${role.id}`);
     addRoleInUserDoc('XWqscmEUEwbFvlN4mHPJl5cFtH63', {
       ...role,
+      // TODO: implement matching algorithm based on tags in documents
       matchedScore: Math.floor(Math.random() * 99),
     });
   };
@@ -75,10 +71,10 @@ const Test = () => {
           </Card>
         </Colxx>
         <EmailJobs />
+        <UpdateCompany />
       </Row>
     </>
   );
 };
 
 export default Test;
-
