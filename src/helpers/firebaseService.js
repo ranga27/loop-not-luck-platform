@@ -56,7 +56,7 @@ export async function registerInFirebase({
     // Update user name in firebase auth
     updateProfile(auth.currentUser, { displayName: firstName });
     // Get company ID from firestore
-    if (role === 'company') {
+    if (role === 'employer') {
       const { companyId, users } = await getCompanyIdFromFirestore(company);
       updateCompanyInFirebase({
         companyId,

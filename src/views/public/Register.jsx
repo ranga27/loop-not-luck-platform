@@ -71,7 +71,6 @@ const Register = () => {
   }, [currentUser, loading]);
 
   const onUserSubmit = (values) => {
-    console.log(values);
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
         dispatch(registerUser(values));
@@ -97,7 +96,7 @@ const Register = () => {
           isSearchable={false}
           errors={errors.role}
         />
-        {role === 'Employer' && (
+        {role === 'employer' && (
           <TextInput
             name="company"
             label="Company"

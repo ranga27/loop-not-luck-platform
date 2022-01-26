@@ -16,14 +16,24 @@ import { addCompany, getCompanies } from '../redux/actions';
 import { ErrorModal, SuccessModal } from './CompanyModal';
 
 const AddCompanyForm = () => {
+  const { currentUser, loading, error } = useSelector((state) => state.auth);
+  const { company, companyId, firstName, email } = currentUser;
+  const defaultValues = {
+    firstName,
+    company,
+    email,
+  };
   const {
     control,
-    register,
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: 'onBlur', resolver: yupResolver(companySchema) });
-  const { companies, loading, error } = useSelector((state) => state.admin);
+  } = useForm({
+    defaultValues,
+    mode: 'onBlur',
+    resolver: yupResolver(companySchema),
+  });
+
   const [modalOpenError, setModalOpenError] = useState(false);
   const [modalOpenSuccess, setModalOpenSuccess] = useState(false);
 
@@ -35,19 +45,11 @@ const AddCompanyForm = () => {
   }, [dispatch]);
 
   const onSubmit = async (data) => {
-    if (companies.some((c) => c.name === data.name)) {
-      setModalOpenError(true);
-    } else {
-      const logoUrl = await uploadFile(
-        data.logoFile,
-        data.name,
-        'companyLogos'
-      );
-      const { logoFile, ...company } = data;
-      const payload = { ...company, logoUrl };
-      dispatch(addCompany(payload));
-      setModalOpenSuccess(true);
-    }
+    const logoUrl = await uploadFile(data.logoFile, data.name, 'companyLogos');
+    const { logoFile, ...companyData } = data;
+    const payload = { ...companyData, logoUrl };
+    dispatch(addCompany(payload));
+    setModalOpenSuccess(true);
   };
   return (
     // TODO: change the form component into smart component
@@ -57,18 +59,16 @@ const AddCompanyForm = () => {
         className="av-tooltip tooltip-label-right"
       >
         <TextInput
-          name="name"
+          name="company"
           label="Company Name"
-          register={register}
-          errors={errors.name}
           control={control}
+          disabled
         />
         <TextInput
           name="email"
           label="Contact Email"
-          register={register}
-          errors={errors.email}
           control={control}
+          disabled
         />
         <FileUpload
           label="Logo"
