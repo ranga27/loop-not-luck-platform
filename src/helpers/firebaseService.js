@@ -11,6 +11,7 @@ import { auth, functions } from './Firebase';
 import {
   fetchUserDataFromFirestore,
   getCompanyIdFromFirestore,
+  updateCompanyInFirebase,
   updateUserInFirestore,
 } from './firestoreService';
 
@@ -54,9 +55,25 @@ export async function registerInFirebase({
     setUserRole({ uid, role });
     // Update user name in firebase auth
     updateProfile(auth.currentUser, { displayName: firstName });
-    // Create user document in firestore
+    // Get company ID from firestore
     if (role === 'company') {
-      getCompanyIdFromFirestore({ company, uid, firstName, email });
+      const { companyId, users } = await getCompanyIdFromFirestore(company);
+      updateCompanyInFirebase({
+        companyId,
+        users: { [`${uid}`]: { firstName, email }, ...users },
+      });
+      updateUserInFirestore({
+        uid,
+        email,
+        role,
+        firstName,
+        createdAt: serverTimestamp(),
+        isOnboarded: false,
+        hasCompletedProfile: false,
+        company,
+        companyId,
+      });
+      return uid;
     }
     updateUserInFirestore({
       uid,

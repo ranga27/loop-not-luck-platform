@@ -5,10 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Row, Card, CardBody, Button, CardTitle } from 'reactstrap';
 import { getRoles } from '../../redux/actions';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
-import {
-  addRoleInUserDoc,
-  updateCompanyTest,
-} from '../../helpers/firestoreService';
+import { addRoleInUserDoc } from '../../helpers/firestoreService';
 import IntlMessages from '../../helpers/IntlMessages';
 import EmailJobs from './EmailJobs';
 import TestAlgorithm from './TestAlgorithm';

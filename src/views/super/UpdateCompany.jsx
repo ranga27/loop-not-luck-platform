@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import {
@@ -9,6 +10,7 @@ import {
   Input,
   CardTitle,
 } from 'reactstrap';
+import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { sendJobsEmail } from '../../helpers/firebaseService';
@@ -24,14 +26,18 @@ const UpdateCompany = () => {
       firstName: 'Sarang',
       email: 'sarang@nc.com',
       company: 'Netco',
-      uid: 'XXX',
+      uid: '',
     },
   });
   const onSubmit = async (data) => {
-    console.log(data);
-    const companyId = await getCompanyIdFromFirestore(data.company);
-    console.log('Company Id: ', companyId);
-    updateCompanyInFirebase({ companyId, ...data });
+    const uid = uuidv4();
+    const { firstName, email } = data;
+    const { companyId, users } = await getCompanyIdFromFirestore(data.company);
+    // console.log('Company: ', companyData);
+    updateCompanyInFirebase({
+      companyId,
+      users: { [`${uid}`]: { firstName, email }, ...users },
+    });
   };
   return (
     <Colxx>

@@ -126,22 +126,18 @@ export async function getCompanyIdFromFirestore(company) {
   const companyQuery = query(companyRef, where('name', '==', company));
   const querySnapshot = await getDocs(companyQuery);
   const companyId = querySnapshot.docs[0]?.id;
+  const users = querySnapshot.docs[0]?.get('users');
   if (!companyId) {
     const { id } = await addDoc(companyRef, {
       name: company,
       createdAt: serverTimestamp(),
     });
-    return id;
+    return { companyId: id, users: {} };
   }
-  return companyId;
+  return { companyId, users };
 }
 
-export const updateCompanyInFirebase = async ({
-  companyId,
-  uid,
-  firstName,
-  email,
-}) => {
+export const updateCompanyInFirebase = async ({ companyId, users }) => {
   const companyRef = doc(db, 'companies', companyId);
-  await updateDoc(companyRef, { users: { uid, firstName, email } });
+  await setDoc(companyRef, { users }, { merge: true });
 };
