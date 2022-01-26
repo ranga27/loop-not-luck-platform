@@ -75,9 +75,9 @@ export async function updateOpportunityInFirestore(opportunity) {
 }
 
 export async function fetchUserDataFromFirestore(uid) {
-  const docRef = doc(db, 'users', uid);
-  const docSnap = await getDoc(docRef);
-  const data = docSnap.data();
+  const userDocRef = doc(db, 'users', uid);
+  const userDoc = await getDoc(userDocRef);
+  const data = userDoc.data();
   for (const prop in data) {
     if (data.hasOwnProperty(prop)) {
       if (data[prop] instanceof Timestamp) {
@@ -88,6 +88,12 @@ export async function fetchUserDataFromFirestore(uid) {
   return data;
 }
 
+export async function fetchCompanyDataFromFirestore(companyId) {
+  const companyDocRef = doc(db, 'companies', companyId);
+  const companyDoc = await getDoc(companyDocRef);
+  const company = companyDoc.data();
+  return company;
+}
 export async function fetchCompaniesFromFirestore() {
   const querySnapshot = await db.collection('companies').get();
   const companies = querySnapshot.docs.map((docu) => ({

@@ -4,7 +4,6 @@ import { storageRootUrl } from '../constants/defaultValues';
 
 export const uploadToStorage = async (data) => {
   const { cv, uid, firstName, ...rest } = data;
-
   const storage = getStorage();
   const storageRef = ref(storage, `cv/${uid}/${firstName}.pdf`);
   await uploadBytes(storageRef, cv);

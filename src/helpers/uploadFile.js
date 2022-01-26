@@ -1,6 +1,5 @@
-import firebase from 'firebase/compat/app';
-
-const prefix = 'https://storage.googleapis.com/loop-luck.appspot.com/';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { storageRootUrl } from '../constants/defaultValues';
 
 // eslint-disable-next-line import/prefer-default-export
 export const uploadFile = async (file, fileName, folderName) => {
@@ -12,9 +11,9 @@ export const uploadFile = async (file, fileName, folderName) => {
       ? '.jpg'
       : '';
   // TODO: check if file exists
-  // eslint-disable-next-line prefer-template
-  const filePath = folderName + '/' + fileName + fileExtension;
-  const storage = firebase.storage().ref(filePath);
-  await storage.put(file);
-  return prefix + filePath;
+  const storage = getStorage();
+  const filePath = `${folderName}/${fileName}${fileExtension}`;
+  const storageRef = ref(storage, filePath);
+  await uploadBytes(storageRef, file);
+  return storageRootUrl + filePath;
 };

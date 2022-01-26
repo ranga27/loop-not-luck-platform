@@ -84,10 +84,7 @@ const Register = () => {
 
   return (
     <Layout cardTitle="user.register">
-      <Form
-        onSubmit={handleSubmit(onUserSubmit)}
-        className="av-tooltip tooltip-label-bottom"
-      >
+      <Form onSubmit={handleSubmit(onUserSubmit)}>
         <SelectField
           label="Select one"
           name="role"

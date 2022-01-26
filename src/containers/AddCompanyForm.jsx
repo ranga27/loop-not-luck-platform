@@ -12,8 +12,7 @@ import {
 } from '../components/form/FormFields';
 import tagOptions from '../data/tagOptions';
 import { uploadFile } from '../helpers/uploadFile';
-import { addCompany, getCompanies } from '../redux/actions';
-import { ErrorModal, SuccessModal } from './CompanyModal';
+import { addCompany } from '../redux/actions';
 
 const AddCompanyForm = () => {
   const { currentUser, loading, error } = useSelector((state) => state.auth);
@@ -34,69 +33,49 @@ const AddCompanyForm = () => {
     resolver: yupResolver(companySchema),
   });
 
-  const [modalOpenError, setModalOpenError] = useState(false);
-  const [modalOpenSuccess, setModalOpenSuccess] = useState(false);
-
   const dispatch = useDispatch();
 
-  // TODO: add observer & listener for fetching company data, rather than reading data on mount.
-  useEffect(() => {
-    dispatch(getCompanies());
-  }, [dispatch]);
-
   const onSubmit = async (data) => {
-    const logoUrl = await uploadFile(data.logoFile, data.name, 'companyLogos');
-    const { logoFile, ...companyData } = data;
-    const payload = { ...companyData, logoUrl };
-    dispatch(addCompany(payload));
-    setModalOpenSuccess(true);
+    const { logoFile, industry } = data;
+    const logoUrl = await uploadFile(logoFile, company, 'companyLogos');
+    dispatch(addCompany(logoUrl, industry));
   };
   return (
     // TODO: change the form component into smart component
-    <>
-      <Form
-        onSubmit={handleSubmit(onSubmit)}
-        className="av-tooltip tooltip-label-right"
-      >
-        <TextInput
-          name="company"
-          label="Company Name"
-          control={control}
-          disabled
-        />
-        <TextInput
-          name="email"
-          label="Contact Email"
-          control={control}
-          disabled
-        />
-        <FileUpload
-          label="Logo"
-          name="logoFile"
-          control={control}
-          errors={errors.logoFile}
-        />
-        <MultiSelect
-          label="Tags"
-          name="tags"
-          control={control}
-          options={tagOptions}
-          setValue={setValue}
-          errors={errors.tags}
-        />
-        <Button color="primary" size="lg" type="submit">
-          Submit
-        </Button>
-      </Form>
-      <ErrorModal
-        toggleModal={() => setModalOpenError(!modalOpenError)}
-        modalOpen={modalOpenError}
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      className="av-tooltip tooltip-label-right"
+    >
+      <TextInput
+        name="company"
+        label="Company Name"
+        control={control}
+        disabled
       />
-      <SuccessModal
-        toggleModal={() => setModalOpenSuccess(!modalOpenSuccess)}
-        modalOpen={modalOpenSuccess}
+      <TextInput
+        name="email"
+        label="Contact Email"
+        control={control}
+        disabled
       />
-    </>
+      <FileUpload
+        label="Logo"
+        name="logoFile"
+        control={control}
+        errors={errors.logoFile}
+      />
+      <MultiSelect
+        label="Industry"
+        name="industry"
+        control={control}
+        options={tagOptions}
+        setValue={setValue}
+        errors={errors.industry}
+      />
+      <Button color="primary" size="lg" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };
 

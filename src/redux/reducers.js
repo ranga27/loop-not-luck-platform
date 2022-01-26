@@ -8,9 +8,9 @@ import menu from './menu/reducer';
 import settings from './settings/reducer';
 import admin from './admin/reducer';
 import roles from './roles/rolesSlice';
+import company from './company/companySlice';
 
 // https://stackoverflow.com/a/35641992/14873941
-
 const authConfig = {
   key: 'auth',
   storage,
@@ -22,6 +22,7 @@ const appReducer = combineReducers({
   menu,
   roles,
   admin,
+  company,
   settings,
 });
 

@@ -12,7 +12,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const Group = ({ label, errors, children }) => {
   return (
-    <FormGroup className="error-l-100 has-float-label tooltip-center-top mb-5">
+    <FormGroup className="error-l-100 has-float-label  mb-5">
       <Label>{label}</Label>
       {children}
       {errors && (
