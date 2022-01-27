@@ -22,5 +22,13 @@ export const companySchema = yup.object().shape({
       }
     ),
 
-  tags: yup.array().required('Select atleast one tag'),
+  industry: yup
+    .array()
+    .min(1, 'Select at least one option')
+    .of(
+      yup.object().shape({
+        label: yup.string().required(),
+        value: yup.string().required(),
+      })
+    ),
 });

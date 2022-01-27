@@ -17,12 +17,17 @@ const authConfig = {
   whitelist: ['currentUser'],
 };
 
+const companyConfig = {
+  key: 'company',
+  storage,
+  whitelist: ['company'],
+};
 const appReducer = combineReducers({
   auth: persistReducer(authConfig, authReducer),
   menu,
   roles,
   admin,
-  company,
+  company: persistReducer(companyConfig, company),
   settings,
 });
 
@@ -30,6 +35,7 @@ const rootReducer = (state, action) => {
   if (action.type === 'auth/logoutUser') {
     // for all keys defined in persistConfig(s)
     storage.removeItem('persist:auth');
+    storage.removeItem('persist:company');
     return appReducer(undefined, action);
   }
   return appReducer(state, action);

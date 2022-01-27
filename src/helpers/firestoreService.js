@@ -92,6 +92,13 @@ export async function fetchCompanyDataFromFirestore(companyId) {
   const companyDocRef = doc(db, 'companies', companyId);
   const companyDoc = await getDoc(companyDocRef);
   const company = companyDoc.data();
+  for (const prop in company) {
+    if (company.hasOwnProperty(prop)) {
+      if (company[prop] instanceof Timestamp) {
+        company[prop] = company[prop].toDate().toUTCString();
+      }
+    }
+  }
   return company;
 }
 export async function fetchCompaniesFromFirestore() {
@@ -143,7 +150,7 @@ export async function getCompanyIdFromFirestore(company) {
   return { companyId, users };
 }
 
-export const updateCompanyInFirebase = async ({ companyId, users }) => {
+export const updateCompanyInFirebase = async ({ companyId, ...data }) => {
   const companyRef = doc(db, 'companies', companyId);
-  await setDoc(companyRef, { users }, { merge: true });
+  await setDoc(companyRef, { ...data }, { merge: true });
 };

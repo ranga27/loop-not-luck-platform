@@ -13,11 +13,12 @@ import {
 import tagOptions from '../data/tagOptions';
 import { uploadFile } from '../helpers/uploadFile';
 import { addCompany } from '../redux/actions';
+import { updateCompany } from '../redux/company/companySlice';
 
 const AddCompanyForm = () => {
   const { currentUser } = useSelector((state) => state.auth);
-  const { company } = useSelector((state) => state.company);
-  const { firstName, email } = currentUser;
+  const { company, loading, error } = useSelector((state) => state.company);
+  const { firstName, email, companyId } = currentUser;
   const { name: companyName, logoUrl, tags } = company;
   const dispatch = useDispatch();
 
@@ -37,48 +38,56 @@ const AddCompanyForm = () => {
     resolver: yupResolver(companySchema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const { logoFile, industry } = data;
-    const logoImgUrl = await uploadFile(logoFile, companyName, 'companyLogos');
-    dispatch(addCompany(logoImgUrl, industry));
+    console.log(data);
+    const logoImgUrl = uploadFile(logoFile, companyName, 'companyLogos');
+    dispatch(updateCompany({ companyId, logoImgUrl, industry }));
   };
   return (
-    // TODO: change the form component into smart component
-    <Form
-      onSubmit={handleSubmit(onSubmit)}
-      className="av-tooltip tooltip-label-right"
-    >
-      <TextInput
-        name="companyName"
-        label="Company Name"
-        control={control}
-        disabled
-      />
-      <TextInput
-        name="email"
-        label="Contact Email"
-        control={control}
-        disabled
-      />
-      {!logoUrl} &&
-      <FileUpload
-        label="Logo"
-        name="logoFile"
-        control={control}
-        errors={errors.logoFile}
-      />
-      <MultiSelect
-        label="Industry"
-        name="industry"
-        control={control}
-        options={tagOptions}
-        setValue={setValue}
-        errors={errors.industry}
-      />
-      <Button color="primary" size="lg" type="submit">
-        Submit
-      </Button>
-    </Form>
+    <>
+      {loading && <p>Loading...</p>}
+      {error && !loading && <p>{error}</p>}
+      {!error && !loading && (
+        // TODO: change the form component into smart component
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
+          className="av-tooltip tooltip-label-right"
+        >
+          <TextInput
+            name="companyName"
+            label="Company Name"
+            control={control}
+            disabled
+          />
+          <TextInput
+            name="email"
+            label="Contact Email"
+            control={control}
+            disabled
+          />
+          {!logoUrl && (
+            <FileUpload
+              label="Logo"
+              name="logoFile"
+              control={control}
+              errors={errors.logoFile}
+            />
+          )}
+          <MultiSelect
+            label="Industry"
+            name="industry"
+            control={control}
+            options={tagOptions}
+            setValue={setValue}
+            errors={errors.industry}
+          />
+          <Button color="primary" size="lg" type="submit">
+            Submit
+          </Button>
+        </Form>
+      )}
+    </>
   );
 };
 

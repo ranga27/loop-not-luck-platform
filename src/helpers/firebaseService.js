@@ -58,6 +58,7 @@ export async function registerInFirebase({
     // Get company ID from firestore
     if (role === 'employer') {
       const { companyId, users } = await getCompanyIdFromFirestore(company);
+      // Since append to map is not possible in firebase
       updateCompanyInFirebase({
         companyId,
         users: { [`${uid}`]: { firstName, email }, ...users },
