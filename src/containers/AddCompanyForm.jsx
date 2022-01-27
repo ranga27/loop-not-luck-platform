@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,11 +15,15 @@ import { uploadFile } from '../helpers/uploadFile';
 import { addCompany } from '../redux/actions';
 
 const AddCompanyForm = () => {
-  const { currentUser, loading, error } = useSelector((state) => state.auth);
-  const { company, companyId, firstName, email } = currentUser;
+  const { currentUser } = useSelector((state) => state.auth);
+  const { company } = useSelector((state) => state.company);
+  const { firstName, email } = currentUser;
+  const { name: companyName, logoUrl, tags } = company;
+  const dispatch = useDispatch();
+
   const defaultValues = {
     firstName,
-    company,
+    companyName,
     email,
   };
   const {
@@ -33,12 +37,10 @@ const AddCompanyForm = () => {
     resolver: yupResolver(companySchema),
   });
 
-  const dispatch = useDispatch();
-
   const onSubmit = async (data) => {
     const { logoFile, industry } = data;
-    const logoUrl = await uploadFile(logoFile, company, 'companyLogos');
-    dispatch(addCompany(logoUrl, industry));
+    const logoImgUrl = await uploadFile(logoFile, companyName, 'companyLogos');
+    dispatch(addCompany(logoImgUrl, industry));
   };
   return (
     // TODO: change the form component into smart component
@@ -47,7 +49,7 @@ const AddCompanyForm = () => {
       className="av-tooltip tooltip-label-right"
     >
       <TextInput
-        name="company"
+        name="companyName"
         label="Company Name"
         control={control}
         disabled
@@ -58,6 +60,7 @@ const AddCompanyForm = () => {
         control={control}
         disabled
       />
+      {!logoUrl} &&
       <FileUpload
         label="Logo"
         name="logoFile"

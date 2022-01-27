@@ -12,6 +12,7 @@ import Layout from './layout';
 import AuthButton from './AuthButton';
 import { SignInSchema } from './SignInSchema';
 import { loginUser, setAuthError } from '../../redux/auth/authSlice';
+import { getCompany } from '../../redux/company/companySlice';
 
 // TODO: check for email verified?
 // TODO: merge Layout with AuthLayout
@@ -34,6 +35,8 @@ const Login = () => {
         }
       });
     if (currentUser) {
+      if (currentUser.role === 'employer')
+        dispatch(getCompany(currentUser.companyId));
       navigate('/');
     }
   }, [error, currentUser]);

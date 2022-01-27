@@ -166,7 +166,7 @@ export const Radio = ({ label, name, control, options }) => {
   );
 };
 
-export const FileUpload = ({ label, errors, name, control }) => {
+export const FileUpload = ({ label, errors, name, control, ...rest }) => {
   return (
     <Group label={label} errors={errors}>
       <Controller
@@ -176,6 +176,7 @@ export const FileUpload = ({ label, errors, name, control }) => {
             id="logoFile"
             onChange={(e) => onChange(e.target.files[0])}
             innerRef={ref}
+            {...rest}
           />
         )}
         name={name}
