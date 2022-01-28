@@ -34,15 +34,15 @@ export function* watchGetCompany() {
   yield takeEvery(getCompany, getCompanyData);
 }
 const updateCompanyDataAsync = async (data) => {
-  console.log(data);
-  // return updateCompanyInFirebase(data);
+  return updateCompanyInFirebase(data);
 };
 
 function* updateCompanyData({ payload }) {
   try {
     const company = yield call(updateCompanyDataAsync, payload);
     if (!company.message) {
-      yield put(updateCompanySuccess(company));
+      const { companyId, ...data } = payload;
+      yield put(updateCompanySuccess({ ...data }));
     } else {
       yield put(updateCompanyError(company.message));
     }

@@ -29,11 +29,13 @@ export const MultiSelect = ({
   options,
   setValue,
   errors,
+  clearErrors,
   ...rest
 }) => {
   const [selection, setSelection] = useState({ selectedOptions: [] });
 
   const handleChange = (selectedOption) => {
+    clearErrors(name);
     setSelection({ selectedOption });
     setValue(
       name,

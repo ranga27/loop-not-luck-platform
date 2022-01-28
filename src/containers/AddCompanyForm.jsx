@@ -12,37 +12,36 @@ import {
 } from '../components/form/FormFields';
 import tagOptions from '../data/tagOptions';
 import { uploadFile } from '../helpers/uploadFile';
-import { addCompany } from '../redux/actions';
 import { updateCompany } from '../redux/company/companySlice';
 
 const AddCompanyForm = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const { company, loading, error } = useSelector((state) => state.company);
   const { firstName, email, companyId } = currentUser;
-  const { name: companyName, logoUrl, tags } = company;
+  const { name: companyName, logoUrl } = company;
   const dispatch = useDispatch();
 
   const defaultValues = {
     firstName,
     companyName,
     email,
+    industry: [],
   };
   const {
     control,
     setValue,
     handleSubmit,
     formState: { errors },
+    clearErrors,
   } = useForm({
     defaultValues,
-    mode: 'onBlur',
     resolver: yupResolver(companySchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { logoFile, industry } = data;
-    console.log(data);
-    const logoImgUrl = uploadFile(logoFile, companyName, 'companyLogos');
-    dispatch(updateCompany({ companyId, logoImgUrl, industry }));
+    const logoImgUrl = await uploadFile(logoFile, companyName, 'companyLogos');
+    dispatch(updateCompany({ companyId, logoUrl: logoImgUrl, industry }));
   };
   return (
     <>
@@ -66,7 +65,16 @@ const AddCompanyForm = () => {
             control={control}
             disabled
           />
-          {!logoUrl && (
+          {logoUrl ? (
+            <div>
+              <p>Current Logo</p>
+              <img
+                className="responsive mx-auto d-block card-img-role"
+                src={logoUrl}
+                alt={companyName}
+              />
+            </div>
+          ) : (
             <FileUpload
               label="Logo"
               name="logoFile"
@@ -81,6 +89,7 @@ const AddCompanyForm = () => {
             options={tagOptions}
             setValue={setValue}
             errors={errors.industry}
+            clearErrors={clearErrors}
           />
           <Button color="primary" size="lg" type="submit">
             Submit

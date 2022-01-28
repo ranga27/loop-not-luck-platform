@@ -151,6 +151,11 @@ export async function getCompanyIdFromFirestore(company) {
 }
 
 export const updateCompanyInFirebase = async ({ companyId, ...data }) => {
-  const companyRef = doc(db, 'companies', companyId);
-  await setDoc(companyRef, { ...data }, { merge: true });
+  try {
+    const companyRef = doc(db, 'companies', companyId);
+    await setDoc(companyRef, { ...data }, { merge: true });
+    return companyId;
+  } catch (error) {
+    return error.message;
+  }
 };

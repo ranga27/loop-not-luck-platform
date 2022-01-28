@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   company: '',
-  laoding: false,
+  loading: false,
   error: '',
 };
 
