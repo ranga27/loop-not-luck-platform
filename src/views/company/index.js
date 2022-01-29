@@ -14,9 +14,9 @@ const CompanyRoute = () => {
     <AppLayout>
       <Suspense fallback={<div className="loading" />}>
         <Routes>
-          <Route path="onboard" element={<Onboarding />} />
+          <Route path="account" element={<Onboarding />} />
           <Route path="post-role" element={<PostRole />} />
-          <Route path="/" element={<Navigate to="onboard" />} />
+          <Route path="/" element={<Navigate to="account" />} />
         </Routes>
       </Suspense>
     </AppLayout>

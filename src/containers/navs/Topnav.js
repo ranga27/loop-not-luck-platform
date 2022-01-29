@@ -14,6 +14,7 @@ import { logoutUser } from '../../redux/auth/authSlice';
 
 const TopNav = ({ logoutUserAction }) => {
   const { currentUser } = useSelector((state) => state.auth);
+  const { role } = currentUser;
   const [isInFullScreen, setIsInFullScreen] = useState(false);
 
   const isInFullScreenFn = () => {
@@ -70,13 +71,13 @@ const TopNav = ({ logoutUserAction }) => {
       </NavLink>
 
       <div className="navbar-right">
-        {currentUser.role === 'super' && (
+        {role === 'super' && (
           <>
             <NavLink to="/app/test">Test</NavLink>
             <NavLink to="/app/users">Users</NavLink>
           </>
         )}
-        {currentUser.role === 'employer' && (
+        {role === 'employer' && (
           <NavLink to="/app/post-role">Post Role</NavLink>
         )}
         {isDarkSwitchActive && <TopnavDarkSwitch />}

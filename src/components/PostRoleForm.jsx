@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
@@ -12,7 +14,9 @@ import {
 import { locations, applicationOptions, positionTypes } from '../data';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const PostRoleForm = ({ companies }) => {
+const PostRoleForm = () => {
+  const { company, loading, error } = useSelector((state) => state.company);
+  const { name: companyName } = company;
   const defaultValues = {
     department: '',
     qualification: '',
@@ -23,6 +27,7 @@ const PostRoleForm = ({ companies }) => {
     deadline: null,
     startDate: null,
     coverLetter: false,
+    companyName,
   };
   // TODO: default values
   const {
@@ -51,12 +56,11 @@ const PostRoleForm = ({ companies }) => {
         errors={errors.title}
         control={control}
       />
-      <SelectField
-        label="Organisation"
-        name="organisation"
+      <TextInput
+        label="Company"
+        name="companyName"
         control={control}
-        options={companies}
-        errors={errors.organisation}
+        disabled
       />
       <SelectField
         label="Location"

@@ -6,10 +6,7 @@ export const OpportunitySchema = Yup.object().shape({
     .max(100, 'Title Too Long!')
     .required('Please enter the Title'),
 
-  /*  organisation: Yup.string()
-    .max(100, 'Too Long!')
-    .required('Please enter the Organisation'),
-
+  /*
   location: Yup.string().required('Please select the Location'),
 
   positionType: Yup.string().required('Please select Position Type'),

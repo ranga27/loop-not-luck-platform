@@ -12,7 +12,8 @@ module.exports = {
       experimentalObjectRestSpread: true,
     },
   },
-  extends: ['eslint:recommended', 'google'],
+  plugins: ['promise'],
+  extends: ['eslint:recommended'],
   rules: {
     // quotes: ["error", "double"],
   },
