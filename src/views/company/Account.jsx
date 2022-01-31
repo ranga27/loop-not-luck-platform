@@ -3,9 +3,9 @@ import React from 'react';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
-import AddCompanyForm from '../../containers/AddCompanyForm';
+import CompanyAccountContainer from '../../containers/CompanyAccountContainer';
 
-const Onboarding = () => {
+const Account = () => {
   return (
     <Row className="mb-4">
       <Colxx xxs="12">
@@ -14,7 +14,7 @@ const Onboarding = () => {
             <CardTitle>
               <IntlMessages id="forms.add-company" />
             </CardTitle>
-            <AddCompanyForm />
+            <CompanyAccountContainer />
           </CardBody>
         </Card>
       </Colxx>
@@ -22,4 +22,4 @@ const Onboarding = () => {
   );
 };
 
-export default Onboarding;
+export default Account;
