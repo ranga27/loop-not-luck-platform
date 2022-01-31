@@ -7,6 +7,7 @@ import ReactDatePicker from 'react-datepicker';
 import { FormGroup, Label, Input } from 'reactstrap';
 import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
+import { defaultGroupByFn } from 'react-table';
 
 // TODO: create a smart component passing individual components as children to form
 
@@ -30,10 +31,16 @@ export const MultiSelect = ({
   setValue,
   errors,
   clearErrors,
+  defaultValue,
   ...rest
 }) => {
-  const [selection, setSelection] = useState({ selectedOptions: [] });
-
+  const [selection, setSelection] = useState({
+    selectedOptions: options.filter((o) => {
+      return defaultValue.some((d) => {
+        return o.value === d;
+      });
+    }),
+  });
   const handleChange = (selectedOption) => {
     clearErrors(name);
     setSelection({ selectedOption });

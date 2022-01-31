@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import AccountContainer from '../../containers/AccountContainer';
+import CandidateAccountContainer from '../../containers/CandidateAccountContainer';
 import IntlMessages from '../../helpers/IntlMessages';
 
 // TODO: Container page, components and Smart form
@@ -14,7 +14,7 @@ const Account = () => {
             <CardTitle>
               <IntlMessages id="forms.account-info" />
             </CardTitle>
-            <AccountContainer />
+            <CandidateAccountContainer />
           </CardBody>
         </Card>
       </Colxx>

@@ -2,13 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Button } from 'reactstrap';
-import { companySchema } from '../constants/companySchema';
-import { TextInput, MultiSelect, FileUpload } from './form/FormFields';
-import tagOptions from '../data/tagOptions';
+import { companySchema } from '../../constants/companySchema';
+import { TextInput, MultiSelect, FileUpload } from './FormFields';
+import tagOptions from '../../data/tagOptions';
 
 // TODO: change the form component into smart component
-const CompanyAccountForm = (defaultValues, onSubmit) => {
-  const { logoUrl, companyName } = defaultValues;
+const CompanyAccountForm = ({ defaultValues, onSubmit }) => {
   const {
     control,
     setValue,
@@ -36,13 +35,13 @@ const CompanyAccountForm = (defaultValues, onSubmit) => {
         control={control}
         disabled
       />
-      {logoUrl ? (
+      {defaultValues.logoUrl ? (
         <div>
           <p>Current Logo</p>
           <img
             className="responsive mx-auto d-block card-img-role"
-            src={logoUrl}
-            alt={companyName}
+            src={defaultValues.logoUrl}
+            alt={defaultValues.companyName}
           />
         </div>
       ) : (
@@ -61,6 +60,7 @@ const CompanyAccountForm = (defaultValues, onSubmit) => {
         setValue={setValue}
         errors={errors.industry}
         clearErrors={clearErrors}
+        defaultValue={defaultValues.industry}
       />
       <Button color="primary" size="lg" type="submit">
         Submit

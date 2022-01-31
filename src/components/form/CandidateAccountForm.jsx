@@ -2,17 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Form } from 'reactstrap';
-import { AccountSchema } from '../constants/accountSchema';
-import {
-  DatePicker,
-  FileUpload,
-  SelectField,
-  TextInput,
-} from './form/FormFields';
-import { visaRequiredOptions } from '../data/visaRequiredOptions';
-import IntlMessages from '../helpers/IntlMessages';
+import { AccountSchema } from '../../constants/accountSchema';
+import { DatePicker, FileUpload, SelectField, TextInput } from './FormFields';
+import { visaRequiredOptions } from '../../data/visaRequiredOptions';
+import IntlMessages from '../../helpers/IntlMessages';
 
-const AccountForm = ({ defaultValues, onSubmit }) => {
+const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
   const {
     control,
     handleSubmit,
@@ -100,4 +95,4 @@ const AccountForm = ({ defaultValues, onSubmit }) => {
   );
 };
 
-export default AccountForm;
+export default CandidateAccountForm;

@@ -3,33 +3,57 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadFile } from '../helpers/uploadFile';
 import { updateCompany } from '../redux/company/companySlice';
-import CompanyAccountForm from '../components/CompanyAccountForm';
+import CompanyAccountForm from '../components/form/CompanyAccountForm';
 
 const CompanyAccountContainer = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const { company, loading, error } = useSelector((state) => state.company);
   const { firstName, email, companyId } = currentUser;
-  const { name: companyName, logoUrl } = company;
+  const { name: companyName, logoUrl, industry } = company;
   const dispatch = useDispatch();
 
   const defaultValues = {
     firstName,
     companyName,
     email,
-    industry: [],
+    industry,
     logoUrl,
+    logoFile: null,
   };
 
   const onSubmit = async (data) => {
-    const { logoFile, industry } = data;
-    const logoImgUrl = await uploadFile(logoFile, companyName, 'companyLogos');
-    dispatch(updateCompany({ companyId, logoUrl: logoImgUrl, industry }));
+    if (!logoUrl) {
+      const logoImgUrl = await uploadFile(
+        data.logoFile,
+        companyName,
+        'companyLogos'
+      );
+      dispatch(
+        updateCompany({
+          companyId,
+          logoUrl: logoImgUrl,
+          industry: data.industry,
+        })
+      );
+    } else {
+      dispatch(
+        updateCompany({
+          companyId,
+          industry: data.industry,
+        })
+      );
+    }
   };
   return (
     <>
       {loading && <p>Loading...</p>}
       {error && !loading && <p>{error}</p>}
-      {!error && !loading && CompanyAccountForm(defaultValues, onSubmit)}
+      {!error && !loading && (
+        <CompanyAccountForm
+          defaultValues={defaultValues}
+          onSubmit={(data) => onSubmit(data)}
+        />
+      )}
     </>
   );
 };

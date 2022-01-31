@@ -3,7 +3,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
-import AccountForm from '../components/AccountForm';
+import CandidateAccountForm from '../components/form/CandidateAccountForm';
 import { uploadToStorage } from '../helpers/uploadToStorage';
 import { updateUser } from '../redux/auth/authSlice';
 
@@ -37,7 +37,7 @@ const uploadFile = async (data) => {
   return rest;
 };
 
-const AccountContainer = () => {
+const CandidateAccountContainer = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
   const {
@@ -81,11 +81,11 @@ const AccountContainer = () => {
     }
   };
   return (
-    <AccountForm
+    <CandidateAccountForm
       defaultValues={defaultValues}
       onSubmit={(data) => onSubmit(data)}
     />
   );
 };
 
-export default AccountContainer;
+export default CandidateAccountContainer;
