@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadFile } from '../helpers/uploadFile';
 import { updateCompany } from '../redux/company/companySlice';
-import CompanyAccountForm from './CompanyAccountForm';
+import CompanyAccountForm from '../components/CompanyAccountForm';
 
 const CompanyAccountContainer = () => {
   const { currentUser } = useSelector((state) => state.auth);

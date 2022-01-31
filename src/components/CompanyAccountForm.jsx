@@ -3,11 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Button } from 'reactstrap';
 import { companySchema } from '../constants/companySchema';
-import {
-  TextInput,
-  MultiSelect,
-  FileUpload,
-} from '../components/form/FormFields';
+import { TextInput, MultiSelect, FileUpload } from './form/FormFields';
 import tagOptions from '../data/tagOptions';
 
 // TODO: change the form component into smart component
