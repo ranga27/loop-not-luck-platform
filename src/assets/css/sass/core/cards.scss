@@ -56,6 +56,11 @@
   max-width: 180px;
 }
 
+.company-img-container {
+  display: flex;
+  align-items: center;
+}
+
 .card-img {
   border-radius: calc(0.25rem - 1px);
   height: 100%;
@@ -366,3 +371,4 @@
 .card.active {
   @include depth(2);
 }
+

@@ -13,7 +13,7 @@ import { defaultGroupByFn } from 'react-table';
 
 const Group = ({ label, errors, children }) => {
   return (
-    <FormGroup className="error-l-100 has-float-label  mb-5">
+    <FormGroup className="error-l-100 mb-5">
       <Label>{label}</Label>
       {children}
       {errors && (

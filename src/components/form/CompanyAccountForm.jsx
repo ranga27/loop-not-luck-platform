@@ -36,10 +36,10 @@ const CompanyAccountForm = ({ defaultValues, onSubmit }) => {
         disabled
       />
       {defaultValues.logoUrl ? (
-        <div>
+        <div className="company-img-container">
           <p>Current Logo</p>
           <img
-            className="responsive mx-auto d-block card-img-role"
+            className="responsive d-block card-img-role"
             src={defaultValues.logoUrl}
             alt={defaultValues.companyName}
           />
