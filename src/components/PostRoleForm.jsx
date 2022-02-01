@@ -18,12 +18,13 @@ const PostRoleForm = () => {
   const { company, loading, error } = useSelector((state) => state.company);
   const { name: companyName } = company;
   const defaultValues = {
+    title: '',
     department: '',
     qualification: '',
     howToApply: '',
     email: '',
     website: '',
-    rolling: true,
+    rolling: false,
     deadline: null,
     startDate: null,
     coverLetter: false,
@@ -46,21 +47,12 @@ const PostRoleForm = () => {
   };
   // TODO: convert into smart form
   return (
-    <Form
-      onSubmit={handleSubmit(onSubmit)}
-      className="av-tooltip tooltip-label-right"
-    >
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <TextInput
         name="title"
         label="Title"
         errors={errors.title}
         control={control}
-      />
-      <TextInput
-        label="Company"
-        name="companyName"
-        control={control}
-        disabled
       />
       <SelectField
         label="Location"
@@ -95,23 +87,40 @@ const PostRoleForm = () => {
         name="howToApply"
         control={control}
         options={applicationOptions}
+        errors={errors.howToApply}
       />
-      {howToApply === 'Email to Hiring Manager' && (
+      {howToApply === 'email' && (
         <TextInput
           name="email"
           label="Hiring Manager Email"
           control={control}
+          errors={errors.email}
         />
       )}
-      {howToApply === 'Apply on website' && (
-        <TextInput name="website" label="Website" control={control} />
+      {howToApply === 'website' && (
+        <TextInput
+          name="website"
+          label="Website"
+          control={control}
+          errors={errors.website}
+        />
       )}
       <Label>Deadline</Label>
       <CheckBox name="rolling" label="Rolling" control={control} />
       {!rolling && (
-        <DatePicker label="Deadline Date" name="deadline" control={control} />
+        <DatePicker
+          label="Deadline Date"
+          name="deadline"
+          control={control}
+          errors={errors.deadline}
+        />
       )}
-      <DatePicker label="Start Date" name="startDate" control={control} />
+      <DatePicker
+        label="Start Date"
+        name="startDate"
+        control={control}
+        errors={errors.startDate}
+      />
       <CheckBox
         name="coverLetter"
         label="Cover Letter Required"
