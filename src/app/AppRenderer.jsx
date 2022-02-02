@@ -1,24 +1,31 @@
 import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from './reportWebVitals';
 import { store, persistor } from '../redux/store';
 
+const queryClient = new QueryClient();
+
 const App = lazy(() => import(/* webpackChunkName: "app-main" */ './App'));
 
 const Main = () => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <Suspense fallback={<div className="loading" />}>
-            <App />
-          </Suspense>
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <Suspense fallback={<div className="loading" />}>
+              <App />
+              <ReactQueryDevtools initialIsOpen />
+            </Suspense>
+          </BrowserRouter>
+        </PersistGate>
+      </Provider>
+    </QueryClientProvider>
   );
 };
 
