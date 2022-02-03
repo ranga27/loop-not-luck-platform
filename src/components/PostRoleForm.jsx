@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
+import { collection } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,8 +15,11 @@ import {
 } from './form/FormFields';
 import { locations, applicationOptions, positionTypes } from '../data';
 import 'react-datepicker/dist/react-datepicker.css';
+import { db } from '../helpers/Firebase';
 
 const PostRoleForm = () => {
+  const ref = collection(db, 'opportunities');
+  const mutation = useFirestoreCollectionMutation(ref);
   const { company, loading, error } = useSelector((state) => state.company);
   const { name: companyName } = company;
   const defaultValues = {
@@ -44,6 +49,7 @@ const PostRoleForm = () => {
   const rolling = watch('rolling');
   const onSubmit = async (data) => {
     console.log('SUBMIT: ', data);
+    mutation.mutate(data);
   };
   // TODO: convert into smart form
   return (
@@ -127,9 +133,10 @@ const PostRoleForm = () => {
         control={control}
       />
 
-      <Button color="primary" type="submit">
+      <Button color="primary" type="submit" disabled={mutation.isLoading}>
         Submit
       </Button>
+      {mutation.isError && <p>{mutation.error.message}</p>}
     </Form>
   );
 };
