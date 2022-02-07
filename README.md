@@ -40,11 +40,14 @@ To build & deploy to Firebase hosting
 
 ## New Dev instructions
 
-1. yarn install
-2. cd functions npm install
-3. install firebase tools: npm install -g firebase-tools
-4. firebase login
+1. clone dir
+2. install deps: npm i --legacy-peer-deps
+3. install firebase tools: npm i -g firebase-tools
+4. setup firebase: firebase login
 5. firebase projects:list
-6. firebase init emulators
-7. Start functions emulator: firebase emulators:start --only functions
-8. test functions using postman
+6. cd functions && npm i 
+7. cd ..
+8. firebase init emulators
+9. Start functions emulator: npm dev
+10. Start app: npm start
+11. test functions using postman

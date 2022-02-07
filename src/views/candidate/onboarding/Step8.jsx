@@ -14,7 +14,7 @@ export const Step8 = ({ loading, fields }) => {
   const { uid } = useSelector((state) => state.auth.currentUser);
   const handleClick = () => {
     dispatch(updateUser({ uid, ...fields, isOnboarded: true }));
-    navigate('/app/roles');
+    navigate('/app/account');
   };
   return (
     <Step id="step8" hideTopNav>

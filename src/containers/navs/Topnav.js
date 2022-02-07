@@ -80,6 +80,7 @@ const TopNav = ({ logoutUserAction }) => {
         {role === 'employer' && (
           <NavLink to="/app/post-role">Post Role</NavLink>
         )}
+        {role === 'candidate' && <NavLink to="/app/roles">Roles</NavLink>}
         {isDarkSwitchActive && <TopnavDarkSwitch />}
         <div className="header-icons d-inline-block align-middle">
           <button

@@ -22,9 +22,9 @@ import { SelectField, TextInput } from '../../components/form/FormFields';
 const Register = () => {
   // TODO: for testing purposes, remove in production
   const defaultValues = {
-    firstName: 'sarang',
-    email: 'sarang@loopnotluck.com',
-    password: 'hanumant',
+    firstName: '',
+    email: '',
+    password: '',
     role: '',
     company: '',
   };

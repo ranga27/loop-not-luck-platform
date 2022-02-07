@@ -20,8 +20,8 @@ const Login = () => {
   const navigate = useNavigate();
   const { loading, error, currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [email] = useState('sarang@loopnotluck.com');
-  const [password] = useState('hanumant');
+  const [email] = useState('');
+  const [password] = useState('');
 
   useEffect(() => {
     if (error)
