@@ -15,10 +15,10 @@ import {
 } from './form/FormFields';
 import { locations, applicationOptions, positionTypes } from '../data';
 import 'react-datepicker/dist/react-datepicker.css';
-import { db } from '../helpers/Firebase';
+import { firestore } from '../helpers/firebase';
 
 const PostRoleForm = () => {
-  const ref = collection(db, 'opportunities');
+  const ref = collection(firestore, 'opportunities');
   const mutation = useFirestoreCollectionMutation(ref);
   const { company, loading, error } = useSelector((state) => state.company);
   const { name: companyName } = company;
@@ -40,6 +40,7 @@ const PostRoleForm = () => {
     watch,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues,
@@ -50,6 +51,7 @@ const PostRoleForm = () => {
   const onSubmit = async (data) => {
     console.log('SUBMIT: ', data);
     mutation.mutate(data);
+    reset(defaultValues);
   };
   // TODO: convert into smart form
   return (

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import React, { Suspense, lazy } from 'react';
-import { useSelector } from 'react-redux';
+import { useQuery } from 'react-query';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import AppLayout from '../../layout/AppLayout';
 
@@ -41,8 +41,12 @@ const CandidateOnboarding = () => {
 };
 
 const CandidateRoute = () => {
-  const { currentUser } = useSelector((state) => state.auth);
-  if (!currentUser.isOnboarded) return <CandidateOnboarding />;
+  const userDoc = useQuery('userDoc');
+  if (userDoc.isLoading) {
+    return <div className="loading" />;
+  }
+
+  if (!userDoc.data.isOnboarded) return <CandidateOnboarding />;
   return <CandidateApp />;
 };
 

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { Suspense, lazy } from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import AppLocale from '../lang';

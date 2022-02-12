@@ -41,9 +41,11 @@ const ViewRolesContainer = () => {
       Swal.fire('Email Sent');
     }
   };
+
   const seenRole = (currentSlide) => {
     console.log(`seen role: ${roles[currentSlide].title}`);
   };
+
   useEffect(() => {
     const fetchRoles = async () => {
       // TODO: avoid multiple firestore reads, keep role list updated via a listener

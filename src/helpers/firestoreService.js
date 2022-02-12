@@ -17,39 +17,39 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 import { format } from 'date-fns';
-import { db } from './Firebase';
+import { firestore } from './firebase';
 
 // Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore({ uid, ...details }) {
-  return setDoc(doc(db, 'users', uid), details, { merge: true });
+  return setDoc(doc(firestore, 'users', uid), details, { merge: true });
 }
 
 export async function updateRoleInFirestore({ uid, roleId, data }) {
-  const roleRef = doc(db, 'users', uid, 'matchedRoles', roleId);
+  const roleRef = doc(firestore, 'users', uid, 'matchedRoles', roleId);
   const key = Object.keys(data)[0];
   data[key] = Timestamp.fromMillis(data[key]);
   return updateDoc(roleRef, data);
 }
 
 export async function unSaveRoleInFirestore({ uid, roleId }) {
-  const roleRef = doc(db, 'users', uid, 'matchedRoles', roleId);
+  const roleRef = doc(firestore, 'users', uid, 'matchedRoles', roleId);
   return updateDoc(roleRef, { saved: deleteField() });
 }
 
 // TODO: Test function, move to cloud function
 export async function addRoleInUserDoc(uid, role) {
   const { id, ...data } = role;
-  const roleRef = doc(db, 'users', uid, 'matchedRoles', role.id);
+  const roleRef = doc(firestore, 'users', uid, 'matchedRoles', role.id);
   return setDoc(roleRef, data, { merge: true });
 }
 
 export async function addOpportunityToFirestore(opportunity) {
-  const docRef = await addDoc(collection(db, 'opportunities'));
+  const docRef = await addDoc(collection(firestore, 'opportunities'));
   await addDoc(docRef, opportunity);
 }
 
 export async function fetchRolesFromFirestore(uid) {
-  const roleRef = collection(db, 'users', uid, 'matchedRoles');
+  const roleRef = collection(firestore, 'users', uid, 'matchedRoles');
   const q = query(roleRef, where('matchedScore', '>', 0));
   const querySnapshot = await getDocs(q);
   const roles = querySnapshot.docs.map((docu) => ({
@@ -71,11 +71,11 @@ export async function fetchRolesFromFirestore(uid) {
 
 export async function updateOpportunityInFirestore(opportunity) {
   const { id, ...opps } = opportunity;
-  return db.collection('opportunities').doc(opportunity.id).update(opps);
+  return firestore.collection('opportunities').doc(opportunity.id).update(opps);
 }
 
 export async function fetchUserDataFromFirestore(uid) {
-  const userDocRef = doc(db, 'users', uid);
+  const userDocRef = doc(firestore, 'users', uid);
   const userDoc = await getDoc(userDocRef);
   const data = userDoc.data();
   for (const prop in data) {
@@ -89,7 +89,7 @@ export async function fetchUserDataFromFirestore(uid) {
 }
 
 export async function fetchCompanyDataFromFirestore(companyId) {
-  const companyDocRef = doc(db, 'companies', companyId);
+  const companyDocRef = doc(firestore, 'companies', companyId);
   const companyDoc = await getDoc(companyDocRef);
   const company = companyDoc.data();
   for (const prop in company) {
@@ -102,7 +102,7 @@ export async function fetchCompanyDataFromFirestore(companyId) {
   return company;
 }
 export async function fetchCompaniesFromFirestore() {
-  const querySnapshot = await db.collection('companies').get();
+  const querySnapshot = await firestore.collection('companies').get();
   const companies = querySnapshot.docs.map((docu) => ({
     ...docu.data(),
     id: docu.id,
@@ -112,7 +112,7 @@ export async function fetchCompaniesFromFirestore() {
 
 export async function doesCompanyExistInFirestore(name) {
   try {
-    const querySnapshot = await db
+    const querySnapshot = await firestore
       .collection('companies')
       .where('name', '==', name)
       .get();
@@ -126,7 +126,7 @@ export async function doesCompanyExistInFirestore(name) {
 
 export async function addCompanyToFirestore(company) {
   try {
-    const { id } = await db.collection('companies').add(company);
+    const { id } = await firestore.collection('companies').add(company);
     return { id, error: null };
   } catch (error) {
     console.error('Error adding company: ', error);
@@ -135,7 +135,7 @@ export async function addCompanyToFirestore(company) {
 }
 
 export async function getCompanyIdFromFirestore(company) {
-  const companyRef = collection(db, 'companies');
+  const companyRef = collection(firestore, 'companies');
   const companyQuery = query(companyRef, where('name', '==', company));
   const querySnapshot = await getDocs(companyQuery);
   const companyId = querySnapshot.docs[0]?.id;
@@ -152,7 +152,7 @@ export async function getCompanyIdFromFirestore(company) {
 
 export const updateCompanyInFirebase = async ({ companyId, ...data }) => {
   try {
-    const companyRef = doc(db, 'companies', companyId);
+    const companyRef = doc(firestore, 'companies', companyId);
     await setDoc(companyRef, { ...data }, { merge: true });
     return companyId;
   } catch (error) {

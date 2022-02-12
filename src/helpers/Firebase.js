@@ -5,13 +5,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 import { firebaseConfig } from '../constants/defaultValues';
 
-const firebaseApp = initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
 
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
-const functions = getFunctions(firebaseApp);
+const auth = getAuth(firebase);
+const firestore = getFirestore(firebase);
+const functions = getFunctions(firebase);
 
 if (process.env.NODE_ENV !== 'production')
   connectFunctionsEmulator(functions, 'localhost', 5001);
 
-export { auth, db, functions };
+export { auth, firestore, functions };

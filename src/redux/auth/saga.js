@@ -2,7 +2,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-vars */
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { auth } from '../../helpers/Firebase';
+import { auth } from '../../helpers/firebase';
 import {
   loginUserSuccess,
   loginUserError,

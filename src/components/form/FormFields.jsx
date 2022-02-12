@@ -4,16 +4,15 @@
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import ReactDatePicker from 'react-datepicker';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
-import { defaultGroupByFn } from 'react-table';
 
 // TODO: create a smart component passing individual components as children to form
 
 const Group = ({ label, errors, children }) => {
   return (
-    <FormGroup className="error-l-100 mb-5">
+    <FormGroup>
       <Label>{label}</Label>
       {children}
       {errors && (

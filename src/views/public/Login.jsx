@@ -1,101 +1,100 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import { Label, FormGroup } from 'reactstrap';
+import React, { useState } from 'react';
+import { Form } from 'reactstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-// TODO: change to RHF smartform
-import { Formik, Form, Field } from 'formik';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import {
+  useAuthSignInWithEmailAndPassword,
+  useAuthUser,
+} from '@react-query-firebase/auth';
+import { auth } from '../../helpers/firebase';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from './layout';
 import AuthButton from './AuthButton';
 import { SignInSchema } from './SignInSchema';
-import { loginUser, setAuthError } from '../../redux/auth/authSlice';
-import { getCompany } from '../../redux/company/companySlice';
+import { TextInput } from '../../components/form/FormFields';
 
 // TODO: check for email verified?
 // TODO: merge Layout with AuthLayout
 const Login = () => {
   const navigate = useNavigate();
-  const { loading, error, currentUser } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const [email] = useState('');
-  const [password] = useState('');
-
-  useEffect(() => {
-    if (error)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: 'onBlur',
+    defaultValues: { email: '', password: '' },
+    resolver: yupResolver(SignInSchema),
+  });
+  const mutation = useAuthSignInWithEmailAndPassword(auth, {
+    onError(error) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: error,
-      }).then((result) => {
-        if (result.isConfirmed || result.isDismissed) {
-          dispatch(setAuthError(''));
-        }
       });
-    if (currentUser) {
-      if (currentUser.role === 'employer')
-        dispatch(getCompany(currentUser.companyId));
-      navigate('/');
-    }
-  }, [error, currentUser]);
-
-  const onUserLogin = (values) => {
-    if (!loading) {
-      if (values.email !== '' && values.password !== '') {
-        dispatch(loginUser(values));
+    },
+  });
+  const userAuth = useAuthUser(['userAuth'], auth, {
+    onSuccess(user) {
+      if (user) {
+        navigate('/');
       }
+    },
+    onError(error) {
+      console.error('Failed to subscribe to users authentication state!');
+    },
+  });
+
+  // const userData = useUserData(uid);
+
+  /*   if (currentUser) {
+    if (currentUser.role === 'employer')
+      dispatch(getCompany(currentUser.companyId));
+    navigate('/');
+  } */
+
+  const onUserLogin = (data) => {
+    if (!mutation.isLoading) {
+      mutation.mutate(data);
     }
   };
-  const initialValues = { email, password };
 
   return (
     <Layout cardTitle="user.login-title">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={SignInSchema}
-        onSubmit={onUserLogin}
-      >
-        {({ errors, touched }) => (
-          <Form className="av-tooltip tooltip-label-bottom">
-            <FormGroup className="form-group has-float-label">
-              <Label>
-                <IntlMessages id="user.email" />
-              </Label>
-              <Field className="form-control" name="email" />
-              {errors.email && touched.email && (
-                <div className="invalid-feedback d-block">{errors.email}</div>
-              )}
-            </FormGroup>
-            <FormGroup className="form-group has-float-label">
-              <Label>
-                <IntlMessages id="user.password" />
-              </Label>
-              <Field className="form-control" type="password" name="password" />
-              {errors.password && touched.password && (
-                <div className="invalid-feedback d-block">
-                  {errors.password}
-                </div>
-              )}
-            </FormGroup>
-            <div className="d-flex flex-column justify-content-center align-items-center">
-              <NavLink to="/forgot-password">
-                <IntlMessages id="user.forgot-password-question" />
-              </NavLink>
-              <AuthButton loading={loading} label="user.login-button" />
-              <p>
-                <br />
-                If you are not a member, please{' '}
-                <NavLink to="/register" style={{ color: 'green' }}>
-                  register
-                </NavLink>
-                .
-              </p>
-            </div>
-          </Form>
-        )}
-      </Formik>
+      <Form onSubmit={handleSubmit(onUserLogin)}>
+        <TextInput
+          name="email"
+          label="Email"
+          errors={errors.email}
+          control={control}
+        />
+        <TextInput
+          name="password"
+          label="Password"
+          errors={errors.password}
+          control={control}
+          type="password"
+        />
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          <NavLink to="/forgot-password">
+            <IntlMessages id="user.forgot-password-question" />
+          </NavLink>
+          <AuthButton loading={mutation.isLoading} label="user.login-button" />
+          <p>
+            <br />
+            If you are not a member, please{' '}
+            <NavLink to="/register" style={{ color: 'green' }}>
+              register
+            </NavLink>
+            .
+          </p>
+        </div>
+      </Form>
     </Layout>
   );
 };
