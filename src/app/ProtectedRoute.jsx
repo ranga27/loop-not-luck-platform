@@ -38,10 +38,10 @@ const ProtectedRoute = () => {
     },
     {
       onSuccess(data) {
-        console.log('User Data loaded successfully');
+        console.debug('User Data loaded successfully');
       },
       onError(error) {
-        console.log('Woops, something went wrong!', error);
+        console.error('Woops, something went wrong!', error);
       },
     }
   );

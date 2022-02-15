@@ -2,9 +2,10 @@
 import React, { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
+import { useAuthUser } from '@react-query-firebase/auth';
 import AppLocale from '../lang';
 import ColorSwitcher from '../components/common/ColorSwitcher';
-import { getDirection } from '../helpers/Utils';
+import { auth } from '../helpers/firebase';
 
 const Public = lazy(() =>
   import(/* webpackChunkName: "public-route" */ '../views/public')
@@ -16,14 +17,18 @@ const ProtectedRoute = lazy(() =>
   import(/* webpackChunkName: "protected-route" */ './ProtectedRoute')
 );
 const App = () => {
-  const direction = getDirection();
-  if (direction.isRtl) {
-    document.body.classList.add('rtl');
-    document.body.classList.remove('ltr');
-  } else {
-    document.body.classList.add('ltr');
-    document.body.classList.remove('rtl');
-  }
+  const { isLoading, data: user } = useAuthUser(['userAuth'], auth, {
+    onSuccess(data) {
+      if (data) {
+        console.debug('User is authenticated!');
+      }
+    },
+    onError(error) {
+      console.error('Failed to subscribe to users authentication state!');
+    },
+  });
+  document.body.classList.add('ltr');
+  document.body.classList.remove('rtl');
 
   // const { locale } = useSelector((state) => state.settings);
   const currentAppLocale = AppLocale.en;

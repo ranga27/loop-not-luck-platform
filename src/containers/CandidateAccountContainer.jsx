@@ -1,57 +1,62 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAuthUser } from '@react-query-firebase/auth';
+import {
+  useFirestoreCollectionMutation,
+  useFirestoreDocumentMutation,
+} from '@react-query-firebase/firestore';
+import { collection, doc, serverTimestamp } from 'firebase/firestore';
+import { useQuery } from 'react-query';
 import Swal from 'sweetalert2';
 import CandidateAccountForm from '../components/form/CandidateAccountForm';
-import { uploadToStorage } from '../helpers/uploadToStorage';
-import { updateUser } from '../redux/auth/authSlice';
+import { auth, firestore } from '../helpers/firebase';
+import uploadFile from './uploadFile';
 
-async function confirmOverwrite() {
-  return Swal.fire({
-    title: 'CV exists',
-    text: 'Do you want to overwrite it with the new file?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, overwrite it!',
-  });
-}
-
-const uploadFile = async (data) => {
-  try {
-    if (data.cv) {
-      if (data.cvUploadDate) {
-        const overWrite = await confirmOverwrite();
-        if (overWrite.isConfirmed) {
-          return await uploadToStorage(data);
-        }
-      } else return await uploadToStorage(data);
-    }
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-  const { cv, ...rest } = data;
-  return rest;
+const allValuesSubmitted = (data) => {
+  const { cv, email, ...values } = data;
+  return Object.values(values).some((x) => x !== null && x !== '');
 };
 
 const CandidateAccountContainer = () => {
-  const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.auth);
+  const userAuth = useAuthUser(['userAuth'], auth);
+
+  const completedCollection = collection(
+    firestore,
+    'profiles/candidates/completed'
+  );
+  const completedRef = doc(completedCollection, userAuth.data.uid);
+  const completedMutation = useFirestoreDocumentMutation(completedRef);
+
+  const updatedCollection = collection(
+    firestore,
+    'profiles/candidates/updated'
+  );
+  const updatedRef = doc(updatedCollection, userAuth.data.uid);
+  const updatedMutation = useFirestoreDocumentMutation(updatedRef);
+
+  const userRef = doc(firestore, 'users', userAuth.data.uid);
+  const userMutation = useFirestoreDocumentMutation(userRef, {
+    merge: true,
+  });
+  const { isLoading, data: userDoc } = useQuery('userDoc');
+  if (isLoading) {
+    return <div className="loading" />;
+  }
   const {
     uid,
-    firstName,
-    lastName,
     email,
+    cvUrl,
+    lastName,
+    firstName,
     mobileNumber,
     visaRequired,
-    graduationYear,
-    degreeSubject,
-    cvUrl,
     cvUploadDate,
-  } = currentUser;
+    degreeSubject,
+    graduationYear,
+    hasCompletedProfile,
+  } = userDoc;
+
   // TODO: clone objects elegantly
   const defaultValues = {
     email,
@@ -60,26 +65,51 @@ const CandidateAccountContainer = () => {
     mobileNumber: mobileNumber || '',
     visaRequired: visaRequired || '',
     graduationYear: graduationYear
-      ? new Date(graduationYear)
+      ? new Date(graduationYear.toDate().toUTCString())
       : new Date(Date.now()),
     degreeSubject: degreeSubject || '',
-    cvUploadDate,
+    cvUploadDate: cvUploadDate
+      ? new Date(cvUploadDate.toDate().toUTCString())
+      : null,
   };
 
   // TODO: hoist the data into state and then manipulate
   const onSubmit = async (data) => {
-    console.log('SUBMIT: ', data);
+    // Set if completing based on server state
+    const isCompleting = !hasCompletedProfile;
+    console.log('SUBMITTED: ', data);
+    const hasAllValues = allValuesSubmitted(data);
     try {
-      const payload = await uploadFile({ uid, ...data });
-      console.log(payload);
-      // TODO: only update when there is data to update.
-      dispatch(updateUser(payload));
+      const payload = await uploadFile({
+        uid,
+        hasCompletedProfile: hasAllValues,
+        lastUpdated: serverTimestamp(),
+        ...data,
+      });
+      console.log('MUTATED: ', payload);
+      // TODO: only update when there is delta data to update.
+      userMutation.mutate(payload, {
+        onSuccess() {
+          Swal.fire('Updated!', 'Your profile has been updated.', 'success');
+          if (hasAllValues && isCompleting) {
+            completedMutation.mutate({ completedAt: serverTimestamp() });
+          }
+          updatedMutation.mutate({ updatedAt: serverTimestamp() });
+        },
+        onError(error) {
+          Swal.fire('Oops!', 'Failed to update profile.', 'error');
+        },
+        onMutate() {
+          console.info('Updating document...');
+        },
+      });
+
       // TODO: tell user what data has been updated.
-      Swal.fire('Updated!', 'Your profile has been updated.', 'success');
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <CandidateAccountForm
       defaultValues={defaultValues}

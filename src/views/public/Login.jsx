@@ -31,22 +31,18 @@ const Login = () => {
     resolver: yupResolver(SignInSchema),
   });
   const mutation = useAuthSignInWithEmailAndPassword(auth, {
+    onSuccess(userCred) {
+      console.debug('User is signed in!');
+      if (userCred.user) {
+        navigate('/');
+      }
+    },
     onError(error) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: error,
       });
-    },
-  });
-  const userAuth = useAuthUser(['userAuth'], auth, {
-    onSuccess(user) {
-      if (user) {
-        navigate('/');
-      }
-    },
-    onError(error) {
-      console.error('Failed to subscribe to users authentication state!');
     },
   });
 

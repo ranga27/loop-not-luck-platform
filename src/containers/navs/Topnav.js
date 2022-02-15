@@ -3,6 +3,7 @@ import { injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import { Nav, NavItem } from 'reactstrap';
+import { useAuthSignOut } from '@react-query-firebase/auth';
 import {
   setContainerClassnames,
   clickOnMobileMenu,
@@ -10,9 +11,9 @@ import {
 } from '../../redux/actions';
 import { isDarkSwitchActive, adminRoot } from '../../constants/defaultValues';
 import TopnavDarkSwitch from './Topnav.DarkSwitch';
-import { logoutUser } from '../../redux/auth/authSlice';
+import { auth } from '../../helpers/firebase';
 
-const TopNav = ({ logoutUserAction }) => {
+const TopNav = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const { role } = currentUser;
   const [isInFullScreen, setIsInFullScreen] = useState(false);
@@ -53,10 +54,11 @@ const TopNav = ({ logoutUserAction }) => {
     }
     setIsInFullScreen(!isFS);
   };
+  const mutation = useAuthSignOut(auth);
 
   const handleLogout = () => {
     try {
-      logoutUserAction(currentUser);
+      mutation.mutate();
     } catch (e) {
       throw new Error('Error while signing out');
     }
@@ -98,10 +100,12 @@ const TopNav = ({ logoutUserAction }) => {
         </div>
         <Nav pills className="nav-pills">
           <NavItem className="mx-3">
-            <NavLink to="account">Account</NavLink>
+            <NavLink id="account-profile" to="account">
+              Account
+            </NavLink>
           </NavItem>
           <NavItem className="mx-3">
-            <NavLink to="/" onClick={() => handleLogout()}>
+            <NavLink to="/login" onClick={() => handleLogout()}>
               Logout
             </NavLink>
           </NavItem>
@@ -127,6 +131,5 @@ export default injectIntl(
     setContainerClassnamesAction: setContainerClassnames,
     clickOnMobileMenuAction: clickOnMobileMenu,
     changeLocaleAction: changeLocale,
-    logoutUserAction: logoutUser,
   })(TopNav)
 );
