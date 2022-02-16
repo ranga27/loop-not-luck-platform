@@ -19,10 +19,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
   // TODO: convert into smart form
   return (
     /* "handleSubmit" will validate inputs before invoking "onSubmit" */
-    <Form
-      onSubmit={handleSubmit(onSubmit)}
-      className="av-tooltip tooltip-label-right"
-    >
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <TextInput
         name="firstName"
         label="First Name"

@@ -93,8 +93,8 @@ const CandidateAccountContainer = () => {
           Swal.fire('Updated!', 'Your profile has been updated.', 'success');
           if (hasAllValues && isCompleting) {
             completedMutation.mutate({ completedAt: serverTimestamp() });
-          }
-          updatedMutation.mutate({ updatedAt: serverTimestamp() });
+          } // TODO: Only update when the values that trigger algorithm are updated
+          else updatedMutation.mutate({ updatedAt: serverTimestamp() });
         },
         onError(error) {
           Swal.fire('Oops!', 'Failed to update profile.', 'error');
