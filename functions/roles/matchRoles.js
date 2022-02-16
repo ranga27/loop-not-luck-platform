@@ -25,7 +25,10 @@ exports.onProfileUpdated = functions.firestore
       .get();
     const roles = await getRolesFromFiretore();
     if (roles) {
-      roles.forEach(getScores);
+      roles.forEach((role) => {
+        role.score = getScores(role);
+        addRoleInFirestore(role, uid);
+      });
     }
     console.log('Received roles from firestore: ', roles.length);
   });
@@ -44,4 +47,18 @@ const getRolesFromFiretore = async () => {
   return roles;
 };
 
-const getScores = () => {};
+const getScores = (role) => {
+  // TODO: get actual scores implement matching algorithm based on tags in documents
+  return Math.floor(Math.random() * 99);
+};
+
+const addRoleInFirestore = async (role, uid) => {
+  const { id, ...data } = role;
+  const roleRef = admin
+    .firestore()
+    .collection('users')
+    .doc(uid)
+    .collection('matchedRoles')
+    .doc(id);
+  await roleRef.set({ data }, { merge: true });
+};

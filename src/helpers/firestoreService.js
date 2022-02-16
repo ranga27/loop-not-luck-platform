@@ -39,7 +39,7 @@ export async function unSaveRoleInFirestore({ uid, roleId }) {
 // TODO: Test function, move to cloud function
 export async function addRoleInUserDoc(uid, role) {
   const { id, ...data } = role;
-  const roleRef = doc(firestore, 'users', uid, 'matchedRoles', role.id);
+  const roleRef = doc(firestore, 'users', uid, 'matchedRoles', id);
   return setDoc(roleRef, data, { merge: true });
 }
 
