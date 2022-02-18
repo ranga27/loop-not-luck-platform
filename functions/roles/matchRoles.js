@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
@@ -18,11 +19,6 @@ exports.onProfileUpdated = functions.firestore
   .document('profiles/candidates/updated/{uid}')
   .onWrite(async (change, context) => {
     const uid = context.params.uid;
-    const querySnapshot = await admin
-      .firestore()
-      .collection('users')
-      .doc(uid)
-      .get();
     const roles = await getRolesFromFiretore();
     if (roles) {
       roles.forEach((role) => {

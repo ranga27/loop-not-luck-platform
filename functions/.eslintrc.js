@@ -6,10 +6,9 @@ module.exports = {
   },
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 8,
+    ecmaVersion: 2020,
     ecmaFeatures: {
       jsx: true,
-      experimentalObjectRestSpread: true,
     },
   },
   plugins: ['promise'],

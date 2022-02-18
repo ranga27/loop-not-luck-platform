@@ -1,18 +1,43 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable no-use-before-define */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useFirestoreQuery } from '@react-query-firebase/firestore';
+import { collection, doc, query } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
-import { getRoles, unSaveRole, updateRole } from '../../redux/roles/rolesSlice';
+import { useQuery } from 'react-query';
+import { firestore } from '../../helpers/firebase';
+import { unSaveRole, updateRole } from '../../redux/roles/rolesSlice';
+import formatDate from './formatDate';
 import RolesCarousel from './RolesCarousel';
 
 const ViewRolesContainer = () => {
-  const { roles } = useSelector((state) => state.roles);
-  const { currentUser } = useSelector((state) => state.auth);
-  const { uid } = currentUser;
+  const user = useQuery(['userAuth']);
+  const { uid } = user.data;
+  const rolesCollection = collection(firestore, `users/${uid}/matchedRoles`);
+  const rolesRef = query(rolesCollection);
+  const { isLoading, data: roles } = useFirestoreQuery(
+    ['matchedRoles'],
+    rolesRef,
+    {
+      subscribe: true,
+    },
+    {
+      // React Query data selector
+      select(snapshot) {
+        const rolesData = snapshot.docs.map((document) => ({
+          ...document.data().data,
+          id: document.id,
+        }));
+        return formatDate(rolesData);
+      },
+    }
+  );
+
   const dispatch = useDispatch();
 
   const saveRole = async (currentSlide) => {
@@ -46,16 +71,22 @@ const ViewRolesContainer = () => {
     console.log(`seen role: ${roles[currentSlide].title}`);
   };
 
-  useEffect(() => {
-    const fetchRoles = async () => {
-      // TODO: avoid multiple firestore reads, keep role list updated via a listener
-      // TODO: add logic for no roles found
-      dispatch(getRoles(currentUser.uid));
-    };
-    fetchRoles();
-  }, [dispatch, currentUser]);
-  // TODO: combine save, apply, seen actions
-  return RolesCarousel(roles, saveRole, applyRole, seenRole);
+  // TODO: add logic for no roles found
+  if (isLoading) {
+    return <div className="loading" />;
+  }
+  if (roles) {
+    // TODO: combine save, apply, seen actions
+    return (
+      <RolesCarousel
+        roles={roles}
+        saveRole={saveRole}
+        applyRole={applyRole}
+        seenRole={seenRole}
+      />
+    );
+  }
+  return <div />;
 };
 
 export default ViewRolesContainer;

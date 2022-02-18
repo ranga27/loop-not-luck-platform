@@ -61,7 +61,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "dev": "firebase emulators:start --only functions",
+    "dev": "firebase emulators:start --import ./functions/firestore",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

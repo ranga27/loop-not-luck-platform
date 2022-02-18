@@ -28,9 +28,10 @@ const getRoute = (role) => {
 
 const ProtectedRoute = () => {
   const userAuth = useAuthUser(['userAuth'], auth);
+  const { uid } = userAuth.data;
   const collectionRef = collection(firestore, 'users');
-  const ref = doc(collectionRef, userAuth.data.uid);
-  const userDoc = useFirestoreDocumentData(
+  const ref = doc(collectionRef, uid);
+  const { isLoading, data: user } = useFirestoreDocumentData(
     ['userDoc'],
     ref,
     {
@@ -45,12 +46,12 @@ const ProtectedRoute = () => {
       },
     }
   );
-  if (userDoc.isLoading) {
+  if (isLoading) {
     return <div className="loading" />;
   }
   return (
     <Suspense fallback={<div className="loading" />}>
-      {getRoute(userDoc.data.role)}
+      {getRoute(user.role)}
     </Suspense>
   );
 };

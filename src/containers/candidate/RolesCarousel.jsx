@@ -6,7 +6,7 @@ import Carousel from 'nuka-carousel';
 import { CarouselItem } from '../../components/cards/CarouselItem';
 import { renderTopCenterControls } from './renderTopCenterControls';
 
-const RolesCarousel = (roles, saveRole, applyRole, seenRole) => {
+const RolesCarousel = ({ roles, saveRole, applyRole, seenRole }) => {
   return (
     <Carousel
       enableKeyboardControls

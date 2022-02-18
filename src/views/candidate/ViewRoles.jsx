@@ -2,31 +2,16 @@
 import React from 'react';
 import { Card, CardBody, Row } from 'reactstrap';
 import { useQuery } from 'react-query';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import ViewRolesContainer from '../../containers/candidate/ViewRolesContainer';
 
 const ViewRoles = () => {
-  const roleAlert = withReactContent(Swal);
-  const navigate = useNavigate();
   const userDoc = useQuery('userDoc');
   if (userDoc.isLoading) {
     return <div className="loading" />;
   }
-  const showAlert = () => {
-    roleAlert
-      .fire({
-        title: `${userDoc.data.firstName}, please complete your profile to view roles!`,
-        confirmButtonText: 'OK',
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          navigate('/app/account');
-        }
-      });
-  };
+
   if (userDoc.data) {
     if (userDoc.data.hasCompletedProfile) {
       return (

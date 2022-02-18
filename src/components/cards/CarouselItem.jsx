@@ -15,12 +15,14 @@ export const CarouselItem = ({
   department,
   startDate,
   deadline,
+  score,
 }) => {
   return (
     <Card>
       <CardBody>
         <Row md="2">
           <Colxx>
+            <h2>{score}% Match</h2>
             <img
               className="responsive mx-auto d-block card-img-role"
               src={logoUrl}
