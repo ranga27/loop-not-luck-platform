@@ -73,7 +73,6 @@ const CandidateAccountContainer = () => {
       : null,
   };
 
-  // TODO: hoist the data into state and then manipulate
   const onSubmit = async (data) => {
     // Set if completing based on server state
     const isCompleting = !hasCompletedProfile;
