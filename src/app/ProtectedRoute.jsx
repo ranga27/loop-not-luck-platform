@@ -27,6 +27,7 @@ const getRoute = (role) => {
 };
 
 const ProtectedRoute = () => {
+  // TODO: check if useQuery is more performant than useAuthUser
   const userAuth = useAuthUser(['userAuth'], auth);
   const { uid } = userAuth.data;
   const collectionRef = collection(firestore, 'users');
