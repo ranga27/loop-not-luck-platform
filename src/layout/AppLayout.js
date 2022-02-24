@@ -11,7 +11,6 @@ const AppLayout = ({ children }) => {
     <div id="app-container" className={containerClassnames}>
       <TopNav />
       <Sidebar />
-
       <main>
         <div className="container-fluid">{children}</div>
       </main>
