@@ -13,6 +13,7 @@ const functions = getFunctions(firebase);
 
 if (process.env.NODE_ENV !== 'production') {
   connectFunctionsEmulator(functions, 'localhost', 5001);
+  // TODO: check what host to connect based on firebase.json. On macOS explicit host IP is mandatory. Issue open in github
   connectFirestoreEmulator(firestore, 'localhost', 8080);
 }
 

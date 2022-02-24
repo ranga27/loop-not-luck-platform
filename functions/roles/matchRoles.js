@@ -19,6 +19,7 @@ exports.onProfileUpdated = functions.firestore
   .document('profiles/candidates/updated/{uid}')
   .onWrite(async (change, context) => {
     const uid = context.params.uid;
+    console.log('Profile updated for uid: ', uid);
     const roles = await getRolesFromFiretore();
     if (roles) {
       roles.forEach((role) => {
