@@ -10,6 +10,7 @@ import { collection, doc, query } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useQuery } from 'react-query';
+import { Card, CardBody } from 'reactstrap';
 import { firestore } from '../../helpers/firebase';
 import { unSaveRole, updateRole } from '../../redux/roles/rolesSlice';
 import formatDate from './formatDate';
@@ -75,7 +76,7 @@ const ViewRolesContainer = () => {
   if (isLoading) {
     return <div className="loading" />;
   }
-  if (roles) {
+  if (roles.length > 0) {
     // TODO: combine save, apply, seen actions
     return (
       <RolesCarousel
@@ -86,7 +87,15 @@ const ViewRolesContainer = () => {
       />
     );
   }
-  return <div />;
+  return (
+    <div>
+      <Card>
+        <CardBody>
+          <h3>Sorry, no roles for you yet</h3>
+        </CardBody>
+      </Card>
+    </div>
+  );
 };
 
 export default ViewRolesContainer;
