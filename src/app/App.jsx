@@ -4,7 +4,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { useAuthUser } from '@react-query-firebase/auth';
 import AppLocale from '../lang';
-import ColorSwitcher from '../components/common/ColorSwitcher';
 import { auth } from '../helpers/firebase';
 
 const Public = lazy(() =>
@@ -39,7 +38,6 @@ const App = () => {
         locale={currentAppLocale.locale}
         messages={currentAppLocale.messages}
       >
-        <ColorSwitcher />
         <Suspense fallback={<div className="loading" />}>
           <Routes>
             <Route element={<RequireAuth />}>

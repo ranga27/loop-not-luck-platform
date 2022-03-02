@@ -18,7 +18,7 @@ const INIT_STATE = {
   subHiddenBreakpoint,
   menuHiddenBreakpoint,
   menuClickCount: 0,
-  selectedMenuHasSubItems: defaultMenuType === 'menu-default', // if you use menu-sub-hidden as default menu type, set value of this variable to false
+  selectedMenuHasSubItems: defaultMenuType === 'false', // if you use menu-sub-hidden as default menu type, set value of this variable to false
 };
 
 export default (state = INIT_STATE, { type, payload }) => {

@@ -1,72 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
-import { Nav, NavItem } from 'reactstrap';
-import { useAuthSignOut } from '@react-query-firebase/auth';
+import { MobileMenuIcon } from '../../components/svg';
 import {
   setContainerClassnames,
   clickOnMobileMenu,
   changeLocale,
 } from '../../redux/actions';
-import { isDarkSwitchActive, adminRoot } from '../../constants/defaultValues';
-import TopnavDarkSwitch from './Topnav.DarkSwitch';
-import { auth } from '../../helpers/firebase';
+import { adminRoot } from '../../constants/defaultValues';
 
-const TopNav = () => {
+const TopNav = ({ containerClassnames, clickOnMobileMenuAction }) => {
   const { currentUser } = useSelector((state) => state.auth);
   const { role } = currentUser;
-  const [isInFullScreen, setIsInFullScreen] = useState(false);
-
-  const isInFullScreenFn = () => {
-    return (
-      (document.fullscreenElement && document.fullscreenElement !== null) ||
-      (document.webkitFullscreenElement &&
-        document.webkitFullscreenElement !== null) ||
-      (document.mozFullScreenElement &&
-        document.mozFullScreenElement !== null) ||
-      (document.msFullscreenElement && document.msFullscreenElement !== null)
-    );
+  const mobileMenuButtonClick = (e, _containerClassnames) => {
+    e.preventDefault();
+    clickOnMobileMenuAction(_containerClassnames);
   };
-
-  const toggleFullScreen = () => {
-    const isFS = isInFullScreenFn();
-
-    const docElm = document.documentElement;
-    if (!isFS) {
-      if (docElm.requestFullscreen) {
-        docElm.requestFullscreen();
-      } else if (docElm.mozRequestFullScreen) {
-        docElm.mozRequestFullScreen();
-      } else if (docElm.webkitRequestFullScreen) {
-        docElm.webkitRequestFullScreen();
-      } else if (docElm.msRequestFullscreen) {
-        docElm.msRequestFullscreen();
-      }
-    } else if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-    setIsInFullScreen(!isFS);
-  };
-  const mutation = useAuthSignOut(auth);
-
-  const handleLogout = () => {
-    try {
-      mutation.mutate();
-    } catch (e) {
-      throw new Error('Error while signing out');
-    }
-  };
-
   return (
     <nav className="navbar fixed-top">
       <div className="d-flex align-items-center navbar-left" />
+
+      <NavLink
+        to="#"
+        location={{}}
+        className="menu-button-mobile d-xs-block d-sm-block d-md-none"
+        onClick={(e) => mobileMenuButtonClick(e, containerClassnames)}
+      >
+        <MobileMenuIcon />
+      </NavLink>
       <NavLink className="navbar-logo" to={adminRoot}>
         <span className="logo d-none d-xs-block" />
         <span className="logo-mobile d-block d-xs-none" />
@@ -83,33 +45,6 @@ const TopNav = () => {
           <NavLink to="/app/post-role">Post Role</NavLink>
         )}
         {role === 'candidate' && <NavLink to="/app/roles">Roles</NavLink>}
-        {isDarkSwitchActive && <TopnavDarkSwitch />}
-        <div className="header-icons d-inline-block align-middle">
-          <button
-            className="header-icon btn btn-empty d-none d-sm-inline-block"
-            type="button"
-            id="fullScreenButton"
-            onClick={toggleFullScreen}
-          >
-            {isInFullScreen ? (
-              <i className="simple-icon-size-actual d-block" />
-            ) : (
-              <i className="simple-icon-size-fullscreen d-block" />
-            )}
-          </button>
-        </div>
-        <Nav pills className="nav-pills">
-          <NavItem className="mx-3">
-            <NavLink id="account-profile" to="account">
-              Account
-            </NavLink>
-          </NavItem>
-          <NavItem className="mx-3">
-            <NavLink to="/login" onClick={() => handleLogout()}>
-              Logout
-            </NavLink>
-          </NavItem>
-        </Nav>
       </div>
     </nav>
   );

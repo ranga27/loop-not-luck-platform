@@ -2,70 +2,53 @@ import { adminRoot, UserRole } from './defaultValues';
 
 const data = [
   {
-    id: 'super',
-    icon: 'iconsminds-security-settings',
-    label: 'menu.admin',
+    id: 'my-loop',
+    icon: 'iconsminds-record',
+    label: 'menu.my-loop',
     to: `${adminRoot}`,
-    roles: [UserRole.super],
-    subs: [
-      {
-        icon: 'iconsminds-idea',
-        label: 'menu.test',
-        to: `${adminRoot}/test`,
-      },
-      {
-        icon: 'iconsminds-3d-eyeglasses',
-        label: 'menu.users',
-        to: `${adminRoot}/users`,
-      },
-    ],
+    roles: [UserRole.candidate],
   },
   {
-    id: 'opportunities',
-    icon: 'simple-icon-rocket',
-    label: 'menu.opportunities',
-    to: `${adminRoot}/opportunities`,
-    subs: [
-      {
-        icon: 'simple-icon-drawer',
-        label: 'menu.view-roles',
-        to: `${adminRoot}/opportunities/view`,
-      },
-      {
-        icon: 'iconsminds-notepad',
-        label: 'menu.post',
-        to: `${adminRoot}/opportunities/roles`,
-        roles: [UserRole.Admin, UserRole.Editor],
-      },
-    ],
+    id: 'applications',
+    icon: 'simple-icon-note',
+    label: 'menu.applications',
+    to: `${adminRoot}`,
+    roles: [UserRole.candidate],
   },
   {
-    id: 'candidates',
-    icon: 'iconsminds-students',
-    label: 'menu.candidates',
-    to: `${adminRoot}/candidates`,
-    roles: [UserRole.Admin, UserRole.Editor],
-    subs: [
-      {
-        icon: 'iconsminds-3d-eyeglasses',
-        label: 'menu.view',
-        to: `${adminRoot}/candidates/view`,
-      },
-    ],
+    id: 'saved-roles',
+    icon: 'iconsminds-disk',
+    label: 'menu.saved-roles',
+    to: `${adminRoot}`,
+    roles: [UserRole.candidate],
   },
   {
-    id: 'admin',
-    icon: 'iconsminds-security-settings',
-    label: 'menu.admin',
-    to: `${adminRoot}/admin`,
-    roles: [UserRole.admin],
-    subs: [
-      {
-        icon: 'iconsminds-shop-4',
-        label: 'menu.companies',
-        to: `${adminRoot}/admin/companies`,
-      },
-    ],
+    id: 'messages',
+    icon: 'simple-icon-speech',
+    label: 'menu.messages',
+    to: `${adminRoot}`,
+    roles: [UserRole.candidate],
+  },
+  {
+    id: 'profile',
+    icon: 'simple-icon-user',
+    label: 'menu.profile',
+    to: 'account',
+    roles: [UserRole.candidate],
+  },
+  {
+    id: 'logout',
+    icon: 'simple-icon-logout',
+    label: 'menu.logout',
+    to: 'logout',
+    roles: [UserRole.candidate],
+  },
+  {
+    id: 'help',
+    icon: 'simple-icon-question',
+    label: 'menu.help',
+    to: `${adminRoot}`,
+    roles: [UserRole.candidate],
   },
 ];
 export default data;

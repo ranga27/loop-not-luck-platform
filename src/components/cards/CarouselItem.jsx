@@ -18,11 +18,10 @@ export const CarouselItem = ({
   score,
 }) => {
   return (
-    <Card>
-      <CardBody>
-        <Row md="2">
-          <Colxx>
-            <h2>{score}% Match</h2>
+    <Row md="2">
+      <Colxx>
+        <Card>
+          <CardBody>
             <img
               className="responsive mx-auto d-block card-img-role"
               src={logoUrl}
@@ -41,8 +40,14 @@ export const CarouselItem = ({
             <Separator className="mt-3" />
             <h4 className="mt-3 text-muted text-uppercase">deadline</h4>
             <h3 className="mt-3">{deadline}</h3>
-          </Colxx>
-          <Colxx>
+          </CardBody>
+        </Card>
+      </Colxx>
+      <Colxx>
+        <Card>
+          <CardBody>
+            <h1>You are a {score}% match</h1>
+
             <h1 className="truncate">{title}</h1>
             <Separator className="mt-3" />
             <h4 className="mt-3 text-muted text-uppercase">position</h4>
@@ -53,9 +58,9 @@ export const CarouselItem = ({
             <Separator className="mt-3" />
             <h4 className="mt-3 text-muted text-uppercase">qualification</h4>
             <p>{qualification}</p>
-          </Colxx>
-        </Row>
-      </CardBody>
-    </Card>
+          </CardBody>
+        </Card>
+      </Colxx>
+    </Row>
   );
 };
