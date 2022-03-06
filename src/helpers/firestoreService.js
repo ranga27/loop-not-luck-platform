@@ -40,7 +40,13 @@ export async function unSaveRoleInFirestore({ uid, roleId }) {
 export async function addRoleInUserDoc(uid, role) {
   const { id, ...data } = role;
   const roleRef = doc(firestore, 'users', uid, 'matchedRoles', id);
-  return setDoc(roleRef, data, { merge: true });
+  await setDoc(roleRef, data, { merge: true });
+}
+
+export async function setRoleInFirestore(role) {
+  const { id, ...data } = role;
+  const roleRef = doc(firestore, 'roles', id);
+  await setDoc(roleRef, data, { merge: true });
 }
 
 export async function addOpportunityToFirestore(opportunity) {
@@ -52,6 +58,27 @@ export async function fetchRolesFromFirestore(uid) {
   const roleRef = collection(firestore, 'users', uid, 'matchedRoles');
   const q = query(roleRef, where('matchedScore', '>', 0));
   const querySnapshot = await getDocs(q);
+  const roles = querySnapshot.docs.map((docu) => ({
+    ...docu.data(),
+    id: docu.id,
+  }));
+  roles.forEach((role) => {
+    for (const prop in role) {
+      // TODO: combine all date castings
+      if (role.hasOwnProperty(prop)) {
+        if (role[prop] instanceof Timestamp) {
+          role[prop] = format(new Date(role[prop].toDate()), 'dd-MMM-yyyy');
+        }
+      }
+    }
+  });
+  return roles;
+}
+
+// Test function
+export async function fetchOpportunitiesFromFirestore() {
+  const roleRef = collection(firestore, 'opportunities');
+  const querySnapshot = await getDocs(roleRef);
   const roles = querySnapshot.docs.map((docu) => ({
     ...docu.data(),
     id: docu.id,

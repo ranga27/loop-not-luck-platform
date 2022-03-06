@@ -9,14 +9,18 @@ const EditUsers = lazy(() =>
 
 const Test = lazy(() => import(/* webpackChunkName: "admin-test" */ './Test'));
 
+const Review = lazy(() =>
+  import(/* webpackChunkName: "admin-review-roles" */ './ReviewRoles')
+);
 const SuperAdminRoute = () => {
   return (
     <AppLayout>
       <Suspense fallback={<div className="loading" />}>
         <Routes>
+          <Route path="review" element={<Review />} />
           <Route path="test" element={<Test />} />
           <Route path="users" element={<EditUsers />} />
-          <Route path="/" element={<Navigate to="test" />} />
+          <Route path="/" element={<Navigate to="review" />} />
         </Routes>
       </Suspense>
     </AppLayout>

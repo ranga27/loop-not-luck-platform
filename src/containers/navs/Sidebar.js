@@ -287,8 +287,9 @@ class Sidebar extends Component {
   // eslint-disable-next-line no-shadow
   filteredList = (menuItems) => {
     // TODO: react-query to get user.role
+    const { role } = this.props;
     return menuItems.filter(
-      (x) => (x.roles && x.roles.includes('candidate')) || !x.roles
+      (x) => (x.roles && x.roles.includes(role)) || !x.roles
     );
   };
 

@@ -41,7 +41,7 @@ const RoleDetails = () => {
   const logoRef = createRef();
   const dispatch = useDispatch();
 
-  const { selectedOpportunity } = useSelector((state) => state.opportunities);
+  const { selectedOpportunity } = [];
   const initialValues = {
     id: selectedOpportunity.id,
     title: selectedOpportunity.title,

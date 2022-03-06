@@ -13,7 +13,7 @@ import { MultiSelect } from '../../components/form/FormFields';
 import { tagsOptions } from './tagsOptions';
 
 const TestAlgorithm = () => {
-  const { control, setValue, handleSubmit } = useForm();
+  const { control, setValue, handleSubmit, clearErrors } = useForm();
   const [score, setScore] = useState(0);
 
   const onSubmit = async (data) => {
@@ -34,6 +34,8 @@ const TestAlgorithm = () => {
               control={control}
               options={tagsOptions}
               setValue={setValue}
+              defaultValue={tagsOptions}
+              clearErrors={clearErrors}
             />
           </CardBody>
         </Card>
@@ -48,6 +50,8 @@ const TestAlgorithm = () => {
               control={control}
               options={tagsOptions}
               setValue={setValue}
+              defaultValue={tagsOptions}
+              clearErrors={clearErrors}
             />
           </CardBody>
         </Card>
