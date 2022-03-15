@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
-import { collection } from 'firebase/firestore';
-import { useSelector } from 'react-redux';
+import {
+  useFirestoreCollectionMutation,
+  useFirestoreQuery,
+} from '@react-query-firebase/firestore';
+import { collection, query } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
@@ -16,12 +18,32 @@ import {
 import { locations, applicationOptions, positionTypes } from '../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import { firestore } from '../helpers/firebase';
+import formatDate from '../containers/candidate/formatDate';
+import { newDate } from '../helpers/utils';
 
 const PostRoleForm = () => {
-  const ref = collection(firestore, 'opportunities');
-  const mutation = useFirestoreCollectionMutation(ref);
-  const { company, loading, error } = useSelector((state) => state.company);
-  const { name: companyName } = company;
+  // TODO: move data operations in parent component and make this a pure component
+  const mutation = useFirestoreCollectionMutation(
+    collection(firestore, 'opportunities')
+  );
+  const { isLoading, data: companies } = useFirestoreQuery(
+    ['companies'],
+    query(collection(firestore, 'companies')),
+    {
+      subscribe: true,
+    },
+    {
+      // React Query data selector
+      select(snapshot) {
+        const companiesData = snapshot.docs.map((document) => ({
+          label: document.data().name,
+          value: document.data().name,
+          id: document.id,
+        }));
+        return formatDate(companiesData);
+      },
+    }
+  );
   const defaultValues = {
     title: '',
     department: '',
@@ -33,9 +55,7 @@ const PostRoleForm = () => {
     deadline: null,
     startDate: null,
     coverLetter: false,
-    companyName,
   };
-  // TODO: default values
   const {
     watch,
     control,
@@ -49,10 +69,15 @@ const PostRoleForm = () => {
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
   const onSubmit = async (data) => {
-    console.log('SUBMIT: ', data);
-    mutation.mutate(data);
+    const date = { createdAt: newDate(), updatedAt: newDate() };
+    const newPost = { ...data, ...date };
+    console.log('SUBMIT: ', newPost);
+    mutation.mutate(newPost);
     reset(defaultValues);
   };
+  if (isLoading) {
+    return <div className="loading" />;
+  }
   // TODO: convert into smart form
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -61,6 +86,13 @@ const PostRoleForm = () => {
         label="Title"
         errors={errors.title}
         control={control}
+      />
+      <SelectField
+        label="Company"
+        name="company"
+        control={control}
+        options={companies}
+        errors={errors.company}
       />
       <SelectField
         label="Location"

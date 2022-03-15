@@ -1,13 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/function-component-definition */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Row, Card, CardBody, Button, CardTitle } from 'reactstrap';
-import { getRoles } from '../../redux/actions';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import {
-  addRoleInUserDoc,
   fetchOpportunitiesFromFirestore,
   setRoleInFirestore,
 } from '../../helpers/firestoreService';
@@ -43,7 +37,7 @@ const Test = () => {
       roles.forEach(addRoleInFirestore);
     }
   };
-  console.log(roles);
+  console.log('Fetched roles: ', roles);
   return (
     <>
       <Row>
@@ -66,6 +60,7 @@ const Test = () => {
                 className="mb-2"
                 type="submit"
                 onClick={addRoles}
+                disabled={!roles}
               >
                 Add Roles
               </Button>

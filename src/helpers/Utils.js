@@ -7,6 +7,8 @@ import {
   themeRadiusStorageKey,
 } from '../constants/defaultValues';
 
+export const newDate = () => new Date().toString();
+
 export const mapOrder = (array, order, key) => {
   // eslint-disable-next-line func-names
   array.sort(function (a, b) {

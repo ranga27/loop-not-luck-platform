@@ -7,10 +7,13 @@
       "path": "../loop-not-luck"
     },
     {
-      "path": "../../Gogo-React-Admin-Dashboard-5.3.0/React-Version/Source/gogo-react"
+      "path": "../revents"
     },
     {
-      "path": "../revents"
+      "path": "../Gogo-React-Admin-Dashboard-5.3.0/React-Version/Source/gogo-react"
+    },
+    {
+      "path": "../api_express_no_db"
     }
   ],
   "settings": {}

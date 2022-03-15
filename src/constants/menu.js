@@ -2,17 +2,17 @@ import { adminRoot, UserRole } from './defaultValues';
 
 const data = [
   {
-    id: 'my-loop',
-    icon: 'iconsminds-record',
-    label: 'menu.my-loop',
-    to: `${adminRoot}`,
-    roles: [UserRole.candidate],
-  },
-  {
     id: 'review-roles',
     icon: 'simple-icon-eyeglass',
     label: 'menu.review',
     to: `${adminRoot}`,
+    roles: [UserRole.super],
+  },
+  {
+    id: 'post',
+    icon: 'simple-icon-pencil',
+    label: 'menu.post',
+    to: 'post',
     roles: [UserRole.super],
   },
   {
@@ -21,6 +21,13 @@ const data = [
     label: 'menu.test',
     to: 'test',
     roles: [UserRole.super],
+  },
+  {
+    id: 'my-loop',
+    icon: 'iconsminds-record',
+    label: 'menu.my-loop',
+    to: `${adminRoot}`,
+    roles: [UserRole.candidate],
   },
   {
     id: 'applications',
@@ -41,14 +48,14 @@ const data = [
     icon: 'simple-icon-speech',
     label: 'menu.messages',
     to: `${adminRoot}`,
-    roles: [UserRole.candidate, UserRole.super],
+    roles: [UserRole.candidate],
   },
   {
     id: 'profile',
     icon: 'simple-icon-user',
     label: 'menu.profile',
     to: 'account',
-    roles: [UserRole.candidate, UserRole.super],
+    roles: [UserRole.candidate],
   },
   {
     id: 'logout',

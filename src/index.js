@@ -8,7 +8,7 @@ import {
   defaultColor,
   isDarkSwitchActive,
 } from './constants/defaultValues';
-import { getCurrentColor, setCurrentColor } from './helpers/Utils';
+import { getCurrentColor, setCurrentColor } from './helpers/utils';
 
 const color =
   isMultiColorActive || isDarkSwitchActive ? getCurrentColor() : defaultColor;

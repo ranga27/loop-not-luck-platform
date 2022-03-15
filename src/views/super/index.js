@@ -9,8 +9,16 @@ const EditUsers = lazy(() =>
 
 const Test = lazy(() => import(/* webpackChunkName: "admin-test" */ './Test'));
 
+const Post = lazy(() =>
+  import(/* webpackChunkName: "admin-post" */ './PostRole')
+);
+
 const Review = lazy(() =>
   import(/* webpackChunkName: "admin-review-roles" */ './ReviewRoles')
+);
+
+const Logout = lazy(() =>
+  import(/* webpackChunkName: "admin-logout" */ './Logout')
 );
 const SuperAdminRoute = () => {
   return (
@@ -19,7 +27,9 @@ const SuperAdminRoute = () => {
         <Routes>
           <Route path="review" element={<Review />} />
           <Route path="test" element={<Test />} />
+          <Route path="post" element={<Post />} />
           <Route path="users" element={<EditUsers />} />
+          <Route path="logout" element={<Logout />} />
           <Route path="/" element={<Navigate to="review" />} />
         </Routes>
       </Suspense>
