@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  useFirestoreCollectionMutation,
+  useFirestoreDocumentMutation,
   useFirestoreQuery,
 } from '@react-query-firebase/firestore';
-import { collection, query } from 'firebase/firestore';
+import { collection, query, doc } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
@@ -14,17 +14,21 @@ import { CheckBox, DatePicker, SelectField, TextInput } from './FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import { firestore } from '../../helpers/firebase';
-import formatDate from '../../containers/candidate/formatDate';
-import { getDateFromString, newDate } from '../../helpers/utils';
+import {
+  formatDateInArray,
+  getDateFromString,
+  newDate,
+} from '../../helpers/utils';
 import usePersistentContext from '../../hooks/usePersistentContext';
-
+// TODO: move data operations in parent containter and make this a pure component
 // Combine Post Role & Edit Role forms
 const EditRoleForm = () => {
+  const [roleId, setRoleId] = useState('');
   const [role] = usePersistentContext('selectedRole');
-  // TODO: move data operations in parent component and make this a pure component
-  const mutation = useFirestoreCollectionMutation(
-    collection(firestore, 'opportunities')
-  );
+  /*  const ref = doc(firestore, 'roles', roleId);
+  const mutation = useFirestoreDocumentMutation(ref, {
+    merge: true,
+  }); */
   const { isLoading, data: companies } = useFirestoreQuery(
     ['companies'],
     query(collection(firestore, 'companies')),
@@ -39,7 +43,7 @@ const EditRoleForm = () => {
           value: document.data().name,
           id: document.id,
         }));
-        return formatDate(companiesData);
+        return formatDateInArray(companiesData);
       },
     }
   );
@@ -60,6 +64,7 @@ const EditRoleForm = () => {
     coverLetter: false,
   };
   const {
+    setValue,
     watch,
     control,
     handleSubmit,
@@ -72,35 +77,39 @@ const EditRoleForm = () => {
   useEffect(() => {
     try {
       if (role) {
-        reset({
-          title: role.title,
-          company: role.company,
-          location: role.location,
-          positionType: role.positionType,
-          department: role.department,
-          description: role.description,
-          qualification: role.qualification,
-          howToApply: role.howToApply,
-          email: role.email,
-          website: role.website,
-          rolling: role.rolling,
-          deadline: role.deadline && getDateFromString(role.deadline),
-          startDate: role.startDate && getDateFromString(role.startDate),
-          coverLetter: role.coverLetter,
-        });
+        // TODO: use object.entries
+        setRoleId(role.id);
+        setValue('title', role.title);
+        setValue('company', role.company);
+        setValue('location', role.location);
+        setValue('positionType', role.positionType);
+        setValue('department', role.department);
+        setValue('description', role.description);
+        setValue('qualification', role.qualification);
+        setValue('howToApply', role.howToApply);
+        setValue('email', role.email);
+        setValue('website', role.website);
+        setValue('rolling', role.rolling);
+        setValue(
+          'deadline',
+          role.deadline ? getDateFromString(role.deadline) : null
+        );
+        setValue(
+          'startDate',
+          role.startDate ? getDateFromString(role.startDate) : null
+        );
+        setValue('coverLetter', role.coverLetter);
       }
     } catch (error) {
       console.error(error.message);
     }
-  }, [role]);
+  }, [role, setValue]);
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
   const onSubmit = async (data) => {
-    const date = { createdAt: newDate(), updatedAt: newDate() };
-    const newPost = { ...data, ...date };
-    console.log('SUBMIT: ', newPost);
-    mutation.mutate(newPost);
-    reset(defaultValues);
+    const updatePost = { ...data, updatedAt: newDate() };
+    console.log('SUBMIT: ', updatePost);
+    // mutation.mutate(updatePost);
   };
   if (isLoading) {
     return <div className="loading" />;
@@ -177,7 +186,7 @@ const EditRoleForm = () => {
         name="rolling"
         label="Rolling"
         control={control}
-        checked={rolling}
+        checked={rolling || false}
       />
       {!rolling && (
         <DatePicker
@@ -202,10 +211,10 @@ const EditRoleForm = () => {
         checked={watch('coverLetter')}
       />
 
-      <Button color="primary" type="submit" disabled={mutation.isLoading}>
+      <Button color="primary" type="submit" /* disabled={mutation.isLoading} */>
         Submit
       </Button>
-      {mutation.isError && <p>{mutation.error.message}</p>}
+      {/* {mutation.isError && <p>{mutation.error.message} </p>} */}
     </Form>
   );
 };

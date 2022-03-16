@@ -53,7 +53,7 @@ const Test = () => {
         <Colxx>
           <Card>
             <CardBody>
-              <CardTitle>Match and Add roles to Candidates</CardTitle>
+              <CardTitle>Add roles collection</CardTitle>
               <Button
                 color="primary"
                 size="lg"

@@ -1,10 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import RoleDetailsCard from '../../components/cards/RoleDetailsCard';
+import EditRoleForm from '../../components/form/EditRoleForm';
 
 const RoleDetailsContainer = () => {
-  const { selectedRole } = useSelector((state) => state.roles);
-
-  return <>{selectedRole && <RoleDetailsCard role={selectedRole} />}</>;
+  return <EditRoleForm />;
 };
 export default RoleDetailsContainer;

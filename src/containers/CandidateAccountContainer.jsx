@@ -1,11 +1,8 @@
-/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable no-unused-vars */
+/* eslint-disable import/no-named-as-default-member */
 import React from 'react';
 import { useAuthUser } from '@react-query-firebase/auth';
-import {
-  useFirestoreCollectionMutation,
-  useFirestoreDocumentMutation,
-} from '@react-query-firebase/firestore';
+import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import Swal from 'sweetalert2';

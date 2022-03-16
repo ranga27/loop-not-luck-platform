@@ -3,7 +3,7 @@ import React from 'react';
 import { Row } from 'reactstrap';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import RoleListContainer from '../../containers/opportunities/RoleListContainer';
-import RoleDetails from '../../containers/opportunities/RoleDetails';
+import RoleDetailsContainer from '../../containers/opportunities/RoleDetailsContainer';
 
 const ReviewRoles = () => {
   return (
@@ -12,7 +12,7 @@ const ReviewRoles = () => {
         <RoleListContainer />
       </Colxx>
       <Colxx lg="6" md="12" className="mb-4">
-        <RoleDetails />
+        <RoleDetailsContainer />
       </Colxx>
     </Row>
   );

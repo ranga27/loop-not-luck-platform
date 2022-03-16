@@ -1,4 +1,9 @@
-import { parse } from 'date-fns';
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-undef */
+/* eslint-disable no-param-reassign */
+import { format, parse } from 'date-fns';
+import { Timestamp } from 'firebase/firestore';
 import {
   defaultDirection,
   defaultLocale,
@@ -7,6 +12,19 @@ import {
   themeColorStorageKey,
   themeRadiusStorageKey,
 } from '../constants/defaultValues';
+
+export const formatDateInArray = (array) => {
+  array.forEach((item) => {
+    for (const prop in item) {
+      if (item.hasOwnProperty(prop)) {
+        if (item[prop] instanceof Timestamp) {
+          item[prop] = format(new Date(item[prop].toDate()), 'dd-MMM-yyyy');
+        }
+      }
+    }
+  });
+  return array;
+};
 
 export const newDate = () => new Date().toString();
 

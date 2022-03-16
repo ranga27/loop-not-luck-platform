@@ -19,7 +19,7 @@ import { newDate } from '../../helpers/utils';
 const PostRoleForm = () => {
   // TODO: move data operations in parent component and make this a pure component
   const mutation = useFirestoreCollectionMutation(
-    collection(firestore, 'opportunities')
+    collection(firestore, 'roles')
   );
   const { isLoading, data: companies } = useFirestoreQuery(
     ['companies'],

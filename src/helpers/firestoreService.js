@@ -88,6 +88,9 @@ export async function fetchOpportunitiesFromFirestore() {
     company: docu.data().organisation
       ? docu.data().organisation
       : docu.data().company,
+    coverLetter: docu.data().checkboxCoverLetter
+      ? docu.data().checkboxCoverLetter
+      : true,
   }));
   roles.forEach((role) => {
     for (const prop in role) {
