@@ -15,10 +15,10 @@ import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import { firestore } from '../../helpers/firebase';
 import formatDate from '../../containers/candidate/formatDate';
-import { newDate } from '../../helpers/utils';
+import { getDateFromString, newDate } from '../../helpers/utils';
 import usePersistentContext from '../../hooks/usePersistentContext';
 
-// Combine Post Role & Review Role
+// Combine Post Role & Edit Role forms
 const EditRoleForm = () => {
   const [role] = usePersistentContext('selectedRole');
   // TODO: move data operations in parent component and make this a pure component
@@ -43,11 +43,13 @@ const EditRoleForm = () => {
       },
     }
   );
-  console.log(role?.company);
-
   const defaultValues = {
     title: '',
+    company: '',
+    location: '',
+    positionType: '',
     department: '',
+    description: '',
     qualification: '',
     howToApply: '',
     email: '',
@@ -68,10 +70,26 @@ const EditRoleForm = () => {
     resolver: yupResolver(OpportunitySchema),
   });
   useEffect(() => {
-    reset({
-      title: role.title,
-      company: role.company,
-    });
+    try {
+      if (role) {
+        reset({
+          title: role.title,
+          company: role.company,
+          location: role.location,
+          positionType: role.positionType,
+          department: role.department,
+          description: role.description,
+          qualification: role.qualification,
+          howToApply: role.howToApply,
+          email: role.email,
+          rolling: role.rolling,
+          deadline: role.deadline && getDateFromString(role.deadline),
+          startDate: role.startDate && getDateFromString(role.startDate),
+        });
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   }, [role]);
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
@@ -136,7 +154,7 @@ const EditRoleForm = () => {
         options={applicationOptions}
         errors={errors.howToApply}
       />
-      {howToApply === 'email' && (
+      {howToApply === 'Email to Hiring Manager' && (
         <TextInput
           name="email"
           label="Hiring Manager Email"
@@ -144,7 +162,7 @@ const EditRoleForm = () => {
           errors={errors.email}
         />
       )}
-      {howToApply === 'website' && (
+      {howToApply === 'Apply on website' && (
         <TextInput
           name="website"
           label="Website"
@@ -153,13 +171,19 @@ const EditRoleForm = () => {
         />
       )}
       <Label>Deadline</Label>
-      <CheckBox name="rolling" label="Rolling" control={control} />
+      <CheckBox
+        name="rolling"
+        label="Rolling"
+        control={control}
+        value={rolling}
+      />
       {!rolling && (
         <DatePicker
           label="Deadline Date"
           name="deadline"
           control={control}
           errors={errors.deadline}
+          dateFormat="dd/MM/yyyy"
         />
       )}
       <DatePicker
@@ -167,6 +191,7 @@ const EditRoleForm = () => {
         name="startDate"
         control={control}
         errors={errors.startDate}
+        dateFormat="dd/MM/yyyy"
       />
       <CheckBox
         name="coverLetter"

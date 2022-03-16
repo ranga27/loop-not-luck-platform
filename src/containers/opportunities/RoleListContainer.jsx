@@ -28,7 +28,6 @@ const RoleListContainer = () => {
   if (isLoading) {
     return <div className="loading" />;
   }
-  console.log(roles);
   return <RoleListItem roles={roles} />;
 };
 

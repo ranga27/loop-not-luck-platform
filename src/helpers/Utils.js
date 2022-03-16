@@ -1,3 +1,4 @@
+import { parse } from 'date-fns';
 import {
   defaultDirection,
   defaultLocale,
@@ -9,6 +10,10 @@ import {
 
 export const newDate = () => new Date().toString();
 
+export const getDateFromString = (value) => {
+  const formattedDate = parse(value, 'dd-MMM-yyyy', new Date());
+  return formattedDate;
+};
 export const mapOrder = (array, order, key) => {
   // eslint-disable-next-line func-names
   array.sort(function (a, b) {
