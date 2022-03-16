@@ -24,16 +24,12 @@ const RoleListContainer = () => {
       },
     }
   );
-  const selectRole = (role) => {
-    // TODO: Use better name for selectedRole
-  };
-
   // TODO: add logic for no roles found
   if (isLoading) {
     return <div className="loading" />;
   }
   console.log(roles);
-  return <RoleListItem roles={roles} selectRole={selectRole} />;
+  return <RoleListItem roles={roles} />;
 };
 
 export default RoleListContainer;

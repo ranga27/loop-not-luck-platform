@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   useFirestoreCollectionMutation,
   useFirestoreQuery,
@@ -8,20 +9,18 @@ import { collection, query } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
-import { OpportunitySchema } from '../constants/opportunitySchema';
-import {
-  CheckBox,
-  DatePicker,
-  SelectField,
-  TextInput,
-} from './form/FormFields';
-import { locations, applicationOptions, positionTypes } from '../data';
+import { OpportunitySchema } from '../../constants/opportunitySchema';
+import { CheckBox, DatePicker, SelectField, TextInput } from './FormFields';
+import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
-import { firestore } from '../helpers/firebase';
-import formatDate from '../containers/candidate/formatDate';
-import { newDate } from '../helpers/utils';
+import { firestore } from '../../helpers/firebase';
+import formatDate from '../../containers/candidate/formatDate';
+import { newDate } from '../../helpers/utils';
+import usePersistentContext from '../../hooks/usePersistentContext';
 
-const PostRoleForm = () => {
+// Combine Post Role & Review Role
+const EditRoleForm = () => {
+  const [role] = usePersistentContext('selectedRole');
   // TODO: move data operations in parent component and make this a pure component
   const mutation = useFirestoreCollectionMutation(
     collection(firestore, 'opportunities')
@@ -44,6 +43,8 @@ const PostRoleForm = () => {
       },
     }
   );
+  console.log(role?.company);
+
   const defaultValues = {
     title: '',
     department: '',
@@ -66,6 +67,12 @@ const PostRoleForm = () => {
     defaultValues,
     resolver: yupResolver(OpportunitySchema),
   });
+  useEffect(() => {
+    reset({
+      title: role.title,
+      company: role.company,
+    });
+  }, [role]);
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
   const onSubmit = async (data) => {
@@ -174,4 +181,4 @@ const PostRoleForm = () => {
     </Form>
   );
 };
-export default PostRoleForm;
+export default EditRoleForm;

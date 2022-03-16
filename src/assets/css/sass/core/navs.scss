@@ -10,8 +10,7 @@
 
 .nav-link {
   padding: 0.5rem 1rem;
-
-  @include respond-below(sm) {
+   @include respond-below(sm) {
     padding: 0.5rem 0.5rem;
   }
 
@@ -190,4 +189,7 @@
   }
 }
 
-
+.role-list-item {
+    padding: 6px 10px;
+    border-radius: 20px;
+}

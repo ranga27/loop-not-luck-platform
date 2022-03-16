@@ -12,7 +12,7 @@ const ReviewRoles = () => {
         <RoleListContainer />
       </Colxx>
       <Colxx lg="6" md="12" className="mb-4">
-        {/*  <RoleDetails /> */}
+        <RoleDetails />
       </Colxx>
     </Row>
   );
