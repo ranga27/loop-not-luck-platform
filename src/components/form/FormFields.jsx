@@ -132,7 +132,7 @@ export const DatePicker = ({ label, name, control, errors, ...rest }) => {
     </Group>
   );
 };
-export const CheckBox = ({ label, name, control, value }) => {
+export const CheckBox = ({ label, name, control, ...rest }) => {
   return (
     <FormGroup>
       <Controller
@@ -142,7 +142,7 @@ export const CheckBox = ({ label, name, control, value }) => {
             onChange={field.onChange}
             innerRef={field.ref}
             type="checkbox"
-            checked={value}
+            {...rest}
           />
         )}
         name={name}

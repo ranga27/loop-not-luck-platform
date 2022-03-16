@@ -82,9 +82,11 @@ const EditRoleForm = () => {
           qualification: role.qualification,
           howToApply: role.howToApply,
           email: role.email,
+          website: role.website,
           rolling: role.rolling,
           deadline: role.deadline && getDateFromString(role.deadline),
           startDate: role.startDate && getDateFromString(role.startDate),
+          coverLetter: role.coverLetter,
         });
       }
     } catch (error) {
@@ -175,7 +177,7 @@ const EditRoleForm = () => {
         name="rolling"
         label="Rolling"
         control={control}
-        value={rolling}
+        checked={rolling}
       />
       {!rolling && (
         <DatePicker
@@ -197,6 +199,7 @@ const EditRoleForm = () => {
         name="coverLetter"
         label="Cover Letter Required"
         control={control}
+        checked={watch('coverLetter')}
       />
 
       <Button color="primary" type="submit" disabled={mutation.isLoading}>
