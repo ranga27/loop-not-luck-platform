@@ -16,10 +16,10 @@ const data = [
     roles: [UserRole.super],
   },
   {
-    id: 'test',
-    icon: 'iconsminds-test-tube',
-    label: 'menu.test',
-    to: 'test',
+    id: 'companies',
+    icon: 'iconsminds-building',
+    label: 'menu.companies',
+    to: 'companies',
     roles: [UserRole.super],
   },
   {

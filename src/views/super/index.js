@@ -20,15 +20,39 @@ const Review = lazy(() =>
 const Logout = lazy(() =>
   import(/* webpackChunkName: "admin-logout" */ './Logout')
 );
+
+const Companies = lazy(() =>
+  import(/* webpackChunkName: "admin-companies" */ './companies')
+);
+
+const ViewCompanies = lazy(() =>
+  import(
+    /* webpackChunkName: "admin-view-company" */ './companies/ViewCompanies'
+  )
+);
+
+const EditCompany = lazy(() =>
+  import(/* webpackChunkName: "admin-edit-company" */ './companies/EditCompany')
+);
+const AddCompany = lazy(() =>
+  import(/* webpackChunkName: "admin-add-company" */ './companies/AddCompany')
+);
+
 const SuperAdminRoute = () => {
   return (
     <AppLayout>
       <Suspense fallback={<div className="loading" />}>
         <Routes>
           <Route path="review" element={<Review />} />
-          <Route path="test" element={<Test />} />
           <Route path="post" element={<Post />} />
+          <Route path="test" element={<Test />} />
           <Route path="users" element={<EditUsers />} />
+          <Route path="companies" element={<Companies />}>
+            <Route index element={<ViewCompanies />} />
+            <Route path="view" element={<ViewCompanies />} />
+            <Route path="edit" element={<EditCompany />} />
+            <Route path="add" element={<AddCompany />} />
+          </Route>
           <Route path="logout" element={<Logout />} />
           <Route path="/" element={<Navigate to="review" />} />
         </Routes>

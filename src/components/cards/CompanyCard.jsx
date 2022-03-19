@@ -1,12 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, CardImg, CardTitle, Button } from 'reactstrap';
-import { adminRoot } from '../../constants/defaultValues';
-import { editCompany } from '../../redux/actions';
+import useStore from '../../hooks/useStore';
 
 const CompanyCard = ({ company }) => {
-  const dispatch = useDispatch();
+  const setCompany = useStore((state) => state.setCompanyForEdit);
   return (
     <Card key={company.id} className="mb-4">
       <CardBody>
@@ -23,8 +22,8 @@ const CompanyCard = ({ company }) => {
             size="xs"
             color="primary"
             tag={Link}
-            to={`${adminRoot}/admin/editcompany`}
-            onClick={() => dispatch(editCompany(company))}
+            to="edit"
+            onClick={() => setCompany(company)}
           >
             Edit
           </Button>

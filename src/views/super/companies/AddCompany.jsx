@@ -5,7 +5,7 @@ import { Colxx } from '../../../components/common/CustomBootstrap';
 import IntlMessages from '../../../helpers/IntlMessages';
 import EditCompanyContainer from '../../../containers/EditCompanyContainer';
 
-const EditCompany = ({ match }) => {
+const EditCompany = () => {
   return (
     <Row className="mb-4">
       <Colxx xxs="12">

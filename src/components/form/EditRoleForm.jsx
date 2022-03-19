@@ -20,15 +20,16 @@ import {
   newDate,
 } from '../../helpers/utils';
 import usePersistentContext from '../../hooks/usePersistentContext';
-// TODO: move data operations in parent containter and make this a pure component
+// TODO: move data operations in parent edit role containter and make this a pure component
 // Combine Post Role & Edit Role forms
 const EditRoleForm = () => {
-  const [roleId, setRoleId] = useState('');
+  const [roleId, setRoleId] = useState('a');
+  // TODO: use zustand store instead of usePersistentContext
   const [role] = usePersistentContext('selectedRole');
-  /*  const ref = doc(firestore, 'roles', roleId);
+  const ref = doc(firestore, 'roles', roleId);
   const mutation = useFirestoreDocumentMutation(ref, {
     merge: true,
-  }); */
+  });
   const { isLoading, data: companies } = useFirestoreQuery(
     ['companies'],
     query(collection(firestore, 'companies')),
@@ -78,7 +79,6 @@ const EditRoleForm = () => {
     try {
       if (role) {
         // TODO: use object.entries
-        setRoleId(role.id);
         setValue('title', role.title);
         setValue('company', role.company);
         setValue('location', role.location);
@@ -89,7 +89,7 @@ const EditRoleForm = () => {
         setValue('howToApply', role.howToApply);
         setValue('email', role.email);
         setValue('website', role.website);
-        setValue('rolling', role.rolling);
+        setValue('rolling', role.rolling || false);
         setValue(
           'deadline',
           role.deadline ? getDateFromString(role.deadline) : null
@@ -98,7 +98,7 @@ const EditRoleForm = () => {
           'startDate',
           role.startDate ? getDateFromString(role.startDate) : null
         );
-        setValue('coverLetter', role.coverLetter);
+        setValue('coverLetter', role.coverLetter || false);
       }
     } catch (error) {
       console.error(error.message);
@@ -107,9 +107,10 @@ const EditRoleForm = () => {
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
   const onSubmit = async (data) => {
+    setRoleId(role.id);
     const updatePost = { ...data, updatedAt: newDate() };
     console.log('SUBMIT: ', updatePost);
-    // mutation.mutate(updatePost);
+    mutation.mutate(updatePost);
   };
   if (isLoading) {
     return <div className="loading" />;
@@ -186,7 +187,7 @@ const EditRoleForm = () => {
         name="rolling"
         label="Rolling"
         control={control}
-        checked={rolling || false}
+        checked={rolling}
       />
       {!rolling && (
         <DatePicker
@@ -212,7 +213,7 @@ const EditRoleForm = () => {
       />
 
       <Button color="primary" type="submit" /* disabled={mutation.isLoading} */>
-        Submit
+        Update
       </Button>
       {/* {mutation.isError && <p>{mutation.error.message} </p>} */}
     </Form>

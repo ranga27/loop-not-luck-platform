@@ -35,7 +35,7 @@ export const MultiSelect = ({
 }) => {
   const [selection, setSelection] = useState({
     selectedOptions: options.filter((o) => {
-      return defaultValue.some((d) => {
+      return defaultValue?.some((d) => {
         return o.value === d;
       });
     }),

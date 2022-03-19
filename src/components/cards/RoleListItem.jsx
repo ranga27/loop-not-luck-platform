@@ -4,9 +4,10 @@ import { Nav, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import usePersistentContext from '../../hooks/usePersistentContext';
 
-// TODO: investigate if roles should be queried using useQuery. selectRole should be handled via useContext: https://reactjs.org/docs/state-and-lifecycle.html#the-data-flows-down
+// TODO: investigate if roles should be queried using useQuery.
 const RoleListItem = ({ roles }) => {
   const [activeId, setActiveId] = useState('1');
+  // TODO: use zustand store instead of usePersistentContext
   const [selectedRole, selectRole] = usePersistentContext('selectedRole');
   return (
     <Nav pills vertical>
