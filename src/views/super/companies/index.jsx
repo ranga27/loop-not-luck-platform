@@ -13,7 +13,7 @@ const Companies = () => {
           <div className="text-zero top-right-button-container">
             <Button
               tag={Link}
-              to="addcompany"
+              to="add"
               color="primary"
               size="lg"
               className="top-right-button mb-4"

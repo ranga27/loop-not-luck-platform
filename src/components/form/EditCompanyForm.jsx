@@ -4,17 +4,12 @@ import React, { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Button, FormGroup, Label } from 'reactstrap';
-import { companySchema } from '../constants/companySchema';
-import {
-  TextInput,
-  MultiSelect,
-  FileUpload,
-} from '../components/form/FormFields';
-import tagOptions from '../data/tagOptions';
-import { uploadFile } from '../helpers/uploadFile';
+import { companySchema } from '../../constants/companySchema';
+import { TextInput, MultiSelect, FileUpload } from './FormFields';
+import tagOptions from '../../data/tagOptions';
 
 // TODO: consolidate components used in add company form
-const EditCompanyContainer = ({ company, onSubmit }) => {
+const EditCompanyForm = ({ company, onSubmit }) => {
   const {
     control,
     setValue,
@@ -22,7 +17,7 @@ const EditCompanyContainer = ({ company, onSubmit }) => {
     formState: { errors },
     clearErrors,
   } = useForm({ defaultValues: company });
-
+  // TODO: convert to smart form
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
@@ -74,4 +69,4 @@ const EditCompanyContainer = ({ company, onSubmit }) => {
   );
 };
 
-export default EditCompanyContainer;
+export default EditCompanyForm;

@@ -204,6 +204,6 @@ module.exports = {
   'forms.account-info': 'Account Info',
   'forms.submit': 'Submit',
   'forms.admin': 'Admin',
-  'forms.add-company': 'Update Company Details',
+  'forms.add-company': 'Add New Company',
   'forms.edit-company': 'Edit Company',
 };

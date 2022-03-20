@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
-import { doc } from 'firebase/firestore';
+import { doc, serverTimestamp } from 'firebase/firestore';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
+import Swal from 'sweetalert2';
 import { Colxx } from '../../../components/common/CustomBootstrap';
 import IntlMessages from '../../../helpers/IntlMessages';
-import EditCompanyContainer from '../../../containers/EditCompanyContainer';
+import EditCompanyForm from '../../../components/form/EditCompanyForm';
 import useStore from '../../../hooks/useStore';
 import { uploadFile } from '../../../helpers/uploadFile';
 import { firestore } from '../../../helpers/firebase';
@@ -18,7 +19,10 @@ const EditCompany = () => {
   );
   const onSubmit = async (data) => {
     console.log(data);
-    const { id, logoFile, ...newData } = data;
+    const { id, logoFile, ...newData } = {
+      ...data,
+      updatedAt: serverTimestamp(),
+    };
     if (data.logoFile) {
       const newLogoUrl = await uploadFile(
         data.logoFile,
@@ -27,7 +31,17 @@ const EditCompany = () => {
       );
       newData.logoUrl = newLogoUrl;
     }
-    mutation.mutate(newData);
+    mutation.mutate(newData, {
+      onSuccess() {
+        Swal.fire('Updated!', 'Company Data Updated.', 'success');
+      },
+      onError(error) {
+        Swal.fire('Oops!', 'Failed to Update Company.', 'error');
+      },
+      onMutate() {
+        console.info('Updating document...');
+      },
+    });
   };
 
   if (!company) {
@@ -41,7 +55,7 @@ const EditCompany = () => {
             <CardTitle>
               <IntlMessages id="forms.edit-company" />
             </CardTitle>
-            <EditCompanyContainer
+            <EditCompanyForm
               company={company}
               onSubmit={(data) => onSubmit(data)}
             />

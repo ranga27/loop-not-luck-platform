@@ -1,20 +1,52 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
+import { collection, serverTimestamp } from 'firebase/firestore';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
+import Swal from 'sweetalert2';
 import { Colxx } from '../../../components/common/CustomBootstrap';
+import AddCompanyForm from '../../../components/form/AddCompanyForm';
 import IntlMessages from '../../../helpers/IntlMessages';
-import EditCompanyContainer from '../../../containers/EditCompanyContainer';
+import { firestore } from '../../../helpers/firebase';
+import { uploadFile } from '../../../helpers/uploadFile';
 
-const EditCompany = () => {
+const AddCompany = () => {
+  const mutation = useFirestoreCollectionMutation(
+    collection(firestore, 'companies')
+  );
+  const onSubmit = async (data) => {
+    const { logoFile, ...newData } = { ...data, createdAt: serverTimestamp() };
+    // TODO: check if company exists
+    if (data.logoFile) {
+      const newLogoUrl = await uploadFile(
+        data.logoFile,
+        data.name,
+        'companyLogos'
+      );
+      newData.logoUrl = newLogoUrl;
+    }
+    // TODO: move Swal to own component
+    mutation.mutate(newData, {
+      onSuccess() {
+        Swal.fire('Added!', 'New Company Added.', 'success');
+      },
+      onError(error) {
+        Swal.fire('Oops!', 'Failed to Add Company.', 'error');
+      },
+      onMutate() {
+        console.info('Adding document...');
+      },
+    });
+  };
   return (
     <Row className="mb-4">
       <Colxx xxs="12">
         <Card>
           <CardBody>
             <CardTitle>
-              <IntlMessages id="forms.edit-company" />
+              <IntlMessages id="forms.add-company" />
             </CardTitle>
-            <EditCompanyContainer />
+            <AddCompanyForm onSubmit={(data) => onSubmit(data)} />
           </CardBody>
         </Card>
       </Colxx>
@@ -22,4 +54,4 @@ const EditCompany = () => {
   );
 };
 
-export default EditCompany;
+export default AddCompany;
