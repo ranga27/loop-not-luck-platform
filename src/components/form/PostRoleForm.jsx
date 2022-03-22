@@ -9,12 +9,19 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
-import { CheckBox, DatePicker, SelectField, TextInput } from './FormFields';
+import {
+  CheckBox,
+  DatePicker,
+  MultiSelect,
+  SelectField,
+  TextInput,
+} from './FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import { firestore } from '../../helpers/firebase';
 import formatDate from '../../containers/candidate/formatDate';
 import { newDate } from '../../helpers/utils';
+import rolesOfInterests from '../../data/rolesOfInterests';
 
 const PostRoleForm = () => {
   // TODO: move data operations in parent component and make this a pure component
@@ -56,6 +63,8 @@ const PostRoleForm = () => {
     control,
     handleSubmit,
     reset,
+    setValue,
+    clearErrors,
     formState: { errors },
   } = useForm({
     defaultValues,
@@ -161,7 +170,14 @@ const PostRoleForm = () => {
         label="Cover Letter Required"
         control={control}
       />
-
+      <MultiSelect
+        label="Roles of Interests"
+        name="rolesOfInterests"
+        control={control}
+        options={rolesOfInterests}
+        setValue={setValue}
+        clearErrors={clearErrors}
+      />
       <Button color="primary" type="submit" disabled={mutation.isLoading}>
         Submit
       </Button>

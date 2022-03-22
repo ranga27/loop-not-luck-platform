@@ -6,9 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import authReducer from './auth/authSlice';
 import menu from './menu/reducer';
 import settings from './settings/reducer';
-import admin from './admin/reducer';
 import roles from './roles/rolesSlice';
-import company from './company/companySlice';
 
 // https://stackoverflow.com/a/35641992/14873941
 const authConfig = {
@@ -21,7 +19,6 @@ const appReducer = combineReducers({
   auth: persistReducer(authConfig, authReducer),
   menu,
   roles,
-  admin,
   settings,
 });
 

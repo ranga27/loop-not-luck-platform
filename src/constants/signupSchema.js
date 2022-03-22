@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import * as yup from 'yup';
 
-export const SignUpSchema = yup.object().shape({
+export const signUpSchema = yup.object().shape({
   firstName: yup
     .string()
     .required('Please enter your First Name')

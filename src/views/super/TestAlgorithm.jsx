@@ -10,7 +10,7 @@ import {
 } from 'reactstrap';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { MultiSelect } from '../../components/form/FormFields';
-import { tagsOptions } from './tagsOptions';
+import { tagsOptions } from './testTagsOptions';
 
 const TestAlgorithm = () => {
   const { control, setValue, handleSubmit, clearErrors } = useForm();

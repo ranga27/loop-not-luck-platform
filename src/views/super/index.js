@@ -34,6 +34,7 @@ const ViewCompanies = lazy(() =>
 const EditCompany = lazy(() =>
   import(/* webpackChunkName: "admin-edit-company" */ './companies/EditCompany')
 );
+
 const AddCompany = lazy(() =>
   import(/* webpackChunkName: "admin-add-company" */ './companies/AddCompany')
 );

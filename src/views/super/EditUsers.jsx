@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import {
   Badge,
@@ -13,13 +12,10 @@ import {
   ModalFooter,
 } from 'reactstrap';
 import Select from 'react-select';
-import { useMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUsers, updateRole } from '../../redux/actions';
 import CustomSelectInput from '../../components/common/CustomSelectInput';
 import { Colxx, Separator } from '../../components/common/CustomBootstrap';
 import ThumbnailLetters from '../../components/cards/ThumbnailLetters';
-import Breadcrumb from '../../containers/navs/Breadcrumb';
 import IntlMessages from '../../helpers/IntlMessages';
 
 const selectData = [
@@ -36,7 +32,9 @@ const EditUsers = () => {
   const [modalBasic, setModalBasic] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const [userData, setUserData] = useState({});
-
+  const updateRole = () => {
+    // Implement
+  };
   const onSubmitRole = async (user) => {
     const { uid, email } = user;
     const newRole = { role: selectedOption.value };
@@ -46,7 +44,9 @@ const EditUsers = () => {
   const toggle = () => {
     setModalBasic(!modalBasic);
   };
-
+  const getUsers = () => {
+    // Implement
+  };
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);

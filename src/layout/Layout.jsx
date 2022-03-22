@@ -3,8 +3,8 @@ import React from 'react';
 import { Row, Card, CardTitle } from 'reactstrap';
 
 import { motion } from 'framer-motion';
-import { Colxx } from '../../components/common/CustomBootstrap';
-import IntlMessages from '../../helpers/IntlMessages';
+import { Colxx } from '../components/common/CustomBootstrap';
+import IntlMessages from '../helpers/IntlMessages';
 
 const pageVariants = {
   initial: {

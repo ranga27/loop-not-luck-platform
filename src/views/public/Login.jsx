@@ -12,9 +12,9 @@ import {
 } from '@react-query-firebase/auth';
 import { auth } from '../../helpers/firebase';
 import IntlMessages from '../../helpers/IntlMessages';
-import Layout from './layout';
-import AuthButton from './AuthButton';
-import { SignInSchema } from './SignInSchema';
+import Layout from '../../layout/Layout';
+import AuthButton from '../../components/AuthButton';
+import { signInSchema } from '../../constants/signInSchema';
 import { TextInput } from '../../components/form/FormFields';
 
 // TODO: check for email verified?
@@ -28,7 +28,7 @@ const Login = () => {
   } = useForm({
     mode: 'onBlur',
     defaultValues: { email: '', password: '' },
-    resolver: yupResolver(SignInSchema),
+    resolver: yupResolver(signInSchema),
   });
   const mutation = useAuthSignInWithEmailAndPassword(auth, {
     onSuccess(userCred) {

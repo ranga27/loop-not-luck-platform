@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import IntlMessages from '../../helpers/IntlMessages';
-import AuthButton from './AuthButton';
-import Layout from './layout';
+import AuthButton from '../../components/AuthButton';
+import Layout from '../../layout/Layout';
 import { forgotPassword } from '../../redux/auth/authSlice';
 
 const validateEmail = (value) => {

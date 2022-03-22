@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'reactstrap';
-import IntlMessages from '../../helpers/IntlMessages';
+import IntlMessages from '../helpers/IntlMessages';
 // TODO: Styled Button using styled components
 const AuthButton = ({ loading, label }) => {
   return (

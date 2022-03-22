@@ -9,9 +9,9 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form } from 'reactstrap';
-import Layout from './layout';
-import { SignUpSchema } from './SignupSchema';
-import AuthButton from './AuthButton';
+import Layout from '../../layout/Layout';
+import { signUpSchema } from '../../constants/signupSchema';
+import AuthButton from '../../components/AuthButton';
 import {
   logoutUser,
   registerUser,
@@ -36,7 +36,7 @@ const Register = () => {
   } = useForm({
     mode: 'onBlur',
     defaultValues,
-    resolver: yupResolver(SignUpSchema),
+    resolver: yupResolver(signUpSchema),
   });
   const regAlert = withReactContent(Swal);
   const navigate = useNavigate();

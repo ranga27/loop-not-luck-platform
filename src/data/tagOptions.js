@@ -1,23 +1,25 @@
 const tagOptions = [
-  { value: 'Financial Services', label: 'Financial Services' },
-  { value: 'Consulting', label: 'Consulting' },
-  { value: 'Marketing', label: 'Marketing' },
+  { label: 'Consulting', value: 'Consulting' },
+  { label: 'Marketing', value: 'Marketing' },
   {
-    value: 'Project and Programme Management',
     label: 'Project and Programme Management',
+    value: 'Project and Programme Management',
   },
+  { label: 'Engineering', value: 'Engineering' },
+  { label: 'Financial Services', value: 'Financial Services' },
+  { label: 'Technology', value: 'Technology' },
+  { label: 'Law', value: 'Law' },
   {
-    value: 'Media, journalism and publishing',
-    label: 'Media, journalism and publishing',
-  },
-  { value: 'Engineering', label: 'Engineering' },
-  { value: 'Technology', label: 'Technology' },
-  { value: 'Law', label: 'Law' },
-  {
-    value: 'National and Local Government/Public Sector',
     label: 'National and Local Government/Public Sector',
+    value: 'National and Local Government/Public Sector',
   },
-  { value: 'Charity and Third Sector', label: 'Charity and Third Sector' },
+  { label: 'Charity and Third Sector', value: 'Charity and Third Sector' },
+  { label: 'Sport', value: 'Sport' },
+  { label: 'Film and TV', value: 'Film and TV' },
+  { label: 'Creative Industries', value: 'Creative Industries' },
+  { label: 'HR', value: 'HR' },
+  { label: 'Sustainable Future', value: 'Sustainable Future' },
+  { label: 'Beauty, Hair & Cosmetics', value: 'Beauty, Hair & Cosmetics' },
 ];
 
 export default tagOptions;

@@ -2,7 +2,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadFile } from '../helpers/uploadFile';
-import { updateCompany } from '../redux/company/companySlice';
 import CompanyAccountForm from '../components/form/CompanyAccountForm';
 
 const CompanyAccountContainer = () => {
@@ -21,6 +20,7 @@ const CompanyAccountContainer = () => {
     logoFile: null,
   };
 
+  const updateCompany = () => {};
   const onSubmit = async (data) => {
     if (!logoUrl) {
       const logoImgUrl = await uploadFile(

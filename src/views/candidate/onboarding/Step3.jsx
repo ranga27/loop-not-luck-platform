@@ -6,7 +6,7 @@ import { Step } from 'react-albus';
 import { Formik, Form, Field } from 'formik';
 import { FormikCustomRadioGroup } from '../../../components/form/FormikCustomRadioGroup';
 import { ethnicityOptions } from '../../../data/ethnicityOptions';
-import { StepLayout } from '../../../layout/stepLayout';
+import { StepLayout } from '../../../layout/StepLayout';
 
 const validationSchema = Yup.object().shape({
   ethnicity: Yup.string().required('Ethnicity is required'),

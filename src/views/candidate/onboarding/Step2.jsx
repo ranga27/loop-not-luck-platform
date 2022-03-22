@@ -6,7 +6,7 @@ import { Step } from 'react-albus';
 import { Formik, Form } from 'formik';
 import { diversityOptions } from '../../../data/diversityOptions';
 import { FormikCustomCheckboxGroup } from '../../../components/form/FormikCustomCheckboxGroup';
-import { StepLayout } from '../../../layout/stepLayout';
+import { StepLayout } from '../../../layout/StepLayout';
 
 // TODO: pass schema from parent
 const validationSchema = Yup.object().shape({
