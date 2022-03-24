@@ -5,9 +5,11 @@ import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Button, FormGroup, Label } from 'reactstrap';
 import { companySchema } from '../../constants/companySchema';
-import { TextInput, MultiSelect, FileUpload } from './FormFields';
+import { TextInput, MultiSelect, FileUpload, SelectField } from './FormFields';
 import tagOptions from '../../data/tagOptions';
-
+import { yesNoOptions } from '../../data/yesNoOptions';
+import { genderOptions } from '../../data/genderOptions';
+import { jobValuesOptions } from '../../data/jobValuesOptions';
 // TODO: consolidate components used in add company form
 const AddCompanyForm = ({ onSubmit }) => {
   const {
@@ -50,6 +52,28 @@ const AddCompanyForm = ({ onSubmit }) => {
         options={tagOptions}
         setValue={setValue}
         errors={errors.industry}
+        clearErrors={clearErrors}
+      />
+      <SelectField
+        label="Do you prefer candidates from underrpresented ethnic background?"
+        name="ethnicCandidatesPreferred"
+        control={control}
+        options={yesNoOptions}
+      />
+      <MultiSelect
+        label="As a company, do you have any interest in hiring people from any of the below underrepresented groups?"
+        name="genderIdentity"
+        control={control}
+        options={genderOptions}
+        setValue={setValue}
+        clearErrors={clearErrors}
+      />
+      <MultiSelect
+        label="Job Values"
+        name="jobValues"
+        control={control}
+        options={jobValuesOptions}
+        setValue={setValue}
         clearErrors={clearErrors}
       />
       <Button color="primary" size="lg" type="submit">

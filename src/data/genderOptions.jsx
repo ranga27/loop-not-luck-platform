@@ -1,10 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 export const genderOptions = [
-  { label: 'Male', value: 'Male' },
   { label: 'Female', value: 'Female' },
-  { label: 'Male Transgender', value: 'Male Transgender' },
-  { label: 'Female Transgender', value: 'Female Transgender' },
-  { label: 'Non-binary', value: 'Non-binary' },
-  { label: 'I prefer not to say', value: 'I prefer not to say' },
-  { label: 'Other', value: 'Other' },
+  { label: 'Male', value: 'Male' },
+  { label: 'Diverse Ethnicities ', value: 'Diverse Ethnicities ' },
+  { label: 'LGBTQ+', value: 'LGBTQ+' },
+  { label: 'Disability ', value: 'Disability ' },
+  {
+    label: 'Lower Socioeconomic backgrounds',
+    value: 'Lower Socioeconomic backgrounds',
+  },
 ];

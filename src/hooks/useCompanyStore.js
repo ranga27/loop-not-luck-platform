@@ -1,8 +1,8 @@
 import create from 'zustand';
 
-const useStore = create((set) => ({
+const useCompanyStore = create((set) => ({
   company: null,
   setCompanyForEdit: (company) => set({ company }),
 }));
 
-export default useStore;
+export default useCompanyStore;

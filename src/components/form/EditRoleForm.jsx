@@ -10,7 +10,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
 import { OpportunitySchema } from '../../constants/opportunitySchema';
-import { CheckBox, DatePicker, SelectField, TextInput } from './FormFields';
+import {
+  CheckBox,
+  DatePicker,
+  SelectField,
+  TextInput,
+  MultiSelect,
+} from './FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import { firestore } from '../../helpers/firebase';
@@ -20,6 +26,8 @@ import {
   newDate,
 } from '../../helpers/utils';
 import usePersistentContext from '../../hooks/usePersistentContext';
+import rolesOfInterests from '../../data/rolesOfInterests';
+import { behaviourOptions } from '../../data/behaviourOptions';
 // TODO: move data operations in parent edit role containter and make this a pure component
 // Combine Post Role & Edit Role forms
 const EditRoleForm = () => {
@@ -69,7 +77,7 @@ const EditRoleForm = () => {
     watch,
     control,
     handleSubmit,
-    reset,
+    clearErrors,
     formState: { errors },
   } = useForm({
     defaultValues,
@@ -211,7 +219,22 @@ const EditRoleForm = () => {
         control={control}
         checked={watch('coverLetter')}
       />
-
+      <MultiSelect
+        label="Roles of Interests"
+        name="rolesOfInterests"
+        control={control}
+        options={rolesOfInterests}
+        setValue={setValue}
+        clearErrors={clearErrors}
+      />
+      <MultiSelect
+        label="Behaviour/Attributes/Strengths"
+        name="behaviourAttributesStrengths"
+        control={control}
+        options={behaviourOptions}
+        setValue={setValue}
+        clearErrors={clearErrors}
+      />
       <Button color="primary" type="submit" /* disabled={mutation.isLoading} */>
         Update
       </Button>

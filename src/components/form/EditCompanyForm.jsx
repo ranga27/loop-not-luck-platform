@@ -1,12 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Form, Button, FormGroup, Label } from 'reactstrap';
+import { Form, Button } from 'reactstrap';
 import { companySchema } from '../../constants/companySchema';
-import { TextInput, MultiSelect, FileUpload } from './FormFields';
+import { TextInput, MultiSelect, FileUpload, SelectField } from './FormFields';
 import tagOptions from '../../data/tagOptions';
+import { yesNoOptions } from '../../data/yesNoOptions';
+import { genderOptions } from '../../data/genderOptions';
+import { jobValuesOptions } from '../../data/jobValuesOptions';
 
 // TODO: consolidate components used in add company form
 const EditCompanyForm = ({ company, onSubmit }) => {
@@ -61,6 +64,30 @@ const EditCompanyForm = ({ company, onSubmit }) => {
         errors={errors.industry}
         clearErrors={clearErrors}
         defaultValue={company.industry}
+      />
+      <SelectField
+        label="Do you prefer candidates from underrpresented ethnic background?"
+        name="ethnicCandidatesPreferred"
+        control={control}
+        options={yesNoOptions}
+      />
+      <MultiSelect
+        label="As a company, do you have any interest in hiring people from any of the below underrepresented groups?"
+        name="genderIdentity"
+        control={control}
+        options={genderOptions}
+        setValue={setValue}
+        clearErrors={clearErrors}
+        defaultValue={company.genderIdentity}
+      />
+      <MultiSelect
+        label="Job Values"
+        name="jobValues"
+        control={control}
+        options={jobValuesOptions}
+        setValue={setValue}
+        clearErrors={clearErrors}
+        defaultValue={company.jobValues}
       />
       <Button color="primary" size="lg" type="submit">
         Submit

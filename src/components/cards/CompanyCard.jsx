@@ -2,10 +2,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, CardImg, CardTitle, Button } from 'reactstrap';
-import useStore from '../../hooks/useStore';
+import useCompanyStore from '../../hooks/useCompanyStore';
 
 const CompanyCard = ({ company }) => {
-  const setCompany = useStore((state) => state.setCompanyForEdit);
+  const setCompany = useCompanyStore((state) => state.setCompanyForEdit);
   return (
     <Card key={company.id} className="mb-4">
       <CardBody>

@@ -22,6 +22,8 @@ import { firestore } from '../../helpers/firebase';
 import formatDate from '../../containers/candidate/formatDate';
 import { newDate } from '../../helpers/utils';
 import rolesOfInterests from '../../data/rolesOfInterests';
+import { behaviourOptions } from '../../data/behaviourOptions';
+import { technicalSkills } from '../../data/technicalSkillsOptions';
 
 const PostRoleForm = () => {
   // TODO: move data operations in parent component and make this a pure component
@@ -133,7 +135,7 @@ const PostRoleForm = () => {
         options={applicationOptions}
         errors={errors.howToApply}
       />
-      {howToApply === 'email' && (
+      {howToApply === 'Email to Hiring Manager' && (
         <TextInput
           name="email"
           label="Hiring Manager Email"
@@ -141,7 +143,7 @@ const PostRoleForm = () => {
           errors={errors.email}
         />
       )}
-      {howToApply === 'website' && (
+      {howToApply === 'Apply on website' && (
         <TextInput
           name="website"
           label="Website"
@@ -175,6 +177,22 @@ const PostRoleForm = () => {
         name="rolesOfInterests"
         control={control}
         options={rolesOfInterests}
+        setValue={setValue}
+        clearErrors={clearErrors}
+      />
+      <MultiSelect
+        label="Behaviour/Attributes/Strengths"
+        name="behaviourAttributesStrengths"
+        control={control}
+        options={behaviourOptions}
+        setValue={setValue}
+        clearErrors={clearErrors}
+      />
+      <MultiSelect
+        label="Technical Skills"
+        name="technicalSkills"
+        control={control}
+        options={technicalSkills}
         setValue={setValue}
         clearErrors={clearErrors}
       />

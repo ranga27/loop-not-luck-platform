@@ -7,12 +7,12 @@ import Swal from 'sweetalert2';
 import { Colxx } from '../../../components/common/CustomBootstrap';
 import IntlMessages from '../../../helpers/IntlMessages';
 import EditCompanyForm from '../../../components/form/EditCompanyForm';
-import useStore from '../../../hooks/useStore';
+import useCompanyStore from '../../../hooks/useCompanyStore';
 import { uploadFile } from '../../../helpers/uploadFile';
 import { firestore } from '../../../helpers/firebase';
 
 const EditCompany = () => {
-  const company = useStore((state) => state.company);
+  const company = useCompanyStore((state) => state.company);
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, 'companies', company.id),
     { merge: true }
