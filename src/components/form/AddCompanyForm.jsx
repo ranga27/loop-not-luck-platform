@@ -54,12 +54,6 @@ const AddCompanyForm = ({ onSubmit }) => {
         errors={errors.industry}
         clearErrors={clearErrors}
       />
-      <SelectField
-        label="Do you prefer candidates from underrpresented ethnic background?"
-        name="ethnicCandidatesPreferred"
-        control={control}
-        options={yesNoOptions}
-      />
       <MultiSelect
         label="As a company, do you have any interest in hiring people from any of the below underrepresented groups?"
         name="genderIdentity"

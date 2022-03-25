@@ -1,11 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import {
-  useFirestoreDocumentMutation,
-  useFirestoreQuery,
-} from '@react-query-firebase/firestore';
-import { collection, query, doc } from 'firebase/firestore';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
@@ -19,59 +13,12 @@ import {
 } from './FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
-import { firestore } from '../../helpers/firebase';
-import {
-  formatDateInArray,
-  getDateFromString,
-  newDate,
-} from '../../helpers/utils';
-import usePersistentContext from '../../hooks/usePersistentContext';
 import rolesOfInterests from '../../data/rolesOfInterests';
 import { behaviourOptions } from '../../data/behaviourOptions';
-// TODO: move data operations in parent edit role containter and make this a pure component
+import { getDateFromString } from '../../helpers/utils';
+
 // Combine Post Role & Edit Role forms
-const EditRoleForm = () => {
-  const [roleId, setRoleId] = useState('a');
-  // TODO: use zustand store instead of usePersistentContext
-  const [role] = usePersistentContext('selectedRole');
-  const ref = doc(firestore, 'roles', roleId);
-  const mutation = useFirestoreDocumentMutation(ref, {
-    merge: true,
-  });
-  const { isLoading, data: companies } = useFirestoreQuery(
-    ['companies'],
-    query(collection(firestore, 'companies')),
-    {
-      subscribe: true,
-    },
-    {
-      // React Query data selector
-      select(snapshot) {
-        const companiesData = snapshot.docs.map((document) => ({
-          label: document.data().name,
-          value: document.data().name,
-          id: document.id,
-        }));
-        return formatDateInArray(companiesData);
-      },
-    }
-  );
-  const defaultValues = {
-    title: '',
-    company: '',
-    location: '',
-    positionType: '',
-    department: '',
-    description: '',
-    qualification: '',
-    howToApply: '',
-    email: '',
-    website: '',
-    rolling: false,
-    deadline: null,
-    startDate: null,
-    coverLetter: false,
-  };
+const EditRoleForm = ({ companies, role, onSubmit }) => {
   const {
     setValue,
     watch,
@@ -80,13 +27,16 @@ const EditRoleForm = () => {
     clearErrors,
     formState: { errors },
   } = useForm({
-    defaultValues,
+    defaultValues: role,
     resolver: yupResolver(OpportunitySchema),
   });
+
+  const howToApply = watch('howToApply');
+  const rolling = watch('rolling');
   useEffect(() => {
     try {
       if (role) {
-        // TODO: use object.entries
+        // TODO: use object.entries or reset
         setValue('title', role.title);
         setValue('company', role.company);
         setValue('location', role.location);
@@ -112,17 +62,6 @@ const EditRoleForm = () => {
       console.error(error.message);
     }
   }, [role, setValue]);
-  const howToApply = watch('howToApply');
-  const rolling = watch('rolling');
-  const onSubmit = async (data) => {
-    setRoleId(role.id);
-    const updatePost = { ...data, updatedAt: newDate() };
-    console.log('SUBMIT: ', updatePost);
-    mutation.mutate(updatePost);
-  };
-  if (isLoading) {
-    return <div className="loading" />;
-  }
   // TODO: convert into smart form
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -226,6 +165,7 @@ const EditRoleForm = () => {
         options={rolesOfInterests}
         setValue={setValue}
         clearErrors={clearErrors}
+        defaultValue={role.rolesOfInterests}
       />
       <MultiSelect
         label="Behaviour/Attributes/Strengths"
@@ -234,6 +174,7 @@ const EditRoleForm = () => {
         options={behaviourOptions}
         setValue={setValue}
         clearErrors={clearErrors}
+        defaultValue={role.behaviourAttributesStrengths}
       />
       <Button color="primary" type="submit" /* disabled={mutation.isLoading} */>
         Update

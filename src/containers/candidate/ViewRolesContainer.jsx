@@ -13,8 +13,8 @@ import { useQuery } from 'react-query';
 import { Card, CardBody } from 'reactstrap';
 import { firestore } from '../../helpers/firebase';
 import { unSaveRole, updateRole } from '../../redux/roles/rolesSlice';
-import formatDate from './formatDate';
 import RolesCarousel from './RolesCarousel';
+import { formatDateInArray } from '../../helpers/utils';
 
 const ViewRolesContainer = () => {
   const user = useQuery(['userAuth']);
@@ -34,7 +34,7 @@ const ViewRolesContainer = () => {
           ...document.data().data,
           id: document.id,
         }));
-        return formatDate(rolesData);
+        return formatDateInArray(rolesData);
       },
     }
   );

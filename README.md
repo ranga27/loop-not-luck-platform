@@ -52,6 +52,6 @@ To build & deploy to Firebase hosting
 6. cd functions && npm i 
 7. cd ..
 8. firebase init emulators
-9. Start functions emulator: npm dev
+9. Start emulator: npm run dev
 10. Start app: npm start
 11. test functions using postman

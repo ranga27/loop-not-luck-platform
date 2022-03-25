@@ -18,7 +18,6 @@ import {
 } from 'firebase/firestore';
 import { format } from 'date-fns';
 import { firestore } from './firebase';
-import { newDate } from './utils';
 
 // Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore({ uid, ...details }) {
@@ -83,8 +82,8 @@ export async function fetchOpportunitiesFromFirestore() {
   const roles = querySnapshot.docs.map((docu) => ({
     ...docu.data(),
     id: docu.id,
-    createdAt: newDate(),
-    updatedAt: newDate(),
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
     company: docu.data().organisation
       ? docu.data().organisation
       : docu.data().company,

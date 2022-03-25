@@ -2,13 +2,12 @@
 import React, { useState } from 'react';
 import { Nav, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import usePersistentContext from '../../hooks/usePersistentContext';
+import useRoleStore from '../../hooks/useRoleStore';
 
 // TODO: investigate if roles should be queried using useQuery.
 const RoleListItem = ({ roles }) => {
   const [activeId, setActiveId] = useState('1');
-  // TODO: use zustand store instead of usePersistentContext
-  const [selectedRole, selectRole] = usePersistentContext('selectedRole');
+  const setRole = useRoleStore((state) => state.setRoleForReview);
   return (
     <Nav pills vertical>
       {roles.map((role) => {
@@ -28,7 +27,7 @@ const RoleListItem = ({ roles }) => {
               }
               onClick={() => {
                 setActiveId(role.id);
-                selectRole(role);
+                setRole(role);
               }}
             >
               <h6 className="mt-2">

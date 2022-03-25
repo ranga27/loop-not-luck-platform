@@ -2,8 +2,8 @@
 import React from 'react';
 import { Row } from 'reactstrap';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import RoleListContainer from '../../containers/opportunities/RoleListContainer';
-import RoleDetailsContainer from '../../containers/opportunities/RoleDetailsContainer';
+import RoleListContainer from '../../containers/roles/RoleListContainer';
+import RoleDetailsContainer from '../../containers/roles/RoleDetailsContainer';
 
 const ReviewRoles = () => {
   return (

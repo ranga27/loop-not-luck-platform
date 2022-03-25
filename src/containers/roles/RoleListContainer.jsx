@@ -4,7 +4,7 @@ import { collection, query } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import RoleListItem from '../../components/cards/RoleListItem';
 import { firestore } from '../../helpers/firebase';
-import formatDate from '../candidate/formatDate';
+import { formatDateInArray } from '../../helpers/utils';
 
 const RoleListContainer = () => {
   const { isLoading, data: roles } = useFirestoreQuery(
@@ -20,7 +20,7 @@ const RoleListContainer = () => {
           ...document.data(),
           id: document.id,
         }));
-        return formatDate(rolesData);
+        return formatDateInArray(rolesData);
       },
     }
   );

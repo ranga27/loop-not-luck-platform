@@ -12,7 +12,7 @@ const Footer = () => {
           <Row>
             <Colxx xxs="12" sm="6">
               <p className="mb-0 text-muted">
-                Loop Not Luck 2021 Version: {appInfo.version}
+                Loop Not Luck 2022 Version: {appInfo.version}
               </p>
             </Colxx>
             <Colxx className="col-sm-6 d-none d-sm-block">

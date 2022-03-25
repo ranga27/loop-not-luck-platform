@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Card, CardBody } from 'reactstrap';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import PostRoleContainer from '../../containers/opportunities/PostRoleContainer';
+import PostRoleContainer from '../../containers/roles/PostRoleContainer';
 
 const PostRole = () => (
   <Row>

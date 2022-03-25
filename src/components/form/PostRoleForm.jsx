@@ -4,7 +4,7 @@ import {
   useFirestoreCollectionMutation,
   useFirestoreQuery,
 } from '@react-query-firebase/firestore';
-import { collection, query } from 'firebase/firestore';
+import { collection, query, serverTimestamp } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
@@ -19,11 +19,10 @@ import {
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import { firestore } from '../../helpers/firebase';
-import formatDate from '../../containers/candidate/formatDate';
-import { newDate } from '../../helpers/utils';
 import rolesOfInterests from '../../data/rolesOfInterests';
 import { behaviourOptions } from '../../data/behaviourOptions';
 import { technicalSkills } from '../../data/technicalSkillsOptions';
+import { formatDateInArray } from '../../helpers/utils';
 
 const PostRoleForm = () => {
   // TODO: move data operations in parent component and make this a pure component
@@ -44,7 +43,7 @@ const PostRoleForm = () => {
           value: document.data().name,
           id: document.id,
         }));
-        return formatDate(companiesData);
+        return formatDateInArray(companiesData);
       },
     }
   );
@@ -75,7 +74,7 @@ const PostRoleForm = () => {
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
   const onSubmit = async (data) => {
-    const date = { createdAt: newDate(), updatedAt: newDate() };
+    const date = { createdAt: serverTimestamp(), updatedAt: serverTimestamp() };
     const newPost = { ...data, ...date };
     console.log('SUBMIT: ', newPost);
     mutation.mutate(newPost);

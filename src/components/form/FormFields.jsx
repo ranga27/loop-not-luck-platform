@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import ReactDatePicker from 'react-datepicker';
 import { FormGroup, Label, Input } from 'reactstrap';
@@ -33,12 +33,13 @@ export const MultiSelect = ({
   defaultValue,
   ...rest
 }) => {
+  const setDefaultValues = options.filter((o) => {
+    return defaultValue?.some((d) => {
+      return o.value === d;
+    });
+  });
   const [selection, setSelection] = useState({
-    selectedOptions: options.filter((o) => {
-      return defaultValue?.some((d) => {
-        return o.value === d;
-      });
-    }),
+    selectedOptions: [],
   });
   const handleChange = (selectedOption) => {
     clearErrors(name);
@@ -48,6 +49,13 @@ export const MultiSelect = ({
       selectedOption.map((option) => option.value)
     );
   };
+  useEffect(() => {
+    // HACK: to reset values on first render
+    setSelection([]);
+    if (defaultValue) {
+      setSelection({ selectedOptions: setDefaultValues });
+    }
+  }, [defaultValue]);
 
   return (
     <Group label={label} errors={errors}>

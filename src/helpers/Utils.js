@@ -26,8 +26,6 @@ export const formatDateInArray = (array) => {
   return array;
 };
 
-export const newDate = () => new Date().toString();
-
 export const getDateFromString = (value) => {
   const formattedDate = parse(value, 'dd-MMM-yyyy', new Date());
   return formattedDate;
