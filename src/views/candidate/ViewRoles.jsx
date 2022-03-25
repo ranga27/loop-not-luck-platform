@@ -17,6 +17,7 @@ const ViewRoles = () => {
       return (
         <Row>
           <Colxx xxs="12" className="pl-0 pr-0 mb-5">
+            <h1>Your Top Recommended Roles</h1>
             <ViewRolesContainer />
           </Colxx>
         </Row>

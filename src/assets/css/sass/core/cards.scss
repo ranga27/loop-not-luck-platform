@@ -1,6 +1,7 @@
 .card {
   border: initial;
   background: $foreground-color;
+  border-radius: 25px;
 
   .card-header .card-icon {
     right: 5px;
@@ -21,7 +22,7 @@
     cursor: default;
   }
 
-  border-radius: calc(0.15rem - 1px);
+ // border-radius: calc(0.15rem - 1px);
   @include depth(1);
 
   .card-body {

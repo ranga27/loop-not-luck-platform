@@ -4,16 +4,12 @@
 import React from 'react';
 import Carousel from 'nuka-carousel';
 import { CarouselItem } from '../../components/cards/CarouselItem';
-import { renderTopCenterControls } from './renderTopCenterControls';
 
 const RolesCarousel = ({ roles, saveRole, applyRole, seenRole }) => {
   return (
     <Carousel
       enableKeyboardControls
-      renderCenterLeftControls={null}
-      renderCenterRightControls={null}
-      renderBottomCenterControls={null}
-      renderTopLeftControls={({ previousSlide, currentSlide }) =>
+      renderCenterLeftControls={({ previousSlide, currentSlide }) =>
         currentSlide !== 0 ? (
           <i
             role="link"
@@ -24,7 +20,7 @@ const RolesCarousel = ({ roles, saveRole, applyRole, seenRole }) => {
           ''
         )
       }
-      renderTopRightControls={({ nextSlide, slideCount, currentSlide }) =>
+      renderCenterRightControls={({ nextSlide, slideCount, currentSlide }) =>
         currentSlide !== slideCount - 1 ? (
           <i
             role="link"
@@ -38,6 +34,9 @@ const RolesCarousel = ({ roles, saveRole, applyRole, seenRole }) => {
           ''
         )
       }
+      renderBottomCenterControls={null}
+      /* 
+      
       renderTopCenterControls={({ goToSlide, currentSlide }) =>
         renderTopCenterControls(
           roles,
@@ -46,11 +45,11 @@ const RolesCarousel = ({ roles, saveRole, applyRole, seenRole }) => {
           saveRole,
           applyRole
         )
-      }
+      } */
     >
       {roles.map((item) => (
         <div key={item.id}>
-          <CarouselItem {...item} />
+          <CarouselItem {...item} saveRole={saveRole} applyRole={applyRole} />
         </div>
       ))}
     </Carousel>
