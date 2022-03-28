@@ -3,7 +3,10 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import Carousel from 'nuka-carousel';
-import { CarouselItem } from '../../components/cards/CarouselItem';
+import { Row } from 'reactstrap';
+import { Colxx } from '../../components/common/CustomBootstrap';
+import CarouselCardLeft from '../../components/cards/CarouselCardLeft';
+import CarouselCardRight from '../../components/cards/CarouselCardRight';
 
 const RolesCarousel = ({ roles, saveRole, applyRole, seenRole }) => {
   return (
@@ -35,21 +38,21 @@ const RolesCarousel = ({ roles, saveRole, applyRole, seenRole }) => {
         )
       }
       renderBottomCenterControls={null}
-      /* 
-      
-      renderTopCenterControls={({ goToSlide, currentSlide }) =>
-        renderTopCenterControls(
-          roles,
-          currentSlide,
-          goToSlide,
-          saveRole,
-          applyRole
-        )
-      } */
     >
       {roles.map((item) => (
         <div key={item.id}>
-          <CarouselItem {...item} saveRole={saveRole} applyRole={applyRole} />
+          <Row md="2">
+            <Colxx>
+              <CarouselCardLeft
+                role={item}
+                applyRole={applyRole}
+                saveRole={saveRole}
+              />
+            </Colxx>
+            <Colxx>
+              <CarouselCardRight role={item} />
+            </Colxx>
+          </Row>
         </div>
       ))}
     </Carousel>

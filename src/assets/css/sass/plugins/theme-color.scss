@@ -87,6 +87,11 @@
     background: $theme-color-yellow-granola;
   }
 
+   .theme-color-loopnotluck {
+    border: 3px solid $theme-color-loop-not-luck;
+    background: $theme-color-loop-not-luck;
+  }
+
   &.shown {
     transform: translate(0, calc(-50% + 0.5px));
     transition: transform 0.4s ease-out;

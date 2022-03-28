@@ -9,6 +9,7 @@ const StateButton = ({
   children,
   onClick,
   disabled = false,
+  outline,
 }) => {
   const [status, setStatus] = useState('default');
 
@@ -43,6 +44,7 @@ const StateButton = ({
         color={color}
         onClick={handleOnClick}
         disabled={disabled}
+        outline={outline}
       >
         <span className="spinner d-inline-block">
           <span className="bounce1" />

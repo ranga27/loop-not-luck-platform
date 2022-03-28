@@ -40,9 +40,9 @@ export const searchPath = `${adminRoot}/#`;
 export const servicePath = '';
 
 export const themeColorStorageKey = '__theme_selected_color';
-export const isMultiColorActive = true;
-export const defaultColor = 'light.purplemonster';
-export const isDarkSwitchActive = true;
+export const isMultiColorActive = false;
+export const defaultColor = 'light.loopnotluck';
+export const isDarkSwitchActive = false;
 export const defaultDirection = 'ltr';
 export const themeRadiusStorageKey = '__theme_radius';
 export const colors = [
@@ -56,4 +56,5 @@ export const colors = [
   'redruby',
   'yellowgranola',
   'greysteel',
+  'loopnotluck',
 ];

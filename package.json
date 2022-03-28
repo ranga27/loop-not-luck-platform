@@ -24,7 +24,7 @@
     "framer-motion": "^6.2.1",
     "mousetrap": "^1.6.5",
     "node-sass": "^7.0.1",
-    "nuka-carousel": "^4.8.4",
+    "nuka-carousel": "^5.0.7",
     "prop-types": "^15.8.1",
     "rc-slider": "^9.7.5",
     "rc-switch": "^3.2.2",
