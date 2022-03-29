@@ -7,7 +7,7 @@ import CompanyCard from '../../../components/cards/CompanyCard';
 import { firestore } from '../../../helpers/firebase';
 import { formatDateInArray } from '../../../helpers/utils';
 
-const CompaniesContainer = () => {
+const ViewCompanies = () => {
   const { isLoading, data: companies } = useFirestoreQuery(
     ['companies'],
     query(collection(firestore, 'companies')),
@@ -44,4 +44,4 @@ const CompaniesContainer = () => {
   );
 };
 
-export default CompaniesContainer;
+export default ViewCompanies;

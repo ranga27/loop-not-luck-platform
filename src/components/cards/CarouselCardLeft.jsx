@@ -2,13 +2,28 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
+import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
+import { doc, serverTimestamp } from 'firebase/firestore';
+import { useQuery } from 'react-query';
 import { Card, CardBody } from 'reactstrap';
+import { firestore } from '../../helpers/firebase';
 import StateButton from '../StateButton';
 
-const CarouselCardLeft = ({ role, applyRole, saveRole }) => {
+const CarouselCardLeft = ({ role, applyRole }) => {
+  // TODO: create readMore component
   const [isReadMore, setIsReadMore] = useState(true);
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
+  };
+  const user = useQuery(['userAuth']);
+  const { uid } = user.data;
+  const mutation = useFirestoreDocumentMutation(
+    doc(firestore, `users/${uid}/matchedRoles`, role.id),
+    { merge: true }
+  );
+  const saveRole = async () => {
+    const newData = { saved: !role.saved, updatedAt: serverTimestamp() };
+    mutation.mutate(newData);
   };
   return (
     <Card style={{ marginLeft: '70px' }}>
@@ -32,10 +47,10 @@ const CarouselCardLeft = ({ role, applyRole, saveRole }) => {
           </div>
         </div>
         <div className="m-3 p-3">
-          <h3 className="mt-3 "> Application Deadline:</h3>
-          <h3 className="text-muted ">{role.deadline}</h3>
-          <h3 className="mt-3 font-weight-bold ">Location</h3>
-          <h3 className="text-muted ">{role.location}</h3>
+          <h3 className="mt-3"> Application Deadline:</h3>
+          <h3 className="text-muted">{role.deadline}</h3>
+          <h3 className="mt-3">Location</h3>
+          <h3 className="text-muted">{role.location}</h3>
           <h3 className="mt-3">Position</h3>
           <h3 className="text-muted">{role.positionType}</h3>
           <h3 className="mt-3">Renumeration</h3>
@@ -51,26 +66,26 @@ const CarouselCardLeft = ({ role, applyRole, saveRole }) => {
                 : ''}
             </span>
           </h3>
-          <h3 className="mt-3 ">Department</h3>
+          <h3 className="mt-3">Department</h3>
           <h3 className="text-muted">{role.department}</h3>
-          <h3 className="mt-3  ">Start Date</h3>
+          <h3 className="mt-3">Start Date</h3>
           <h3 className="text-muted">{role.startDate}</h3>
         </div>
-        <div className="d-flex flex-row ">
+        <div className="d-flex flex-row">
           <StateButton
             id="applyButton"
             color="primary"
-            onClick={() => applyRole(role.id)}
+            onClick={() => applyRole()}
           >
             Apply
           </StateButton>
           <StateButton
             id="saveButton"
             color="primary"
-            onClick={() => saveRole(role.id)}
+            onClick={() => saveRole()}
             outline
           >
-            Save
+            {role.saved === true ? 'Unsave' : 'Save'}
           </StateButton>
         </div>
       </CardBody>

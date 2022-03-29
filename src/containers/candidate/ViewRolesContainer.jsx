@@ -31,7 +31,7 @@ const ViewRolesContainer = () => {
       // React Query data selector
       select(snapshot) {
         const rolesData = snapshot.docs.map((document) => ({
-          ...document.data().data,
+          ...document.data(),
           id: document.id,
         }));
         return formatDateInArray(rolesData);
@@ -40,14 +40,6 @@ const ViewRolesContainer = () => {
   );
 
   const dispatch = useDispatch();
-
-  const saveRole = async (currentSlide) => {
-    const roleId = roles[currentSlide].id;
-    const data = { saved: Date.now() };
-    if (roles[currentSlide]?.saved) {
-      dispatch(unSaveRole({ uid, index: currentSlide, roleId }));
-    } else dispatch(updateRole({ uid, index: currentSlide, roleId, data }));
-  };
 
   const applyRole = async (currentSlide) => {
     const { value: text } = await Swal.fire({
@@ -79,12 +71,7 @@ const ViewRolesContainer = () => {
   if (roles.length > 0) {
     // TODO: combine save, apply, seen actions
     return (
-      <RolesCarousel
-        roles={roles}
-        saveRole={saveRole}
-        applyRole={applyRole}
-        seenRole={seenRole}
-      />
+      <RolesCarousel roles={roles} applyRole={applyRole} seenRole={seenRole} />
     );
   }
   return (

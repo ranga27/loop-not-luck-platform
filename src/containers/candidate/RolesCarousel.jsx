@@ -8,7 +8,7 @@ import { Colxx } from '../../components/common/CustomBootstrap';
 import CarouselCardLeft from '../../components/cards/CarouselCardLeft';
 import CarouselCardRight from '../../components/cards/CarouselCardRight';
 
-const RolesCarousel = ({ roles, saveRole, applyRole, seenRole }) => {
+const RolesCarousel = ({ roles, applyRole, seenRole }) => {
   return (
     <Carousel
       enableKeyboardControls
@@ -43,11 +43,7 @@ const RolesCarousel = ({ roles, saveRole, applyRole, seenRole }) => {
         <div key={item.id}>
           <Row md="2">
             <Colxx>
-              <CarouselCardLeft
-                role={item}
-                applyRole={applyRole}
-                saveRole={saveRole}
-              />
+              <CarouselCardLeft role={item} applyRole={applyRole} />
             </Colxx>
             <Colxx>
               <CarouselCardRight role={item} />

@@ -57,5 +57,5 @@ const addRoleInFirestore = async (role, uid) => {
     .doc(uid)
     .collection('matchedRoles')
     .doc(id);
-  await roleRef.set({ data }, { merge: true });
+  await roleRef.set({ ...data }, { merge: true });
 };

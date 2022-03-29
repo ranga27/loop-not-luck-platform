@@ -26,7 +26,7 @@ const StateButton = ({
       .finally(() => {
         setTimeout(() => {
           setStatus('default');
-        }, 3000);
+        }, 100);
       });
   };
 
