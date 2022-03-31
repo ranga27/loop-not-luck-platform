@@ -33,10 +33,7 @@ exports.onProfileUpdated = functions.firestore
 const getRolesFromFiretore = async () => {
   // TODO: use query with limit criteria to limit number of roles returned.
   // TODO: Run filter criteria for getting roles.
-  const querySnapshot = await admin
-    .firestore()
-    .collection('opportunities')
-    .get();
+  const querySnapshot = await admin.firestore().collection('roles').get();
   const roles = querySnapshot.docs.map((doc) => ({
     ...doc.data(),
     id: doc.id,

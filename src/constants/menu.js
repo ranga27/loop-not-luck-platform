@@ -40,7 +40,7 @@ const data = [
     id: 'saved-roles',
     icon: 'iconsminds-disk',
     label: 'menu.saved-roles',
-    to: `${adminRoot}`,
+    to: 'saved',
     roles: [UserRole.candidate],
   },
   {

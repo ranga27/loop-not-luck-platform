@@ -14,6 +14,9 @@ const Logout = lazy(() =>
 const ViewRoles = lazy(() =>
   import(/* webpackChunkName: "candidate-roles" */ './ViewRoles')
 );
+const SavedRoles = lazy(() =>
+  import(/* webpackChunkName: "candidate-saved-roles" */ './SavedRoles')
+);
 
 const Onboarding = lazy(() =>
   import(/* webpackChunkName: "candidate-onboarding" */ './onboarding')
@@ -26,6 +29,7 @@ const CandidateApp = () => {
         <Suspense fallback={<div className="loading" />}>
           <Routes>
             <Route path="roles" element={<ViewRoles />} />
+            <Route path="saved" element={<SavedRoles />} />
             <Route path="account" element={<Account />} />
             <Route path="logout" element={<Logout />} />
             <Route path="/" element={<Navigate to="roles" />} />
