@@ -373,3 +373,9 @@
   @include depth(2);
 }
 
+.saved-role-img {
+  object-fit: contain;
+  width: 100px;
+  height: 80px;
+}
+

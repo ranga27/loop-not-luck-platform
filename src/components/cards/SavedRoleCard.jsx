@@ -7,12 +7,12 @@ import useCompanyStore from '../../hooks/useCompanyStore';
 const SavedRoleCard = ({ role }) => {
   const setCompany = useCompanyStore((state) => state.setCompanyForEdit);
   return (
-    <Card key={role.id}>
+    <Card key={role.id} className="mx-5">
       <CardBody>
         <div className="float-left">
           <div className="d-flex flex-row ">
             <img
-              className="list-thumbnail align-self-center responsive"
+              className="saved-role-img responsive"
               src={role.logoUrl}
               alt={role.title}
             />

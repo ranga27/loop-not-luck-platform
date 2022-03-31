@@ -44,7 +44,7 @@ const SavedRoles = () => {
         <h1>Your Saved Roles</h1>
         {savedRoles.map((role) => {
           return (
-            <Colxx sm="6" className="mb-4 my-10" key={role.id}>
+            <Colxx lg="6" className="my-5" key={role.id}>
               <SavedRoleCard role={role} />
             </Colxx>
           );
@@ -52,7 +52,15 @@ const SavedRoles = () => {
       </Row>
     );
   }
-  return <div />;
+  return (
+    <div>
+      <Card>
+        <CardBody>
+          <h3>Sorry, no saved roles for you yet</h3>
+        </CardBody>
+      </Card>
+    </div>
+  );
 };
 
 export default SavedRoles;
