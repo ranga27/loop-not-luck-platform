@@ -2,7 +2,7 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 /* eslint-disable no-param-reassign */
-import { format, parse } from 'date-fns';
+import { format, parse, differenceInDays } from 'date-fns';
 import { Timestamp } from 'firebase/firestore';
 import {
   defaultDirection,
@@ -12,6 +12,20 @@ import {
   themeColorStorageKey,
   themeRadiusStorageKey,
 } from '../constants/defaultValues';
+
+/**
+ * Gets number of days to deadline from current day.
+ *
+ * @param {deadline} RoleDeadline
+ * @return {daysToDeadline} Days To Deadline
+ */
+export const getDaysToDeadline = (deadline) => {
+  const daysToDeadline = differenceInDays(
+    new Date(deadline),
+    new Date(Date.now())
+  );
+  return daysToDeadline;
+};
 
 export const formatDateInArray = (array) => {
   array.forEach((item) => {

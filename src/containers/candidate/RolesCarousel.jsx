@@ -11,6 +11,7 @@ import CarouselCardRight from '../../components/cards/CarouselCardRight';
 const RolesCarousel = ({ roles, applyRole, seenRole }) => {
   return (
     <Carousel
+      dragging={false}
       enableKeyboardControls
       renderCenterLeftControls={({ previousSlide, currentSlide }) =>
         currentSlide !== 0 ? (

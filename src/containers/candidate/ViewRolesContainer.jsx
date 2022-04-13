@@ -19,8 +19,7 @@ import { formatDateInArray } from '../../helpers/utils';
 const ViewRolesContainer = () => {
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
-  const rolesCollection = collection(firestore, `users/${uid}/matchedRoles`);
-  const rolesRef = query(rolesCollection);
+  const rolesRef = query(collection(firestore, `users/${uid}/matchedRoles`));
   const { isLoading, data: roles } = useFirestoreQuery(
     ['matchedRoles'],
     rolesRef,

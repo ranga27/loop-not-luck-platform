@@ -24,6 +24,7 @@ exports.onProfileUpdated = functions.firestore
     if (roles) {
       roles.forEach((role) => {
         role.score = getScores(role);
+        // TODO: currently this is overwriting the roles, it should be a merge since some roles are already saved/applied
         addRoleInFirestore(role, uid);
       });
     }
@@ -42,7 +43,7 @@ const getRolesFromFiretore = async () => {
 };
 
 const getScores = (role) => {
-  // TODO: get actual scores implement matching algorithm based on tags in documents
+  // TODO: get actual scores implement matching algorithm based on tags in documents.
   return Math.floor(Math.random() * 99);
 };
 

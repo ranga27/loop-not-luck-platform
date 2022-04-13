@@ -5,9 +5,8 @@ import React, { useState } from 'react';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery } from 'react-query';
-import { Card, CardBody } from 'reactstrap';
+import { Button, Card, CardBody } from 'reactstrap';
 import { firestore } from '../../helpers/firebase';
-import StateButton from '../StateButton';
 
 const CarouselCardLeft = ({ role, applyRole }) => {
   // TODO: create readMore component
@@ -72,21 +71,23 @@ const CarouselCardLeft = ({ role, applyRole }) => {
           <h3 className="text-muted">{role.startDate}</h3>
         </div>
         <div className="d-flex flex-row">
-          <StateButton
+          <Button
             id="applyButton"
             color="primary"
             onClick={() => applyRole()}
+            className="slider-top-button"
           >
             Apply
-          </StateButton>
-          <StateButton
+          </Button>
+          <Button
             id="saveButton"
             color="primary"
             onClick={() => saveRole()}
             outline
+            className="slider-top-button"
           >
             {role.saved === true ? 'Unsave' : 'Save'}
-          </StateButton>
+          </Button>
         </div>
       </CardBody>
     </Card>
