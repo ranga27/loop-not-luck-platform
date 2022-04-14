@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 import { useQuery } from 'react-query';
 import { Card, CardBody } from 'reactstrap';
 import { firestore } from '../../helpers/firebase';
-import { unSaveRole, updateRole } from '../../redux/roles/rolesSlice';
+import { updateRole } from '../../redux/roles/rolesSlice';
 import RolesCarousel from './RolesCarousel';
 import { formatDateInArray } from '../../helpers/utils';
 
@@ -27,7 +27,7 @@ const ViewRolesContainer = () => {
       subscribe: true,
     },
     {
-      // React Query data selector
+      // React Query data selector - TODO: refactor
       select(snapshot) {
         const rolesData = snapshot.docs.map((document) => ({
           ...document.data(),
@@ -40,24 +40,7 @@ const ViewRolesContainer = () => {
 
   const dispatch = useDispatch();
 
-  const applyRole = async (currentSlide) => {
-    const { value: text } = await Swal.fire({
-      input: 'textarea',
-      inputLabel: 'Please type your cover letter',
-      inputPlaceholder: 'Type your Cover Letter here...',
-      inputAttributes: {
-        'aria-label': 'Type your Cover Letter here',
-      },
-      showCancelButton: true,
-    });
-
-    if (text) {
-      const roleId = roles[currentSlide].id;
-      const data = { applied: Date.now(), coverLetter: text };
-      dispatch(updateRole({ uid, index: currentSlide, roleId, data }));
-      Swal.fire('Email Sent');
-    }
-  };
+  const applyRole = async (currentSlide) => {};
 
   const seenRole = (currentSlide) => {
     console.log(`seen role: ${roles[currentSlide].title}`);

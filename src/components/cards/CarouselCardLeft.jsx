@@ -10,6 +10,7 @@ import { firestore } from '../../helpers/firebase';
 
 const CarouselCardLeft = ({ role, applyRole }) => {
   // TODO: create readMore component
+  const { refetch, isFetching } = useQuery(['matchedRoles']);
   const [isReadMore, setIsReadMore] = useState(true);
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
@@ -23,6 +24,8 @@ const CarouselCardLeft = ({ role, applyRole }) => {
   const saveRole = async () => {
     const newData = { saved: !role.saved, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
+    refetch();
+    console.log(role.saved);
   };
   return (
     <Card style={{ marginLeft: '70px' }}>
@@ -55,16 +58,18 @@ const CarouselCardLeft = ({ role, applyRole }) => {
           <h3 className="mt-3">Renumeration</h3>
           <h3 className="text-muted">{role.renumeration}</h3>
           <h3 className="mt-3">Description</h3>
-          <h3 className="text-muted">
-            {isReadMore ? role.description.slice(0, 150) : role.description}
-            <span onClick={toggleReadMore} style={{ color: '#F7B919' }}>
-              {role.description.length > 150
-                ? isReadMore
-                  ? ' Read more'
-                  : ' Show less'
-                : ''}
-            </span>
-          </h3>
+          {role.description && (
+            <h3 className="text-muted">
+              {isReadMore ? role.description.slice(0, 150) : role.description}
+              <span onClick={toggleReadMore} style={{ color: '#F7B919' }}>
+                {role.description.length > 150
+                  ? isReadMore
+                    ? ' Read more'
+                    : ' Show less'
+                  : ''}
+              </span>
+            </h3>
+          )}
           <h3 className="mt-3">Department</h3>
           <h3 className="text-muted">{role.department}</h3>
           <h3 className="mt-3">Start Date</h3>
@@ -85,6 +90,7 @@ const CarouselCardLeft = ({ role, applyRole }) => {
             onClick={() => saveRole()}
             outline
             className="slider-top-button"
+            disable={isFetching}
           >
             {role.saved === true ? 'Unsave' : 'Save'}
           </Button>
