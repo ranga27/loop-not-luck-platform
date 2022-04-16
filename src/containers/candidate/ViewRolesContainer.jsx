@@ -1,20 +1,12 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/function-component-definition */
-/* eslint-disable no-use-before-define */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import { useFirestoreQuery } from '@react-query-firebase/firestore';
-import { collection, doc, query } from 'firebase/firestore';
-import { useDispatch } from 'react-redux';
-import Swal from 'sweetalert2';
 import { useQuery } from 'react-query';
+import { useFirestoreQuery } from '@react-query-firebase/firestore';
+import { collection, query } from 'firebase/firestore';
 import { Card, CardBody } from 'reactstrap';
-import { firestore } from '../../helpers/firebase';
-import { updateRole } from '../../redux/roles/rolesSlice';
+import { firestore, formatDateInArray } from '../../helpers';
 import RolesCarousel from './RolesCarousel';
-import { formatDateInArray } from '../../helpers/utils';
 
 const ViewRolesContainer = () => {
   const user = useQuery(['userAuth']);
@@ -38,23 +30,13 @@ const ViewRolesContainer = () => {
     }
   );
 
-  const dispatch = useDispatch();
-
-  const applyRole = async (currentSlide) => {};
-
-  const seenRole = (currentSlide) => {
-    console.log(`seen role: ${roles[currentSlide].title}`);
-  };
-
   // TODO: add logic for no roles found
   if (isLoading) {
     return <div className="loading" />;
   }
   if (roles.length > 0) {
     // TODO: combine save, apply, seen actions
-    return (
-      <RolesCarousel roles={roles} applyRole={applyRole} seenRole={seenRole} />
-    );
+    return <RolesCarousel roles={roles} />;
   }
   return (
     <div>

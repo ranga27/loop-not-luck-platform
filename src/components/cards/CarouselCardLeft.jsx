@@ -1,16 +1,18 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { doc, serverTimestamp } from 'firebase/firestore';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Button, Card, CardBody } from 'reactstrap';
 import { firestore } from '../../helpers/firebase';
 
-const CarouselCardLeft = ({ role, applyRole }) => {
+const CarouselCardLeft = ({ role }) => {
+  const client = useQueryClient();
   // TODO: create readMore component
-  const { refetch, isFetching } = useQuery(['matchedRoles']);
+  const { isLoading } = useQuery(['matchedRoles']);
   const [isReadMore, setIsReadMore] = useState(true);
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
@@ -19,14 +21,20 @@ const CarouselCardLeft = ({ role, applyRole }) => {
   const { uid } = user.data;
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, `users/${uid}/matchedRoles`, role.id),
-    { merge: true }
+    { merge: true },
+    {
+      // After success or failure, refetch the todos query
+      onSettled: () => {
+        client.invalidateQueries('matchedRoles');
+      },
+    }
   );
   const saveRole = async () => {
     const newData = { saved: !role.saved, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
-    refetch();
-    console.log(role.saved);
   };
+
+  const applyRole = async () => {};
   return (
     <Card style={{ marginLeft: '70px' }}>
       <CardBody>
@@ -90,7 +98,7 @@ const CarouselCardLeft = ({ role, applyRole }) => {
             onClick={() => saveRole()}
             outline
             className="slider-top-button"
-            disable={isFetching}
+            disabled={isLoading}
           >
             {role.saved === true ? 'Unsave' : 'Save'}
           </Button>

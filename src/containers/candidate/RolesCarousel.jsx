@@ -8,7 +8,10 @@ import { Colxx } from '../../components/common/CustomBootstrap';
 import CarouselCardLeft from '../../components/cards/CarouselCardLeft';
 import CarouselCardRight from '../../components/cards/CarouselCardRight';
 
-const RolesCarousel = ({ roles, applyRole, seenRole }) => {
+const RolesCarousel = ({ roles }) => {
+  const seenRole = (currentSlide) => {
+    console.log(`seen role: ${roles[currentSlide].title}`);
+  };
   return (
     <Carousel
       dragging={false}
@@ -44,7 +47,7 @@ const RolesCarousel = ({ roles, applyRole, seenRole }) => {
         <div key={item.id}>
           <Row md="2">
             <Colxx>
-              <CarouselCardLeft role={item} applyRole={applyRole} />
+              <CarouselCardLeft role={item} />
             </Colxx>
             <Colxx>
               <CarouselCardRight role={item} />
