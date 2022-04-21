@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
