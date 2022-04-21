@@ -52,7 +52,7 @@ const ProtectedRoute = () => {
   }
   return (
     <Suspense fallback={<div className="loading" />}>
-      {getRoute(user.role)}
+      {user ? getRoute(user.role) : <div>User not available</div>}
     </Suspense>
   );
 };

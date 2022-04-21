@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
@@ -10,6 +10,7 @@ import { Button, Card, CardBody } from 'reactstrap';
 import { firestore } from '../../helpers/firebase';
 
 const CarouselCardLeft = ({ role }) => {
+  const [saved, setSaved] = useState(role.saved);
   const client = useQueryClient();
   // TODO: create readMore component
   const { isLoading } = useQuery(['matchedRoles']);
@@ -23,13 +24,16 @@ const CarouselCardLeft = ({ role }) => {
     doc(firestore, `users/${uid}/matchedRoles`, role.id),
     { merge: true },
     {
-      // After success or failure, refetch the todos query
+      // After success or failure, refetch the matchedRoles query. TODO: may be refetch only the role & not the whole list
       onSettled: () => {
         client.invalidateQueries('matchedRoles');
+        client.invalidateQueries('savedRoles');
       },
     }
   );
   const saveRole = async () => {
+    // Optimistic update for button state
+    setSaved(!saved);
     const newData = { saved: !role.saved, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
   };
@@ -100,7 +104,7 @@ const CarouselCardLeft = ({ role }) => {
             className="slider-top-button"
             disabled={isLoading}
           >
-            {role.saved === true ? 'Unsave' : 'Save'}
+            {saved === true ? 'Unsave' : 'Save'}
           </Button>
         </div>
       </CardBody>
