@@ -106,6 +106,7 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
         type="textarea"
         control={control}
       />
+      <TextInput name="renumeration" label="Renumeration" control={control} />
       <SelectField
         label="How to Apply"
         name="howToApply"
