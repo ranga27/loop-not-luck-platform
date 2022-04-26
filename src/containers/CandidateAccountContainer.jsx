@@ -40,8 +40,10 @@ const CandidateAccountContainer = () => {
   if (isLoading) {
     return <div className="loading" />;
   }
+
+  const { uid } = userAuth.data;
+
   const {
-    uid,
     email,
     cvUrl,
     lastName,
