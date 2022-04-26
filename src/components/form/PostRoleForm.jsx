@@ -51,6 +51,7 @@ const PostRoleForm = () => {
     title: '',
     department: '',
     qualification: '',
+    renumeration: '',
     howToApply: '',
     email: '',
     website: '',
@@ -127,6 +128,7 @@ const PostRoleForm = () => {
         type="textarea"
         control={control}
       />
+      <TextInput name="renumeration" label="Renumeration" control={control} />
       <SelectField
         label="How to Apply"
         name="howToApply"
