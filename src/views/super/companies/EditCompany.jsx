@@ -9,7 +9,7 @@ import IntlMessages from '../../../helpers/IntlMessages';
 import EditCompanyForm from '../../../components/form/EditCompanyForm';
 import useCompanyStore from '../../../hooks/useCompanyStore';
 import { uploadFile } from '../../../helpers/uploadFile';
-import { firestore } from '../../../helpers/firebase';
+import { firestore } from '../../../helpers/Firebase';
 
 const EditCompany = () => {
   const company = useCompanyStore((state) => state.company);

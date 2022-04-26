@@ -3,7 +3,7 @@ import React, { Suspense, lazy } from 'react';
 import { useAuthUser } from '@react-query-firebase/auth';
 import { collection, doc } from 'firebase/firestore';
 import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
-import { auth, firestore } from '../helpers/firebase';
+import { auth, firestore } from '../helpers/Firebase';
 
 const SuperAdminRoute = lazy(() =>
   import(/* webpackChunkName: "super-admin" */ '../views/super')

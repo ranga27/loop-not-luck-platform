@@ -1,6 +1,6 @@
 /* eslint-disable default-param-last */
 import { CHANGE_LOCALE } from '../actions';
-import { getCurrentLanguage } from '../../helpers/utils';
+import { getCurrentLanguage } from '../../helpers/Utils';
 
 const INIT_STATE = {
   locale: getCurrentLanguage(),

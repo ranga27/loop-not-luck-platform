@@ -1,2 +1,2 @@
-export { auth, firestore, functions } from './firebase';
-export { formatDateInArray } from './utils';
+export { auth, firestore, functions } from './Firebase';
+export { formatDateInArray } from './Utils';

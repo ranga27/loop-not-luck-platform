@@ -4,8 +4,8 @@ import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { Row } from 'reactstrap';
 import { Colxx } from '../../../components/common/CustomBootstrap';
 import CompanyCard from '../../../components/cards/CompanyCard';
-import { firestore } from '../../../helpers/firebase';
-import { formatDateInArray } from '../../../helpers/utils';
+import { firestore } from '../../../helpers/Firebase';
+import { formatDateInArray } from '../../../helpers/Utils';
 
 const ViewCompanies = () => {
   const { isLoading, data: companies } = useFirestoreQuery(

@@ -3,8 +3,8 @@ import React from 'react';
 import { collection, query } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import RoleListItem from '../../components/cards/RoleListItem';
-import { firestore } from '../../helpers/firebase';
-import { formatDateInArray } from '../../helpers/utils';
+import { firestore } from '../../helpers/Firebase';
+import { formatDateInArray } from '../../helpers/Utils';
 
 const RoleListContainer = () => {
   const { isLoading, data: roles } = useFirestoreQuery(

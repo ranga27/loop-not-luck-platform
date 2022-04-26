@@ -1,5 +1,5 @@
 import { useAuthUser } from '@react-query-firebase/auth';
-import { auth } from '../helpers/firebase';
+import { auth } from '../helpers/Firebase';
 
 const React = require('react');
 const { useLocation, Navigate, Outlet } = require('react-router-dom');

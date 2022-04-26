@@ -15,7 +15,7 @@ import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import rolesOfInterests from '../../data/rolesOfInterests';
 import { behaviourOptions } from '../../data/behaviourOptions';
-import { getDateFromString } from '../../helpers/utils';
+import { getDateFromString } from '../../helpers/Utils';
 
 // Combine Post Role & Edit Role forms
 const EditRoleForm = ({ companies, role, onSubmit }) => {

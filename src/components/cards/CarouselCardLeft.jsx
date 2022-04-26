@@ -7,7 +7,7 @@ import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
 import { Button, Card, CardBody } from 'reactstrap';
-import { firestore } from '../../helpers/firebase';
+import { firestore } from '../../helpers/Firebase';
 
 const CarouselCardLeft = ({ role }) => {
   const [saved, setSaved] = useState(role.saved);

@@ -7,7 +7,7 @@ import { collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import Swal from 'sweetalert2';
 import CandidateAccountForm from '../components/form/CandidateAccountForm';
-import { auth, firestore } from '../helpers/firebase';
+import { auth, firestore } from '../helpers/Firebase';
 import uploadFile from './uploadFile';
 
 const allValuesSubmitted = (data) => {

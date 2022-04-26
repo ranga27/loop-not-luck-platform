@@ -4,8 +4,8 @@ import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { Card, CardBody, Row } from 'reactstrap';
 import { useQuery } from 'react-query';
 import { Colxx } from '../../components/common/CustomBootstrap';
-import { firestore } from '../../helpers/firebase';
-import { formatDateInArray, getDaysToDeadline } from '../../helpers/utils';
+import { firestore } from '../../helpers/Firebase';
+import { formatDateInArray, getDaysToDeadline } from '../../helpers/Utils';
 import SavedRoleCard from '../../components/cards/SavedRoleCard';
 import ExpiredRoleCard from '../../components/cards/ExpiredRoleCard';
 

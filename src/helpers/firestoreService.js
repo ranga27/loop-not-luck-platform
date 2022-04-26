@@ -17,7 +17,7 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 import { format } from 'date-fns';
-import { firestore } from './firebase';
+import { firestore } from './Firebase';
 
 // Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore({ uid, ...details }) {
@@ -190,6 +190,16 @@ export const updateCompanyInFirebase = async ({ companyId, ...data }) => {
     const companyRef = doc(firestore, 'companies', companyId);
     await setDoc(companyRef, { ...data }, { merge: true });
     return companyId;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const updateUserOnBoardedInFirebase = async ({ uid, ...data }) => {
+  try {
+    const userRef = doc(firestore, 'users', uid);
+    await setDoc(userRef, { ...data }, { merge: true });
+    return uid;
   } catch (error) {
     return error.message;
   }

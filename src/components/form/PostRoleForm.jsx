@@ -18,11 +18,11 @@ import {
 } from './FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
-import { firestore } from '../../helpers/firebase';
+import { firestore } from '../../helpers/Firebase';
 import rolesOfInterests from '../../data/rolesOfInterests';
 import { behaviourOptions } from '../../data/behaviourOptions';
 import { technicalSkills } from '../../data/technicalSkillsOptions';
-import { formatDateInArray } from '../../helpers/utils';
+import { formatDateInArray } from '../../helpers/Utils';
 
 const PostRoleForm = () => {
   // TODO: move data operations in parent component and make this a pure component
