@@ -13,6 +13,7 @@ export const Step8 = ({ loading, fields }) => {
   const dispatch = useDispatch();
   const { uid } = useSelector((state) => state.auth.currentUser);
   const handleClick = () => {
+    // TODO: replace redux code with react-query
     dispatch(updateUser({ uid, ...fields, isOnboarded: true }));
     navigate('/app/account');
   };
