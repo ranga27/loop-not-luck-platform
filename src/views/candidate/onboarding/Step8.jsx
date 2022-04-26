@@ -2,18 +2,22 @@
 import React from 'react';
 import { Button, Spinner } from 'reactstrap';
 import { Step } from 'react-albus';
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import IntlMessages from '../../../helpers/IntlMessages';
-import { StepLayout } from '../../../layout/StepLayout';
-import { updateUser } from '../../../redux/auth/authSlice';
+import { StepLayout } from '../../../layout/stepLayout';
+import { updateUserOnBoardedInFirebase } from '../../../helpers/firestoreService';
 
-export const Step8 = ({ loading, fields }) => {
+export const Step8 = (loading, fields) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { uid } = useSelector((state) => state.auth.currentUser);
+  const user = useQuery(['userAuth']);
+  const { uid } = user.data;
   const handleClick = () => {
-    dispatch(updateUser({ uid, ...fields, isOnboarded: true }));
+    updateUserOnBoardedInFirebase({
+      uid,
+      ...fields,
+      isOnboarded: true,
+    });
     navigate('/app/account');
   };
   return (

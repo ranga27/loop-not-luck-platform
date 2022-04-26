@@ -5,7 +5,7 @@ import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { Card, CardBody, Badge, Button } from 'reactstrap';
-import { firestore } from '../../helpers/firebase';
+import { firestore } from '../../helpers/Firebase';
 
 const SavedRoleCard = ({ role }) => {
   const { refetch } = useQuery(['matchedRoles']);

@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { useAuthUser } from '@react-query-firebase/auth';
 import AppLocale from '../lang';
-import { auth } from '../helpers/firebase';
+import { auth } from '../helpers/Firebase';
 
 const Public = lazy(() =>
   import(/* webpackChunkName: "public-route" */ '../views/public')

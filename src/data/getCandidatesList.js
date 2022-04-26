@@ -1,4 +1,4 @@
-import { firestore } from '../helpers/firebase';
+import { firestore } from '../helpers/Firebase';
 
 const getCandidatesList = async () => {
   // To limit our query, best practice else its expensive

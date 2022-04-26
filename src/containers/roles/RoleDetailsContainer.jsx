@@ -6,8 +6,8 @@ import { collection, doc, query, serverTimestamp } from 'firebase/firestore';
 import React from 'react';
 import Swal from 'sweetalert2';
 import EditRoleForm from '../../components/form/EditRoleForm';
-import { firestore } from '../../helpers/firebase';
-import { formatDateInArray } from '../../helpers/utils';
+import { firestore } from '../../helpers/Firebase';
+import { formatDateInArray } from '../../helpers/Utils';
 import useRoleStore from '../../hooks/useRoleStore';
 
 const RoleDetailsContainer = () => {

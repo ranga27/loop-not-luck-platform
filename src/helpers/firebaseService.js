@@ -7,7 +7,7 @@ import {
 } from 'firebase/auth';
 import { httpsCallable } from 'firebase/functions';
 import { serverTimestamp } from 'firebase/firestore';
-import { auth, functions } from './firebase';
+import { auth, functions } from './Firebase';
 import {
   fetchUserDataFromFirestore,
   getCompanyIdFromFirestore,

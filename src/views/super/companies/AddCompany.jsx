@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { Colxx } from '../../../components/common/CustomBootstrap';
 import AddCompanyForm from '../../../components/form/AddCompanyForm';
 import IntlMessages from '../../../helpers/IntlMessages';
-import { firestore } from '../../../helpers/firebase';
+import { firestore } from '../../../helpers/Firebase';
 import { uploadFile } from '../../../helpers/uploadFile';
 
 const AddCompany = () => {

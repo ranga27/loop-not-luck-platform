@@ -10,7 +10,7 @@ import {
   useAuthSignInWithEmailAndPassword,
   useAuthUser,
 } from '@react-query-firebase/auth';
-import { auth } from '../../helpers/firebase';
+import { auth } from '../../helpers/Firebase';
 import IntlMessages from '../../helpers/IntlMessages';
 import Layout from '../../layout/Layout';
 import AuthButton from '../../components/AuthButton';

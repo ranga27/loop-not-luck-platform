@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form } from 'formik';
 import { FormikCustomCheckboxGroup } from '../../../components/form/FormikCustomCheckboxGroup';
-import { StepLayout } from '../../../layout/StepLayout';
+import { StepLayout } from '../../../layout/stepLayout';
 import { interestOptions } from '../../../data/interestOptions';
 
 const validationSchema = Yup.object().shape({
