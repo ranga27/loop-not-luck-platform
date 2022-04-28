@@ -38,7 +38,11 @@ const CarouselCardLeft = ({ role }) => {
     mutation.mutate(newData);
   };
 
-  const applyRole = async () => {};
+  const applyRole = async () => {
+    const newData = { applied: true, updatedAt: serverTimestamp() };
+    mutation.mutate(newData);
+  };
+
   return (
     <Card style={{ marginLeft: '70px' }}>
       <CardBody>
@@ -87,15 +91,28 @@ const CarouselCardLeft = ({ role }) => {
           <h3 className="mt-3">Start Date</h3>
           <h3 className="text-muted">{role.startDate}</h3>
         </div>
+
         <div className="d-flex flex-row">
-          <Button
-            id="applyButton"
-            color="primary"
-            onClick={() => applyRole()}
-            className="slider-top-button"
-          >
-            Apply
-          </Button>
+          {role.applied === true ? (
+            <Button
+              id="applyButton"
+              color="primary"
+              className="slider-top-button"
+              disabled
+            >
+              Applied
+            </Button>
+          ) : (
+            <Button
+              id="applyButton"
+              color="primary"
+              onClick={() => applyRole()}
+              className="slider-top-button"
+            >
+              Apply
+            </Button>
+          )}
+
           <Button
             id="saveButton"
             color="primary"
