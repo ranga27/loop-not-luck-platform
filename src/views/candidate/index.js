@@ -22,6 +22,10 @@ const Onboarding = lazy(() =>
   import(/* webpackChunkName: "candidate-onboarding" */ './onboarding')
 );
 
+const Applications = lazy(() =>
+  import(/* webpackChunkName: "candidate-applications" */ './Applications')
+);
+
 const CandidateApp = () => {
   return (
     <AppLayout>
@@ -31,6 +35,7 @@ const CandidateApp = () => {
             <Route path="roles" element={<ViewRoles />} />
             <Route path="saved" element={<SavedRoles />} />
             <Route path="account" element={<Account />} />
+            <Route path="applications" element={<Applications />} />
             <Route path="logout" element={<Logout />} />
             <Route path="/" element={<Navigate to="roles" />} />
           </Routes>

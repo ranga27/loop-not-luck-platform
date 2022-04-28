@@ -33,7 +33,7 @@ const data = [
     id: 'applications',
     icon: 'simple-icon-note',
     label: 'menu.applications',
-    to: `${adminRoot}`,
+    to: `applications`,
     roles: [UserRole.candidate],
   },
   {
