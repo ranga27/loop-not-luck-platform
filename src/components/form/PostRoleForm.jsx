@@ -59,6 +59,7 @@ const PostRoleForm = () => {
     deadline: null,
     startDate: null,
     coverLetter: false,
+    prescreening: false,
   };
   const {
     watch,
@@ -196,6 +197,11 @@ const PostRoleForm = () => {
         options={technicalSkills}
         setValue={setValue}
         clearErrors={clearErrors}
+      />
+      <CheckBox
+        name="prescreening"
+        label="Requires prescreening"
+        control={control}
       />
       <Button color="primary" type="submit" disabled={mutation.isLoading}>
         Submit

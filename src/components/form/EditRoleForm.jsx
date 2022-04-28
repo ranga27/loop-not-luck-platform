@@ -57,6 +57,7 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
           role.startDate ? getDateFromString(role.startDate) : null
         );
         setValue('coverLetter', role.coverLetter || false);
+        setValue('prescreening', role.prescreening || false);
       }
     } catch (error) {
       console.error(error.message);
@@ -176,6 +177,12 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={role.behaviourAttributesStrengths}
+      />
+      <CheckBox
+        name="prescreening"
+        label="Requires prescreening"
+        control={control}
+        checked={watch('prescreening')}
       />
       <Button color="primary" type="submit" /* disabled={mutation.isLoading} */>
         Update
