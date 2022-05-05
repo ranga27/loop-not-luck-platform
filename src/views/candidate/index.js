@@ -23,7 +23,9 @@ const Onboarding = lazy(() =>
 );
 
 const Applications = lazy(() =>
-  import(/* webpackChunkName: "candidate-applications" */ './Applications')
+  import(
+    /* webpackChunkName: "candidate-applications" */ './Applications/Applications'
+  )
 );
 
 const CandidateApp = () => {

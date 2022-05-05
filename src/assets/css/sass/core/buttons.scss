@@ -594,10 +594,17 @@ button {
   color: $theme-color-6;
   background-color: #fff;
   border: none;
+  text-decoration: none;
   &:hover {
-    background-color: white;
-    // border-color: lighten($theme-color-1, 10%);
+    text-decoration: none;
+    background-color: transparent;
+    border-color: $theme-color-3;
     color: $theme-color-1;
+  }
+  &:active {
+    color: $button-text-color;
+    text-decoration: none;
+    background-color: transparent;
   }
 }
 

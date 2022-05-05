@@ -31,6 +31,14 @@ export async function sendJobsEmail(data) {
   return sendJobsFunction(data);
 }
 
+export async function sendCandidateFeedbackEmail(data) {
+  const sendCandidateFeedbackFunction = httpsCallable(
+    functions,
+    'sendCandidateFeedback'
+  );
+  return sendCandidateFeedbackFunction(data);
+}
+
 export async function setUserRole(data) {
   const updateRoleFunction = httpsCallable(functions, 'setUserRole');
   return updateRoleFunction(data);

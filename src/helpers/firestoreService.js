@@ -204,3 +204,15 @@ export const updateUserOnBoardedInFirebase = async ({ uid, ...data }) => {
     return error.message;
   }
 };
+
+export async function fetchUserMatchedRolesFromFirestore(userData) {
+  const roleRef = collection(firestore, 'users', userData.id, 'matchedRoles');
+  const q = query(roleRef, where('applied', '==', true));
+  const querySnapshot = await getDocs(q);
+  const roles = querySnapshot.docs.map((docu) => ({
+    ...docu.data(),
+    id: docu.id,
+    userArray: userData,
+  }));
+  return roles;
+}

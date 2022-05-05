@@ -16,6 +16,13 @@ const data = [
     roles: [UserRole.super],
   },
   {
+    id: 'screening',
+    icon: 'iconsminds-monitor',
+    label: 'menu.screening',
+    to: 'screening',
+    roles: [UserRole.super],
+  },
+  {
     id: 'companies',
     icon: 'iconsminds-building',
     label: 'menu.companies',

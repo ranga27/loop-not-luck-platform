@@ -43,6 +43,8 @@ module.exports = {
   'menu.review': 'Review Roles',
   'menu.candidates': 'Candidates',
   'menu.view': 'View',
+  'menu.viewMore': 'View more',
+  'menu.close': 'Close',
   'menu.data-list': 'View Candidates',
   'menu.ui': 'UI',
   'menu.charts': 'Charts',
@@ -66,6 +68,7 @@ module.exports = {
   'menu.companies': 'Companies',
   'menu.view-roles': 'View Roles',
   'menu.test': 'Test Algorithm',
+  'menu.screening': 'Screening',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
@@ -149,6 +152,30 @@ module.exports = {
   'pages.price.useractionsauditlog': 'User actions audit log',
   'pages.prices.featurecomparison': 'Feature Comparison',
   'pages.prices.pricecomparison': 'Price Comparison',
+  'pages.application-header': 'Application Screening',
+  'pages.application-tableIndex': '#',
+  'pages.application-name': 'Applicant Name',
+  'pages.application-email': 'Email',
+  'pages.application-company': 'Company',
+  'pages.application-position': 'Job Position',
+  'pages.application-department': 'Department',
+  'pages.application-match': 'Candidate Role Match',
+  'pages.application-applicantInfo': 'Applicant Information',
+  'pages.application-send': 'Send Email',
+  'pages.application-done': 'Done',
+  'pages.application-prescreenPreview': 'Prescreening Email Preview',
+  'pages.application-preview': 'Preview',
+  'pages.application-request': 'Request more info from the applicant.',
+  'pages.application-scheduleDate':
+    'Select a date to schedule a call with the applicant.',
+  'pages.application-requiresPrescreening':
+    'This application requires screening.',
+  'pages.application-noRequiresPrescreening': 'Not required',
+  'pages.application-cv': 'View CV',
+  'pages.application-actions': 'Actions',
+  'pages.application-allApplications': 'All Applications',
+  'pages.application-applications': 'Applications',
+  'pages.application-liveApplications': 'Live Applications',
 
   /* Forms */
   'forms.gender': 'Gender',

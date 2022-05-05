@@ -39,6 +39,12 @@ const AddCompany = lazy(() =>
   import(/* webpackChunkName: "admin-add-company" */ './companies/AddCompany')
 );
 
+const ScreenApplications = lazy(() =>
+  import(
+    /* webpackChunkName: "admin-screen-applications" */ './screening/AllApplications'
+  )
+);
+
 const SuperAdminRoute = () => {
   return (
     <AppLayout>
@@ -54,6 +60,7 @@ const SuperAdminRoute = () => {
             <Route path="edit" element={<EditCompany />} />
             <Route path="add" element={<AddCompany />} />
           </Route>
+          <Route path="screening" element={<ScreenApplications />} />
           <Route path="logout" element={<Logout />} />
           <Route path="/" element={<Navigate to="review" />} />
         </Routes>
