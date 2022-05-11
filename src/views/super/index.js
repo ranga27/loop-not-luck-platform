@@ -45,6 +45,22 @@ const ScreenApplications = lazy(() =>
   )
 );
 
+const Templates = lazy(() =>
+  import(/* webpackChunkName: "admin-templates" */ './Templates')
+);
+
+const ViewTemplates = lazy(() =>
+  import(/* webpackChunkName: "admin-templates" */ './Templates/ViewTemplates')
+);
+
+const AddTemplate = lazy(() =>
+  import(/* webpackChunkName: "admin-templates" */ './Templates/AddTemplate')
+);
+
+const EditTemplate = lazy(() =>
+  import(/* webpackChunkName: "admin-templates" */ './Templates/EditTemplate')
+);
+
 const SuperAdminRoute = () => {
   return (
     <AppLayout>
@@ -61,6 +77,12 @@ const SuperAdminRoute = () => {
             <Route path="add" element={<AddCompany />} />
           </Route>
           <Route path="screening" element={<ScreenApplications />} />
+          <Route path="templates" element={<Templates />}>
+            <Route index element={<ViewTemplates />} />
+            <Route path="view" element={<ViewTemplates />} />
+            <Route path="edit" element={<EditTemplate />} />
+            <Route path="add" element={<AddTemplate />} />
+          </Route>
           <Route path="logout" element={<Logout />} />
           <Route path="/" element={<Navigate to="review" />} />
         </Routes>

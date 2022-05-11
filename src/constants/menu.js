@@ -30,6 +30,13 @@ const data = [
     roles: [UserRole.super],
   },
   {
+    id: 'templates',
+    icon: 'iconsminds-column',
+    label: 'menu.templates',
+    to: 'templates',
+    roles: [UserRole.super],
+  },
+  {
     id: 'my-loop',
     icon: 'iconsminds-record',
     label: 'menu.my-loop',

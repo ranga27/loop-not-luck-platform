@@ -69,6 +69,7 @@ module.exports = {
   'menu.view-roles': 'View Roles',
   'menu.test': 'Test Algorithm',
   'menu.screening': 'Screening',
+  'menu.templates': 'Templates',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
@@ -176,6 +177,9 @@ module.exports = {
   'pages.application-allApplications': 'All Applications',
   'pages.application-applications': 'Applications',
   'pages.application-liveApplications': 'Live Applications',
+  'pages.templates-cancel': 'Cancel',
+  'pages.templates-edit': 'Edit',
+  'pages.templates-view': 'View',
 
   /* Forms */
   'forms.gender': 'Gender',
@@ -233,4 +237,6 @@ module.exports = {
   'forms.admin': 'Admin',
   'forms.add-company': 'Add New Company',
   'forms.edit-company': 'Edit Company',
+  'forms.add-template': 'Add Template',
+  'forms.edit-template': 'Edit Template',
 };
