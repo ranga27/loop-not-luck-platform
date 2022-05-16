@@ -31,11 +31,22 @@ async function sendCandidateFeedbackEmail(newData) {
     to: newData.email,
   };
   mailOptions.subject = `${newData.subject}`;
-  mailOptions.text = `${newData.body} ${
-    newData.calendyLink
-      ? `\n\n Book a meeting with me here: ${newData.calendyLink}. \n\n Preferred date: ${newData.prescreeningDate}.`
-      : ''
-  }`;
+  if (newData.calendyLink) {
+    mailOptions.html = `
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+    <p style="white-space: pre-line;">${newData.emailText.replace(
+      'book a meeting',
+      `<a href=${newData.calendyLink}>book a meeting</a>`
+    )}</p>
+
+                </body>`;
+  } else {
+    mailOptions.text = `${newData.emailText}`;
+  }
 
   await mailTransport.sendMail(mailOptions);
   functions.logger.log(

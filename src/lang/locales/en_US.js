@@ -165,8 +165,10 @@ module.exports = {
   'pages.application-send': 'Send Email',
   'pages.application-done': 'Done',
   'pages.application-prescreenPreview': 'Prescreening Email Preview',
+  'pages.application-normalPreview': 'Candidate Email Preview',
   'pages.application-preview': 'Preview',
   'pages.application-request': 'Request more info from the applicant.',
+  'pages.application-applicationInfo': 'Preview candidate email template.',
   'pages.application-scheduleDate':
     'Select a date to schedule a call with the applicant.',
   'pages.application-requiresPrescreening':

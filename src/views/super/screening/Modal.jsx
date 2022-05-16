@@ -13,9 +13,14 @@ import {
   Form,
 } from 'reactstrap';
 import { useForm } from 'react-hook-form';
-import { DatePicker, TextInput } from '../../../components/form/FormFields';
+import reactStringReplace from 'react-string-replace';
+import { useFirestoreQuery } from '@react-query-firebase/firestore';
+import { collection, query } from 'firebase/firestore';
+import { firestore } from '../../../helpers/Firebase';
+import { TextInput } from '../../../components/form/FormFields';
 import { sendCandidateFeedbackEmail } from '../../../helpers/firebaseService';
 import IntlMessages from '../../../helpers/IntlMessages';
+import NoPrescreening from './NoPrescreening';
 
 const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
   const getDate = (date) => {
@@ -28,10 +33,10 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
 
   const [collapse, setCollapse] = useState(false);
   const [preview, setPreview] = useState(false);
+  const name = `${rolesData.userArray.firstName} ${rolesData.userArray.lastName}`;
+  const email = `${rolesData.userArray.email}`;
   const defaultValues = {
-    subject: '',
-    body: '',
-    prescreeningDate: null,
+    senderName: '',
     calendyLink: '',
   };
   const {
@@ -43,24 +48,63 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
     defaultValues,
   });
 
-  const onSubmit = async (data) => {
-    const name = `${rolesData.userArray.firstName} ${rolesData.userArray.lastName}`;
-    const email = `${rolesData.userArray.email}`;
+  const { isLoading, data: templates } = useFirestoreQuery(
+    ['templates'],
+    query(collection(firestore, 'templates')),
+    {
+      subscribe: true,
+    },
+    {
+      // React Query data selector
+      select(snapshot) {
+        const templateData = snapshot.docs.map((document) => ({
+          ...document.data(),
+          id: document.id,
+        }));
+        return templateData;
+      },
+    }
+  );
 
+  if (isLoading) {
+    return <div className="loading" />;
+  }
+
+  const prescreeningTemplate = [];
+  const noPrescreeningTemplate = [];
+  if (templates.length > 0) {
+    templates.forEach((template) => {
+      if (template.title === 'Candidate Invitation for prescreening') {
+        prescreeningTemplate.push(template);
+      } else if (template.title === 'No Prescreening Template') {
+        noPrescreeningTemplate.push(template);
+      }
+    });
+  }
+
+  const text = prescreeningTemplate[0].description
+    .replace('[CandidateName]', name)
+    .replace('[SenderName]', control._formValues.senderName);
+
+  const onSubmit = async (data) => {
     if (rolesData.prescreening === true) {
-      const date = data.prescreeningDate.toLocaleDateString();
-      const newData = { ...data, name, email, date };
+      const subject = prescreeningTemplate[0].title;
+      const emailText = prescreeningTemplate[0].description
+        .replace('[CandidateName]', name)
+        .replace('[SenderName]', data.senderName);
+      const newData = { ...data, email, emailText, subject };
       console.log('SUBMIT WITH PRESCREENING: ', newData);
       await sendCandidateFeedbackEmail(newData);
     } else {
-      const newData = { ...data, name, email };
+      const subject = noPrescreeningTemplate[0].title;
+      const emailText = noPrescreeningTemplate[0].description;
+      const newData = { ...data, emailText, subject, email };
       console.log('SUBMIT: ', newData);
       await sendCandidateFeedbackEmail(newData);
     }
     setModalOpen(false);
     reset(defaultValues);
   };
-
   return (
     <Modal isOpen={modalOpen} toggle={toggle} className="modal-lg">
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -278,90 +322,65 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
                   <h5>
                     <IntlMessages id="pages.application-scheduleDate" />
                   </h5>
-
-                  <DatePicker
-                    label="Prescreening Date"
-                    name="prescreeningDate"
-                    control={control}
-                    errors={errors.prescreeningDate}
-                  />
                   <TextInput
-                    name="subject"
-                    label="Email Subject"
+                    name="senderName"
+                    label="Sender Name"
                     control={control}
-                    errors={errors.subject}
-                  />
-                  <TextInput
-                    name="body"
-                    label="Email Body"
-                    type="textarea"
-                    control={control}
+                    errors={errors.senderName}
                   />
 
                   <TextInput
                     name="calendyLink"
-                    label="Enter a Calendy Link"
+                    label="Enter your Calendy Link"
                     control={control}
                   />
                 </>
               ) : (
-                <>
-                  <h5>
-                    {' '}
-                    <IntlMessages id="pages.application-request" />
-                  </h5>
-
-                  <TextInput
-                    name="subject"
-                    label="Email Subject"
-                    control={control}
-                    errors={errors.subject}
-                  />
-                  <TextInput
-                    name="body"
-                    label="Email Body"
-                    type="textarea"
-                    control={control}
-                  />
-                </>
+                <NoPrescreening
+                  noPrescreeningTemplate={noPrescreeningTemplate}
+                />
               )}
 
-              <div>
-                {preview ? (
-                  <Button onClick={() => setPreview(!preview)} color="link">
-                    <IntlMessages id="menu.close" />
-                  </Button>
-                ) : (
-                  <Button onClick={() => setPreview(!preview)} color="link">
-                    <IntlMessages id="pages.application-preview" />
-                  </Button>
-                )}
+              {rolesData.prescreening === true && (
+                <div>
+                  {preview ? (
+                    <Button onClick={() => setPreview(!preview)} color="link">
+                      <IntlMessages id="menu.close" />
+                    </Button>
+                  ) : (
+                    <Button onClick={() => setPreview(!preview)} color="link">
+                      <IntlMessages id="pages.application-preview" />
+                    </Button>
+                  )}
+                  {/* eslint no-underscore-dangle: 0 */}
 
-                <Modal isOpen={preview}>
-                  <ModalHeader>
-                    <IntlMessages id="pages.application-prescreenPreview" />
-                  </ModalHeader>
-                  <ModalBody>
-                    {' '}
-                    {/* eslint no-underscore-dangle: 0 */}
-                    <h2 className="text-center">
-                      {control._formValues.subject}
-                    </h2>
-                    <p>{control._formValues.body}</p>
-                    <Button color="link">
-                      {control._formValues.calendyLink}
-                    </Button>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button
-                      color="primary"
-                      onClick={() => setPreview(!preview)}
-                    >
-                      <IntlMessages id="pages.application-done" />
-                    </Button>
-                  </ModalFooter>
-                </Modal>
-              </div>
+                  <Modal isOpen={preview}>
+                    <ModalHeader>
+                      <IntlMessages id="pages.application-prescreenPreview" />
+                    </ModalHeader>
+                    <ModalBody>
+                      <p style={{ whiteSpace: 'pre-line' }}>
+                        {reactStringReplace(text, 'book a meeting', (match) => (
+                          <a
+                            className="text-primary"
+                            href={control._formValues.calendyLink}
+                          >
+                            {match}
+                          </a>
+                        ))}
+                      </p>
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button
+                        color="primary"
+                        onClick={() => setPreview(!preview)}
+                      >
+                        <IntlMessages id="pages.application-done" />
+                      </Button>
+                    </ModalFooter>
+                  </Modal>
+                </div>
+              )}
             </ListGroupItem>
           </ListGroup>
         </ModalBody>
