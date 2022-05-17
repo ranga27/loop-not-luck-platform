@@ -13,10 +13,11 @@ import { Step5 } from './Step5';
 import { Step6 } from './Step6';
 import { Step7 } from './Step7';
 import { Step8 } from './Step8';
+import { Step9 } from './Step9';
 // TODO: Re-implement using Carousel or SweetAlert Queue with a back Button
 const Onboarding = ({ intl }) => {
   // Array of form refs. To use RHF explore ref options
-  const forms = new Array(7).fill(createRef(null));
+  const forms = new Array(8).fill(createRef(null));
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fields, setFields] = useState({
@@ -25,6 +26,7 @@ const Onboarding = ({ intl }) => {
     disability: '',
     roles: '',
     rolesInterestedIn: '',
+    rolesOfInterest: '',
   });
 
   const onClickNext = (goToNext, steps, step) => {
@@ -81,7 +83,8 @@ const Onboarding = ({ intl }) => {
                     {Step5(forms[4], fields, messages)}
                     {Step6(forms[5], fields, messages)}
                     {Step7(forms[6], fields, messages)}
-                    {Step8(loading, fields)}
+                    {Step8(forms[7], fields, messages)}
+                    {Step9(loading, fields)}
                   </Steps>
                   <BottomNavigation
                     onClickNext={onClickNext}

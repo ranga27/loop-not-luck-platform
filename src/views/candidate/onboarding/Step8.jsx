@@ -1,54 +1,51 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { Button, Spinner } from 'reactstrap';
+import { FormGroup, Label } from 'reactstrap';
+import * as Yup from 'yup';
 import { Step } from 'react-albus';
-import { useNavigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import IntlMessages from '../../../helpers/IntlMessages';
+import { Formik, Form } from 'formik';
+import { FormikCustomCheckboxGroup } from '../../../components/form/FormikCustomCheckboxGroup';
 import { StepLayout } from '../../../layout/stepLayout';
-import { updateUserOnBoardedInFirebase } from '../../../helpers/firestoreService';
+import tagOptions from '../../../data/rolesOfInterests';
 
-export const Step8 = (loading, fields) => {
-  const navigate = useNavigate();
-  const user = useQuery(['userAuth']);
-  const { uid } = user.data;
-  const handleClick = () => {
-    updateUserOnBoardedInFirebase({
-      uid,
-      ...fields,
-      isOnboarded: true,
-    });
-    navigate('/app/account');
-  };
+const validationSchema = Yup.object().shape({
+  rolesOfInterest: Yup.array().required('Please select at least one').min(1),
+});
+export const Step8 = (form, { rolesOfInterest }, messages) => {
   return (
-    <Step id="step8" hideTopNav>
+    <Step id="step8">
       <StepLayout>
-        <div className="wizard-basic-step text-center pt-3">
-          {loading ? (
-            <div>
-              <Spinner color="primary" className="mb-1" />
-              <p>
-                <IntlMessages id="wizard.async" />
-              </p>
-            </div>
-          ) : (
-            <div>
-              <h2 className="mb-2">
-                <IntlMessages id="wizard.content-thanks" />
-              </h2>
-              <p>
-                <Button
-                  color="primary"
-                  type="submit"
-                  size="lg"
-                  onClick={handleClick}
-                >
-                  <IntlMessages id="wizard.end-button" />
-                </Button>
-              </p>
-            </div>
+        <Formik
+          validationSchema={validationSchema}
+          innerRef={form}
+          initialValues={{
+            rolesOfInterest,
+          }}
+          validateOnMount
+          onSubmit={() => {}}
+        >
+          {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
+            <Form className="av-tooltip tooltip-label-right error-l-75">
+              <FormGroup>
+                <Label>{messages['forms.rolesOfInterest']}</Label>
+                <FormikCustomCheckboxGroup
+                  inline="true"
+                  name="rolesOfInterest"
+                  id="rolesOfInterest"
+                  value={values.rolesOfInterest}
+                  onChange={setFieldValue}
+                  onBlur={setFieldTouched}
+                  options={tagOptions}
+                />
+                {errors.rolesOfInterest && touched.rolesOfInterest ? (
+                  <div className="invalid-feedback d-block">
+                    {errors.rolesOfInterest}
+                  </div>
+                ) : null}
+              </FormGroup>
+            </Form>
           )}
-        </div>
+        </Formik>
       </StepLayout>
     </Step>
   );

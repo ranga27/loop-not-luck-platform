@@ -27,4 +27,8 @@ export const jobValuesOptions = [
     label: 'Innovative/Disruptive Business',
     value: 'Innovative/Disruptive Business',
   },
+  {
+    label: 'Other',
+    value: 'Other',
+  },
 ];
