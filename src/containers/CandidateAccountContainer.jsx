@@ -65,7 +65,7 @@ const CandidateAccountContainer = () => {
     visaRequired: visaRequired || '',
     graduationYear: graduationYear
       ? new Date(graduationYear.toDate().toUTCString())
-      : new Date(Date.now()),
+      : null,
     degreeSubject: degreeSubject || '',
     cvUploadDate: cvUploadDate
       ? new Date(cvUploadDate.toDate().toUTCString())

@@ -38,12 +38,11 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         control={control}
         errors={errors.mobileNumber}
       />
-      <SelectField
-        name="visaRequired"
-        label="Visa Sponsorship Required?"
+      <TextInput
+        name="degreeSubject"
+        label="Degree Subject"
         control={control}
-        errors={errors.visaRequired}
-        options={visaRequiredOptions}
+        errors={errors.degreeSubject}
       />
       <DatePicker
         name="graduationYear"
@@ -54,11 +53,12 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         dateFormat="yyyy"
         yearItemNumber={9}
       />
-      <TextInput
-        name="degreeSubject"
-        label="Degree Subject"
+      <SelectField
+        name="visaRequired"
+        label="Visa Sponsorship Required?"
         control={control}
-        errors={errors.degreeSubject}
+        errors={errors.visaRequired}
+        options={visaRequiredOptions}
       />
       {defaultValues.cvUploadDate &&
         `CV Exists, uploaded on ${new Date(

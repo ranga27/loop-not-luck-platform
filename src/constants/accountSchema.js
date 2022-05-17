@@ -13,8 +13,6 @@ export const AccountSchema = yup.object().shape(
       .matches(phoneRegExp, 'Mobile number is not valid')
       .required('Mobile number is required'),
     visaRequired: yup.string().required('Visa Status is required'),
-    graduationYear: yup.date().nullable().required('Graduation Date required'),
-    degreeSubject: yup.string().required('Degree subject is required'),
     cv: yup.mixed().when('cv', {
       is: (value) => value,
       then: yup
