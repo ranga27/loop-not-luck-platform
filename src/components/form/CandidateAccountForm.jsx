@@ -3,15 +3,24 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Form } from 'reactstrap';
 import { AccountSchema } from '../../constants/accountSchema';
-import { DatePicker, FileUpload, SelectField, TextInput } from './FormFields';
+import {
+  DatePicker,
+  FileUpload,
+  SelectField,
+  TextInput,
+  MultiSelect,
+} from './FormFields';
 import { visaRequiredOptions } from '../../data/visaRequiredOptions';
 import IntlMessages from '../../helpers/IntlMessages';
+import { jobValuesOptions } from '../../data/jobValuesOptions';
 
 const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
   const {
     control,
+    setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
+    clearErrors,
   } = useForm({
     defaultValues,
     resolver: yupResolver(AccountSchema),
@@ -59,6 +68,17 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         control={control}
         errors={errors.visaRequired}
         options={visaRequiredOptions}
+      />
+      {/* eslint no-underscore-dangle: 0 */}
+      <MultiSelect
+        label="Job Values"
+        name="jobValues"
+        control={control}
+        options={jobValuesOptions}
+        setValue={setValue}
+        clearErrors={clearErrors}
+        defaultValue={defaultValues.jobValues}
+        isOptionDisabled={() => control._formValues.jobValues.length >= 3}
       />
       {defaultValues.cvUploadDate &&
         `CV Exists, uploaded on ${new Date(
