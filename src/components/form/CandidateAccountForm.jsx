@@ -13,6 +13,7 @@ import {
 import { visaRequiredOptions } from '../../data/visaRequiredOptions';
 import IntlMessages from '../../helpers/IntlMessages';
 import { jobValuesOptions } from '../../data/jobValuesOptions';
+import { behaviourOptions } from '../../data/behaviourOptions';
 
 const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
   const {
@@ -79,6 +80,15 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         clearErrors={clearErrors}
         defaultValue={defaultValues.jobValues}
         isOptionDisabled={() => control._formValues.jobValues.length >= 3}
+      />
+      <MultiSelect
+        label="Behavior Attributes/Technical Skills"
+        name="behaviorAttributes"
+        control={control}
+        options={behaviourOptions}
+        setValue={setValue}
+        clearErrors={clearErrors}
+        defaultValue={defaultValues.behaviorAttributes}
       />
       {defaultValues.cvUploadDate &&
         `CV Exists, uploaded on ${new Date(

@@ -55,6 +55,7 @@ const CandidateAccountContainer = () => {
     graduationYear,
     hasCompletedProfile,
     jobValues,
+    behaviorAttributes,
   } = userDoc;
 
   // TODO: clone objects elegantly
@@ -72,6 +73,7 @@ const CandidateAccountContainer = () => {
       ? new Date(cvUploadDate.toDate().toUTCString())
       : null,
     jobValues: jobValues || null,
+    behaviorAttributes: behaviorAttributes || null,
   };
 
   const onSubmit = async (data) => {
