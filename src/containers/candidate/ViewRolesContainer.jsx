@@ -35,8 +35,20 @@ const ViewRolesContainer = () => {
     return <div className="loading" />;
   }
   if (roles.length > 0) {
+    const otherRoles = [];
+    const topMatch = [];
     // TODO: combine save, apply, seen actions
-    return <RolesCarousel roles={roles} />;
+    roles.forEach((role) => {
+      if (role.score < 75) otherRoles.push(role);
+      else topMatch.push(role);
+    });
+    return (
+      <RolesCarousel
+        roles={roles}
+        otherRoles={otherRoles}
+        topMatch={topMatch}
+      />
+    );
   }
   return (
     <div>

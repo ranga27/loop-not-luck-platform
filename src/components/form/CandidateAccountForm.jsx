@@ -14,6 +14,7 @@ import { visaRequiredOptions } from '../../data/visaRequiredOptions';
 import IntlMessages from '../../helpers/IntlMessages';
 import { jobValuesOptions } from '../../data/jobValuesOptions';
 import { behaviourOptions } from '../../data/behaviourOptions';
+import { technicalSkills } from '../../data/technicalSkillsOptions';
 
 const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
   const {
@@ -28,7 +29,6 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
   });
   // TODO: convert into smart form
   return (
-    /* "handleSubmit" will validate inputs before invoking "onSubmit" */
     <Form onSubmit={handleSubmit(onSubmit)}>
       <TextInput
         name="firstName"
@@ -79,16 +79,28 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={defaultValues.jobValues}
-        isOptionDisabled={() => control._formValues.jobValues.length >= 3}
+        isOptionDisabled={() =>
+          control._formValues.jobValues !== null &&
+          control._formValues.jobValues.length >= 3
+        }
       />
       <MultiSelect
-        label="Behavior Attributes/Technical Skills"
+        label="Behaviour/Attributes/Strengths"
         name="behaviorAttributes"
         control={control}
         options={behaviourOptions}
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={defaultValues.behaviorAttributes}
+      />
+      <MultiSelect
+        label="Technical Skills"
+        name="technicalSkills"
+        control={control}
+        options={technicalSkills}
+        setValue={setValue}
+        clearErrors={clearErrors}
+        defaultValue={defaultValues.technicalSkills}
       />
       {defaultValues.cvUploadDate &&
         `CV Exists, uploaded on ${new Date(

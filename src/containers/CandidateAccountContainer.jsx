@@ -56,6 +56,7 @@ const CandidateAccountContainer = () => {
     hasCompletedProfile,
     jobValues,
     behaviorAttributes,
+    technicalSkills,
   } = userDoc;
 
   // TODO: clone objects elegantly
@@ -74,6 +75,7 @@ const CandidateAccountContainer = () => {
       : null,
     jobValues: jobValues || null,
     behaviorAttributes: behaviorAttributes || null,
+    technicalSkills: technicalSkills || null,
   };
 
   const onSubmit = async (data) => {
