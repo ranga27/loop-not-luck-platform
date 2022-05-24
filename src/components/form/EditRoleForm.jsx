@@ -71,6 +71,7 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
         label="Title"
         errors={errors.title}
         control={control}
+        className="sticky-top"
       />
       <SelectField
         label="Company"
@@ -93,21 +94,36 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
         options={positionTypes}
         errors={errors.positionType}
       />
-      <TextInput name="department" label="Department" control={control} />
+      <TextInput
+        name="department"
+        label="Department"
+        control={control}
+        errors={errors.department}
+        className="sticky-top"
+      />
       <TextInput
         name="description"
         label="Description"
         errors={errors.description}
         type="textarea"
         control={control}
+        className="sticky-top"
       />
       <TextInput
         name="qualification"
         label="Required Qualifications"
         type="textarea"
         control={control}
+        errors={errors.qualification}
+        className="sticky-top"
       />
-      <TextInput name="renumeration" label="Renumeration" control={control} />
+      <TextInput
+        name="renumeration"
+        label="Renumeration"
+        control={control}
+        errors={errors.renumeration}
+        className="sticky-top"
+      />
       <SelectField
         label="How to Apply"
         name="howToApply"
@@ -121,6 +137,7 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
           label="Hiring Manager Email"
           control={control}
           errors={errors.email}
+          className="sticky-top"
         />
       )}
       {howToApply === 'Apply on website' && (
@@ -129,6 +146,7 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
           label="Website"
           control={control}
           errors={errors.website}
+          className="sticky-top"
         />
       )}
       <Label>Deadline</Label>
@@ -168,6 +186,7 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={role.rolesOfInterests}
+        errors={errors.rolesOfInterests}
       />
       <MultiSelect
         label="Behaviour/Attributes/Strengths"
@@ -177,6 +196,7 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={role.behaviourAttributesStrengths}
+        errors={errors.behaviourAttributesStrengths}
       />
       <CheckBox
         name="prescreening"

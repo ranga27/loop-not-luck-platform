@@ -128,7 +128,12 @@ const PostRoleForm = () => {
         options={positionTypes}
         errors={errors.positionType}
       />
-      <TextInput name="department" label="Department" control={control} />
+      <TextInput
+        name="department"
+        label="Department"
+        control={control}
+        errors={errors.department}
+      />
       <TextInput
         name="description"
         label="Description"
@@ -141,8 +146,14 @@ const PostRoleForm = () => {
         label="Required Qualifications"
         type="textarea"
         control={control}
+        errors={errors.qualification}
       />
-      <TextInput name="renumeration" label="Renumeration" control={control} />
+      <TextInput
+        name="renumeration"
+        label="Renumeration"
+        control={control}
+        errors={errors.renumeration}
+      />
       <SelectField
         label="How to Apply"
         name="howToApply"
@@ -194,6 +205,7 @@ const PostRoleForm = () => {
         options={rolesOfInterests}
         setValue={setValue}
         clearErrors={clearErrors}
+        errors={errors.rolesOfInterests}
       />
       <MultiSelect
         label="Behaviour/Attributes/Strengths"
@@ -202,6 +214,7 @@ const PostRoleForm = () => {
         options={behaviourOptions}
         setValue={setValue}
         clearErrors={clearErrors}
+        errors={errors.behaviourAttributesStrengths}
       />
       <MultiSelect
         label="Technical Skills"
@@ -210,6 +223,7 @@ const PostRoleForm = () => {
         options={technicalSkills}
         setValue={setValue}
         clearErrors={clearErrors}
+        errors={errors.technicalSkills}
       />
       <CheckBox
         name="prescreening"
