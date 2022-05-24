@@ -16,7 +16,7 @@ import {
   changeDefaultClassnames,
   changeSelectedMenuHasSubItems,
 } from '../../redux/actions';
-
+import BG from '../../assets/logos/white.png';
 import menuItems from '../../constants/menu';
 // TODO: convert to functional component
 class Sidebar extends Component {
@@ -296,9 +296,40 @@ class Sidebar extends Component {
   render() {
     const { selectedParentMenu, viewingParentMenu, collapsedMenus } =
       this.state;
+    const { fullName } = this.props;
     return (
-      <div className="sidebar">
-        <div className="main-menu">
+      <div className="sidebar shadow">
+        <div className="main-menu shadow">
+          <div className="px-2 mt-4">
+            <img
+              alt="LNL"
+              src={BG}
+              className="mx-auto d-block"
+              style={{
+                width: '70px',
+                height: '70px',
+                marginBottom: '6px',
+              }}
+            />
+            <p
+              style={{
+                fontWeight: 'bold',
+                fontSize: '15px',
+                textAlign: 'center',
+                paddingBottom: '4px',
+              }}
+            >
+              {fullName}
+            </p>
+            <div
+              className="mx-auto d-block my-3"
+              style={{
+                borderBottom: '1px solid #DBDBDB',
+                width: '70%',
+              }}
+            />
+          </div>
+
           <div className="scroll">
             <PerfectScrollbar
               options={{ suppressScrollX: true, wheelPropagation: false }}
@@ -322,7 +353,7 @@ class Sidebar extends Component {
                             rel="noopener noreferrer"
                             target="_blank"
                           >
-                            <i className={item.icon} />{' '}
+                            <i className={item.icon} />
                             <IntlMessages id={item.label} />
                           </a>
                         ) : (
@@ -330,9 +361,12 @@ class Sidebar extends Component {
                             to={item.to}
                             onClick={(e) => this.handleMenuClick(e, item)}
                             data-flag={item.id}
+                            className="d-inline-block px-4 py-2"
                           >
-                            <i className={item.icon} />{' '}
-                            <IntlMessages id={item.label} />
+                            <i className={`${item.icon} px-2 text-primary`} />
+                            <span className="px-4 py-4">
+                              <IntlMessages id={item.label} />
+                            </span>
                           </NavLink>
                         )}
                       </NavItem>

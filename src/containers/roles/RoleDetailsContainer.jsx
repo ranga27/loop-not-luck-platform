@@ -31,13 +31,24 @@ const RoleDetailsContainer = () => {
           label: document.data().name,
           value: document.data().name,
           id: document.id,
+          industry: document.data().industry,
+          jobValues: document.data().jobValues,
         }));
         return formatDateInArray(companiesData);
       },
     }
   );
   const onSubmit = async (data) => {
-    const updatePost = { ...data, updatedAt: serverTimestamp() };
+    const companyData = companies.filter((x) => x.label === data.company);
+
+    const { jobValues, industry, id } = companyData[0];
+    const updatePost = {
+      ...data,
+      updatedAt: serverTimestamp(),
+      jobValues,
+      industry,
+      companyId: id,
+    };
     console.log('SUBMIT: ', updatePost);
     mutation.mutate(updatePost, {
       onSuccess() {

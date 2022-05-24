@@ -12,6 +12,7 @@ const AppLayout = ({ children }) => {
   if (user.isLoading) {
     return <div className="loading" />;
   }
+  const fullName = `${user.data.firstName} ${user.data.lastName || ''}`;
   return (
     <div id="app-container" className={containerClassnames}>
       <img
@@ -26,7 +27,7 @@ const AppLayout = ({ children }) => {
         }}
       />
       <TopNav />
-      <Sidebar role={user.data.role} />
+      <Sidebar role={user.data.role} fullName={fullName} />
       <main>
         <div className="container-fluid">{children}</div>
       </main>

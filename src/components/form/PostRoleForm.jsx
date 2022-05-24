@@ -42,6 +42,8 @@ const PostRoleForm = () => {
           label: document.data().name,
           value: document.data().name,
           id: document.id,
+          industry: document.data().industry,
+          jobValues: document.data().jobValues,
         }));
         return formatDateInArray(companiesData);
       },
@@ -77,8 +79,19 @@ const PostRoleForm = () => {
   const rolling = watch('rolling');
   const onSubmit = async (data) => {
     const date = { createdAt: serverTimestamp(), updatedAt: serverTimestamp() };
-    const newPost = { ...data, ...date };
+    const companyData = companies.filter((x) => x.label === data.company);
+
+    const { jobValues, industry, id } = companyData[0];
+    const newPost = {
+      ...data,
+      ...date,
+      jobValues,
+      industry,
+      companyId: id,
+    };
+
     console.log('SUBMIT: ', newPost);
+
     mutation.mutate(newPost);
     reset(defaultValues);
   };

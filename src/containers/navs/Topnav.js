@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import { MobileMenuIcon } from '../../components/svg';
 import {
@@ -17,10 +17,42 @@ const TopNav = ({ containerClassnames, clickOnMobileMenuAction }) => {
     e.preventDefault();
     clickOnMobileMenuAction(_containerClassnames);
   };
-  return (
-    <nav className="navbar fixed-top">
-      <div className="d-flex align-items-center navbar-left" />
 
+  const params = useParams();
+
+  let navText = '';
+  switch (params['*']) {
+    case 'roles':
+      navText = 'You’re in The Loop';
+      break;
+    case 'applications':
+      navText = 'My Applications';
+      break;
+    case 'saved':
+      navText = 'Saved Roles';
+      break;
+    case 'account':
+      navText = 'Profile';
+      break;
+    default:
+      break;
+  }
+
+  return (
+    <nav className="navbar fixed-top shadow-sm">
+      <div className="d-flex align-items-center navbar-left">
+        <p
+          className="mt-2"
+          style={{
+            fontWeight: 'bold',
+            fontSize: '20px',
+            left: '20%',
+            marginLeft: '28%',
+          }}
+        >
+          {navText}
+        </p>
+      </div>
       <NavLink
         to="#"
         location={{}}
@@ -30,10 +62,8 @@ const TopNav = ({ containerClassnames, clickOnMobileMenuAction }) => {
         <MobileMenuIcon />
       </NavLink>
       <NavLink className="navbar-logo" to={adminRoot}>
-        <span className="logo d-none d-xs-block" />
         <span className="logo-mobile d-block d-xs-none" />
       </NavLink>
-
       <div className="navbar-right">
         {role === 'super' && (
           <>

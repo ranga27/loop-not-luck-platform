@@ -1,12 +1,12 @@
 /* 10.Menu*/
 .sidebar {
   position: fixed;
-  top: 0;
+  top: 10;
   bottom: 0;
-  padding-top: $navbar-height;
-  z-index: 4;
+  z-index: 9;
   height: calc(100% - #{$navbar-height});
   transition: border-radius $menu-collapse-time;
+  @include depth(1);
 
   .scrollbar-container {
     margin-right: 0;
@@ -20,8 +20,6 @@
     z-index: 3;
     position: fixed;
     transition: transform $menu-collapse-time;
-    padding-top: 10px;
-    padding-bottom: 10px;
     left: 0;
 
     .scroll {
@@ -42,21 +40,17 @@
       position: relative;
 
       span {
-        text-align: center;
-        padding: 0 10px;
         line-height: 14px;
       }
 
       a {
-        height: $main-menu-item-height;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        justify-content: stretch;
+        align-items: stretch;
         font-size: 13px;
         font-style: normal;
         font-weight: 400;
-        border-bottom: 1px solid $separator-color-light;
         color: $primary-color;
         transition: color $menu-collapse-time;
         transition: background $menu-collapse-time;
