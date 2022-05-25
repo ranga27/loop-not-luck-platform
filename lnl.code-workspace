@@ -4,13 +4,11 @@
       "path": "."
     },
     {
-      "path": "../revents"
-    },
-    {
-      "path": "../loop-not-luck"
-    },
-    {
       "path": "../Gogo-React-Admin-Dashboard-5.3.0/React-Version/Source/gogo-react"
+    },
+    {
+      "name": "sarang-blog",
+      "path": "../sarang-blog"
     }
   ],
   "settings": {}
