@@ -104,6 +104,7 @@ const CandidateAccountContainer = () => {
             updatedMutation.mutate({ updatedAt: serverTimestamp() });
           }
           navigate('/app/roles');
+          window.location.reload();
         },
         onError(error) {
           Swal.fire('Oops!', 'Failed to update profile.', 'error');
