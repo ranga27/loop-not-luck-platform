@@ -216,3 +216,17 @@ export async function fetchUserMatchedRolesFromFirestore(userData) {
   }));
   return roles;
 }
+
+export async function updateRoleCollection(role, company, newCompanyData) {
+  const { id } = role;
+  const roleRef = doc(firestore, 'roles', id);
+  await setDoc(
+    roleRef,
+    {
+      company: newCompanyData.name,
+      industry: newCompanyData.industry,
+      jobValues: newCompanyData.jobValues,
+    },
+    { merge: true }
+  );
+}

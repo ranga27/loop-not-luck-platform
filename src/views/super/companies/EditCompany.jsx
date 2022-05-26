@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
-import { doc, serverTimestamp } from 'firebase/firestore';
+import {
+  useFirestoreDocumentMutation,
+  useFirestoreQuery,
+} from '@react-query-firebase/firestore';
+import { doc, serverTimestamp, collection, query } from 'firebase/firestore';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
 import Swal from 'sweetalert2';
 import { Colxx } from '../../../components/common/CustomBootstrap';
@@ -10,6 +13,8 @@ import EditCompanyForm from '../../../components/form/EditCompanyForm';
 import useCompanyStore from '../../../hooks/useCompanyStore';
 import { uploadFile } from '../../../helpers/uploadFile';
 import { firestore } from '../../../helpers/Firebase';
+import { formatDateInArray } from '../../../helpers/Utils';
+import { updateRoleCollection } from '../../../helpers/firestoreService';
 
 const EditCompany = () => {
   const company = useCompanyStore((state) => state.company);
@@ -17,8 +22,42 @@ const EditCompany = () => {
     doc(firestore, 'companies', company.id),
     { merge: true }
   );
+
+  const { isLoading, data: roles } = useFirestoreQuery(
+    ['roles'],
+    query(collection(firestore, 'roles')),
+    {
+      subscribe: true,
+    },
+    {
+      // React Query data selector
+      select(snapshot) {
+        const companiesData = snapshot.docs.map((document) => ({
+          ...document.data(),
+          id: document.id,
+        }));
+        return formatDateInArray(companiesData);
+      },
+    }
+  );
+
+  if (isLoading) {
+    return <div className="loading" />;
+  }
+
   const onSubmit = async (data) => {
-    console.log(data);
+    const companyData = roles.filter((x) => x.company === company.name);
+
+    console.log(company.name);
+    companyData.forEach((item) => {
+      updateRoleCollection(item, company, data).then((results) => {
+        if (results.length > 0) {
+          console.log(results);
+        }
+        return null;
+      });
+    });
+
     const { id, logoFile, ...newData } = {
       ...data,
       updatedAt: serverTimestamp(),

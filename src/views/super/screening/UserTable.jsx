@@ -17,7 +17,7 @@ const UserTable = ({ userRoles }) => {
 
   return (
     <>
-      <Table responsive hover>
+      <Table responsive hover className="sticky-top">
         <thead>
           <tr>
             <th>
