@@ -65,3 +65,18 @@ const addRoleInFirestore = async (role, uid) => {
     .doc(id);
   await roleRef.set({ ...data }, { merge: true });
 };
+
+exports.getUpdatedMatchedRoles = functions.https.onCall((data) => {
+  return onRefreshRoles(data);
+});
+
+async function onRefreshRoles(data) {
+  const uid = data;
+  const roles = await getRolesFromFiretore();
+  if (roles) {
+    roles.forEach((role) => {
+      role.score = getScores(role);
+      addRoleInFirestore(role, uid);
+    });
+  }
+}

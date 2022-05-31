@@ -44,6 +44,14 @@ export async function setUserRole(data) {
   return updateRoleFunction(data);
 }
 
+export async function getUpdatedMatchedRolesInDB(data) {
+  const getUpdatedMatchedRolesFunction = httpsCallable(
+    functions,
+    'getUpdatedMatchedRoles'
+  );
+  return getUpdatedMatchedRolesFunction(data);
+}
+
 export async function registerInFirebase({
   email,
   password,

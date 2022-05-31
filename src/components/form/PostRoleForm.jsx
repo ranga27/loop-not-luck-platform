@@ -2,9 +2,10 @@
 import React from 'react';
 import {
   useFirestoreCollectionMutation,
+  useFirestoreDocumentMutation,
   useFirestoreQuery,
 } from '@react-query-firebase/firestore';
-import { collection, query, serverTimestamp } from 'firebase/firestore';
+import { collection, query, serverTimestamp, doc } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
@@ -29,6 +30,12 @@ const PostRoleForm = () => {
   const mutation = useFirestoreCollectionMutation(
     collection(firestore, 'roles')
   );
+
+  const updatedRoledMutation = useFirestoreDocumentMutation(
+    doc(firestore, `config/roles`),
+    { merge: true }
+  );
+
   const { isLoading, data: companies } = useFirestoreQuery(
     ['companies'],
     query(collection(firestore, 'companies')),
@@ -89,10 +96,11 @@ const PostRoleForm = () => {
       industry,
       companyId: id,
     };
-
+    const roleLastUpdate = { lastUpdated: serverTimestamp() };
     console.log('SUBMIT: ', newPost);
 
     mutation.mutate(newPost);
+    updatedRoledMutation.mutate(roleLastUpdate);
     reset(defaultValues);
   };
   if (isLoading) {

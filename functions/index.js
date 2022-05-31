@@ -13,4 +13,5 @@ exports.sendJobs = sendJobs.sendJobs;
 exports.sendCandidateFeedback = sendCandidateFeedback.sendCandidateFeedback;
 exports.onProfileCompleted = matchRoles.onProfileCompleted;
 exports.onProfileUpdated = matchRoles.onProfileUpdated;
+exports.getUpdatedMatchedRoles = matchRoles.getUpdatedMatchedRoles;
 // TODO: secure the functions using appCheck token
