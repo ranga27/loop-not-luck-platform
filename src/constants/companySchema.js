@@ -2,6 +2,15 @@ import * as yup from 'yup';
 
 // eslint-disable-next-line import/prefer-default-export
 export const companySchema = yup.object().shape({
+  name: yup
+    .string()
+    .max(100, 'Company Name Too Long!')
+    .required('Please enter the Company Name'),
+  email: yup
+    .string()
+    .email('Invalid email')
+    .required('Please enter an email address'),
+
   logoFile: yup.mixed().when('logoUrl', {
     is: (value) => value,
     then: yup.mixed().notRequired(),
@@ -18,7 +27,9 @@ export const companySchema = yup.object().shape({
         }
       ),
   }),
-  industry: yup.array().required().min(1, 'Select at least one'),
+  industry: yup.mixed().required('Industry is required'),
+  genderIdentity: yup.mixed().required('Please select at least one'),
+  jobValues: yup.mixed().required('Job Values is required'),
 });
 
 /* */

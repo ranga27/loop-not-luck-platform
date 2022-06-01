@@ -15,7 +15,7 @@
 
   .main-menu {
     width: $main-menu-width;
-    height: calc(100% - #{$navbar-height});
+    height: calc(100% - #{$navbar-height-lg});
     background: $foreground-color;
     z-index: 3;
     position: fixed;
@@ -90,18 +90,18 @@
     }
 
     @include respond-below(xl) {
-      width: $main-menu-width-lg;
-      height: calc(100% - #{$navbar-height-lg});
+      width: $main-menu-item-height;
+      height: calc(100% - #{$navbar-height});
     }
 
     @include respond-below(lg) {
       width: $main-menu-width-md;
-      height: calc(100% - #{$navbar-height-md});
+      height: calc(100% - #{$navbar-height});
     }
 
     @include respond-below(sm) {
       width: $main-menu-width-xs;
-      height: calc(100% - #{$navbar-height-xs});
+      height: calc(100% - #{$navbar-height});
 
       ul li i {
         font-size: 28px;
@@ -236,37 +236,35 @@
     }
 
     @include respond-below(xl) {
-      left: $main-menu-width-lg;
+      left: $main-menu-item-height;
       width: $sub-menu-width-lg;
-      height: calc(100% - #{$navbar-height-lg});
+      height: calc(100% - #{$navbar-height});
     }
 
     @include respond-below(lg) {
       left: $main-menu-width-md;
       width: $sub-menu-width-md;
-      height: calc(100% - #{$navbar-height-md});
+      height: calc(100% - #{$navbar-height});
     }
 
     @include respond-below(sm) {
       left: $main-menu-width-xs;
       width: $sub-menu-width-xs;
-      height: calc(100% - #{$navbar-height-xs});
+      height: calc(100% - #{$navbar-height});
     }
   }
 
   @include respond-below(xl) {
-    padding-top: $navbar-height-lg;
     height: calc(100% - #{$navbar-height-lg});
   }
 
   @include respond-below(lg) {
-    padding-top: $navbar-height-md;
-    height: calc(100% - #{$navbar-height-md});
+    height: calc(100% - #{$navbar-height-lg});
   }
 
   @include respond-below(sm) {
     padding-top: $navbar-height-xs;
-    height: calc(100% - #{$navbar-height-xs});
+    height: calc(100% - #{$navbar-height});
     @include depth(1);
   }
 }
@@ -311,7 +309,7 @@
   transform: translateX(-$main-menu-width);
 
   @include respond-below(xl) {
-    transform: translateX(-$main-menu-width-lg);
+    transform: translateX(-$main-menu-item-height);
   }
 
   @include respond-below(lg) {
@@ -328,7 +326,7 @@
   transform: translateX(-$sub-menu-width - $main-menu-width);
 
   @include respond-below(xl) {
-    transform: translateX(-$sub-menu-width-lg - $main-menu-width-lg);
+    transform: translateX(-$sub-menu-width-lg - $main-menu-item-height);
   }
 
   @include respond-below(lg) {
@@ -412,7 +410,7 @@
   .sub-hidden main,
   .menu-sub-hidden main,
   .menu-hidden main {
-    margin-left: $main-menu-width-lg + $main-margin-lg;
+    margin-left: $main-menu-item-height + $main-margin-lg;
   }
 
   .main-hidden main,
@@ -492,7 +490,7 @@
 
       @include respond-below(xl) {
         left: initial;
-        right: $main-menu-width-lg;
+        right: $main-menu-item-height;
       }
 
       @include respond-below(lg) {
@@ -535,7 +533,7 @@
     transform: translateX($main-menu-width);
 
     @include respond-below(xl) {
-      transform: translateX($main-menu-width-lg);
+      transform: translateX($main-menu-item-height);
     }
 
     @include respond-below(lg) {
@@ -552,7 +550,7 @@
     transform: translateX($sub-menu-width + $main-menu-width);
 
     @include respond-below(xl) {
-      transform: translateX($sub-menu-width-lg + $main-menu-width-lg);
+      transform: translateX($sub-menu-width-lg + $main-menu-item-height);
     }
 
     @include respond-below(lg) {
@@ -657,7 +655,7 @@
     .sub-hidden main,
     .menu-sub-hidden main,
     .menu-hidden main {
-      margin-right: $main-menu-width-lg + $main-margin-lg;
+      margin-right: $main-menu-item-height + $main-margin-lg;
     }
 
     .main-hidden main,
@@ -764,7 +762,7 @@
     &.sub-hidden .footer-content,
     &.menu-sub-hidden .footer-content,
     &.menu-hidden .footer-content {
-      margin-left: $main-menu-width-lg + $main-margin-lg;
+      margin-left: $main-menu-item-height + $main-margin-lg;
     }
 
     &.main-hidden .footer-content,

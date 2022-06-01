@@ -18,13 +18,10 @@ const AddCompanyForm = ({ onSubmit }) => {
     handleSubmit,
     formState: { errors },
     clearErrors,
-  } = useForm();
+  } = useForm({ resolver: yupResolver(companySchema) });
   // TODO: convert to smart form
   return (
-    <Form
-      onSubmit={handleSubmit(onSubmit)}
-      className="av-tooltip tooltip-label-right"
-    >
+    <Form onSubmit={handleSubmit(onSubmit)}>
       {/* TODO: since Company Name change is allowed, ensure that all other places like Roles have an updated name */}
       <TextInput
         name="name"
@@ -60,6 +57,7 @@ const AddCompanyForm = ({ onSubmit }) => {
         control={control}
         options={genderOptions}
         setValue={setValue}
+        errors={errors.genderIdentity}
         clearErrors={clearErrors}
       />
       <MultiSelect
@@ -68,6 +66,7 @@ const AddCompanyForm = ({ onSubmit }) => {
         control={control}
         options={jobValuesOptions}
         setValue={setValue}
+        errors={errors.jobValues}
         clearErrors={clearErrors}
       />
       <Button color="primary" size="lg" type="submit">

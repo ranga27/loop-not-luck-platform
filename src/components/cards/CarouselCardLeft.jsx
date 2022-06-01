@@ -53,6 +53,9 @@ const CarouselCardLeft = ({ role }) => {
             alt={role.title}
             style={{
               width: '150px',
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: '50% 50%',
             }}
           />
           <div>

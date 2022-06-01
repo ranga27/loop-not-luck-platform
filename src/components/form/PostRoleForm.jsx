@@ -5,6 +5,7 @@ import {
   useFirestoreDocumentMutation,
   useFirestoreQuery,
 } from '@react-query-firebase/firestore';
+import Swal from 'sweetalert2';
 import { collection, query, serverTimestamp, doc } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -51,6 +52,7 @@ const PostRoleForm = () => {
           id: document.id,
           industry: document.data().industry,
           jobValues: document.data().jobValues,
+          logoUrl: document.data().logoUrl,
         }));
         return formatDateInArray(companiesData);
       },
@@ -61,6 +63,7 @@ const PostRoleForm = () => {
     department: '',
     qualification: '',
     renumeration: '',
+    description: '',
     howToApply: '',
     email: '',
     website: '',
@@ -69,6 +72,9 @@ const PostRoleForm = () => {
     startDate: null,
     coverLetter: false,
     prescreening: false,
+    rolesOfInterests: null,
+    behaviourAttributesStrengths: null,
+    technicalSkills: null,
   };
   const {
     watch,
@@ -88,18 +94,29 @@ const PostRoleForm = () => {
     const date = { createdAt: serverTimestamp(), updatedAt: serverTimestamp() };
     const companyData = companies.filter((x) => x.label === data.company);
 
-    const { jobValues, industry, id } = companyData[0];
-    const newPost = {
+    console.log(companyData);
+    const { jobValues, industry, logoUrl, id } = companyData[0];
+    const newData = {
       ...data,
       ...date,
       jobValues,
       industry,
+      logoUrl,
       companyId: id,
     };
     const roleLastUpdate = { lastUpdated: serverTimestamp() };
-    console.log('SUBMIT: ', newPost);
-
-    mutation.mutate(newPost);
+    console.log('SUBMIT: ', newData);
+    mutation.mutate(newData, {
+      onSuccess() {
+        Swal.fire('Added!', 'New Role Added.', 'success');
+      },
+      onError() {
+        Swal.fire('Oops!', 'Failed to Add Role.', 'error');
+      },
+      onMutate() {
+        console.info('Adding document...');
+      },
+    });
     updatedRoledMutation.mutate(roleLastUpdate);
     reset(defaultValues);
   };
@@ -221,8 +238,8 @@ const PostRoleForm = () => {
         control={control}
         options={behaviourOptions}
         setValue={setValue}
-        clearErrors={clearErrors}
         errors={errors.behaviourAttributesStrengths}
+        clearErrors={clearErrors}
       />
       <MultiSelect
         label="Technical Skills"
@@ -231,7 +248,7 @@ const PostRoleForm = () => {
         options={technicalSkills}
         setValue={setValue}
         clearErrors={clearErrors}
-        errors={errors.technicalSkills}
+        errors={errors.rolesOfInterests}
       />
       <CheckBox
         name="prescreening"

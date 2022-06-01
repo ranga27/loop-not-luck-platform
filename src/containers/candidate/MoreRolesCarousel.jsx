@@ -16,31 +16,24 @@ const MoreRolesCarousel = ({ otherRoles }) => {
     <Carousel
       dragging={false}
       disableKeyboardControls
-      renderCenterLeftControls={({
-        previousOtherRolesSlide,
-        currentOtherRolesSlide,
-      }) =>
-        currentOtherRolesSlide !== 0 ? (
+      renderCenterLeftControls={({ previousSlide, currentSlide }) =>
+        currentSlide !== 0 ? (
           <i
             role="link"
-            onClick={previousOtherRolesSlide}
+            onClick={previousSlide}
             className=" simple-icon-arrow-left carousel-nav"
           />
         ) : (
           ''
         )
       }
-      renderCenterRightControls={({
-        nextSlide,
-        slideCount,
-        currentOtherRolesSlide,
-      }) =>
-        currentOtherRolesSlide !== slideCount - 1 ? (
+      renderCenterRightControls={({ nextSlide, slideCount, currentSlide }) =>
+        currentSlide !== slideCount - 1 ? (
           <i
             role="link"
             onClick={() => {
               nextSlide();
-              seenRole(currentOtherRolesSlide);
+              seenRole(currentSlide);
             }}
             className="simple-icon-arrow-right carousel-nav"
           />
