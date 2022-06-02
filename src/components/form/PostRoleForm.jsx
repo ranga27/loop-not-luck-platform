@@ -94,7 +94,6 @@ const PostRoleForm = () => {
     const date = { createdAt: serverTimestamp(), updatedAt: serverTimestamp() };
     const companyData = companies.filter((x) => x.label === data.company);
 
-    console.log(companyData);
     const { jobValues, industry, logoUrl, id } = companyData[0];
     const newData = {
       ...data,

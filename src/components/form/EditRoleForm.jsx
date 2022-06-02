@@ -15,10 +15,11 @@ import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import rolesOfInterests from '../../data/rolesOfInterests';
 import { behaviourOptions } from '../../data/behaviourOptions';
+import { technicalSkills } from '../../data/technicalSkillsOptions';
 import { getDateFromString } from '../../helpers/Utils';
 
 // Combine Post Role & Edit Role forms
-const EditRoleForm = ({ companies, role, onSubmit }) => {
+const EditRoleForm = ({ onSubmit, companies, role }) => {
   const {
     setValue,
     watch,
@@ -43,7 +44,14 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
         setValue('positionType', role.positionType);
         setValue('department', role.department);
         setValue('description', role.description);
+        setValue('renumeration', role.renumeration);
         setValue('qualification', role.qualification);
+        setValue(
+          'behaviourAttributesStrengths',
+          role.behaviourAttributesStrengths
+        );
+        setValue('rolesOfInterests', role.rolesOfInterests);
+        setValue('technicalSkills', role.technicalSkills);
         setValue('howToApply', role.howToApply);
         setValue('email', role.email);
         setValue('website', role.website);
@@ -155,6 +163,7 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
         label="Rolling"
         control={control}
         checked={rolling}
+        errors={errors.rolling}
       />
       {!rolling && (
         <DatePicker
@@ -198,16 +207,25 @@ const EditRoleForm = ({ companies, role, onSubmit }) => {
         defaultValue={role.behaviourAttributesStrengths}
         errors={errors.behaviourAttributesStrengths}
       />
+      <MultiSelect
+        label="Technical Skills"
+        name="technicalSkills"
+        control={control}
+        options={technicalSkills}
+        setValue={setValue}
+        clearErrors={clearErrors}
+        defaultValue={role.technicalSkills}
+        errors={errors.technicalSkills}
+      />
       <CheckBox
         name="prescreening"
         label="Requires prescreening"
         control={control}
         checked={watch('prescreening')}
       />
-      <Button color="primary" type="submit" /* disabled={mutation.isLoading} */>
+      <Button color="primary" type="submit">
         Update
       </Button>
-      {/* {mutation.isError && <p>{mutation.error.message} </p>} */}
     </Form>
   );
 };

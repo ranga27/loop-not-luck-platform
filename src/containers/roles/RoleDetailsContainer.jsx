@@ -38,6 +38,9 @@ const RoleDetailsContainer = () => {
       },
     }
   );
+  if (isLoading || !role) {
+    return <div className="loading" />;
+  }
   const onSubmit = async (data) => {
     const companyData = companies.filter((x) => x.label === data.company);
 
@@ -63,9 +66,6 @@ const RoleDetailsContainer = () => {
       },
     });
   };
-  if (isLoading || !role) {
-    return <div className="loading" />;
-  }
   return (
     <EditRoleForm
       role={role}

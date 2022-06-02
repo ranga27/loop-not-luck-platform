@@ -72,7 +72,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
       />
       {/* eslint no-underscore-dangle: 0 */}
       <MultiSelect
-        label="Job Values"
+        label="What are your top 3 Job Values?"
         name="jobValues"
         control={control}
         options={jobValuesOptions}
@@ -85,13 +85,17 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         }
       />
       <MultiSelect
-        label="Behaviour/Attributes/Strengths"
+        label="What are your top 3 Behaviours/Attributes/Strengths?"
         name="behaviorAttributes"
         control={control}
         options={behaviourOptions}
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={defaultValues.behaviorAttributes}
+        isOptionDisabled={() =>
+          control._formValues.behaviorAttributes !== null &&
+          control._formValues.behaviorAttributes.length >= 3
+        }
       />
       <MultiSelect
         label="Technical Skills"

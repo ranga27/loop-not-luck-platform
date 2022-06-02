@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
 import { collection, serverTimestamp } from 'firebase/firestore';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
@@ -11,6 +12,7 @@ import { firestore } from '../../../helpers/Firebase';
 import { uploadFile } from '../../../helpers/uploadFile';
 
 const AddCompany = () => {
+  const navigate = useNavigate();
   const mutation = useFirestoreCollectionMutation(
     collection(firestore, 'companies')
   );
@@ -29,6 +31,7 @@ const AddCompany = () => {
     mutation.mutate(newData, {
       onSuccess() {
         Swal.fire('Added!', 'New Company Added.', 'success');
+        navigate('/app/companies');
       },
       onError(error) {
         Swal.fire('Oops!', 'Failed to Add Company.', 'error');
