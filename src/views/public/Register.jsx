@@ -12,10 +12,7 @@ import { Form } from 'reactstrap';
 import Layout from '../../layout/Layout';
 import { signUpSchema } from '../../constants/signupSchema';
 import AuthButton from '../../components/AuthButton';
-import {
-  logoutUser,
-  setAuthError,
-} from '../../redux/auth/authSlice';
+import { logoutUser, setAuthError } from '../../redux/auth/authSlice';
 import { SelectField, TextInput } from '../../components/form/FormFields';
 import { sendVerificationEmail } from '../../helpers/firebaseService';
 
@@ -74,6 +71,11 @@ const Register = () => {
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
         await sendVerificationEmail(values);
+        regAlert.fire(
+          'Awesome!',
+          'You are nearly in the loop. Please click the link the email just sent to verify your account.',
+          'success'
+        );
       }
     }
   };
