@@ -44,9 +44,11 @@ const Layout = ({ cardTitle, children }) => {
           <Card className="auth-card">
             <div className="position-relative image-side " />
             <div className="form-side">
-              <CardTitle className="mb-4">
-                <IntlMessages id={cardTitle} />
-              </CardTitle>
+              {cardTitle && (
+                <CardTitle className="mb-4">
+                  <IntlMessages id={cardTitle} />
+                </CardTitle>
+              )}
               {children}
             </div>
           </Card>

@@ -21,6 +21,6 @@ exports.sendVerificationEmail = functions.firestore
       from: 'hello@loopnotluck.com',
       subject: 'Get In the Loop - Verify Your Email!',
       firstName,
-      message: `https://us-central1-loopnotluck.cloudfunctions.net/confirmEmail?conf=${confirmationHash}`,
+      message: `https://us-central1-loop-luck.cloudfunctions.net/confirmEmail?conf=${confirmationHash}`,
     });
   });

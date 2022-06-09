@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const { serverTimestamp } = require('firebase/firestore');
 
 exports.confirmEmail = functions.https.onRequest(async (req, res) => {
   const confirmationHash = req.query.conf;
@@ -12,21 +13,22 @@ exports.confirmEmail = functions.https.onRequest(async (req, res) => {
     .get();
 
   if (querySnapshot.size === 0) {
-    return res.redirect(
-      'https://loopnotluck.web.app/email-confirmation/failure'
-    );
+    return res.redirect('https://loop-luck.web.app/email-confirmation/failure');
   }
 
   const temporaryUserDoc = querySnapshot.docs[0];
 
-  const { authUid, email, firstName, company } = temporaryUserDoc.data();
+  const { authUid, email, firstName } = temporaryUserDoc.data();
 
   await auth.updateUser(authUid, { emailVerified: true });
   await store.collection('users').doc(authUid).set({
     email,
     firstName,
-    company,
+    role: 'candidate',
+    createdAt: serverTimestamp(),
+    isOnboarded: false,
+    hasCompletedProfile: false,
   });
   await store.collection('temporaryUsers').doc(temporaryUserDoc.id).delete();
-  return res.redirect('https://loopnotluck.web.app/email-confirmation/success');
+  return res.redirect('https://loop-luck.web.app/email-confirmation/success');
 });

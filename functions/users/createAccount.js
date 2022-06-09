@@ -1,14 +1,15 @@
-//this is the function that FE will call when new user signs up
 const functions = require('firebase-functions');
 const { createAuthUser } = require('./createAuthUser');
 const { createTemporaryUser } = require('./createTemporaryUser');
 
+/**
+ * This function handles new user sign up calls from client
+ */
 exports.createAccount = functions.https.onCall((data) => {
   return createAccount(data);
 });
 
 async function createAccount(data) {
-  // export const createAccount = functions.https.onCall(async (data, context) => {
   //get new user info sent by FE in the request
   const newUserInfo = data;
 
