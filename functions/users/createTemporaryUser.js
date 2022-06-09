@@ -1,25 +1,19 @@
-import * as admin from 'firebase-admin';
-import { v4 as uuid } from 'uuid';
+const admin = require('firebase-admin');
+const { v4: uuid } = require('uuid');
 
-export const createTemporaryUser = async (authUid, newUserInfo) => {
-    const store = admin.firestore();
-    const {
-        emailAddress,
-        firstName,
-        lastName,
-        role,
-    } = newUserInfo;
-    const confirmationHash = uuid();
-    const createdAt = Date.now();
-    const tempUserInfo = {
-        authUid,
-        emailAddress,
-        firstName,
-        lastName,
-        role,
-        confirmationHash,
-        createdAt,
-    };
+exports.createTemporaryUser = async (authUid, newUserInfo) => {
+  const store = admin.firestore();
+  const { email, firstName, company } = newUserInfo;
+  const confirmationHash = uuid();
+  const createdAt = Date.now();
+  const tempUserInfo = {
+    authUid,
+    email,
+    firstName,
+    company,
+    confirmationHash,
+    createdAt,
+  };
 
-    return store.collection('temporaryUsers').doc().set(tempUserInfo);
-}
+  return store.collection('temporaryUsers').doc().set(tempUserInfo);
+};

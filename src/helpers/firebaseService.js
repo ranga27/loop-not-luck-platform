@@ -20,6 +20,11 @@ export async function verifyEmail() {
   return sendEmailVerification(auth.currentUser);
 }
 
+export async function sendVerificationEmail(data) {
+  const emailVerificationFunction = httpsCallable(functions, 'createAccount');
+  return emailVerificationFunction(data);
+}
+
 export async function getUsersList() {
   const getUsersListFunction = httpsCallable(functions, 'getUsersList');
   const results = await getUsersListFunction();

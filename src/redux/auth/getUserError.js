@@ -4,7 +4,7 @@ export const getUserError = (message) => {
     case /internal/i.test(message):
       return 'Please contact support: hello@loopnotluck.com';
     case /email-already-in-use/i.test(message):
-      return 'Email already in use, try logging';
+      return 'Email already in use, try to login';
     case /weak-password/i.test(message):
       return 'The password is not strong enough.';
     case /user-not-found/i.test(message):

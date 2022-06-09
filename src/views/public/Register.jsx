@@ -14,10 +14,10 @@ import { signUpSchema } from '../../constants/signupSchema';
 import AuthButton from '../../components/AuthButton';
 import {
   logoutUser,
-  registerUser,
   setAuthError,
 } from '../../redux/auth/authSlice';
 import { SelectField, TextInput } from '../../components/form/FormFields';
+import { sendVerificationEmail } from '../../helpers/firebaseService';
 
 const Register = () => {
   // TODO: for testing purposes, remove in production
@@ -70,10 +70,10 @@ const Register = () => {
     }
   }, [currentUser, loading]);
 
-  const onUserSubmit = (values) => {
+  const onUserSubmit = async (values) => {
     if (!loading) {
       if (values.email !== '' && values.password !== '') {
-        dispatch(registerUser(values));
+        await sendVerificationEmail(values);
       }
     }
   };

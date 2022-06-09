@@ -1,13 +1,14 @@
 //cloud functions have higher access control so firebase-admin helps, allows us to bypass the security rules
-import * as admin from 'firebase-admin';
-export const createAuthUser = async newUserInfo => {
-    const auth = admin.auth();
-    const { emailAddress, password } = newUserInfo;
+const admin = require('firebase-admin');
 
-    const newUser = await auth.createUser({
-        email: emailAddress,
-        password,
-    });
+exports.createAuthUser = async (newUserInfo) => {
+  const auth = admin.auth();
+  const { email, password } = newUserInfo;
 
-    return newUser.uid;
-}
+  const newUser = await auth.createUser({
+    email,
+    password,
+  });
+
+  return newUser.uid;
+};
