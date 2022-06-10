@@ -18,10 +18,10 @@ exports.confirmEmail = functions.https.onRequest(async (req, res) => {
 
   const temporaryUserDoc = querySnapshot.docs[0];
 
-  const { authUid, email, firstName } = temporaryUserDoc.data();
+  const { uid, email, firstName } = temporaryUserDoc.data();
 
-  await auth.updateUser(authUid, { emailVerified: true });
-  await store.collection('users').doc(authUid).set({
+  await auth.updateUser(uid, { emailVerified: true });
+  await store.collection('users').doc(uid).set({
     email,
     firstName,
     role: 'candidate',

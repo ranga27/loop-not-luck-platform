@@ -1,23 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Form } from 'reactstrap';
+import {
+  useAuthCreateUserWithEmailAndPassword,
+  useAuthSignOut,
+} from '@react-query-firebase/auth';
+import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
+import { collection, serverTimestamp } from 'firebase/firestore';
 import Layout from '../../layout/Layout';
 import { signUpSchema } from '../../constants/signupSchema';
 import AuthButton from '../../components/AuthButton';
-import { logoutUser, setAuthError } from '../../redux/auth/authSlice';
 import { SelectField, TextInput } from '../../components/form/FormFields';
-import { sendVerificationEmail } from '../../helpers/firebaseService';
+import { auth, firestore } from '../../helpers/Firebase';
+import { getUserError } from '../../helpers/getUserError';
 
 const Register = () => {
-  // TODO: for testing purposes, remove in production
   const defaultValues = {
     firstName: '',
     email: '',
@@ -35,48 +40,56 @@ const Register = () => {
     defaultValues,
     resolver: yupResolver(signUpSchema),
   });
-  const regAlert = withReactContent(Swal);
-  const navigate = useNavigate();
-  const { loading, error, currentUser } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-
   const role = watch('role');
-  useEffect(() => {
-    if (error) {
-      regAlert.fire({
+  const alert = withReactContent(Swal);
+  const navigate = useNavigate();
+  const confirmationHash = uuidv4();
+  const signOut = useAuthSignOut(auth);
+
+  const createUser = useAuthCreateUserWithEmailAndPassword(auth, {
+    onError(error) {
+      alert.fire({
         icon: 'error',
         title: 'Oops...',
-        text: error,
+        text: getUserError(error.message),
       });
-      dispatch(setAuthError(''));
-    } else if (!loading && currentUser === 'success') {
-      regAlert
-        .fire(
-          'Awesome!',
-          'You are nearly in the loop. Please click the link the email just sent to verify your account.',
-          'success'
-        )
-        .then((result) => {
-          if (result.isConfirmed || result.isDismissed) {
-            // Firebase signs in user on registration, hence sign out immediately to verify email
-            dispatch(setAuthError(''));
-            dispatch(logoutUser());
-            navigate('/');
-          }
-        });
-    }
-  }, [currentUser, loading]);
-
+    },
+  });
+  const createTempUser = useFirestoreCollectionMutation(
+    collection(firestore, 'temporaryUsers')
+  );
   const onUserSubmit = async (values) => {
-    if (!loading) {
-      if (values.email !== '' && values.password !== '') {
-        await sendVerificationEmail(values);
-        regAlert.fire(
-          'Awesome!',
-          'You are nearly in the loop. Please click the link the email just sent to verify your account.',
-          'success'
-        );
-      }
+    const { email, password, firstName } = values;
+    if (!createUser.isLoading) {
+      createUser.mutate(
+        { email, password },
+        {
+          onSuccess(data) {
+            const { uid } = data.user;
+            console.log(uid, 'created');
+            createTempUser.mutate({
+              uid,
+              email,
+              firstName,
+              confirmationHash,
+              createdAt: serverTimestamp(),
+            });
+            alert
+              .fire(
+                'Awesome!',
+                'You are nearly in the loop. Please click the link the email just sent to verify your account.',
+                'success'
+              )
+              .then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                  // Firebase signs in user on registration, hence sign out immediately to verify email
+                  signOut.mutate();
+                  navigate('/');
+                }
+              });
+          },
+        }
+      );
     }
   };
   const options = [
@@ -123,7 +136,10 @@ const Register = () => {
           type="password"
         />
         <div className="d-flex flex-column justify-content-center align-items-center">
-          <AuthButton loading={loading} label="user.register-button" />
+          <AuthButton
+            loading={createUser.isLoading}
+            label="user.register-button"
+          />
           <p className="my-4">
             If you are a member, please{' '}
             <NavLink to="/login" style={{ color: 'green' }}>

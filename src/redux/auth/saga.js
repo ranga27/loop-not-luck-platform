@@ -28,7 +28,7 @@ import {
   signInWithEmail,
   verifyEmail,
 } from '../../helpers/firebaseService';
-import { getUserError } from './getUserError';
+import { getUserError } from '../../helpers/getUserError';
 
 const loginWithEmailPasswordAsync = async (user) => {
   return signInWithEmail(user);

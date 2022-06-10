@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
-const { sendEmail } = require('./sendEmail');
 const admin = require('firebase-admin');
+const { sendEmail } = require('./sendEmail');
 
 exports.sendVerificationEmail = functions.firestore
   .document('temporaryUsers/{uid}')
@@ -12,7 +12,6 @@ exports.sendVerificationEmail = functions.firestore
       .doc(uid)
       .get();
     console.log('Testing for user: ', querySnapshot.data());
-
     const tempUserInfo = snapshot.data();
     const { email, confirmationHash, firstName } = tempUserInfo;
 
