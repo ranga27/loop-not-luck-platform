@@ -1,6 +1,5 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const { serverTimestamp } = require('firebase/firestore');
 
 exports.confirmEmail = functions.https.onRequest(async (req, res) => {
   const confirmationHash = req.query.conf;
@@ -11,21 +10,17 @@ exports.confirmEmail = functions.https.onRequest(async (req, res) => {
     .collection('temporaryUsers')
     .where('confirmationHash', '==', confirmationHash)
     .get();
-
   if (querySnapshot.size === 0) {
     return res.redirect('https://loop-luck.web.app/email-confirmation/failure');
   }
-
   const temporaryUserDoc = querySnapshot.docs[0];
-
   const { uid, email, firstName } = temporaryUserDoc.data();
-
   await auth.updateUser(uid, { emailVerified: true });
   await store.collection('users').doc(uid).set({
     email,
     firstName,
     role: 'candidate',
-    createdAt: serverTimestamp(),
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
     isOnboarded: false,
     hasCompletedProfile: false,
   });
