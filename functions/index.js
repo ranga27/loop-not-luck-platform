@@ -8,6 +8,7 @@ const matchRoles = require('./roles/matchRoles');
 const sendVerificationEmail = require('./users/sendVerificationEmail');
 const confirmEmail = require('./users/confirmEmail');
 admin.initializeApp();
+const matchNewRoles = require('./roles/matchNewRoles');
 
 exports.setUserRole = setUserRole.setUserRole;
 exports.getUsersList = getUsersList.getUsersList;
@@ -18,4 +19,5 @@ exports.onProfileUpdated = matchRoles.onProfileUpdated;
 exports.getUpdatedMatchedRoles = matchRoles.getUpdatedMatchedRoles;
 exports.sendVerificationEmail = sendVerificationEmail.sendVerificationEmail;
 exports.confirmEmail = confirmEmail.confirmEmail;
+exports.onRoleWritten = matchNewRoles.onRoleWritten;
 // TODO: secure the functions using appCheck token
