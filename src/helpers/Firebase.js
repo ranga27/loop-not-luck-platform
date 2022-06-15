@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
@@ -9,7 +9,7 @@ const firebase = initializeApp(firebaseConfig);
 
 const auth = getAuth(firebase);
 const firestore = getFirestore(firebase);
-const functions = getFunctions(firebase);
+const functions = getFunctions(getApp());
 
 if (process.env.NODE_ENV !== 'production') {
   connectFunctionsEmulator(functions, 'localhost', 5001);
