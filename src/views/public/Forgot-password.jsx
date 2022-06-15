@@ -27,7 +27,7 @@ const ForgotPassword = () => {
 
   const onForgotPassword = (values) => {
     sendPasswordResetEmail(auth, values.email, {
-      url: 'http://localhost:3000/login',
+      url: 'https://loop-luck.web.app/login',
     });
     alert.fire(
       'Awesome!',
