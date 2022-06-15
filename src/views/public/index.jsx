@@ -17,6 +17,11 @@ const Unauthorised = lazy(() =>
 const EmailConfirmation = lazy(() =>
   import(/* webpackChunkName: "email-confirmation" */ './EmailConfirmation')
 );
+const ResetConfirmation = lazy(() =>
+  import(
+    /* webpackChunkName: "reset-password-confirmation" */ './ResetConfirmation'
+  )
+);
 // TODO: Replace Loading in Suspense with a framer motion effect
 const Public = () => {
   return (
@@ -37,6 +42,10 @@ const Public = () => {
             <Route
               path="email-confirmation/failure"
               element={<EmailConfirmation />}
+            />
+            <Route
+              path="password-reset-confirmation"
+              element={<ResetConfirmation success />}
             />
             <Route path="*" element={<Error />} />
             <Route path="/" element={<Navigate to="register" />} />

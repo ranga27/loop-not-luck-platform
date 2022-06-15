@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Label, FormGroup, CardSubtitle } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import IntlMessages from '../../helpers/IntlMessages';
 import AuthButton from '../../components/AuthButton';
 import Layout from '../../layout/Layout';
-import { forgotPassword } from '../../redux/auth/authSlice';
+import { auth } from '../../helpers/Firebase';
 
 const validateEmail = (value) => {
   let error;
@@ -19,41 +21,21 @@ const validateEmail = (value) => {
   return error;
 };
 
-const ForgotPassword = ({ history }) => {
-  const { forgotUserMail, loading, error } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+const ForgotPassword = () => {
   const [email] = useState('');
+  const alert = withReactContent(Swal);
 
   const onForgotPassword = (values) => {
-    if (!loading) {
-      if (values.email !== '') {
-        // TODO: remove history
-        dispatch(forgotPassword(values, history));
-      }
-    }
+    sendPasswordResetEmail(auth, values.email, {
+      url: 'http://localhost:3000/login',
+    });
+    alert.fire(
+      'Awesome!',
+      'You are nearly done resetting your password. Please click the link the email just sent to reset your password.',
+      'success'
+    );
+    console.log('Password reset email sent');
   };
-  /*
-  useEffect(() => {
-    if (error) {
-       NotificationManager.warning(
-        error,
-        'Forgot Password Error',
-        3000,
-        null,
-        null,
-        '' 
-      );
-    } else if (!loading && forgotUserMail === 'success')
-      NotificationManager.success(
-        'Please check your email.',
-        'Forgot Password Success',
-        3000,
-        null,
-        null,
-        '' 
-      );
-  }, [error, forgotUserMail, loading]); */
-
   const initialValues = { email };
 
   return (
@@ -84,10 +66,7 @@ const ForgotPassword = ({ history }) => {
             </FormGroup>
 
             <div className="d-flex justify-content-center align-items-center">
-              <AuthButton
-                loading={loading}
-                label="user.reset-password-button"
-              />
+              <AuthButton label="pages.submit" />
             </div>
           </Form>
         )}
@@ -96,11 +75,4 @@ const ForgotPassword = ({ history }) => {
   );
 };
 
-const mapStateToProps = ({ auth }) => {
-  const { forgotUserMail, loading, error } = auth;
-  return { forgotUserMail, loading, error };
-};
-
-export default connect(mapStateToProps, {
-  forgotPasswordAction: forgotPassword,
-})(ForgotPassword);
+export default ForgotPassword;
