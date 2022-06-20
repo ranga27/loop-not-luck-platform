@@ -61,6 +61,20 @@ const EditTemplate = lazy(() =>
   import(/* webpackChunkName: "admin-templates" */ './Templates/EditTemplate')
 );
 
+const UserProfiles = lazy(() =>
+  import(/* webpackChunkName: "admin-profiles-list" */ './profiles')
+);
+
+const ManageProfiles = lazy(() =>
+  import(
+    /* webpackChunkName: "admin-profiles" */ './profiles/ProfilesContainer'
+  )
+);
+
+const UserProfile = lazy(() =>
+  import(/* webpackChunkName: "admin-user-profile" */ './profiles/UserProfile')
+);
+
 const SuperAdminRoute = () => {
   return (
     <AppLayout>
@@ -77,6 +91,13 @@ const SuperAdminRoute = () => {
             <Route path="add" element={<AddCompany />} />
           </Route>
           <Route path="screening" element={<ScreenApplications />} />
+          {/* <Route path="profiles" element={<ManageProfiles />} /> */}
+
+          <Route path="profiles" element={<UserProfiles />}>
+            <Route index element={<ManageProfiles />} />
+            <Route path=":id" element={<UserProfile />} />
+          </Route>
+
           <Route path="templates" element={<Templates />}>
             <Route index element={<ViewTemplates />} />
             <Route path="view" element={<ViewTemplates />} />
