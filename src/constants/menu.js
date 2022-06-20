@@ -37,6 +37,13 @@ const data = [
     roles: [UserRole.super],
   },
   {
+    id: 'profiles',
+    icon: 'iconsminds-user',
+    label: 'menu.profiles',
+    to: 'profiles',
+    roles: [UserRole.super],
+  },
+  {
     id: 'my-loop',
     icon: 'iconsminds-record',
     label: 'menu.my-loop',

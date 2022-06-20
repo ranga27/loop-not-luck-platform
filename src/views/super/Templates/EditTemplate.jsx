@@ -11,7 +11,6 @@ import EditTemplateForm from '../../../components/form/EditTemplateForm';
 
 const EditTemplate = () => {
   const template = useTemplateStore((state) => state.template);
-  console.log(template);
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, 'templates', template.id),
     { merge: true }

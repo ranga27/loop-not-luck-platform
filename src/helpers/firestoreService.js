@@ -230,3 +230,10 @@ export async function updateRoleCollection(role, company, newCompanyData) {
     { merge: true }
   );
 }
+
+export async function fetchUserProfileDataFromFirestore(uid) {
+  const userDocRef = doc(firestore, 'users', uid);
+  const userDoc = await getDoc(userDocRef);
+  const data = userDoc.data();
+  return data;
+}

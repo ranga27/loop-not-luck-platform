@@ -71,6 +71,7 @@ module.exports = {
   'menu.test': 'Test Algorithm',
   'menu.screening': 'Screening',
   'menu.templates': 'Templates',
+  'menu.profiles': 'Users List',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
@@ -183,6 +184,12 @@ module.exports = {
   'pages.templates-cancel': 'Cancel',
   'pages.templates-edit': 'Edit',
   'pages.templates-view': 'View',
+  'pages.profiles-table-head-index': '#',
+  'pages.profiles-table-head-name': 'Full Name',
+  'pages.profiles-table-head-email': 'Email',
+  'pages.profiles-table-head-role': 'Role',
+  'pages.profiles-table-head-status': 'Profile Status',
+  'pages.profiles-table-head-createdAt': 'Created At',
 
   /* Forms */
   'forms.gender': 'Gender',
