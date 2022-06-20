@@ -26,7 +26,7 @@ const UserProfileTable = ({ profiles }) => {
   return (
     <>
       <div>
-        <div className=" bg-transparent  p-4">
+        <div className=" bg-transparent  sticky-top p-4">
           <Input
             value={SearchTerms}
             onChange={onChangeSearch}
