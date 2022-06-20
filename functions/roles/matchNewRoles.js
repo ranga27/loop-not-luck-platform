@@ -1,23 +1,25 @@
 const functions = require('firebase-functions');
+const { Logging } = require('@google-cloud/logging');
+const logging = new Logging({
+  projectId: process.env.GCLOUD_PROJECT,
+});
 
 exports.onRoleWritten = functions.firestore
   .document('roles/{roleId}')
   .onWrite(async (change, context) => {
-    try{
-    // Access the parameter `{roleId}` with `context.params`
-    const roleId = context.params.roleId;
-    const data = change.after.data();
-    console.log('Role doc created/updated in firestore: ', roleId);
-    console.log('New role data: ', data);
-    return;
-    }
-    catch (error)
-    {
-
+    try {
+      // Access the parameter `{roleId}` with `context.params`
+      const roleId = context.params.roleId;
+      const data = change.after.data();
+      console.log('Role doc created/updated in firestore: ', roleId);
+      console.log('New role data: ', data);
+      return;
+    } catch (error) {
+      await reportError(error, { user: context.params.userId });
     }
   });
 
-  // [START reporterror]
+// [START reporterror]
 
 function reportError(err, context = {}) {
   // This is the name of the StackDriver log stream that will receive the log
