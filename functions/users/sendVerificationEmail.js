@@ -17,8 +17,8 @@ exports.sendVerificationEmail = functions.firestore
 
     return sendEmail({
       to: email,
-      from: 'hello@loopnotluck.com',
-      subject: 'Get In the Loop - Verify Your Email!',
+      from: 'Loop Not Luck hello@loopnotluck.com',
+      subject: 'Click here to verify your email address - Get in the Loop',
       firstName,
       message: `https://us-central1-loop-luck.cloudfunctions.net/confirmEmail?conf=${confirmationHash}`,
     });

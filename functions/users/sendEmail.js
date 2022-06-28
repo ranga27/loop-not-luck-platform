@@ -47,7 +47,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                   cellpadding="0"
                   border="0"
                   role="presentation"
-                  width="600"
+                  width="300"
                   style="table-layout: fixed; width: 600px"
                 >
                   <tbody>
@@ -61,157 +61,6 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                           role="presentation"
                         >
                           <tbody>
-                            <tr>
-                              <td align="center">
-                                <table
-                                  cellspacing="0"
-                                  cellpadding="0"
-                                  border="0"
-                                  role="presentation"
-                                  width="100%"
-                                  style="table-layout: fixed; width: 100%"
-                                >
-                                  <tbody>
-                                    <tr>
-                                      <td
-                                        height="20"
-                                        style="
-                                          font-size: 20px;
-                                          line-height: 20px;
-                                          background-color: #ffffff;
-                                        "
-                                      >
-                                        ­
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td style="background-color: #ffffff">
-                                        <table
-                                          width="100%"
-                                          cellspacing="0"
-                                          cellpadding="0"
-                                          border="0"
-                                          role="presentation"
-                                        >
-                                          <tbody>
-                                            <tr>
-                                              <th width="100%" valign="top">
-                                                <table
-                                                  cellspacing="0"
-                                                  cellpadding="0"
-                                                  border="0"
-                                                  role="presentation"
-                                                  width="100%"
-                                                  style="
-                                                    table-layout: fixed;
-                                                    width: 100%;
-                                                  "
-                                                >
-                                                  <tbody>
-                                                    <tr>
-                                                      <td
-                                                        width="15"
-                                                        style="
-                                                          font-size: 0px;
-                                                          line-height: 1px;
-                                                        "
-                                                      >
-                                                        ­
-                                                      </td>
-                                                      <td valign="top">
-                                                        <table
-                                                          width="100%"
-                                                          cellspacing="0"
-                                                          cellpadding="0"
-                                                          border="0"
-                                                          role="presentation"
-                                                        >
-                                                          <tbody>
-                                                            <tr>
-                                                              <td align="center">
-                                                                <table
-                                                                  cellspacing="0"
-                                                                  cellpadding="0"
-                                                                  border="0"
-                                                                  role="presentation"
-                                                                  width="108"
-                                                                  style="
-                                                                    table-layout: fixed;
-                                                                    width: 108px;
-                                                                  "
-                                                                >
-                                                                  <tbody>
-                                                                    <tr>
-                                                                      <td
-                                                                        height="5"
-                                                                        style="
-                                                                          font-size: 5px;
-                                                                          line-height: 5px;
-                                                                        "
-                                                                      >
-                                                                        ­
-                                                                      </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                      <td
-                                                                        style="
-                                                                          font-size: 0px;
-                                                                          line-height: 0px;
-                                                                        "
-                                                                      >
-                                                                        <img
-                                                                          src="https://ci4.googleusercontent.com/proxy/g9UgwNTSr8TimvGx-Wts9wU7DE2x8BOunUzhu3ytEYuAvCCDEAn70BTuR0aJANPNgyOJqG8gx_mIM01cjHaDNOxs8NBFlLwR53krf1NLW2aQmQzwMXhUY6YzuudF9Pug6U0xzAq7gmYTe2H6xLRMuEKQzWONGCTNUw4YodVcltJIxizLMXdppZNOd13hnyF_Fu9Fhzh3ZHt5FFR5vJl7ysLJPQmOTziBI6p_2SIhWNy_3dgewUQaDtSpTMxX2qXTeAV340OiPF9U5no4-LwOdhZjSYxHBL-rGKZ_CT2HQBYPK6bx5Ta5oN1KMfd3q1KFWf_-FwSkMY33xjAq814MXgCi90Vh-Y71YorP5PddJdzvGXYK7w7R6llLsG_i-xQAkIfl2DYRPafxV1HM4szwUrv_mUcN5cTLBn4yiwt5qPnpNkMxXZcRpw7iOPas0qCS3hMXFEYcXuA2Wf4Oe0QKT3zmEpHG7fc-A4OE6dN9HLS8m9Dji5f_vRIYU14ldMlYPN8PuKaQkDzEvOhenLzCmx38ArAX_zukX7bQgy5WdBLZW-WVIfAs3FWV0HkbgA3_Yk4jXPLD_YdjDL5uivE=s0-d-e1-ft#https://4swyx.img.bh.d.sendibt3.com/im/2850889/46801f527d96781bea13f092735d771a2ccc167add5598cd8292fc110dcb2684.png?e=i7SmyCngJuvp6jg1E0Nkc_Hvb26wOi91hgWGQxJAyvSJk_5HgN2oz8P7HZ6V7yiprKsrcHlCYc74hcllEUWZvMsm92UOZ2oylzSXuAcMAIMSUONzIsN-Xb6B0NaJFJFuU4mfb04DsM3JXnPtERof5NrUXk31twaCXStcyKbShD5wxWTkTX_gynqB32JdCbCh7KuH5rsipueie3eLX0-pCmKluO4UFqSHjjMRDJm0BTMGcgQUz_xZ39hZ7-IWp5mMX2FmtpYq-I-jHrENOJA_-gCDnPEBB9yHEmObGL8Aj4ZqypDUv20G"
-                                                                          width="108"
-                                                                          border="0"
-                                                                          style="
-                                                                            display: block;
-                                                                            width: 100%;
-                                                                          "
-                                                                          class="CToWUd"
-                                                                        />
-                                                                      </td>
-                                                                    </tr>
-                                                                  </tbody>
-                                                                </table>
-                                                              </td>
-                                                            </tr>
-                                                          </tbody>
-                                                        </table>
-                                                      </td>
-                                                      <td
-                                                        width="15"
-                                                        style="
-                                                          font-size: 0px;
-                                                          line-height: 1px;
-                                                        "
-                                                      >
-                                                        ­
-                                                      </td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                              </th>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td
-                                        height="20"
-                                        style="
-                                          font-size: 20px;
-                                          line-height: 20px;
-                                          background-color: #ffffff;
-                                        "
-                                      >
-                                        ­
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </td>
-                            </tr>
                             <tr>
                               <td align="center">
                                 <table
@@ -299,24 +148,13 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                           line-height: 0px;
                                                                         "
                                                                       >
-                                                                        <img
-                                                                          src="https://ci6.googleusercontent.com/proxy/QXFobbxGsaE2cD4xf1T5TVjOMCRD-jHkxhK0beG-Y258Zsqa30rA4kg5xO5bKp2ERq5xOmYlAicvIU81qJqyj8kXTmOI1wCRlq13fEfSLZzppe8ko7c7W-AlfYMJnxaSMZGldXgxQInvMi4LWMLrFxSQyW9Hxmu0SbzniLVXilho7Ct54Gz0poB2XY9DIxlXTUyoicDH5wj_peuMqw2LhcbRZC4yuwkb55bJqJu88dIVV8QT_AV4YZfqFWUKQN6o6jGuHeuGjWkA3gb3RWiA_im4yoB9O5e9FC1sGsptK0tSuAqx_fJHPWNuZKIKJQh0omBxJqYP6eAy9Z-QjS0OGoJE7uq21Dpvti66-CqR5csddLqARNR6X5f9dJ3ZheAhsVm1uP3Ey4H3E6Iefc1nv_3776dCWhyqKgarOtghupy23MXliHnZlmfMNUqFTW4svZna1BN2oSuz10oHQOP8VsF4g8dk4IXVLoQIi6JbSLZ-SXU6_rqr4gxThiNsc2bmADWzGhkPseTNe-PQXVvLqByI0s9Yd9YpP4rG_2sO7G6IBe07YVBZHbw4xjkiMgyxgEpqvTWDFeENuKNv5Cvm57pqaX7A2_0nQZ1465iB=s0-d-e1-ft#https://4swyx.img.bh.d.sendibt3.com/im/2850889/269ca45a25741c44604ccfe61531da4510dd5d38fac980882201a62c79dbda97.png?e=yBSACh3iLMQ_DuBMH5RMr2ZgUClNGqtV-9mU7SMdKuh_Vnfzr6NFcZ7ta20atDk561_F-HbLiS2fEw00mSi6JQbQqTszJJdPNNPZoCoTFdKM_DRBjO-nzTsQW6v-acpBOfaRR1cM-JPYTb1tLHNsggSad_DzWqDYsbfstlcCz-2A1vV5UF_eXDzm-tfoc-ojTnAs0baSXfUN1MK6sgHQ45VW37lbK9fMgCyM9YCRerGtswXMFtJ2Msg7p9lLz0ywBgAxJzZ38ylar9QXUMc2M9nftzDQUOagUsh2nkjDyJcHenf5bRESWmyCYS5IQp_57CvK"
-                                                                          width="347"
-                                                                          border="0"
-                                                                          style="
-                                                                            display: block;
-                                                                            width: 100%;
-                                                                          "
-                                                                          class="CToWUd a6T"
-                                                                          tabindex="0"
-                                                                        />
+                                                                      
                                                                         <div
                                                                           class="a6S"
                                                                           dir="ltr"
                                                                           style="
                                                                             opacity: 0.01;
-                                                                            left: 717.724px;
-                                                                            top: 877.552px;
+                                                                     
                                                                           "
                                                                         >
                                                                           <div
@@ -473,64 +311,6 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                     </tr>
                                                                     <tr>
                                                                       <td
-                                                                        height="23"
-                                                                        align="center"
-                                                                        valign="top"
-                                                                        style="
-                                                                          color: #3b3f44;
-                                                                          font-family: arial,
-                                                                            helvetica,
-                                                                            sans-serif;
-                                                                          font-size: 16px;
-                                                                          line-height: 1.5;
-                                                                        "
-                                                                      >
-                                                                        <a
-                                                                          style="
-                                                                            font-style: normal;
-                                                                            font-weight: normal;
-                                                                            line-height: 1.15;
-                                                                            text-decoration: none;
-                                                                            border-style: solid;
-                                                                            display: inline-block;
-                                                                            background-color: #ee2844;
-                                                                            border-color: #ee2844;
-                                                                            border-radius: 4px;
-                                                                            border-width: 0px;
-                                                                            color: #ffffff;
-                                                                            font-family: arial,
-                                                                              helvetica,
-                                                                              sans-serif;
-                                                                            font-size: 16px;
-                                                                            height: 23px;
-                                                                            padding-bottom: 12px;
-                                                                            padding-left: 5px;
-                                                                            padding-right: 5px;
-                                                                            padding-top: 12px;
-                                                                            width: 275px;
-                                                                          "
-                                                                          href=${message}
-                                                                          ><p
-                                                                            style="
-                                                                              margin: 0;
-                                                                            "
-                                                                          >
-                                                                            <span
-                                                                              style="
-                                                                                font-size: 20px;
-                                                                              "
-                                                                              ><strong
-                                                                                >VERIFY
-                                                                                YOUR
-                                                                                EMAIL</strong
-                                                                              ></span
-                                                                            >
-                                                                          </p></a
-                                                                        >
-                                                                      </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                      <td
                                                                         height="15"
                                                                         style="
                                                                           font-size: 15px;
@@ -575,9 +355,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                         valign="top"
                                                                         style="
                                                                           color: #3b3f44;
-                                                                          font-family: arial,
-                                                                            helvetica,
-                                                                            sans-serif;
+                                                                          font-family: 'Poppins', sans-serif;
                                                                           font-size: 16px;
                                                                           line-height: 1.5;
                                                                           text-align: center;
@@ -588,16 +366,14 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                             style="
                                                                               margin: 0;
                                                                               color: #1f2d3d;
-                                                                              font-family: arial,
-                                                                                helvetica,
-                                                                                sans-serif;
+                                                                              font-family: 'Poppins', sans-serif;
                                                                               font-size: 36px;
                                                                             "
                                                                           >
                                                                             <span
                                                                               style="
                                                                                 color: #ee2844;
-                                                                                font-family: 'Trebuchet ms',
+                                                                                font-family: 'Poppins', sans-serif,
                                                                                   helvetica,
                                                                                   sans-serif;
                                                                               "
@@ -646,9 +422,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                         valign="top"
                                                                         style="
                                                                           color: #3b3f44;
-                                                                          font-family: arial,
-                                                                            helvetica,
-                                                                            sans-serif;
+                                                                          font-family: 'Poppins', sans-serif;
                                                                           font-size: 16px;
                                                                           line-height: 1.5;
                                                                           text-align: center;
@@ -663,94 +437,12 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                             <span
                                                                               style="
                                                                                 color: #000000;
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
+                                                                                font-family: 'Poppins', sans-serif;
                                                                                 font-size: 17px;
                                                                               "
                                                                               >Hey
-                                                                              ${firstName},</span
-                                                                            >
-                                                                          </p>
-                                                                          <p
-                                                                            style="
-                                                                              margin: 0;
-                                                                            "
-                                                                          >
-                                                                            &nbsp;
-                                                                          </p>
-                                                                          <p
-                                                                            style="
-                                                                              margin: 0;
-                                                                            "
-                                                                          >
-                                                                            <span
-                                                                              style="
-                                                                                color: #000000;
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
-                                                                                font-size: 17px;
-                                                                              "
-                                                                              >Thank
-                                                                              you
-                                                                              for
-                                                                              registering
-                                                                              with
-                                                                              us.
-                                                                              We're
-                                                                              so
-                                                                              excited
-                                                                              to
-                                                                              start
-                                                                              sending
-                                                                              you
-                                                                              exciting
-                                                                              personalised
-                                                                              career
-                                                                              get
-                                                                              you
-                                                                              set
-                                                                              up
-                                                                              and
-                                                                              start
-                                                                              matching
-                                                                              you
-                                                                              with
-                                                                              exciting
-                                                                              opportunities
-                                                                              so
-                                                                              you
-                                                                              can
-                                                                              get
-                                                                              your
-                                                                              dream
-                                                                              job!&nbsp;</span
-                                                                            >
-                                                                          </p>
-                                                                          <p
-                                                                            style="
-                                                                              margin: 0;
-                                                                            "
-                                                                          >
-                                                                            <span
-                                                                              style="
-                                                                                color: #000000;
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
-                                                                                font-size: 17px;
-                                                                              "
-                                                                              >Please
-                                                                              click
-                                                                              the
-                                                                              button
-                                                                              below
-                                                                              to
-                                                                              verify
-                                                                              your
-                                                                              email
-                                                                              address.&nbsp;</span
+                                                                              ${firstName}, We are so excited to connect you to personalise career opportunities. Please click the button below to verify your email address.
+                                                                             </span
                                                                             >
                                                                           </p>
                                                                         </div>
@@ -803,9 +495,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                         valign="top"
                                                                         style="
                                                                           color: #3b3f44;
-                                                                          font-family: arial,
-                                                                            helvetica,
-                                                                            sans-serif;
+                                                                          font-family: 'Poppins', sans-serif;
                                                                           font-size: 16px;
                                                                           line-height: 1.5;
                                                                         "
@@ -823,9 +513,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                             border-radius: 4px;
                                                                             border-width: 0px;
                                                                             color: #ffffff;
-                                                                            font-family: arial,
-                                                                              helvetica,
-                                                                              sans-serif;
+                                                                            font-family: 'Poppins', sans-serif;
                                                                             font-size: 16px;
                                                                             height: 23px;
                                                                             padding-bottom: 12px;
@@ -1003,9 +691,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                         valign="top"
                                                                         style="
                                                                           color: #3b3f44;
-                                                                          font-family: arial,
-                                                                            helvetica,
-                                                                            sans-serif;
+                                                                          font-family: 'Poppins', sans-serif;
                                                                           font-size: 16px;
                                                                           line-height: 1.5;
                                                                           text-align: center;
@@ -1020,25 +706,10 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                             <span
                                                                               style="
                                                                                 color: #000000;
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
+                                                                                font-family: 'Poppins', sans-serif;
                                                                                 font-size: 17px;
                                                                               "
-                                                                              >If
-                                                                              this
-                                                                              doesn't
-                                                                              work,
-                                                                              copy
-                                                                              and
-                                                                              paste
-                                                                              the
-                                                                              following
-                                                                              link
-                                                                              in
-                                                                              your
-                                                                              browser:</span
-                                                                            >
+                                                                              >If the link above doesn't work, please copy and paste the following URL in to your browser:</span>
                                                                           </p>
                                                                           <p
                                                                             style="
@@ -1048,9 +719,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                             <span
                                                                               style="
                                                                                 color: #000000;
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
+                                                                                font-family: 'Poppins', sans-serif;
                                                                                 font-size: 17px;
                                                                               "
                                                                               >${message}</span
@@ -1071,9 +740,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                             <span
                                                                               style="
                                                                                 color: #000000;
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
+                                                                                font-family: 'Poppins', sans-serif;
                                                                                 font-size: 17px;
                                                                               "
                                                                               >If
@@ -1085,7 +752,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                               reply
                                                                               to
                                                                               this
-                                                                              email—we're
+                                                                              email — we're
                                                                               always
                                                                               happy
                                                                               to
@@ -1107,9 +774,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                           >
                                                                             <span
                                                                               style="
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
+                                                                                font-family: 'Poppins', sans-serif;
                                                                                 font-size: 17px;
                                                                               "
                                                                               >Best,</span
@@ -1122,9 +787,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                           >
                                                                             <span
                                                                               style="
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
+                                                                                font-family: 'Poppins', sans-serif;
                                                                                 font-size: 17px;
                                                                               "
                                                                               >Loop
@@ -1133,6 +796,118 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                               Team&nbsp;</span
                                                                             >
                                                                           </p>
+
+
+
+                                                                          <table
+                                                                          width="100%"
+                                                                          cellspacing="0"
+                                                                          cellpadding="0"
+                                                                          border="0"
+                                                                          role="presentation"
+                                                                        >
+                                                                          <tbody>
+                                                                            <tr>
+                                                                          <th width="100%" valign="top">
+                                                                          <table
+                                                                          cellspacing="0"
+                                                                          cellpadding="0"
+                                                                          border="0"
+                                                                          role="presentation"
+                                                                          width="100%"
+                                                                          style="
+                                                                            table-layout: fixed;
+                                                                            width: 100%;
+                                                                          "
+                                                                        >
+                                                                          <tbody>
+                                                                            <tr>
+                                                                              <td
+                                                                                width="15"
+                                                                                style="
+                                                                                  font-size: 0px;
+                                                                                  line-height: 1px;
+                                                                                "
+                                                                              >
+                                                                                ­
+                                                                              </td>
+                                                                          <td valign="top">
+                                                                        <table
+                                                                        width="100%"
+                                                                        cellspacing="0"
+                                                                        cellpadding="0"
+                                                                        border="0"
+                                                                        role="presentation"
+                                                                      >
+                                                                        <tbody>
+                                                                          <tr>
+                                                                            <td align="center">
+                                                                              <table
+                                                                                cellspacing="0"
+                                                                                cellpadding="0"
+                                                                                border="0"
+                                                                                role="presentation"
+                                                                                width="108"
+                                                                                style="
+                                                                                  table-layout: fixed;
+                                                                                  width: 108px;
+                                                                                "
+                                                                              >
+                                                                                <tbody>
+                                                                                  <tr>
+                                                                                    <td
+                                                                                      height="5"
+                                                                                      style="
+                                                                                        font-size: 5px;
+                                                                                        line-height: 5px;
+                                                                                      "
+                                                                                    >
+                                                                                      ­
+                                                                                    </td>
+                                                                                  </tr>
+                                                                                  <tr>
+                                                                                    <td
+                                                                                      style="
+                                                                                        font-size: 0px;
+                                                                                        line-height: 0px;
+                                                                                      "
+                                                                                    >
+                                                                                      <img
+                                                                                        src="https://ci4.googleusercontent.com/proxy/g9UgwNTSr8TimvGx-Wts9wU7DE2x8BOunUzhu3ytEYuAvCCDEAn70BTuR0aJANPNgyOJqG8gx_mIM01cjHaDNOxs8NBFlLwR53krf1NLW2aQmQzwMXhUY6YzuudF9Pug6U0xzAq7gmYTe2H6xLRMuEKQzWONGCTNUw4YodVcltJIxizLMXdppZNOd13hnyF_Fu9Fhzh3ZHt5FFR5vJl7ysLJPQmOTziBI6p_2SIhWNy_3dgewUQaDtSpTMxX2qXTeAV340OiPF9U5no4-LwOdhZjSYxHBL-rGKZ_CT2HQBYPK6bx5Ta5oN1KMfd3q1KFWf_-FwSkMY33xjAq814MXgCi90Vh-Y71YorP5PddJdzvGXYK7w7R6llLsG_i-xQAkIfl2DYRPafxV1HM4szwUrv_mUcN5cTLBn4yiwt5qPnpNkMxXZcRpw7iOPas0qCS3hMXFEYcXuA2Wf4Oe0QKT3zmEpHG7fc-A4OE6dN9HLS8m9Dji5f_vRIYU14ldMlYPN8PuKaQkDzEvOhenLzCmx38ArAX_zukX7bQgy5WdBLZW-WVIfAs3FWV0HkbgA3_Yk4jXPLD_YdjDL5uivE=s0-d-e1-ft#https://4swyx.img.bh.d.sendibt3.com/im/2850889/46801f527d96781bea13f092735d771a2ccc167add5598cd8292fc110dcb2684.png?e=i7SmyCngJuvp6jg1E0Nkc_Hvb26wOi91hgWGQxJAyvSJk_5HgN2oz8P7HZ6V7yiprKsrcHlCYc74hcllEUWZvMsm92UOZ2oylzSXuAcMAIMSUONzIsN-Xb6B0NaJFJFuU4mfb04DsM3JXnPtERof5NrUXk31twaCXStcyKbShD5wxWTkTX_gynqB32JdCbCh7KuH5rsipueie3eLX0-pCmKluO4UFqSHjjMRDJm0BTMGcgQUz_xZ39hZ7-IWp5mMX2FmtpYq-I-jHrENOJA_-gCDnPEBB9yHEmObGL8Aj4ZqypDUv20G"
+                                                                                        width="100%"
+                                                                                        border="0"
+                                                                                        style="
+                                                                                          display: block;
+                                                                                          width: 40%;
+                                                                                          padding-left: 30px;
+                                                                                        "
+                                                                                        class="CToWUd"
+                                                                                      />
+                                                                                    </td>
+                                                                                  </tr>
+                                                                                </tbody>
+                                                                              </table>
+                                                                            </td>
+                                                                          </tr>
+                                                                        </tbody>
+                                                                      </table>
+                                                                      </td>
+                                                                      <td
+                                                                        width="15"
+                                                                        style="
+                                                                          font-size: 0px;
+                                                                          line-height: 1px;
+                                                                        "
+                                                                      >
+                                                                        ­
+                                                                      </td>
+                                                                    </tr>
+                                                                  </tbody>
+                                                                </table>
+                                                              </th>
+                                                            </tr>
+                                                            </tbody>
+                                                            </table>
                                                                         </div>
                                                                       </td>
                                                                     </tr>
@@ -1285,9 +1060,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                         valign="top"
                                                                         style="
                                                                           color: #3b3f44;
-                                                                          font-family: arial,
-                                                                            helvetica,
-                                                                            sans-serif;
+                                                                          font-family: 'Poppins', sans-serif;
                                                                           font-size: 18px;
                                                                           line-height: 1.5;
                                                                           text-align: center;
@@ -1301,9 +1074,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                           >
                                                                             <span
                                                                               style="
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
+                                                                                font-family: 'Poppins', sans-serif;
                                                                                 font-size: 18px;
                                                                               "
                                                                               ><strong
@@ -1341,9 +1112,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                         valign="top"
                                                                         style="
                                                                           color: #3b3f44;
-                                                                          font-family: arial,
-                                                                            helvetica,
-                                                                            sans-serif;
+                                                                          font-family: 'Poppins', sans-serif;
                                                                           font-size: 18px;
                                                                           line-height: 1.5;
                                                                           text-align: center;
@@ -1357,9 +1126,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                           >
                                                                             <span
                                                                               style="
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
+                                                                              font-family: 'Poppins', sans-serif;
                                                                                 font-size: 12px;
                                                                               "
                                                                               ><strong
@@ -1378,9 +1145,7 @@ exports.sendEmail = ({ to, from, subject, message, firstName }) => {
                                                                           >
                                                                             <span
                                                                               style="
-                                                                                font-family: 'Trebuchet ms',
-                                                                                  helvetica,
-                                                                                  sans-serif;
+                                                                              font-family: 'Poppins', sans-serif;
                                                                                 font-size: 12px;
                                                                               "
                                                                               ><strong

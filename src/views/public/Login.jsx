@@ -84,7 +84,7 @@ const Login = () => {
           <p>
             <br />
             If you are not a member, please{' '}
-            <NavLink to="/register" style={{ color: 'green' }}>
+            <NavLink to="/register" style={{ color: '#F7B919' }}>
               register
             </NavLink>
             .

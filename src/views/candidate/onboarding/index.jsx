@@ -67,7 +67,7 @@ const Onboarding = ({ intl }) => {
     <UserLayout>
       <Suspense fallback={<div className="loading" />}>
         <Row className="h-100">
-          <Colxx xxs="12" xl="6" className="mx-auto my-auto">
+          <Colxx xxs="16" xl="8" className="mx-auto my-auto">
             <Card>
               <CardBody className="wizard wizard-default">
                 <Wizard>

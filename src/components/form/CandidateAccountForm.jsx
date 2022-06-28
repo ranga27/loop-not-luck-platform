@@ -46,6 +46,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         name="mobileNumber"
         label="Mobile Number"
         control={control}
+        type="tel"
         errors={errors.mobileNumber}
       />
       <TextInput
@@ -72,7 +73,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
       />
       {/* eslint no-underscore-dangle: 0 */}
       <MultiSelect
-        label="What are your top 3 Job Values?"
+        label="What 3 things are most important to you in a new position?"
         name="jobValues"
         control={control}
         options={jobValuesOptions}

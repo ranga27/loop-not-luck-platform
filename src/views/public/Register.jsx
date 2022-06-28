@@ -75,11 +75,13 @@ const Register = () => {
               createdAt: serverTimestamp(),
             });
             alert
-              .fire(
-                'Awesome!',
-                'You are nearly in the loop. Please click the link the email just sent to verify your account.',
-                'success'
-              )
+              .fire({
+                title: 'Awesome!',
+                text: 'You are nearly in the loop. Please click the link the email just sent to verify your account.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                iconColor: '#3085d6',
+              })
               .then((result) => {
                 if (result.isConfirmed || result.isDismissed) {
                   // Firebase signs in user on registration, hence sign out immediately to verify email
@@ -142,7 +144,7 @@ const Register = () => {
           />
           <p className="my-4">
             If you are a member, please{' '}
-            <NavLink to="/login" style={{ color: 'green' }}>
+            <NavLink to="/login" style={{ color: '#F7B919' }}>
               login
             </NavLink>
             .

@@ -133,11 +133,11 @@ hr {
 }
 
 ::selection {
-  background: lighten($theme-color-3, 20%);
+  background: lighten($theme-color-1, 12%);
 }
 
 ::-moz-selection {
-  background: lighten($theme-color-3, 20%);
+  background: lighten($theme-color-1, 12%);
 }
 
 .map-item {
