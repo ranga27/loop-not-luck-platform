@@ -7,6 +7,7 @@ import Avatar from 'react-avatar';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import { Colxx } from '../../../components/common/CustomBootstrap';
 import { fetchUserProfileDataFromFirestore } from '../../../helpers/firestoreService';
+import { sendSms } from '../../../helpers/firebaseService';
 
 const UserProfile = () => {
   const { id } = useParams();
@@ -21,6 +22,10 @@ const UserProfile = () => {
       setUsers(results);
     });
   }, [id]);
+
+  const handleSms = () => {
+    sendSms('Sms loaded');
+  };
   return (
     <div>
       <a href="/app/profiles">
@@ -73,6 +78,7 @@ const UserProfile = () => {
                     color="primary"
                     outline
                     className="slider-top-button text-small"
+                    onClick={handleSms}
                   >
                     Message
                   </Button>
