@@ -71,6 +71,7 @@ const Register = () => {
               uid,
               email,
               firstName,
+              role,
               confirmationHash,
               createdAt: serverTimestamp(),
             });
