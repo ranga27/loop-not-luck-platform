@@ -75,11 +75,21 @@ const UserProfile = lazy(() =>
   import(/* webpackChunkName: "admin-user-profile" */ './profiles/UserProfile')
 );
 
+const Privacy = lazy(() =>
+  import(/* webpackChunkName: "admin-privacy" */ '../public/Privacy')
+);
+
+const Terms = lazy(() =>
+  import(/* webpackChunkName: "admin-terms-and-conditions" */ '../public/Terms')
+);
+
 const SuperAdminRoute = () => {
   return (
     <AppLayout>
       <Suspense fallback={<div className="loading" />}>
         <Routes>
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="terms-and-conditions" element={<Terms />} />
           <Route path="review" element={<Review />} />
           <Route path="post" element={<Post />} />
           <Route path="test" element={<Test />} />
@@ -91,13 +101,10 @@ const SuperAdminRoute = () => {
             <Route path="add" element={<AddCompany />} />
           </Route>
           <Route path="screening" element={<ScreenApplications />} />
-          {/* <Route path="profiles" element={<ManageProfiles />} /> */}
-
           <Route path="profiles" element={<UserProfiles />}>
             <Route index element={<ManageProfiles />} />
             <Route path=":id" element={<UserProfile />} />
           </Route>
-
           <Route path="templates" element={<Templates />}>
             <Route index element={<ViewTemplates />} />
             <Route path="view" element={<ViewTemplates />} />
