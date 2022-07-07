@@ -103,7 +103,6 @@ const Register = () => {
         title: 'Agree with T&Cs',
         text: 'Please agree with our terms and conditions before continuing',
         icon: 'error',
-        iconColor: '#3085d6',
         imageHeight: 80,
         imageWidth: 80,
       });

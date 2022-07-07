@@ -5,6 +5,7 @@ import {
   useFirestoreQuery,
 } from '@react-query-firebase/firestore';
 import { doc, serverTimestamp, collection, query } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { Row, Card, CardBody, CardTitle } from 'reactstrap';
 import Swal from 'sweetalert2';
 import { Colxx } from '../../../components/common/CustomBootstrap';
@@ -18,6 +19,7 @@ import { updateRoleCollection } from '../../../helpers/firestoreService';
 
 const EditCompany = () => {
   const company = useCompanyStore((state) => state.company);
+  const navigate = useNavigate();
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, 'companies', company.id),
     { merge: true }
@@ -47,8 +49,6 @@ const EditCompany = () => {
 
   const onSubmit = async (data) => {
     const companyData = roles.filter((x) => x.company === company.name);
-
-    console.log(company.name);
     companyData.forEach((item) => {
       updateRoleCollection(item, company, data).then((results) => {
         if (results.length > 0) {
@@ -73,6 +73,10 @@ const EditCompany = () => {
     mutation.mutate(newData, {
       onSuccess() {
         Swal.fire('Updated!', 'Company Data Updated.', 'success');
+        navigate('/app/companies');
+        window.setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       },
       onError(error) {
         Swal.fire('Oops!', 'Failed to Update Company.', 'error');

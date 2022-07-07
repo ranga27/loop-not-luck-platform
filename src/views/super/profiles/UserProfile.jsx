@@ -124,9 +124,16 @@ const UserProfile = () => {
                 <hr />
                 <dt className="col-sm-7">Preferred Start Date</dt>
                 <dd className="col-sm-5">
-                  {user.start
-                    ? format(new Date(user.start.toDate()), 'dd-MMM-yyyy')
-                    : 'Not set'}
+                  <p>{user.start}</p>
+                  {user.specificStartDate ? (
+                    <p>
+                      {format(
+                        new Date(user.graduationYear.toDate()),
+                        'dd-MMM-yyyy'
+                      )}
+                    </p>
+                  ) : null}
+                  {user.noticePeriod ? <p>{user.noticePeriod}</p> : null}
                 </dd>
                 <hr />
                 <dt className="col-sm-7">Graduation Year</dt>

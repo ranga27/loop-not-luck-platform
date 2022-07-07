@@ -28,7 +28,7 @@ export const Step2 = (form, { diversity }, messages) => {
           onSubmit={() => {}}
         >
           {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
-            <Form className="av-tooltip tooltip-label-right error-l-75">
+            <Form className="av-tooltip tooltip-left-top error-l-75">
               <FormGroup>
                 <Label>{messages['forms.diversity']}</Label>
                 <FormikCustomCheckboxGroup
