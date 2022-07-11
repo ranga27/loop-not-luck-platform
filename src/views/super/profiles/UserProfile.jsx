@@ -24,7 +24,7 @@ const UserProfile = () => {
   }, [id]);
 
   const handleSms = () => {
-    sendSms('Sms loaded');
+    sendSms('Test SMS Sent');
   };
   return (
     <div>
