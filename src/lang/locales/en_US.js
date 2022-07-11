@@ -199,7 +199,8 @@ module.exports = {
   'forms.disability':
     'Do you consider yourself to have a disability? Specify below',
   'forms.roles': 'What type of roles are you interested in?',
-  'forms.start': 'When will you be avalible to start full-time work?',
+  'forms.start': 'If offered a role, when would you be able to start?',
+  'forms.startLabel': 'Select date',
   'forms.interests': 'Areas of interest - select all that apply',
   'forms.rolesOfInterest': 'Roles of interest - select all that apply',
 

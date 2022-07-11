@@ -27,6 +27,7 @@ const RolesCarousel = ({ roles, otherRoles, topMatch }) => {
           <NavLink
             className={classnames({
               active: currentActiveTab === '1',
+              'text-dark': currentActiveTab === '2',
             })}
             onClick={() => {
               toggle('1');
@@ -39,6 +40,7 @@ const RolesCarousel = ({ roles, otherRoles, topMatch }) => {
           <NavLink
             className={classnames({
               active: currentActiveTab === '2',
+              'text-dark': currentActiveTab === '1',
             })}
             onClick={() => {
               toggle('2');

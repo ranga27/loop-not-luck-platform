@@ -37,7 +37,7 @@ export const Step3 = (form, { ethnicity }, messages) => {
           onSubmit={() => {}}
         >
           {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
-            <Form className="av-tooltip tooltip-label-right error-l-75">
+            <Form className="av-tooltip tooltip-left-top error-r-275">
               <FormGroup>
                 <Label>{messages['forms.ethnicity']}</Label>
                 <FormikCustomRadioGroup

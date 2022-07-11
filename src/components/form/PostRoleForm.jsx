@@ -108,6 +108,9 @@ const PostRoleForm = () => {
     mutation.mutate(newData, {
       onSuccess() {
         Swal.fire('Added!', 'New Role Added.', 'success');
+        window.setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       },
       onError() {
         Swal.fire('Oops!', 'Failed to Add Role.', 'error');

@@ -436,6 +436,19 @@ button {
   color: $theme-color-1;
 }
 
+.btn-link-secondary {
+  color: $theme-color-1;
+  margin: 0;
+  background: 'none';
+  border: 0;
+  padding: 0;
+  height: 0;
+  text-decoration: 'underline';
+  cursor: 'pointer';
+  outline: 'none';
+  vertical-align: 'baseline';
+}
+
 .btn-link:hover {
   color: rgba($theme-color-1, 0.8);
   text-decoration: underline;

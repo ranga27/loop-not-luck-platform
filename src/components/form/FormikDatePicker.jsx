@@ -26,6 +26,7 @@ export const FormikDatePicker = ({
       selected={value}
       onChange={handleChange}
       onBlur={handleBlur}
+      minDate={new Date()}
       {...rest}
     />
   );

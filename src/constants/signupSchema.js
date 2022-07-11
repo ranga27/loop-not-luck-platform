@@ -14,7 +14,7 @@ export const signUpSchema = yup.object().shape({
     .string()
     .required('Please enter your password')
     .min(8, 'Please use at least 8 characters'),
-  role: yup.string().required('An option is required'),
+  // role: yup.string().required('An option is required'),
   company: yup.string().when('role', {
     is: (value) => value === 'employer',
     then: yup.string().required('Company is required'),

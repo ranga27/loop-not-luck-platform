@@ -4,28 +4,32 @@ import Layout from '../../layout/Layout';
 
 const SuccessMessage = () => (
   <Layout>
-    <h1>Thanks for confirming!</h1>
-    <h3>
+    <h2>Thanks for confirming!</h2>
+    <h4>
       Woohoo! Now that you have confirmed your email, please{' '}
       <NavLink to="/login" style={{ color: 'green' }}>
         login
       </NavLink>{' '}
       to finish your profile.
-    </h3>
+    </h4>
   </Layout>
 );
 
 const FailureMessage = () => (
   <Layout>
-    <h1>Uh oh...</h1>
-    <h3>
-      It looks like something went wrong with your confirmation. If you waited a
-      while since creating your account, you may have to{' '}
+    <h2>Uh oh...</h2>
+    <h4>
+      It looks like something went wrong with your confirmation. If you have
+      confirmed earlier try to{' '}
+      <NavLink to="/login" style={{ color: 'green' }}>
+        login
+      </NavLink>{' '}
+      . But if you waited a while since creating your account, you may have to{' '}
       <NavLink to="/register" style={{ color: 'green' }}>
         create
       </NavLink>{' '}
       it again.
-    </h3>
+    </h4>
   </Layout>
 );
 

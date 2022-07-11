@@ -96,7 +96,14 @@ const CandidateAccountContainer = () => {
       // TODO: only update when there is delta data to update.
       userMutation.mutate(payload, {
         onSuccess() {
-          Swal.fire('Updated!', 'Your profile has been updated.', 'success');
+          Swal.fire({
+            title: 'Updated!',
+            text: 'Your profile has been updated.',
+            icon: 'success',
+            confirmButtonColor: '#F7B919',
+            iconColor: '#F7B919',
+          });
+          // Swal.fire('Updated!', 'Your profile has been updated.', 'success');
           if (hasAllValues && isCompleting) {
             completedMutation.mutate({ completedAt: serverTimestamp() });
           } // TODO: Only update when the values that trigger algorithm are updated

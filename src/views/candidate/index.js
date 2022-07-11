@@ -28,6 +28,14 @@ const Applications = lazy(() =>
   )
 );
 
+const Privacy = lazy(() =>
+  import(/* webpackChunkName: "admin-privacy" */ '../public/Privacy')
+);
+
+const Terms = lazy(() =>
+  import(/* webpackChunkName: "admin-terms-and-conditions" */ '../public/Terms')
+);
+
 const CandidateApp = () => {
   return (
     <AppLayout>
@@ -38,6 +46,8 @@ const CandidateApp = () => {
             <Route path="saved" element={<SavedRoles />} />
             <Route path="account" element={<Account />} />
             <Route path="applications" element={<Applications />} />
+            <Route path="privacy" element={<Privacy />} />
+            <Route path="terms-and-conditions" element={<Terms />} />
             <Route path="logout" element={<Logout />} />
             <Route path="/" element={<Navigate to="roles" />} />
           </Routes>
