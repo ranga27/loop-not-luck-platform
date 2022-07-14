@@ -131,3 +131,8 @@ export async function signInWithEmail({ email, password }) {
     throw error;
   }
 }
+
+export async function sendSms(data) {
+  const sendUserSms = httpsCallable(functions, 'sendSms');
+  return sendUserSms(data);
+}
