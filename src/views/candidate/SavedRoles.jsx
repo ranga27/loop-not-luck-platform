@@ -12,6 +12,7 @@ import ExpiredRoleCard from '../../components/cards/ExpiredRoleCard';
 const SavedRoles = () => {
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
+  const todaysDate = new Date();
   const { isLoading, data: savedRoles } = useFirestoreQuery(
     ['savedRoles'],
     query(
@@ -41,26 +42,31 @@ const SavedRoles = () => {
     const liveRoles = [];
     const expiredRoles = [];
     savedRoles.forEach((role) => {
-      if (role.daysToDeadline > 0) liveRoles.push(role);
+      const roleDeadline = new Date(role.deadline);
+      if (roleDeadline > todaysDate) liveRoles.push(role);
       else expiredRoles.push(role);
     });
     return (
       <>
         <Row>
-          <h1>Live Roles</h1>
+          <h3 style={{ fontWeight: 'bold' }} className="">
+            Live Roles
+          </h3>
           {liveRoles.map((role) => {
             return (
-              <Colxx lg="6" className="my-5" key={role.id}>
+              <Colxx lg="6" className="pt-4" key={role.id}>
                 <SavedRoleCard role={role} />
               </Colxx>
             );
           })}
         </Row>
         <Row>
-          <h1>Expired Roles</h1>
+          <h3 style={{ fontWeight: 'bold' }} className="pt-4">
+            Expired Roles
+          </h3>
           {expiredRoles.map((role) => {
             return (
-              <Colxx lg="6" className="my-5" key={role.id}>
+              <Colxx lg="6" className="pt-4 pb-5 mb-5" key={role.id}>
                 <ExpiredRoleCard role={role} />
               </Colxx>
             );

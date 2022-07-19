@@ -82,15 +82,17 @@ const ViewRoles = () => {
       return (
         <Row>
           <Colxx xxs="12" className="pl-0 pr-0 mb-5">
-            <h1>
-              Your Top Recommended Roles{' '}
-              <Badge color="primary" pill className="m-1">
-                {rolesLength}
-              </Badge>
-            </h1>
-            <Button onClick={() => onSubmit()} style={{ marginLeft: '15px' }}>
-              Refresh roles
-            </Button>
+            <div className="d-flex flex-row">
+              <h3 style={{ fontWeight: 'bold' }}>
+                Your Top Recommended Roles{' '}
+                <Badge color="primary" pill className="m-1">
+                  {rolesLength}
+                </Badge>
+              </h3>
+              <Button onClick={() => onSubmit()} style={{ marginLeft: '15px' }}>
+                Refresh roles
+              </Button>
+            </div>
             <ViewRolesContainer />
           </Colxx>
         </Row>

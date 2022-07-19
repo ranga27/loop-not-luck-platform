@@ -44,7 +44,7 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         setValue('positionType', role.positionType);
         setValue('department', role.department);
         setValue('description', role.description);
-        setValue('renumeration', role.renumeration);
+        setValue('remuneration', role.remuneration);
         setValue('qualification', role.qualification);
         setValue(
           'behaviourAttributesStrengths',
@@ -126,10 +126,10 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         className="sticky-top"
       />
       <TextInput
-        name="renumeration"
-        label="Renumeration"
+        name="remuneration"
+        label="Remuneration"
         control={control}
-        errors={errors.renumeration}
+        errors={errors.remuneration}
         className="sticky-top"
       />
       <SelectField

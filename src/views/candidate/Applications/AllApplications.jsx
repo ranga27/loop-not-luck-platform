@@ -7,12 +7,12 @@ import IntlMessages from '../../../helpers/IntlMessages';
 const AllApplications = ({ allApplications }) => {
   return (
     <Row>
-      <h1 className="mt-5">
+      <h3 style={{ fontWeight: 'bold' }} className="mt-5">
         <IntlMessages id="pages.application-allApplications" />
-      </h1>
+      </h3>
       {allApplications.map((application) => {
         return (
-          <Colxx lg="6" className="my-5" key={application.id}>
+          <Colxx lg="6" className="pt-4" key={application.id}>
             <ApplicationsCard application={application} />
           </Colxx>
         );

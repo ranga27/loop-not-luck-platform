@@ -29,7 +29,7 @@ export const OpportunitySchema = Yup.object().shape({
   qualification: Yup.string().required(
     'Please enter the required qualifications'
   ),
-  renumeration: Yup.string().required('Renumeration is required'),
+  remuneration: Yup.string().required('Remuneration is required'),
   department: Yup.string().required('Department is required'),
   rolesOfInterests: Yup.mixed().required('Roles Of Interests is required'),
   behaviourAttributesStrengths: Yup.mixed().required(

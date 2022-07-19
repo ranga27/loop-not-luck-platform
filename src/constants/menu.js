@@ -68,7 +68,7 @@ const data = [
     id: 'messages',
     icon: 'simple-icon-speech',
     label: 'menu.messages',
-    to: `${adminRoot}`,
+    to: `messages`,
     roles: [UserRole.candidate],
   },
   {
@@ -89,7 +89,7 @@ const data = [
     id: 'help',
     icon: 'simple-icon-question',
     label: 'menu.help',
-    to: `${adminRoot}`,
+    to: 'help',
     roles: [UserRole.candidate, UserRole.super],
   },
 ];

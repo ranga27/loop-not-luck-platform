@@ -21,7 +21,7 @@ const MoreRolesCarousel = ({ otherRoles }) => {
           <i
             role="link"
             onClick={previousSlide}
-            className=" simple-icon-arrow-left carousel-nav"
+            className=" simple-icon-arrow-left carousel-left-nav"
           />
         ) : (
           ''
@@ -35,7 +35,7 @@ const MoreRolesCarousel = ({ otherRoles }) => {
               nextSlide();
               seenRole(currentSlide);
             }}
-            className="simple-icon-arrow-right carousel-nav"
+            className="simple-icon-arrow-right carousel-right-nav"
           />
         ) : (
           ''

@@ -13,8 +13,8 @@ export const diversityOptions = [
     value: 'I was on free school meals at school',
   },
   {
-    label: 'Publicaly funded education',
-    value: 'Publicaly funded education',
+    label: 'Publicly funded education',
+    value: 'Publicly funded education',
   },
   {
     label: 'Identify with the LGBTQIA+ community',

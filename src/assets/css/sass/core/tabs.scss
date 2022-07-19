@@ -16,7 +16,7 @@
 .nav-tabs .nav-link.active::before,
 .nav-tabs .nav-item.show .nav-link::before {
   content: ' ';
-  background: $theme-color-1;
+  background: none;
   border-radius: 10px;
   position: absolute;
   width: calc(100% - 1rem);

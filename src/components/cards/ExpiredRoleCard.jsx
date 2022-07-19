@@ -9,7 +9,7 @@ import StateButton from '../StateButton';
 
 const ExpiredRoleCard = ({ role }) => {
   return (
-    <Card key={role.id} className="mx-5">
+    <Card key={role.id} className="mb-5">
       <CardBody>
         <div className="float-left">
           <div className="d-flex flex-row ">
@@ -19,15 +19,15 @@ const ExpiredRoleCard = ({ role }) => {
               alt={role.title}
             />
             <div>
-              <h1 className="font-weight-bold" style={{ marginLeft: '50px' }}>
+              <h6 className="font-weight-bold" style={{ marginLeft: '20px' }}>
                 {role.company}
-              </h1>
-              <h2
+              </h6>
+              <h5
                 className="text-muted font-weight-medium"
-                style={{ marginLeft: '50px' }}
+                style={{ marginLeft: '20px' }}
               >
                 {role.title}
-              </h2>
+              </h5>
             </div>
             <div>
               <h1>

@@ -5,7 +5,7 @@ const ApplicationsCard = ({ application }) => {
   const [collapse, setCollapse] = useState(false);
 
   return (
-    <Card key={application.id} className="mx-5">
+    <Card key={application.id} className="">
       <CardBody>
         <div className="float-left">
           <div className="d-flex flex-row ">
@@ -15,29 +15,29 @@ const ApplicationsCard = ({ application }) => {
               alt="application"
             />
             <div>
-              <h1
+              <h6
                 className="text-primary d-inline-block text-truncate"
                 style={{
-                  marginLeft: '10px',
+                  marginLeft: '20px',
                   fontWeight: 'bold',
-                  maxWidth: '150px',
+                  maxWidth: '200px',
                 }}
               >
                 {application.company}
-              </h1>
-              <h4
+              </h6>
+              <h5
                 className="text-muted font-weight-medium d-inline-block text-truncate"
-                style={{ marginLeft: '10px', maxWidth: '150px' }}
+                style={{ marginLeft: '20px', maxWidth: '200px' }}
               >
                 {application.title}
-              </h4>
+              </h5>
             </div>
             <div style={{ marginLeft: '40px' }}>
-              <h1>
+              <h2>
                 <Badge color="primary" pill>
                   {application.score}%
                 </Badge>
-              </h1>
+              </h2>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@ const ApplicationsCard = ({ application }) => {
             </Button>
           )}
         </div>
-        <div className="text-center mt-5">
+        <div className="text-center mt-3">
           {collapse ? (
             <div>
               <Button onClick={() => setCollapse(!collapse)} color="link">
@@ -111,28 +111,6 @@ const ApplicationsCard = ({ application }) => {
               <dd className="col-sm-8">{application.description}</dd>
               <dt className="col-sm-4 text-truncate"> Position Type</dt>
               <dd className="col-sm-8">{application.positionType}</dd>
-              <dt className="col-sm-4 text-truncate">How To Apply</dt>
-              <dd className="col-sm-8">{application.howToApply}</dd>
-              <dt className="col-sm-4 text-truncate">Website</dt>
-              <dd className="col-sm-8">{application.website}</dd>
-              <dt className="col-sm-4 text-truncate">Rolling</dt>
-              {application.rolling === true ? (
-                <dd className="col-sm-8">Yes</dd>
-              ) : (
-                <dd className="col-sm-8">No</dd>
-              )}{' '}
-              <dt className="col-sm-4 text-truncate">Published</dt>
-              {application.publish === true ? (
-                <dd className="col-sm-8">Yes</dd>
-              ) : (
-                <dd className="col-sm-8">No</dd>
-              )}
-              <dt className="col-sm-4 text-truncate">Creation Date</dt>
-              <dd className="col-sm-8">{application.createdAt}</dd>
-              {/* <dt className="col-sm-4 text-truncate">Deadline</dt>
-              <dd className="col-sm-8">{application.deadline}</dd>
-              <dt className="col-sm-4 text-truncate">Start Date</dt>
-              <dd className="col-sm-8">{application.startDate}</dd> */}
               <dt className="col-sm-4 text-truncate">Requires cover letter</dt>
               {application.coverLetter === true ? (
                 <dd className="col-sm-8">Yes</dd>

@@ -13,6 +13,7 @@ const Applications = () => {
   const [activeTab, setActiveTab] = useState('tab1');
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
+  const todaysDate = new Date();
   const { isLoading, data: appliedRoles } = useFirestoreQuery(
     ['matchedRoles'],
     query(
@@ -59,24 +60,26 @@ const Applications = () => {
     const liveApplications = [];
     const expiredApplications = [];
     appliedRoles.forEach((role) => {
-      if (role.daysToDeadline > 0) liveApplications.push(role);
+      const roleDeadline = new Date(role.deadline);
+      if (roleDeadline > todaysDate) liveApplications.push(role);
       else expiredApplications.push(role);
     });
+
     return (
       <>
         <Row>
-          <h1>
+          <h3 style={{ fontWeight: 'bold' }}>
             <IntlMessages id="pages.application-applications" />
-            <Badge color="primary" pill>
+            <Badge color="primary" pill className="mx-2">
               {appliedRoles.length}
             </Badge>
-          </h1>
+          </h3>
 
-          <div className="d-flex flex-row mx-5">
+          <div className="d-flex flex-row">
             <Button
               id="actionRequiredButton"
               color="danger"
-              className="danger-button"
+              className="danger-button mr-2 pr-2"
               onClick={(e) => handleActionTab(e)}
             >
               {tabs[0].text}

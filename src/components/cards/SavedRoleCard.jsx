@@ -26,7 +26,7 @@ const SavedRoleCard = ({ role }) => {
     refetch();
   };
   return (
-    <Card key={role.id} className="mx-5">
+    <Card key={role.id} className="">
       <CardBody>
         <div className="float-left">
           <div className="d-flex flex-row ">
@@ -36,15 +36,15 @@ const SavedRoleCard = ({ role }) => {
               alt={role.title}
             />
             <div>
-              <h1 className="font-weight-bold" style={{ marginLeft: '50px' }}>
+              <h6 className="font-weight-bold" style={{ marginLeft: '20px' }}>
                 {role.company}
-              </h1>
-              <h2
+              </h6>
+              <h5
                 className="text-muted font-weight-medium"
-                style={{ marginLeft: '50px' }}
+                style={{ marginLeft: '20px' }}
               >
                 {role.title}
-              </h2>
+              </h5>
             </div>
             <div>
               <h1>
@@ -54,8 +54,8 @@ const SavedRoleCard = ({ role }) => {
               </h1>
             </div>
           </div>
-          <div className="float-center">
-            <h3>{role.daysToDeadline} days until deadline</h3>
+          <div className="float-center pt-2">
+            <h6>Deadline: {role.deadline}</h6>
           </div>
           <div className="d-flex flex-row">
             <Button
@@ -63,8 +63,9 @@ const SavedRoleCard = ({ role }) => {
               color="primary"
               onClick={() => applyRole()}
               className="slider-top-button"
+              disabled={role.applied === true}
             >
-              Apply
+              {role.applied === true ? 'Applied' : 'Apply'}
             </Button>
             <Button
               id="saveButton"
@@ -77,12 +78,15 @@ const SavedRoleCard = ({ role }) => {
             </Button>
           </div>
           <div>
-            <h3>
+            <p>
               {isViewInfo ? '' : role.description}{' '}
-              <span onClick={toggleViewInfo} style={{ color: '#F7B919' }}>
+              <span
+                onClick={toggleViewInfo}
+                style={{ color: '#F7B919', fontSize: '15px' }}
+              >
                 {isViewInfo ? ' View Role Information' : ' Show less'}
               </span>
-            </h3>
+            </p>
           </div>
         </div>
       </CardBody>

@@ -28,12 +28,22 @@ const Applications = lazy(() =>
   )
 );
 
+const HelpPage = lazy(() =>
+  import(/* webpackChunkName: "candidate-help-page" */ '../public/Help')
+);
+
 const Privacy = lazy(() =>
-  import(/* webpackChunkName: "admin-privacy" */ '../public/Privacy')
+  import(/* webpackChunkName: "candidate-privacy" */ '../public/Privacy')
 );
 
 const Terms = lazy(() =>
-  import(/* webpackChunkName: "admin-terms-and-conditions" */ '../public/Terms')
+  import(
+    /* webpackChunkName: "candidate-terms-and-conditions" */ '../public/Terms'
+  )
+);
+
+const Messages = lazy(() =>
+  import(/* webpackChunkName: "candidate-messages" */ './messages')
 );
 
 const CandidateApp = () => {
@@ -48,6 +58,8 @@ const CandidateApp = () => {
             <Route path="applications" element={<Applications />} />
             <Route path="privacy" element={<Privacy />} />
             <Route path="terms-and-conditions" element={<Terms />} />
+            <Route path="help" element={<HelpPage />} />
+            <Route path="messages" element={<Messages />} />
             <Route path="logout" element={<Logout />} />
             <Route path="/" element={<Navigate to="roles" />} />
           </Routes>

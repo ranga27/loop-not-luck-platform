@@ -46,56 +46,53 @@ const CarouselCardLeft = ({ role }) => {
   return (
     <Card style={{ marginLeft: '0px' }}>
       <CardBody>
-        <div className="d-flex flex-row m-3 p-3">
+        <div className="d-flex flex-row m-2 p-2">
           <img
             className="responsive"
             src={role.logoUrl}
             alt={role.title}
             style={{
-              width: '150px',
+              width: '100px',
               backgroundSize: 'contain',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: '50% 50%',
             }}
           />
           <div>
-            <h1
+            <h6
               className="text-primary"
-              style={{ marginLeft: '50px', fontWeight: 'bold' }}
+              style={{ marginLeft: '20px', fontWeight: 'bold' }}
             >
               {role.company}
-            </h1>
-            <h2
+            </h6>
+            <h5
               className="text-muted font-weight-medium"
-              style={{ marginLeft: '50px', fontSize: '20px' }}
+              style={{ marginLeft: '20px', fontSize: '14px' }}
             >
               {role.title}
-            </h2>
+            </h5>
           </div>
         </div>
-        <div className="m-3 p-3">
-          <h3 className="mt-3" style={{ fontWeight: 'bold' }}>
-            {' '}
-            Application Deadline:
-          </h3>
-          <h3 className="text-muted">{role.deadline}</h3>
-          <h3 className="mt-3" style={{ fontWeight: 'bold' }}>
+        <div className="m-2 p-2">
+          <h6 style={{ fontWeight: 'bold' }}>Application Deadline:</h6>
+          <h6 className="text-muted">{role.deadline}</h6>
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Location
-          </h3>
-          <h3 className="text-muted">{role.location}</h3>
-          <h3 className="mt-3" style={{ fontWeight: 'bold' }}>
+          </h6>
+          <h6 className="text-muted">{role.location}</h6>
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Position
-          </h3>
-          <h3 className="text-muted">{role.positionType}</h3>
-          <h3 className="mt-3" style={{ fontWeight: 'bold' }}>
-            Renumeration
-          </h3>
-          <h3 className="text-muted">{role.renumeration}</h3>
-          <h3 className="mt-3" style={{ fontWeight: 'bold' }}>
+          </h6>
+          <h6 className="text-muted">{role.positionType}</h6>
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+            Remuneration
+          </h6>
+          <h6 className="text-muted">{role.remuneration}</h6>
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Description
-          </h3>
+          </h6>
           {role.description && (
-            <h3 className="text-muted">
+            <h6 className="text-muted">
               {isReadMore ? role.description.slice(0, 150) : role.description}
               <span onClick={toggleReadMore} style={{ color: '#F7B919' }}>
                 {role.description.length > 150
@@ -104,16 +101,16 @@ const CarouselCardLeft = ({ role }) => {
                     : ' Show less'
                   : ''}
               </span>
-            </h3>
+            </h6>
           )}
-          <h3 className="mt-3" style={{ fontWeight: 'bold' }}>
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Department
-          </h3>
-          <h3 className="text-muted">{role.department}</h3>
-          <h3 className="mt-3" style={{ fontWeight: 'bold' }}>
+          </h6>
+          <h6 className="text-muted">{role.department}</h6>
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Start Date
-          </h3>
-          <h3 className="text-muted">{role.startDate}</h3>
+          </h6>
+          <h6 className="text-muted">{role.startDate}</h6>
         </div>
 
         <div className="d-flex flex-row">

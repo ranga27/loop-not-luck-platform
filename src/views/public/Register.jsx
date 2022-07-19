@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Form } from 'reactstrap';
+import { Form, Button } from 'reactstrap';
 import {
   useAuthCreateUserWithEmailAndPassword,
   useAuthSignOut,
@@ -161,20 +161,19 @@ const Register = () => {
             control={control}
             type="password"
           />
-          <div className="d-flex flex-row">
+          <div className="truncate d-flex flex-row">
             <CheckBox
               name="termsSelected"
               label="I agree with the"
               control={control}
             />
-
-            <button
+            <Button
               type="button"
               className="btn-link-secondary"
               onClick={() => handleOpenModal()}
             >
               terms and conditions
-            </button>
+            </Button>
           </div>
           <div className="d-flex flex-column justify-content-center align-items-center">
             <AuthButton

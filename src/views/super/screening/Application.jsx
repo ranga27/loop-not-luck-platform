@@ -50,7 +50,7 @@ const Application = ({ users }) => {
             <Button
               color="transparent"
               className={classnames('top-right-button mb-4', {
-                'text-primary': activeTab === 'tab1',
+                'text-success': activeTab === 'tab1',
               })}
               onClick={(e) => handleTable(e)}
             >
@@ -59,7 +59,7 @@ const Application = ({ users }) => {
             <Button
               color="transparent"
               className={classnames('top-right-button mb-4', {
-                'text-primary': activeTab === 'tab2',
+                'text-success': activeTab === 'tab2',
               })}
               onClick={(e) => handleGrid(e)}
             >

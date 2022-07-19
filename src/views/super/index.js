@@ -83,12 +83,17 @@ const Terms = lazy(() =>
   import(/* webpackChunkName: "admin-terms-and-conditions" */ '../public/Terms')
 );
 
+const HelpPage = lazy(() =>
+  import(/* webpackChunkName: "admin-help-page" */ '../public/Help')
+);
+
 const SuperAdminRoute = () => {
   return (
     <AppLayout>
       <Suspense fallback={<div className="loading" />}>
         <Routes>
           <Route path="privacy" element={<Privacy />} />
+          <Route path="help" element={<HelpPage />} />
           <Route path="terms-and-conditions" element={<Terms />} />
           <Route path="review" element={<Review />} />
           <Route path="post" element={<Post />} />

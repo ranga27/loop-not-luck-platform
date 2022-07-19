@@ -318,6 +318,7 @@ class Sidebar extends Component {
                 textAlign: 'center',
                 paddingBottom: '4px',
               }}
+              className="truncate"
             >
               {fullName}
             </p>

@@ -5,7 +5,7 @@ import { Colxx } from '../../../components/common/CustomBootstrap';
 
 const Templates = () => {
   return (
-    <>
+    <div className="pb-5 mb-5">
       <Row>
         <Colxx xxs="12">
           <h1>Manage Templates</h1>
@@ -23,7 +23,7 @@ const Templates = () => {
         </Colxx>
       </Row>
       <Outlet />
-    </>
+    </div>
   );
 };
 

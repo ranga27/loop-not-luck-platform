@@ -8,13 +8,13 @@ const SectionedApplications = ({ liveApplications, expiredApplications }) => {
   return (
     <>
       <Row>
-        <h1 className="mt-5">
+        <h3 style={{ fontWeight: 'bold' }} className="mt-5">
           <IntlMessages id="pages.application-liveApplications" />
-        </h1>
+        </h3>
         {liveApplications.length !== 0 ? (
           liveApplications.map((application) => {
             return (
-              <Colxx lg="6" className="my-5" key={application.id}>
+              <Colxx lg="6" className="pt-4" key={application.id}>
                 <ApplicationsCard application={application} />
               </Colxx>
             );
@@ -30,11 +30,13 @@ const SectionedApplications = ({ liveApplications, expiredApplications }) => {
         )}
       </Row>
       <Row>
-        <h1 className="mt-5">Expired Applications</h1>
+        <h3 style={{ fontWeight: 'bold' }} className="mt-5">
+          Expired Applications
+        </h3>
         {expiredApplications.map((application) => {
           return (
-            <Colxx lg="6" className="my-5" key={application.id}>
-              <div className="bg-muted opacity-50 py-5">
+            <Colxx lg="6" className="pt-3" key={application.id}>
+              <div className="pt-3">
                 <ApplicationsCard application={application} />
               </div>
             </Colxx>

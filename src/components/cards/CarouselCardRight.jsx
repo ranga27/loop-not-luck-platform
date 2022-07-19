@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardBody, Badge, Button, Form } from 'reactstrap';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
@@ -22,7 +22,6 @@ const CarouselCardRight = ({ role }) => {
     defaultValues,
   });
 
-  const [declineResponse, setDeclineResponse] = useState('');
   const client = useQueryClient();
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
@@ -39,8 +38,7 @@ const CarouselCardRight = ({ role }) => {
 
   const onSubmit = async (data) => {
     const newData = {
-      ...data,
-      declineResponse,
+      declineResponse: data,
       updatedAt: serverTimestamp(),
     };
     console.log('SUBMIT: ', newData);
@@ -51,13 +49,13 @@ const CarouselCardRight = ({ role }) => {
   return (
     <Card style={{ marginLeft: '0px' }}>
       <CardBody className="m-3 p-3">
-        <h1 className="mt-3">
+        <h5 className="mt-3">
           You are a{' '}
           <span className="text-primary" style={{ fontWeight: 'bold' }}>
             {role.score}%{' '}
           </span>
           match
-        </h1>
+        </h5>
         <div>
           {role.rolesOfInterests && role.rolesOfInterests.length > 0
             ? role.rolesOfInterests.map((item, index) => (
@@ -68,7 +66,7 @@ const CarouselCardRight = ({ role }) => {
                   key={item}
                   pill
                   className="mb-1 px-4 py-2 mx-2 my-2"
-                  style={{ fontSize: '20px' }}
+                  style={{ fontSize: '14px' }}
                 >
                   {item}
                 </Badge>
@@ -84,7 +82,7 @@ const CarouselCardRight = ({ role }) => {
                   key={item}
                   pill
                   className="mb-1 px-4 py-2 mx-2 my-2"
-                  style={{ fontSize: '20px' }}
+                  style={{ fontSize: '14px' }}
                 >
                   {item}
                 </Badge>
@@ -93,9 +91,9 @@ const CarouselCardRight = ({ role }) => {
         </div>
 
         <div>
-          <h3 className="mt-3" style={{ fontWeight: 'bold' }}>
+          <h6 className="mt-3" style={{ fontWeight: 'bold' }}>
             Not a good fit? Tell us why
-          </h3>
+          </h6>
           <p className="text-muted">
             The more we know about you and what you are looking for from a role.
             The better our recommendations will be!
@@ -124,8 +122,7 @@ const CarouselCardRight = ({ role }) => {
                     id="applyButton"
                     color="primary"
                     className="text-xl"
-                    disabled={declineResponse !== ''}
-                    onClick={() => setDeclineResponse('Not Interesting')}
+                    onClick={() => onSubmit('Not Interesting')}
                   >
                     Not Interesting
                   </Button>
@@ -135,11 +132,10 @@ const CarouselCardRight = ({ role }) => {
                   <Button
                     id="applyButton"
                     color="primary"
-                    onClick={() => setDeclineResponse('Renumeration')}
+                    onClick={() => onSubmit('Remuneration')}
                     className=""
-                    disabled={declineResponse !== ''}
                   >
-                    Renumeration
+                    Remuneration
                   </Button>
                 </div>
               </div>

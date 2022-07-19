@@ -62,7 +62,7 @@ const PostRoleForm = () => {
     title: '',
     department: '',
     qualification: '',
-    renumeration: '',
+    remuneration: '',
     description: '',
     howToApply: '',
     email: '',
@@ -176,10 +176,10 @@ const PostRoleForm = () => {
         errors={errors.qualification}
       />
       <TextInput
-        name="renumeration"
-        label="Renumeration"
+        name="remuneration"
+        label="Remuneration"
         control={control}
-        errors={errors.renumeration}
+        errors={errors.remuneration}
       />
       <SelectField
         label="How to Apply"
