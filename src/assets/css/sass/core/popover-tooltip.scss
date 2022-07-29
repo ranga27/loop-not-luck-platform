@@ -1,17 +1,17 @@
 .popover,
 .tooltip {
-  top: -145px !important;
+  // top: -145px !important;
 
   @include respond-below(xl) {
-    top: -130px !important;
+    // top: -130px !important;
   }
 
   @include respond-below(lg) {
-    top: -110px !important;
+    // top: -110px !important;
   }
 
   @include respond-below(sm) {
-    top: -85px !important;
+    // top: -85px !important;
   }
 }
 

@@ -61,6 +61,7 @@ const CompanyAccountForm = ({ defaultValues, onSubmit }) => {
         errors={errors.industry}
         clearErrors={clearErrors}
         defaultValue={defaultValues.industry}
+        closeMenuOnSelect={false}
       />
       <Button color="primary" size="lg" type="submit">
         Submit

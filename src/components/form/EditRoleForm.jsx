@@ -34,6 +34,8 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
 
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
+  const technicalSkillsOther = watch('technicalSkills');
+
   useEffect(() => {
     try {
       if (role) {
@@ -44,7 +46,7 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         setValue('positionType', role.positionType);
         setValue('department', role.department);
         setValue('description', role.description);
-        setValue('remuneration', role.remuneration);
+        setValue('salary', role.salary);
         setValue('qualification', role.qualification);
         setValue(
           'behaviourAttributesStrengths',
@@ -65,6 +67,7 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
           role.startDate ? getDateFromString(role.startDate) : null
         );
         setValue('coverLetter', role.coverLetter || false);
+        setValue('technicalSkillsOther', role.technicalSkillsOther || '');
         setValue('prescreening', role.prescreening || false);
       }
     } catch (error) {
@@ -72,6 +75,7 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
     }
   }, [role, setValue]);
   // TODO: convert into smart form
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <TextInput
@@ -126,10 +130,10 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         className="sticky-top"
       />
       <TextInput
-        name="remuneration"
-        label="Remuneration"
+        name="salary"
+        label="Salary"
         control={control}
-        errors={errors.remuneration}
+        errors={errors.salary}
         className="sticky-top"
       />
       <SelectField
@@ -196,6 +200,7 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         clearErrors={clearErrors}
         defaultValue={role.rolesOfInterests}
         errors={errors.rolesOfInterests}
+        closeMenuOnSelect={false}
       />
       <MultiSelect
         label="Behaviour/Attributes/Strengths"
@@ -206,6 +211,7 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         clearErrors={clearErrors}
         defaultValue={role.behaviourAttributesStrengths}
         errors={errors.behaviourAttributesStrengths}
+        closeMenuOnSelect={false}
       />
       <MultiSelect
         label="Technical Skills"
@@ -216,7 +222,17 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         clearErrors={clearErrors}
         defaultValue={role.technicalSkills}
         errors={errors.technicalSkills}
+        closeMenuOnSelect={false}
       />
+      {technicalSkillsOther !== undefined &&
+        technicalSkillsOther.includes('Other') && (
+          <TextInput
+            name="technicalSkillsOther"
+            label="Other Technical Skills"
+            control={control}
+            errors={errors.technicalSkillsOther}
+          />
+        )}
       <CheckBox
         name="prescreening"
         label="Requires prescreening"

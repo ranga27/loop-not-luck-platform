@@ -14,6 +14,7 @@ import { startOptions } from '../../../data/startOptions';
 // TODO: pass schema from parent
 const validationSchema = Yup.object().shape({
   start: Yup.string().required('Please select an option'),
+  specificStartDate: Yup.date().nullable().required('Specific Date required'),
 });
 
 const validateNoticePeriod = (value) => {
@@ -83,6 +84,7 @@ export const Step6 = (form, { start }, messages) => {
                       name="specificStartDate"
                       value={values.specificStartDate}
                       onChange={setFieldValue}
+                      errors={errors.specificStartDate}
                       onBlur={setFieldTouched}
                     />
                     {errors.specificStartDate && touched.specificStartDate ? (

@@ -85,9 +85,9 @@ const CarouselCardLeft = ({ role }) => {
           </h6>
           <h6 className="text-muted">{role.positionType}</h6>
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
-            Remuneration
+            Salary
           </h6>
-          <h6 className="text-muted">{role.remuneration}</h6>
+          <h6 className="text-muted">{role.salary}</h6>
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Description
           </h6>

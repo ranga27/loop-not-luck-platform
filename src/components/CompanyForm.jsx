@@ -49,6 +49,7 @@ const CompanyForm = ({ match }) => {
         options={tagOptions}
         setValue={setValue}
         errors={errors.tags}
+        closeMenuOnSelect={false}
       />
       <Button color="primary" size="lg" type="submit">
         Submit

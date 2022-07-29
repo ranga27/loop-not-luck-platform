@@ -30,6 +30,14 @@ export const companySchema = yup.object().shape({
   industry: yup.mixed().required('Industry is required'),
   genderIdentity: yup.mixed().required('Please select at least one'),
   jobValues: yup.mixed().required('Job Values is required'),
+  genderIdentityOthers: yup.string().when('genderIdentity', {
+    is: (value) => value === 'Other',
+    then: yup.string().required('Please enter other Gender Identities'),
+  }),
+  jobValuesOther: yup.string().when('jobValues', {
+    is: (value) => value === 'Other',
+    then: yup.string().required('Please enter other job values'),
+  }),
 });
 
 /* */

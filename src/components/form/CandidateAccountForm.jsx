@@ -10,6 +10,7 @@ import {
   TextInput,
   MultiSelect,
 } from './FormFields';
+import { locations } from '../../data';
 import { visaRequiredOptions } from '../../data/visaRequiredOptions';
 import IntlMessages from '../../helpers/IntlMessages';
 import { jobValuesOptions } from '../../data/jobValuesOptions';
@@ -18,6 +19,7 @@ import { technicalSkills } from '../../data/technicalSkillsOptions';
 
 const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
   const {
+    watch,
     control,
     setValue,
     handleSubmit,
@@ -28,6 +30,9 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
     resolver: yupResolver(AccountSchema),
   });
   // TODO: convert into smart form
+  const technicalSkillsOther = watch('technicalSkills');
+  const jobValuesOther = watch('jobValues');
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <TextInput
@@ -48,6 +53,13 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         control={control}
         type="tel"
         errors={errors.mobileNumber}
+      />
+      <SelectField
+        label="Location"
+        name="location"
+        control={control}
+        options={locations}
+        errors={errors.location}
       />
       <TextInput
         name="degreeSubject"
@@ -84,7 +96,17 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
           control._formValues.jobValues !== null &&
           control._formValues.jobValues.length >= 3
         }
+        closeMenuOnSelect={false}
+        errors={errors.jobValues}
       />
+      {jobValuesOther.includes('Other') && (
+        <TextInput
+          name="moreJobValues"
+          label="Other Job Values"
+          control={control}
+          errors={errors.jobValuesOther}
+        />
+      )}
       <MultiSelect
         label="What are your top 3 Behaviours/Attributes/Strengths?"
         name="behaviorAttributes"
@@ -92,11 +114,13 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         options={behaviourOptions}
         setValue={setValue}
         clearErrors={clearErrors}
+        errors={errors.behaviorAttributes}
         defaultValue={defaultValues.behaviorAttributes}
         isOptionDisabled={() =>
           control._formValues.behaviorAttributes !== null &&
           control._formValues.behaviorAttributes.length >= 3
         }
+        closeMenuOnSelect={false}
       />
       <MultiSelect
         label="Technical Skills"
@@ -106,7 +130,18 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={defaultValues.technicalSkills}
+        closeMenuOnSelect={false}
+        errors={errors.technicalSkills}
       />
+
+      {technicalSkillsOther.includes('Other') && (
+        <TextInput
+          name="moreTechnicalSkills"
+          label="Other Technical Skills"
+          control={control}
+          errors={errors.technicalSkillsOther}
+        />
+      )}
       {defaultValues.cvUploadDate &&
         `CV Exists, uploaded on ${new Date(
           defaultValues.cvUploadDate

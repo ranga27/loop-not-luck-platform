@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-import React from 'react';
-import { FormGroup, Label } from 'reactstrap';
+import React, { useState } from 'react';
+import { FormGroup, Label, Tooltip } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form, Field } from 'formik';
@@ -28,6 +28,9 @@ const validateAnswer = (value) => {
 };
 
 export const Step4 = (form, { disability }, messages) => {
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const toggle = () => setTooltipOpen(!tooltipOpen);
+
   return (
     <Step id="step4">
       <StepLayout>
@@ -45,6 +48,11 @@ export const Step4 = (form, { disability }, messages) => {
             <Form className="av-tooltip tooltip-left-top error-r-275">
               <FormGroup>
                 <Label>{messages['forms.disability']}</Label>
+                <i
+                  className="iconsminds-information h6 px-2 text-primary"
+                  style={{ width: '20px', fontWeight: 'bold' }}
+                  id="TooltipExample"
+                />
                 <FormikCustomRadioGroup
                   inline="true"
                   name="disability"
@@ -54,12 +62,33 @@ export const Step4 = (form, { disability }, messages) => {
                   onBlur={setFieldTouched}
                   options={options}
                 />
+                <div>
+                  <Tooltip
+                    placement="bottom"
+                    isOpen={tooltipOpen}
+                    target="TooltipExample"
+                    toggle={toggle}
+                    autohide={false}
+                  >
+                    Disability definition as per the Equality Act 2010-
+                    <a
+                      href="https://www.gov.uk/definition-of-disability-under-equality-act-2010"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-primary"
+                    >
+                      https://www.gov.uk/definition-of-disability-under-equality-act-2010
+                    </a>
+                  </Tooltip>
+                </div>
+
                 {errors.disability && touched.disability && (
                   <div className="invalid-feedback d-block">
                     {errors.disability}
                   </div>
                 )}
               </FormGroup>
+
               <FormGroup>
                 {values.disability === 'Yes' && (
                   <div>

@@ -13,6 +13,7 @@ import { jobValuesOptions } from '../../data/jobValuesOptions';
 // TODO: consolidate components used in add company form
 const AddCompanyForm = ({ onSubmit }) => {
   const {
+    watch,
     control,
     setValue,
     handleSubmit,
@@ -20,6 +21,8 @@ const AddCompanyForm = ({ onSubmit }) => {
     clearErrors,
   } = useForm({ resolver: yupResolver(companySchema) });
   // TODO: convert to smart form
+  const genderIdentityOther = watch('genderIdentity');
+  const jobValuesOther = watch('jobValues');
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       {/* TODO: since Company Name change is allowed, ensure that all other places like Roles have an updated name */}
@@ -50,6 +53,7 @@ const AddCompanyForm = ({ onSubmit }) => {
         setValue={setValue}
         errors={errors.industry}
         clearErrors={clearErrors}
+        closeMenuOnSelect={false}
       />
       <MultiSelect
         label="As a company, do you have any interest in hiring people from any of the below underrepresented groups?"
@@ -59,7 +63,17 @@ const AddCompanyForm = ({ onSubmit }) => {
         setValue={setValue}
         errors={errors.genderIdentity}
         clearErrors={clearErrors}
+        closeMenuOnSelect={false}
       />
+      {genderIdentityOther !== undefined &&
+        genderIdentityOther.includes('Other') && (
+          <TextInput
+            name="genderIdentityOthers"
+            label="Other groups"
+            control={control}
+            errors={errors.genderIdentityOthers}
+          />
+        )}
       <MultiSelect
         label="Job Values"
         name="jobValues"
@@ -68,7 +82,16 @@ const AddCompanyForm = ({ onSubmit }) => {
         setValue={setValue}
         errors={errors.jobValues}
         clearErrors={clearErrors}
+        closeMenuOnSelect={false}
       />
+      {jobValuesOther !== undefined && jobValuesOther.includes('Other') && (
+        <TextInput
+          name="jobValuesOther"
+          label="Other Job Values"
+          control={control}
+          errors={errors.jobValuesOther}
+        />
+      )}
       <Button color="primary" size="lg" type="submit">
         Submit
       </Button>

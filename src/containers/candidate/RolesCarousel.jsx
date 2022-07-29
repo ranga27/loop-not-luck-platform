@@ -54,7 +54,7 @@ const RolesCarousel = ({ roles, otherRoles, topMatch }) => {
         <TabPane tabId="1">
           <Carousel
             dragging={false}
-            disableKeyboardControls
+            enableKeyboardControls
             renderCenterLeftControls={({ previousSlide, currentSlide }) =>
               currentSlide !== 0 ? (
                 <i

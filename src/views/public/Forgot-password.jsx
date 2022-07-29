@@ -29,11 +29,13 @@ const ForgotPassword = () => {
     sendPasswordResetEmail(auth, values.email, {
       url: 'https://loop-luck.web.app/login',
     });
-    alert.fire(
-      'Awesome!',
-      'You are nearly done resetting your password. Please click the link the email just sent to reset your password.',
-      'success'
-    );
+    alert.fire({
+      title: 'Awesome!',
+      text: 'You are nearly done resetting your password. Please click the link the email just sent to reset your password.',
+      icon: 'success',
+      confirmButtonColor: '#3085d6',
+      iconColor: '#3085d6',
+    });
     console.log('Password reset email sent');
   };
   const initialValues = { email };

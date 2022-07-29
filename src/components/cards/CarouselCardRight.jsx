@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardBody, Badge, Button, Form } from 'reactstrap';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
@@ -21,7 +21,7 @@ const CarouselCardRight = ({ role }) => {
   } = useForm({
     defaultValues,
   });
-
+  const [showTextField, setShowTextField] = useState(false);
   const client = useQueryClient();
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
@@ -61,7 +61,21 @@ const CarouselCardRight = ({ role }) => {
             ? role.rolesOfInterests.map((item, index) => (
                 <Badge
                   color={
-                    index === 0 ? 'primary' : index === 1 ? 'success' : 'danger'
+                    index === 0
+                      ? 'primary'
+                      : index === 1
+                      ? 'secondary'
+                      : index === 2
+                      ? 'danger'
+                      : index === 3
+                      ? 'primary'
+                      : index === 4
+                      ? 'secondary'
+                      : index === 5
+                      ? 'danger'
+                      : index === 6
+                      ? 'primary'
+                      : 'secondary'
                   }
                   key={item}
                   pill
@@ -77,7 +91,21 @@ const CarouselCardRight = ({ role }) => {
             ? role.behaviourAttributesStrengths.map((item, index) => (
                 <Badge
                   color={
-                    index === 0 ? 'primary' : index === 1 ? 'success' : 'danger'
+                    index === 0
+                      ? 'primary'
+                      : index === 1
+                      ? 'secondary'
+                      : index === 2
+                      ? 'danger'
+                      : index === 3
+                      ? 'primary'
+                      : index === 4
+                      ? 'secondary'
+                      : index === 5
+                      ? 'danger'
+                      : index === 6
+                      ? 'primary'
+                      : 'secondary'
                   }
                   key={item}
                   pill
@@ -132,38 +160,51 @@ const CarouselCardRight = ({ role }) => {
                   <Button
                     id="applyButton"
                     color="primary"
-                    onClick={() => onSubmit('Remuneration')}
+                    onClick={() => onSubmit('Salary')}
                     className=""
                   >
-                    Remuneration
+                    Salary
+                  </Button>
+                </div>
+
+                <div className="px-2 py-2">
+                  <Button
+                    id="applyButton"
+                    color="primary"
+                    className="text-xl"
+                    onClick={() => setShowTextField(true)}
+                  >
+                    Other
                   </Button>
                 </div>
               </div>
-              <div>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                  <TextInput
-                    name="moreDetails"
-                    placeholder="Tell us why its not a good fit....."
-                    errors={errors.moreDetails}
-                    type="textarea"
-                    control={control}
-                    rows="4"
-                  />
-                  <div
-                    className="mx-auto text-center"
-                    style={{ textAlign: 'center' }}
-                  >
-                    <Button
-                      id="saveButton"
-                      color="primary"
-                      type="submit"
-                      outline
+              {showTextField && (
+                <div>
+                  <Form onSubmit={handleSubmit(onSubmit)}>
+                    <TextInput
+                      name="moreDetails"
+                      placeholder="Tell us why its not a good fit....."
+                      errors={errors.moreDetails}
+                      type="textarea"
+                      control={control}
+                      rows="4"
+                    />
+                    <div
+                      className="mx-auto text-center"
+                      style={{ textAlign: 'center' }}
                     >
-                      Submit
-                    </Button>
-                  </div>
-                </Form>
-              </div>
+                      <Button
+                        id="saveButton"
+                        color="primary"
+                        type="submit"
+                        outline
+                      >
+                        Submit
+                      </Button>
+                    </div>
+                  </Form>
+                </div>
+              )}
             </>
           )}
         </div>

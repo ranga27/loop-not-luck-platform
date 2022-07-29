@@ -15,7 +15,7 @@ const MoreRolesCarousel = ({ otherRoles }) => {
   return (
     <Carousel
       dragging={false}
-      disableKeyboardControls
+      enableKeyboardControls
       renderCenterLeftControls={({ previousSlide, currentSlide }) =>
         currentSlide !== 0 ? (
           <i

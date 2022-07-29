@@ -14,6 +14,7 @@ import { jobValuesOptions } from '../../data/jobValuesOptions';
 // TODO: consolidate components used in add company form
 const EditCompanyForm = ({ company, onSubmit }) => {
   const {
+    watch,
     control,
     setValue,
     handleSubmit,
@@ -21,6 +22,8 @@ const EditCompanyForm = ({ company, onSubmit }) => {
     clearErrors,
   } = useForm({ defaultValues: company });
   // TODO: convert to smart form
+  const genderIdentityOther = watch('genderIdentity');
+  const jobValuesOther = watch('jobValues');
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
@@ -64,6 +67,7 @@ const EditCompanyForm = ({ company, onSubmit }) => {
         errors={errors.industry}
         clearErrors={clearErrors}
         defaultValue={company.industry}
+        closeMenuOnSelect={false}
       />
       <MultiSelect
         label="As a company, do you have any interest in hiring people from any of the below underrepresented groups?"
@@ -73,7 +77,17 @@ const EditCompanyForm = ({ company, onSubmit }) => {
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={company.genderIdentity}
+        closeMenuOnSelect={false}
       />
+      {genderIdentityOther !== undefined &&
+        genderIdentityOther.includes('Other') && (
+          <TextInput
+            name="genderIdentityOthers"
+            label="Other groups"
+            control={control}
+            errors={errors.genderIdentityOthers}
+          />
+        )}
       <MultiSelect
         label="Job Values"
         name="jobValues"
@@ -82,7 +96,16 @@ const EditCompanyForm = ({ company, onSubmit }) => {
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={company.jobValues}
+        closeMenuOnSelect={false}
       />
+      {jobValuesOther !== undefined && jobValuesOther.includes('Other') && (
+        <TextInput
+          name="jobValuesOther"
+          label="Other Job Values"
+          control={control}
+          errors={errors.jobValuesOther}
+        />
+      )}
       <Button color="primary" size="lg" type="submit">
         Submit
       </Button>

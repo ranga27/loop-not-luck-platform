@@ -32,6 +32,7 @@ const Register = () => {
     firstName: '',
     email: '',
     password: '',
+    confirmPassword: '',
     company: '',
     // role: '',
     termsSelected: false,
@@ -83,7 +84,7 @@ const Register = () => {
             alert
               .fire({
                 title: 'Awesome!',
-                text: 'You are nearly in the loop. Please click the link the email just sent to verify your account.',
+                text: 'You are nearly in the loop. Please check your email to verify your account (check your spam/junk/promotions folder).',
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 iconColor: '#3085d6',
@@ -158,6 +159,13 @@ const Register = () => {
             name="password"
             label="Password"
             errors={errors.password}
+            control={control}
+            type="password"
+          />
+          <TextInput
+            name="confirmPassword"
+            label="Confirm Password"
+            errors={errors.confirmPassword}
             control={control}
             type="password"
           />

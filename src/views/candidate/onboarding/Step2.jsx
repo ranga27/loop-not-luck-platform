@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-import React from 'react';
-import { FormGroup, Label } from 'reactstrap';
+import React, { useState } from 'react';
+import { FormGroup, Label, Tooltip } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form } from 'formik';
@@ -15,6 +15,9 @@ const validationSchema = Yup.object().shape({
     .min(1, 'Select at least one option'),
 });
 export const Step2 = (form, { diversity }, messages) => {
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const toggle = () => setTooltipOpen(!tooltipOpen);
+
   return (
     <Step id="step2">
       <StepLayout>
@@ -31,6 +34,11 @@ export const Step2 = (form, { diversity }, messages) => {
             <Form className="av-tooltip tooltip-left-top error-l-75">
               <FormGroup>
                 <Label>{messages['forms.diversity']}</Label>
+                <i
+                  className="iconsminds-information h6 px-2 text-primary"
+                  style={{ width: '20px', fontWeight: 'bold' }}
+                  id="TooltipExample"
+                />
                 <FormikCustomCheckboxGroup
                   name="diversity"
                   id="diversity"
@@ -40,6 +48,18 @@ export const Step2 = (form, { diversity }, messages) => {
                   options={diversityOptions}
                   inline="true"
                 />
+                <div>
+                  <Tooltip
+                    placement="bottom"
+                    isOpen={tooltipOpen}
+                    target="TooltipExample"
+                    toggle={toggle}
+                    autohide={false}
+                  >
+                    A school that is funded and controlled by the state and for
+                    which no fees are charged
+                  </Tooltip>
+                </div>
                 {errors.diversity && touched.diversity && (
                   <div className="invalid-feedback d-block">
                     {errors.diversity}

@@ -539,9 +539,9 @@ const Terms = () => {
       <p>
         <br />
       </p>
-      <p>63-66 Hatton Garden,</p>
-      <p>5th Floor Suite 23,</p>
-      <p>London, EC1N 8LE.</p>
+
+      <p>64 KNIGHTSBRIDGE,</p>
+      <p>LONDON SW1X 7JF.</p>
     </div>
   );
 };

@@ -25,11 +25,13 @@ const ResetConfirmation = () => {
   const onResetPassword = (values) => {
     confirmPasswordReset(auth, query.get('oobCode'), values.password)
       .then(() => {
-        alert.fire(
-          'Awesome!',
-          'Password has been changed. You can login now.',
-          'success'
-        );
+        alert.fire({
+          title: 'Awesome!',
+          text: 'Password has been changed. You can login now.',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+          iconColor: '#3085d6',
+        });
         navigate('/login');
       })
       .catch((err) => {

@@ -1,8 +1,67 @@
 import React, { useState } from 'react';
-import { Card, CardBody, Badge, Button, Collapse } from 'reactstrap';
+import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
+import { doc, serverTimestamp } from 'firebase/firestore';
+import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
+import { useQuery, useQueryClient } from 'react-query';
+import { Card, CardBody, Badge, Button, Collapse, Form } from 'reactstrap';
+import { FileUpload } from '../form/FormFields';
+import { firestore } from '../../helpers/Firebase';
+import { uploadFile } from '../../helpers/uploadFile';
 
 const ApplicationsCard = ({ application }) => {
   const [collapse, setCollapse] = useState(false);
+  const { control, handleSubmit } = useForm({});
+  const client = useQueryClient();
+  const user = useQuery(['userAuth']);
+  const { uid } = user.data;
+  const mutation = useFirestoreDocumentMutation(
+    doc(firestore, `users/${uid}/matchedRoles`, application.id),
+    { merge: true },
+    {
+      onSettled: () => {
+        client.invalidateQueries('matchedRoles');
+        client.invalidateQueries('savedRoles');
+      },
+    }
+  );
+
+  const onSubmit = async (data) => {
+    const newData = { ...data };
+
+    try {
+      const payload = await uploadFile(
+        newData.coverLetter,
+        newData.coverLetter.name + Date.now(),
+        'coverLetters'
+      );
+
+      const updatedData = {
+        coverLetterUrl: payload,
+        updatedAt: serverTimestamp(),
+      };
+
+      mutation.mutate(updatedData, {
+        onSuccess() {
+          Swal.fire({
+            title: 'Uploaded!',
+            text: 'Your cover letter has been uploaded.',
+            icon: 'success',
+            confirmButtonColor: '#F7B919',
+            iconColor: '#3085d6',
+          });
+        },
+        onError(error) {
+          Swal.fire('Oops!', 'Failed to update cover letter.', error);
+        },
+        onMutate() {
+          console.info('Updating document...');
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Card key={application.id} className="">
@@ -41,26 +100,37 @@ const ApplicationsCard = ({ application }) => {
             </div>
           </div>
         </div>
-        <div className="text-center mt-5">
+        <div>
           {application.coverLetter === true ? (
-            <Button
-              id="applyButton"
-              color="danger"
-              className="p-3"
-              disabled
-              style={{ width: '100%' }}
-            >
-              Cover Letter Requested
-            </Button>
+            <div className="text-center">
+              <p color="danger" className="text-danger pt-1">
+                Cover Letter Requested
+              </p>
+
+              {application.coverLetterUrl ? (
+                <p>Your Cover Letter has been uploaded successfully!</p>
+              ) : (
+                <Form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="av-tooltip tooltip-label-right"
+                >
+                  <FileUpload
+                    label="Upload Cover Letter specific to the role (PDF file smaller than 1MB)"
+                    name="coverLetter"
+                    control={control}
+                    required
+                  />
+                  <Button color="primary" type="submit" outline>
+                    Submit
+                  </Button>
+                </Form>
+              )}
+            </div>
           ) : (
-            <Button
-              id="applyButton"
-              className="p-3 btn-filled-dark"
-              disabled
-              style={{ width: '100%' }}
-            >
-              Application Under Review
-            </Button>
+            <div className="text-center">
+              <p className="pt-1 text-success">Application Under Review</p>
+              <p>Your application to this role is under review. Stay tuned!.</p>
+            </div>
           )}
         </div>
         <div className="text-center mt-3">

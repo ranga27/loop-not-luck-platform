@@ -39,6 +39,7 @@ const AddTemplateForm = ({ onSubmit }) => {
         options={yesNoOptions}
         setValue={setValue}
         clearErrors={clearErrors}
+        closeMenuOnSelect={false}
       />
       <Button color="primary" size="lg" type="submit">
         Submit

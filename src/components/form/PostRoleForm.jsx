@@ -62,7 +62,7 @@ const PostRoleForm = () => {
     title: '',
     department: '',
     qualification: '',
-    remuneration: '',
+    salary: '',
     description: '',
     howToApply: '',
     email: '',
@@ -126,6 +126,7 @@ const PostRoleForm = () => {
     return <div className="loading" />;
   }
   // TODO: convert into smart form
+  const technicalSkillsOther = watch('technicalSkills');
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <TextInput
@@ -176,10 +177,10 @@ const PostRoleForm = () => {
         errors={errors.qualification}
       />
       <TextInput
-        name="remuneration"
-        label="Remuneration"
+        name="salary"
+        label="Salary"
         control={control}
-        errors={errors.remuneration}
+        errors={errors.salary}
       />
       <SelectField
         label="How to Apply"
@@ -233,6 +234,7 @@ const PostRoleForm = () => {
         setValue={setValue}
         clearErrors={clearErrors}
         errors={errors.rolesOfInterests}
+        closeMenuOnSelect={false}
       />
       <MultiSelect
         label="Behaviour/Attributes/Strengths"
@@ -242,6 +244,7 @@ const PostRoleForm = () => {
         setValue={setValue}
         errors={errors.behaviourAttributesStrengths}
         clearErrors={clearErrors}
+        closeMenuOnSelect={false}
       />
       <MultiSelect
         label="Technical Skills"
@@ -251,7 +254,17 @@ const PostRoleForm = () => {
         setValue={setValue}
         clearErrors={clearErrors}
         errors={errors.rolesOfInterests}
+        closeMenuOnSelect={false}
       />
+      {technicalSkillsOther !== null &&
+        technicalSkillsOther.includes('Other') && (
+          <TextInput
+            name="technicalSkillsOther"
+            label="Other Technical Skills"
+            control={control}
+            errors={errors.technicalSkillsOther}
+          />
+        )}
       <CheckBox
         name="prescreening"
         label="Requires prescreening"

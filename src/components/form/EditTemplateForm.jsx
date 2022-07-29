@@ -40,6 +40,7 @@ const EditTemplateForm = ({ onSubmit, template }) => {
         setValue={setValue}
         clearErrors={clearErrors}
         defaultValue={template.publish}
+        closeMenuOnSelect={false}
       />
       <Button color="primary" size="lg" type="submit">
         Submit

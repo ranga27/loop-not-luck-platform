@@ -5,7 +5,6 @@ import { useAuthUser } from '@react-query-firebase/auth';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import CandidateAccountForm from '../components/form/CandidateAccountForm';
 import { auth, firestore } from '../helpers/Firebase';
@@ -18,7 +17,7 @@ const allValuesSubmitted = (data) => {
 
 const CandidateAccountContainer = () => {
   const userAuth = useAuthUser(['userAuth'], auth);
-  const navigate = useNavigate();
+  const { refetch } = useQuery(['users']);
 
   const completedCollection = collection(
     firestore,
@@ -59,6 +58,9 @@ const CandidateAccountContainer = () => {
     jobValues,
     behaviorAttributes,
     technicalSkills,
+    moreTechnicalSkills,
+    location,
+    moreJobValues,
   } = userDoc;
 
   // TODO: clone objects elegantly
@@ -78,6 +80,9 @@ const CandidateAccountContainer = () => {
     jobValues: jobValues || null,
     behaviorAttributes: behaviorAttributes || null,
     technicalSkills: technicalSkills || null,
+    moreTechnicalSkills: moreTechnicalSkills || '',
+    moreJobValues: moreJobValues || '',
+    location: location || '',
   };
 
   const onSubmit = async (data) => {
@@ -101,17 +106,15 @@ const CandidateAccountContainer = () => {
             text: 'Your profile has been updated.',
             icon: 'success',
             confirmButtonColor: '#F7B919',
-            iconColor: '#F7B919',
+            iconColor: '#3085d6',
           });
-          // Swal.fire('Updated!', 'Your profile has been updated.', 'success');
           if (hasAllValues && isCompleting) {
             completedMutation.mutate({ completedAt: serverTimestamp() });
           } // TODO: Only update when the values that trigger algorithm are updated
           else {
             updatedMutation.mutate({ updatedAt: serverTimestamp() });
           }
-          navigate('/app/roles');
-          window.location.reload();
+          refetch();
         },
         onError(error) {
           Swal.fire('Oops!', 'Failed to update profile.', 'error');

@@ -14,6 +14,11 @@ export const signUpSchema = yup.object().shape({
     .string()
     .required('Please enter your password')
     .min(8, 'Please use at least 8 characters'),
+  confirmPassword: yup
+    .string()
+    .required('Please confirm your password')
+    .min(8, 'Please use at least 8 characters')
+    .oneOf([yup.ref('password'), null], 'Passwords must match'),
   // role: yup.string().required('An option is required'),
   company: yup.string().when('role', {
     is: (value) => value === 'employer',

@@ -9,16 +9,20 @@ export const diversityOptions = [
     value: 'One of my parents has attended university',
   },
   {
-    label: 'I was on free school meals at school',
-    value: 'I was on free school meals at school',
+    label: 'Both parents have attended university',
+    value: 'Both parents have attended university',
   },
   {
-    label: 'Publicly funded education',
-    value: 'Publicly funded education',
+    label: 'I was eligible for free-school meals',
+    value: 'I was eligible for free-school meals',
   },
   {
-    label: 'Identify with the LGBTQIA+ community',
-    value: 'Identify with the LGBTQIA+ community',
+    label: 'State schools',
+    value: 'State schools',
+  },
+  {
+    label: 'Part of the LGBTQIA+ community',
+    value: 'Part of the LGBTQIA+ community',
   },
   {
     label: 'None',
