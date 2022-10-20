@@ -68,7 +68,7 @@ typings/
 # next.js build output
 .next
 
-# dotenv environment variables file
+# misc
 .history
 .DS_STORE
 .DS_Store
@@ -78,5 +78,5 @@ typings/
 .idea
 .husky
 src/api/services/*.json
-.firebase/hosting.YnVpbGQ.cache
+.firebase/
 test.html

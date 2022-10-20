@@ -33,18 +33,18 @@ const App = () => {
   const currentAppLocale = AppLocale.en;
   // TODO: Import as lazy loading
   return (
-    <div className="h-100">
+    <div className='h-100'>
       <IntlProvider
         locale={currentAppLocale.locale}
         messages={currentAppLocale.messages}
       >
-        <Suspense fallback={<div className="loading" />}>
+        <Suspense fallback={<div className='loading' />}>
           <Routes>
             <Route element={<RequireAuth />}>
-              <Route path="app/*" element={<ProtectedRoute />} />
-              <Route path="/" element={<Navigate to="app" />} />
+              <Route path='app/*' element={<ProtectedRoute />} />
+              <Route path='/' element={<Navigate to='app' />} />
             </Route>
-            <Route path="*" element={<Public />} />
+            <Route path='*' element={<Public />} />
           </Routes>
         </Suspense>
       </IntlProvider>

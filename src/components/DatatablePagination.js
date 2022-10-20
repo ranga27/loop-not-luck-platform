@@ -100,79 +100,77 @@ const DataTablePagination = ({
   };
 
   return (
-    <>
-      <div className="text-center">
-        {showPageJump && (
-          <div className="float-left pt-2">
-            <span>Page </span>
-            <UncontrolledDropdown className="d-inline-block">
-              <DropdownToggle caret color="outline-primary" size="xs">
-                {pageState + 1}
-              </DropdownToggle>
-              <DropdownMenu direction="left">{renderPageJump()}</DropdownMenu>
-            </UncontrolledDropdown>
-            <span> of </span>
-            {pages}
-          </div>
-        )}
+    <div className='text-center'>
+      {showPageJump && (
+        <div className='float-left pt-2'>
+          <span>Page </span>
+          <UncontrolledDropdown className='d-inline-block'>
+            <DropdownToggle caret color='outline-primary' size='xs'>
+              {pageState + 1}
+            </DropdownToggle>
+            <DropdownMenu direction='left'>{renderPageJump()}</DropdownMenu>
+          </UncontrolledDropdown>
+          <span> of </span>
+          {pages}
+        </div>
+      )}
 
-        <Pagination
-          className="d-inline-block"
-          size="sm"
-          listClassName="justify-content-center"
-          aria-label="Page navigation example"
-        >
-          <PaginationItem className={`${!canPrevious && 'disabled'}`}>
-            <PaginationLink
-              className="prev"
-              onClick={() => {
-                if (!canPrevious) return;
-                changePage(page - 1);
-              }}
-              disabled={!canPrevious}
-            >
-              <i className="simple-icon-arrow-left" />
-            </PaginationLink>
-          </PaginationItem>
+      <Pagination
+        className='d-inline-block'
+        size='sm'
+        listClassName='justify-content-center'
+        aria-label='Page navigation example'
+      >
+        <PaginationItem className={`${!canPrevious && 'disabled'}`}>
+          <PaginationLink
+            className='prev'
+            onClick={() => {
+              if (!canPrevious) return;
+              changePage(page - 1);
+            }}
+            disabled={!canPrevious}
+          >
+            <i className='simple-icon-arrow-left' />
+          </PaginationLink>
+        </PaginationItem>
 
-          {renderPages()}
-          <PaginationItem className={`${!canNext && 'disabled'}`}>
-            <PaginationLink
-              className="next"
-              onClick={() => {
-                if (!canNext) return;
-                changePage(page + 1);
-              }}
-              disabled={!canNext}
-            >
-              <i className="simple-icon-arrow-right" />
-            </PaginationLink>
-          </PaginationItem>
-        </Pagination>
-        {showPageSizeOptions && (
-          <div className="float-right pt-2">
-            <span className="text-muted text-small mr-1">Items </span>
-            <UncontrolledDropdown className="d-inline-block">
-              <DropdownToggle caret color="outline-primary" size="xs">
-                {pageSize}
-              </DropdownToggle>
-              <DropdownMenu right>
-                {pageSizeOptions.map((size, index) => {
-                  return (
-                    <DropdownItem
-                      key={index}
-                      onClick={() => changePageSize(size)}
-                    >
-                      {size}
-                    </DropdownItem>
-                  );
-                })}
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </div>
-        )}
-      </div>
-    </>
+        {renderPages()}
+        <PaginationItem className={`${!canNext && 'disabled'}`}>
+          <PaginationLink
+            className='next'
+            onClick={() => {
+              if (!canNext) return;
+              changePage(page + 1);
+            }}
+            disabled={!canNext}
+          >
+            <i className='simple-icon-arrow-right' />
+          </PaginationLink>
+        </PaginationItem>
+      </Pagination>
+      {showPageSizeOptions && (
+        <div className='float-right pt-2'>
+          <span className='text-muted text-small mr-1'>Items </span>
+          <UncontrolledDropdown className='d-inline-block'>
+            <DropdownToggle caret color='outline-primary' size='xs'>
+              {pageSize}
+            </DropdownToggle>
+            <DropdownMenu right>
+              {pageSizeOptions.map((size, index) => {
+                return (
+                  <DropdownItem
+                    key={index}
+                    onClick={() => changePageSize(size)}
+                  >
+                    {size}
+                  </DropdownItem>
+                );
+              })}
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </div>
+      )}
+    </div>
   );
 };
 export default DataTablePagination;

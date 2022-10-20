@@ -14,6 +14,6 @@ module.exports = {
   plugins: ['promise'],
   extends: ['eslint:recommended'],
   rules: {
-    // quotes: ["error", "double"],
+    quotes: ['error', 'single'],
   },
 };

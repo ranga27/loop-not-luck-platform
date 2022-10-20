@@ -125,7 +125,7 @@ const Register = () => {
 
   return (
     <>
-      <Layout cardTitle="user.register">
+      <Layout cardTitle='user.register'>
         <Form onSubmit={handleSubmit(onUserSubmit)}>
           {/* <SelectField
             label="Select one"
@@ -144,53 +144,53 @@ const Register = () => {
             />
           )} */}
           <TextInput
-            name="firstName"
-            label="First Name"
+            name='firstName'
+            label='First Name'
             errors={errors.firstName}
             control={control}
           />
           <TextInput
-            name="email"
-            label="Email"
+            name='email'
+            label='Email'
             errors={errors.email}
             control={control}
           />
           <TextInput
-            name="password"
-            label="Password"
+            name='password'
+            label='Password'
             errors={errors.password}
             control={control}
-            type="password"
+            type='password'
           />
           <TextInput
-            name="confirmPassword"
-            label="Confirm Password"
+            name='confirmPassword'
+            label='Confirm Password'
             errors={errors.confirmPassword}
             control={control}
-            type="password"
+            type='password'
           />
-          <div className="truncate d-flex flex-row">
+          <div className='truncate d-flex flex-row'>
             <CheckBox
-              name="termsSelected"
-              label="I agree with the"
+              name='termsSelected'
+              label='I agree with the'
               control={control}
             />
             <Button
-              type="button"
-              className="btn-link-secondary"
+              type='button'
+              className='btn-link-secondary'
               onClick={() => handleOpenModal()}
             >
               terms and conditions
             </Button>
           </div>
-          <div className="d-flex flex-column justify-content-center align-items-center">
+          <div className='d-flex flex-column justify-content-center align-items-center'>
             <AuthButton
               loading={createUser.isLoading}
-              label="user.register-button"
+              label='user.register-button'
             />
-            <p className="my-4">
+            <p className='my-4'>
               If you are a member, please{' '}
-              <NavLink to="/login" style={{ color: '#F7B919' }}>
+              <NavLink to='/login' style={{ color: '#F7B919' }}>
                 login
               </NavLink>
               .
