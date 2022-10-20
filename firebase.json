@@ -12,6 +12,7 @@
   "functions": {
     "source": "functions",
     "runtime": "nodejs16",
+    "predeploy": ["npm --prefix functions run lint"],
     "ignore": [
       "**/.firebase/**",
       "**/.next/cache/**",
