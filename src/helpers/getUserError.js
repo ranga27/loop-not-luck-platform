@@ -3,6 +3,8 @@ export const getUserError = (message) => {
   switch (true) {
     case /internal/i.test(message):
       return 'Please contact support: hello@loopnotluck.com';
+    case /network-request-failed/i.test(message):
+      return 'Network error, please try again or contact support: hello@loopnotluck.com';
     case /email-already-in-use/i.test(message):
       return 'Email already in use, try to login';
     case /weak-password/i.test(message):

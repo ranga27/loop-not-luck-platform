@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { Suspense, lazy } from 'react';
-import { useAuthUser } from '@react-query-firebase/auth';
+import { useAuthUser, useAuthSignOut } from '@react-query-firebase/auth';
 import { collection, doc } from 'firebase/firestore';
 import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import { auth, firestore } from '../helpers/Firebase';
+import useDocument from '../hooks/useDocument';
 
 const SuperAdminRoute = lazy(() =>
   import(/* webpackChunkName: "super-admin" */ '../views/super')
@@ -16,6 +17,7 @@ const CandidateRoute = lazy(() =>
 const CompanyRoute = lazy(() =>
   import(/* webpackChunkName: "company-route" */ '../views/company')
 );
+
 // TODO: implement redirect to unauthorised
 const getRoute = (role) => {
   const route = {
@@ -27,27 +29,16 @@ const getRoute = (role) => {
 };
 
 const ProtectedRoute = () => {
+  const signOut = useAuthSignOut(auth);
   // TODO: check if useQuery is more performant than useAuthUser
   const userAuth = useAuthUser(['userAuth'], auth);
   const { uid } = userAuth.data;
-  const collectionRef = collection(firestore, 'users');
-  const ref = doc(collectionRef, uid);
-  const { isLoading, data: user } = useFirestoreDocumentData(
-    ['userDoc'],
-    ref,
-    {
-      subscribe: true,
-    },
-    {
-      onSuccess(data) {
-        console.debug('User Data loaded successfully');
-      },
-      onError(error) {
-        console.error('Woops, something went wrong!', error);
-      },
-    }
+
+  const { isLoading: isUserDataLoading, data: user } = useDocument(
+    'users',
+    uid
   );
-  if (isLoading) {
+  if (isUserDataLoading) {
     return <div className="loading" />;
   }
   return (

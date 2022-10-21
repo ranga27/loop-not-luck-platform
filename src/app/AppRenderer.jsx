@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
@@ -20,16 +20,17 @@ const Main = () => {
           <BrowserRouter>
             <Suspense fallback={<div className="loading" />}>
               <App />
-              <ReactQueryDevtools initialIsOpen />
             </Suspense>
+            <ReactQueryDevtools initialIsOpen />
           </BrowserRouter>
         </PersistGate>
       </Provider>
     </QueryClientProvider>
   );
 };
-
-ReactDOM.render(<Main />, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<Main />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
