@@ -29,7 +29,6 @@ const Public = () => {
       <AnimatePresence exitBeforeEnter>
         <Suspense fallback={<div className="loading" />}>
           <Routes>
-            <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
@@ -48,7 +47,7 @@ const Public = () => {
               element={<ResetPassword success />}
             />
             <Route path="*" element={<Error />} />
-            <Route path="/" element={<Navigate to="register" />} />
+            <Route path="/" element={<Navigate to="login" />} />
           </Routes>
         </Suspense>
       </AnimatePresence>

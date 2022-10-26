@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
@@ -20,17 +20,17 @@ const Main = () => {
           <BrowserRouter>
             <Suspense fallback={<div className="loading" />}>
               <App />
+              <ReactQueryDevtools initialIsOpen />
             </Suspense>
-            <ReactQueryDevtools initialIsOpen />
           </BrowserRouter>
         </PersistGate>
       </Provider>
     </QueryClientProvider>
   );
 };
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(<Main />);
+
+// TODO: Upgrade to React 18 changes to dom render
+ReactDOM.render(<Main />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

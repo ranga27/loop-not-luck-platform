@@ -1,29 +1,33 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { useAuthSignInWithEmailAndPassword } from '@react-query-firebase/auth';
+import {
+  useAuthSignInWithEmailAndPassword,
+  useAuthSignOut,
+} from '@react-query-firebase/auth';
 import { auth } from '../../helpers/Firebase';
-import { getUserError } from '../../helpers/getUserError';
 import LoginForm from './LoginForm';
+import showUserError from '../../helpers/showUserError';
 
-// TODO: check for email verified?
 // TODO: merge Layout with AuthLayout
 const Login = () => {
   const navigate = useNavigate();
+  const signOut = useAuthSignOut(auth);
 
   const mutation = useAuthSignInWithEmailAndPassword(auth, {
     onSuccess(userCred) {
       console.debug('User is signed in!');
       if (userCred.user) {
-        navigate('/');
+        // Check if email verified
+        if (userCred.user.emailVerified) {
+          navigate('/');
+        } else {
+          signOut.mutate();
+          throw new Error('email-not-verified');
+        }
       }
     },
     onError(error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: getUserError(error),
-      });
+      showUserError(error);
     },
   });
 

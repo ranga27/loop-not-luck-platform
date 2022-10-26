@@ -6,6 +6,7 @@ exports.confirmEmail = functions
   .region('europe-west2')
   .https.onRequest(async (req, res) => {
     const confirmationHash = req.query.conf;
+
     const auth = admin.auth();
     const store = admin.firestore();
 
@@ -27,6 +28,7 @@ exports.confirmEmail = functions
       isOnboarded: false,
       hasCompletedProfile: false,
     });
+    auth.setCustomUserClaims(uid, { role: role });
     await store.collection('temporaryUsers').doc(temporaryUserDoc.id).delete();
     return res.redirect(`${process.env.SUCCESS_URL}`);
   });

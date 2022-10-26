@@ -99,7 +99,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         closeMenuOnSelect={false}
         errors={errors.jobValues}
       />
-      {jobValuesOther.includes('Other') && (
+      {jobValuesOther?.includes('Other') && (
         <TextInput
           name="moreJobValues"
           label="Other Job Values"
@@ -134,7 +134,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         errors={errors.technicalSkills}
       />
 
-      {technicalSkillsOther.includes('Other') && (
+      {technicalSkillsOther?.includes('Other') && (
         <TextInput
           name="moreTechnicalSkills"
           label="Other Technical Skills"

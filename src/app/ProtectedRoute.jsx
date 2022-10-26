@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React, { Suspense, lazy } from 'react';
 import { useAuthUser, useAuthSignOut } from '@react-query-firebase/auth';
 import { collection, doc } from 'firebase/firestore';
 import { useFirestoreDocumentData } from '@react-query-firebase/firestore';
 import { auth, firestore } from '../helpers/Firebase';
-import useDocument from '../hooks/useDocument';
+import showUserError from '../helpers/showUserError';
 
 const SuperAdminRoute = lazy(() =>
   import(/* webpackChunkName: "super-admin" */ '../views/super')
@@ -28,22 +27,30 @@ const getRoute = (role) => {
   return route[role];
 };
 
-const ProtectedRoute = () => {
+const NoUserData = () => {
   const signOut = useAuthSignOut(auth);
-  // TODO: check if useQuery is more performant than useAuthUser
+  signOut.mutate();
+  showUserError('no-user-data');
+};
+
+const ProtectedRoute = () => {
   const userAuth = useAuthUser(['userAuth'], auth);
   const { uid } = userAuth.data;
-
-  const { isLoading: isUserDataLoading, data: user } = useDocument(
-    'users',
-    uid
+  const collectionRef = collection(firestore, 'users');
+  const ref = doc(collectionRef, uid);
+  const { isLoading: isUserDataLoading, data: user } = useFirestoreDocumentData(
+    ['userDoc'],
+    ref,
+    {
+      subscribe: true,
+    }
   );
   if (isUserDataLoading) {
     return <div className="loading" />;
   }
   return (
     <Suspense fallback={<div className="loading" />}>
-      {user ? getRoute(user.role) : <div>User not available</div>}
+      {user ? getRoute(user.role) : NoUserData()}
     </Suspense>
   );
 };
