@@ -5,6 +5,7 @@ import { useAuthUser } from '@react-query-firebase/auth';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import CandidateAccountForm from '../components/form/CandidateAccountForm';
 import { auth, firestore } from '../helpers/Firebase';
@@ -18,6 +19,7 @@ const allValuesSubmitted = (data) => {
 const CandidateAccountContainer = () => {
   const userAuth = useAuthUser(['userAuth'], auth);
   const { refetch } = useQuery(['users']);
+  const navigate = useNavigate();
 
   const completedCollection = collection(
     firestore,
@@ -115,6 +117,7 @@ const CandidateAccountContainer = () => {
             updatedMutation.mutate({ updatedAt: serverTimestamp() });
           }
           refetch();
+          navigate('/app/roles');
         },
         onError(error) {
           Swal.fire('Oops!', 'Failed to update profile.', 'error');

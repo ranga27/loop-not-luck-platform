@@ -23,4 +23,5 @@ export const interestOptions = [
   },
   { label: 'Charity and Third Sector', value: 'Charity and Third Sector' },
   { label: 'Sustainability', value: 'Sustainability' },
+  { label: 'Others', value: 'Others' },
 ];

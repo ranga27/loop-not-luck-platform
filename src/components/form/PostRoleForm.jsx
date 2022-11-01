@@ -75,6 +75,7 @@ const PostRoleForm = () => {
     rolesOfInterests: null,
     behaviourAttributesStrengths: null,
     technicalSkills: null,
+    technicalSkillsOther: null,
   };
   const {
     watch,
@@ -253,7 +254,7 @@ const PostRoleForm = () => {
         options={technicalSkills}
         setValue={setValue}
         clearErrors={clearErrors}
-        errors={errors.rolesOfInterests}
+        errors={errors.technicalSkills}
         closeMenuOnSelect={false}
       />
       {technicalSkillsOther !== null &&

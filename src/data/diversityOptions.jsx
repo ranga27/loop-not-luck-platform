@@ -17,12 +17,12 @@ export const diversityOptions = [
     value: 'I was eligible for free-school meals',
   },
   {
-    label: 'State schools',
-    value: 'State schools',
+    label: 'I attended a State school',
+    value: 'I attended a State school',
   },
   {
-    label: 'Part of the LGBTQIA+ community',
-    value: 'Part of the LGBTQIA+ community',
+    label: 'I am part of the LGBTQIA+ community',
+    value: 'I am part of the LGBTQIA+ community',
   },
   {
     label: 'None',

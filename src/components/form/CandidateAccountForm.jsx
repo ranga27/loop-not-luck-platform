@@ -142,16 +142,26 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
           errors={errors.technicalSkillsOther}
         />
       )}
-      {defaultValues.cvUploadDate &&
-        `CV Exists, uploaded on ${new Date(
-          defaultValues.cvUploadDate
-        ).toUTCString()}`}
+
       <FileUpload
         label="Upload CV (PDF file smaller than 1MB)"
         name="cv"
         control={control}
         errors={errors.cv}
       />
+      <div className="d-flex flex-row">
+        <p className="p-1" style={{ fontWeight: 'bold' }}>
+          {defaultValues.cvUploadDate &&
+            `CV Exists, uploaded on ${new Date(
+              defaultValues.cvUploadDate
+            ).toUTCString()}`}
+        </p>
+        <i
+          className="iconsminds-information h4 px-2 text-primary"
+          style={{ width: '40px', fontWeight: 'bold' }}
+          id="TooltipExample"
+        />
+      </div>
       <TextInput name="email" label="Email" control={control} disabled />
       <Button
         type="submit"
