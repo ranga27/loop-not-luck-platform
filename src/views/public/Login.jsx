@@ -1,58 +1,35 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react';
-import { Form } from 'reactstrap';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   useAuthSignInWithEmailAndPassword,
-  useAuthUser,
+  useAuthSignOut,
 } from '@react-query-firebase/auth';
 import { auth } from '../../helpers/Firebase';
-import IntlMessages from '../../helpers/IntlMessages';
-import Layout from '../../layout/Layout';
-import AuthButton from '../../components/AuthButton';
-import { signInSchema } from '../../constants/signInSchema';
-import { TextInput } from '../../components/form/FormFields';
+import LoginForm from './LoginForm';
+import showUserError from '../../helpers/showUserError';
 
-// TODO: check for email verified?
 // TODO: merge Layout with AuthLayout
 const Login = () => {
   const navigate = useNavigate();
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    mode: 'onBlur',
-    defaultValues: { email: '', password: '' },
-    resolver: yupResolver(signInSchema),
-  });
+  const signOut = useAuthSignOut(auth);
+
   const mutation = useAuthSignInWithEmailAndPassword(auth, {
     onSuccess(userCred) {
       console.debug('User is signed in!');
       if (userCred.user) {
-        navigate('/');
+        // Check if email verified
+        if (userCred.user.emailVerified) {
+          navigate('/');
+        } else {
+          signOut.mutate();
+          throw new Error('email-not-verified');
+        }
       }
     },
     onError(error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error,
-      });
+      showUserError(error);
     },
   });
-
-  // const userData = useUserData(uid);
-
-  /*   if (currentUser) {
-    if (currentUser.role === 'employer')
-      dispatch(getCompany(currentUser.companyId));
-    navigate('/');
-  } */
 
   const onUserLogin = (data) => {
     if (!mutation.isLoading) {
@@ -61,37 +38,10 @@ const Login = () => {
   };
 
   return (
-    <Layout cardTitle="user.login-title">
-      <Form onSubmit={handleSubmit(onUserLogin)}>
-        <TextInput
-          name="email"
-          label="Email"
-          errors={errors.email}
-          control={control}
-        />
-        <TextInput
-          name="password"
-          label="Password"
-          errors={errors.password}
-          control={control}
-          type="password"
-        />
-        <div className="d-flex flex-column justify-content-center align-items-center">
-          <NavLink to="/forgot-password">
-            <IntlMessages id="user.forgot-password-question" />
-          </NavLink>
-          <AuthButton loading={mutation.isLoading} label="user.login-button" />
-          <p>
-            <br />
-            If you are not a member, please{' '}
-            <NavLink to="/register" style={{ color: '#F7B919' }}>
-              register
-            </NavLink>
-            .
-          </p>
-        </div>
-      </Form>
-    </Layout>
+    <LoginForm
+      isLoading={mutation.isLoading}
+      onUserLogin={(data) => onUserLogin(data)}
+    />
   );
 };
 

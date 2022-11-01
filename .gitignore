@@ -63,12 +63,12 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+# .env
 
 # next.js build output
 .next
 
-# dotenv environment variables file
+# misc
 .history
 .DS_STORE
 .DS_Store
@@ -78,5 +78,6 @@ typings/
 .idea
 .husky
 src/api/services/*.json
-.firebase/hosting.YnVpbGQ.cache
+.firebase/
 test.html
+test-data/auth_export/accounts.json

@@ -1,19 +1,17 @@
-/* eslint object-curly-spacing: ["error", "always"]*/
 const functions = require('firebase-functions');
 const { getAuth } = require('firebase-admin/auth');
 
-exports.getUsersList = functions.https.onCall(async () => {
+exports.getUsers = functions.region('europe-west2').https.onCall(async () => {
   try {
-    const listUsersResult = await getAuth().listUsers();
-    return listUsersResult.users.map(mapUser);
+    const userList = await getAuth().listUsers();
+    return userList.users.map(mapUser);
   } catch (error) {
-    console.log('Error listing users: ', error.message);
+    // Throwing an HttpsError so that the client gets the error details.
     throw new functions.https.HttpsError('Error', error.message, error);
   }
 });
 
 const mapUser = (user) => {
-  console.log(user);
   const customClaims = user.customClaims || { role: '' };
   const role = customClaims.role ? customClaims.role : '';
   const item = {

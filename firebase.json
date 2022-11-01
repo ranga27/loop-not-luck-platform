@@ -10,8 +10,20 @@
     ]
   },
   "functions": {
-    "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run lint"],
-    "source": "functions"
+    "source": "functions",
+    "runtime": "nodejs16",
+    "ignore": [
+      "**/node_modules/**",
+      "**/.env.*",
+      "**/.eslintignore",
+      "**/.eslintrc.*",
+      ".git",
+      ".gitignore",
+      "**/*.log",
+      "**/package-lock.*",
+      "**/README.*",
+      "**/yarn.*"
+    ]
   },
   "firestore": {
     "rules": "firestore.rules",
@@ -22,14 +34,19 @@
       "port": 5001
     },
     "firestore": {
-      "port": 8080,
-      "host": "127.0.0.1"
+      "port": 8080
     },
     "storage": {
       "port": 9199
     },
     "ui": {
       "enabled": true
+    },
+    "auth": {
+      "port": 9099
+    },
+    "hosting": {
+      "port": 5000
     }
   },
   "storage": {

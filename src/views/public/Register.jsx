@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -18,11 +18,7 @@ import { collection, serverTimestamp } from 'firebase/firestore';
 import Layout from '../../layout/Layout';
 import { signUpSchema } from '../../constants/signupSchema';
 import AuthButton from '../../components/AuthButton';
-import {
-  // SelectField,
-  TextInput,
-  CheckBox,
-} from '../../components/form/FormFields';
+import { TextInput, CheckBox } from '../../components/form/FormFields';
 import { auth, firestore } from '../../helpers/Firebase';
 import { getUserError } from '../../helpers/getUserError';
 import TermsModal from './TermsModal';
@@ -34,11 +30,9 @@ const Register = () => {
     password: '',
     confirmPassword: '',
     company: '',
-    // role: '',
     termsSelected: false,
   };
   const {
-    // watch,
     control,
     handleSubmit,
     formState: { errors },
@@ -48,7 +42,6 @@ const Register = () => {
     resolver: yupResolver(signUpSchema),
   });
   const alert = withReactContent(Swal);
-  const navigate = useNavigate();
   const confirmationHash = uuidv4();
   const signOut = useAuthSignOut(auth);
 
@@ -72,7 +65,6 @@ const Register = () => {
         {
           onSuccess(data) {
             const { uid } = data.user;
-            console.log(uid, 'created');
             createTempUser.mutate({
               uid,
               email,
@@ -93,7 +85,6 @@ const Register = () => {
                 if (result.isConfirmed || result.isDismissed) {
                   // Firebase signs in user on registration, hence sign out immediately to verify email
                   signOut.mutate();
-                  navigate('/');
                 }
               });
           },
@@ -109,10 +100,6 @@ const Register = () => {
       });
     }
   };
-  // const options = [
-  //   { value: 'candidate', label: 'Candidate' },
-  //   { value: 'employer', label: 'Employer' },
-  // ];
 
   const [modalOpen, setModalOpen] = useState(false);
   const handleOpenModal = async () => {
@@ -123,26 +110,11 @@ const Register = () => {
     setModalOpen(!modalOpen);
   };
 
+  // TODO: move form to its own component, see login
   return (
     <>
       <Layout cardTitle="user.register">
         <Form onSubmit={handleSubmit(onUserSubmit)}>
-          {/* <SelectField
-            label="Select one"
-            name="role"
-            control={control}
-            options={options}
-            isSearchable={false}
-            errors={errors.role}
-          /> */}
-          {/* {role === 'employer' && (
-            <TextInput
-              name="company"
-              label="Company"
-              control={control}
-              errors={errors.company}
-            />
-          )} */}
           <TextInput
             name="firstName"
             label="First Name"

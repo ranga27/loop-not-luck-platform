@@ -29,6 +29,7 @@ const Main = () => {
   );
 };
 
+// TODO: Upgrade to React 18 changes to dom render
 ReactDOM.render(<Main />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function

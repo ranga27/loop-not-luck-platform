@@ -1,18 +1,13 @@
-const nodemailer = require('nodemailer');
-//HACK: creds hardcoded - big red flag! - remove and use api endpoint
-const transporter = nodemailer.createTransport({
-  host: 'smtp-relay.sendinblue.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: 'sarang@loopnotluck.com',
-    pass: '0MU6cxAR5wYsvZFD',
-  },
-});
-
 //Utility function to send email
 //TODO: move html to config db or a lightweight cms
-exports.sendEmail = ({ to, from, subject, message, firstName }) => {
+exports.sendEmail = ({
+  to,
+  from,
+  subject,
+  message,
+  firstName,
+  transporter,
+}) => {
   const mailOptions = {
     to,
     from,

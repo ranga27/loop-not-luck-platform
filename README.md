@@ -3,8 +3,9 @@
 ## Clone
 The repo [loop-not-luck-platform](https://github.com/ranga27/loop-not-luck-platform) to a local project directory
 ## Install
+Ensure you have node 16 installed
 In the cloned local project directory, install dependecies required for the project
-### `npm i --legacy-peer-deps`</br></br>
+### `yarn install`</br></br>
 Install the Firebase CLI globally
 ### `npm i -g firebase-tools`</br></br>
 Log into Firebase using your Google account
