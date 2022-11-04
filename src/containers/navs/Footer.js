@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import appInfo from '../../../package.json';
+import Tiktok from '../../assets/img/tiktok.svg';
 
 const Footer = () => {
   return (
@@ -17,12 +18,21 @@ const Footer = () => {
               <ul className="list-inline social-buttons">
                 <li className="list-inline-item">
                   <a
-                    href="https://www.facebook.com/loopnotluck/"
+                    href="https://www.tiktok.com/@loopnotluck"
                     target="_blank"
                     rel="noreferrer"
-                    style={{ fontSize: '20px' }}
+                    style={{ paddingBottom: '20px' }}
                   >
-                    <i className="simple-icon-social-facebook" />
+                    <img
+                      alt="Reds"
+                      src={Tiktok}
+                      style={{
+                        paddingBottom: '10px',
+                        fontSize: '2px',
+                        width: '30px',
+                        height: '30px',
+                      }}
+                    />
                   </a>
                 </li>
                 <li className="list-inline-item">
