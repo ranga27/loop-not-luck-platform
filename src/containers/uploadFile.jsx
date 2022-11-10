@@ -13,8 +13,24 @@ async function confirmOverwrite() {
   });
 }
 
+async function confirmSubmitWithoutCV() {
+  return Swal.fire({
+    title: 'Submit without CV?',
+    text: 'If you don’t upload CV, you will not be recommended for jobs!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, submit it!',
+  });
+}
+
 const uploadFile = async (data) => {
   try {
+    if (!data.cv) {
+      return await confirmSubmitWithoutCV();
+    }
+
     // Only upload if CV is submitted
     if (data.cv) {
       if (data.cvUploadDate) {
