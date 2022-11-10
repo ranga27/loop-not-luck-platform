@@ -1,8 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import {
   useAuthSignInWithEmailAndPassword,
   useAuthSignOut,
+  useAuthUser,
 } from '@react-query-firebase/auth';
 import { auth } from '../../helpers/Firebase';
 import LoginForm from './LoginForm';
@@ -12,6 +13,7 @@ import showUserError from '../../helpers/showUserError';
 const Login = () => {
   const navigate = useNavigate();
   const signOut = useAuthSignOut(auth);
+  const user = useAuthUser(['user'], auth);
 
   const mutation = useAuthSignInWithEmailAndPassword(auth, {
     onSuccess(userCred) {
@@ -37,6 +39,9 @@ const Login = () => {
     }
   };
 
+  if (user.data) {
+    return <Navigate to="/app" />;
+  }
   return (
     <LoginForm
       isLoading={mutation.isLoading}
