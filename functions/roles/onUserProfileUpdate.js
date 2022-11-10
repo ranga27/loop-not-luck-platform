@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const { getScores } = require('./getScores');
-const { addRoleInFirestore } = require('./addRoleInFirestore');
+const { addRoleInFirestore } = require('./addMatchedRoleInUserDoc');
 const { getRolesFromFiretore } = require('./getRolesFromFiretore');
 
 exports.onUserProfileUpdate = functions

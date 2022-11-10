@@ -8,9 +8,8 @@ exports.onWrite = functions
     try {
       // Check if algorithm already running
       const configRef = admin.firestore().doc('configs/roles');
-      const rolesConfigSnapshot = await configRef.get();
-      if (rolesConfigSnapshot)
-        console.log('Being Matched', rolesConfigSnapshot.data().beingMatched);
+      const snap = await configRef.get();
+      if (snap) console.log('Being Matched', snap.data().beingMatched);
       // Access the parameter `{roleId}` with `context.params`
       const roleId = context.params.roleId;
       console.log('Role doc written in firestore: ', roleId);

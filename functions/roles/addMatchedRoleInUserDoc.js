@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 
-const addRoleInFirestore = async (role, uid) => {
+const addMatchedRoleInUserDoc = async (role, uid) => {
   const { id, ...data } = role;
   const roleRef = admin
     .firestore()
@@ -10,4 +10,4 @@ const addRoleInFirestore = async (role, uid) => {
     .doc(id);
   await roleRef.set({ ...data }, { merge: true });
 };
-exports.addRoleInFirestore = addRoleInFirestore;
+exports.addRoleInFirestore = addMatchedRoleInUserDoc;
