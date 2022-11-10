@@ -1,8 +1,9 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
-exports.onRoleWritten = functions.firestore
-  .document('roles/{roleId}')
+exports.onWrite = functions
+  .region('europe-west2')
+  .firestore.document('roles/{roleId}')
   .onWrite(async (change, context) => {
     try {
       // Check if algorithm already running
