@@ -81,3 +81,6 @@ src/api/services/*.json
 .firebase/
 test.html
 test-data/auth_export/accounts.json
+
+/test-data/**
+/firebase-export**

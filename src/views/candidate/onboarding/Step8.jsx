@@ -4,14 +4,16 @@ import { FormGroup, Label } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form } from 'formik';
-import { FormikCustomCheckboxGroup } from '../../../components/form/FormikCustomCheckboxGroup';
+import { FormikCustomRadioGroup } from '../../../components/form/FormikCustomRadioGroup';
 import { StepLayout } from '../../../layout/stepLayout';
-import tagOptions from '../../../data/rolesOfInterests';
+import getOptions from '../../../data/rolesOfInterests';
 
 const validationSchema = Yup.object().shape({
-  rolesOfInterest: Yup.array().required('Please select at least one').min(1),
+  rolesOfInterest: Yup.string().required('Please select an option'),
 });
-export const Step8 = (form, { rolesOfInterest }, messages) => {
+
+export const Step8 = (form, { rolesOfInterest, interests }, messages) => {
+  const selectAreaOfInterest = getOptions(interests);
   return (
     <Step id="step8">
       <StepLayout>
@@ -28,14 +30,14 @@ export const Step8 = (form, { rolesOfInterest }, messages) => {
             <Form className="av-tooltip tooltip-left-top error-r-275">
               <FormGroup>
                 <Label>{messages['forms.rolesOfInterest']}</Label>
-                <FormikCustomCheckboxGroup
+                <FormikCustomRadioGroup
                   inline="true"
                   name="rolesOfInterest"
                   id="rolesOfInterest"
                   value={values.rolesOfInterest}
                   onChange={setFieldValue}
                   onBlur={setFieldTouched}
-                  options={tagOptions}
+                  options={selectAreaOfInterest}
                 />
                 {errors.rolesOfInterest && touched.rolesOfInterest ? (
                   <div className="invalid-feedback d-block">
