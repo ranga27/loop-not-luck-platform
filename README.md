@@ -1,5 +1,6 @@
 # Loop Not Luck Platform
 
+Pre-requisites:
 Node.js version 16
 
 ## Clone
