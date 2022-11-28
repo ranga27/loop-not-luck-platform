@@ -100,6 +100,10 @@ const CandidateAccountContainer = () => {
         ...data,
       });
       console.log('MUTATED: ', payload);
+
+      // The payload will be null if popup will be cancelled.
+      if (!payload) return;
+
       // TODO: only update when there is delta data to update.
       userMutation.mutate(payload, {
         onSuccess() {
