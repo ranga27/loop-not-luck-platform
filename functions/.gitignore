@@ -8,3 +8,4 @@ ui-debug.log
 
 # production
 /build
+.env

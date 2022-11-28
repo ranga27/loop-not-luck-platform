@@ -1,5 +1,8 @@
 # Loop Not Luck Platform
 
+Pre-requisites:
+Node.js version 16
+
 ## Clone
 The repo [loop-not-luck-platform](https://github.com/ranga27/loop-not-luck-platform) to a local project directory
 ## Install
@@ -14,12 +17,14 @@ This command connects your local machine to Firebase and grants you access to yo
 
 Test that the CLI is properly installed and accessing your account by listing your Firebase projects. Run the following command
 ### `firebase projects:list`</br></br>
+### `firebase use loop-luck`</br></br>
 Next, change into the functions subdirectory and install the dependecies required for cloud functions
 ### `cd functions`
 ### `npm i`
 Change back into the main directory
 ### `cd ..`</br></br>
-Set up the Emulator Suite. This command starts a configuration wizard. 
+Set up the Emulator Suite. This command starts a configuration wizard. Please make sure Java is installed and on your system PATH. Java JDK version 11 or higher.
+
 ### `firebase init emulators`
 Select the following emulators to download the corresponding emulator binary files. 
 * functions
