@@ -28,7 +28,10 @@ async function confirmSubmitWithoutCV() {
 const uploadFile = async (data) => {
   try {
     if (!data.cv) {
-      await confirmSubmitWithoutCV();
+      const { isDismissed } = await confirmSubmitWithoutCV();
+
+      if (isDismissed) return null;
+
       const { cv, uid, ...rest } = data;
       return rest;
     }
