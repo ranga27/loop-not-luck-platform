@@ -1,6 +1,6 @@
 {
   "name": "loop-not-luck-platform",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Loop Not Luck Platform",
   "private": true,
   "dependencies": {
@@ -73,7 +73,7 @@
     "lint:fix": "eslint . --fix",
     "precommit": "lint-staged",
     "deploy": "npm run build && firebase deploy --only hosting, functions",
-    "emulators": "firebase emulators:start --import ./test-data --export-on-exit=./test-data"
+    "emulators": "firebase emulators:start --import ./prod-data --export-on-exit=./test-data"
   },
   "browserslist": [
     ">0.2%",
