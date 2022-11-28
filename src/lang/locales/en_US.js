@@ -201,8 +201,8 @@ module.exports = {
   'forms.roles': 'What type of roles are you interested in?',
   'forms.start': 'If offered a role, when would you be able to start?',
   'forms.startLabel': 'Select date',
-  'forms.interests': 'Areas of interest - select all that apply',
-  'forms.rolesOfInterest': 'Roles of interest - select all that apply',
+  'forms.interests': 'Areas of interest',
+  'forms.rolesOfInterest': 'Roles of interest',
 
   /* 07.06.Charts */
   'charts.line': 'Line Chart',
