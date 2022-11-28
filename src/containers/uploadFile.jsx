@@ -13,8 +13,26 @@ async function confirmOverwrite() {
   });
 }
 
+async function confirmSubmitWithoutCV() {
+  return Swal.fire({
+    title: 'Submit without CV?',
+    text: 'Make sure to upload your CV or you will not be able to apply for roles!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, submit it!',
+  });
+}
+
 const uploadFile = async (data) => {
   try {
+    if (!data.cv) {
+      await confirmSubmitWithoutCV();
+      const { cv, uid, ...rest } = data;
+      return rest;
+    }
+
     // Only upload if CV is submitted
     if (data.cv) {
       if (data.cvUploadDate) {
@@ -22,7 +40,9 @@ const uploadFile = async (data) => {
         if (overWrite.isConfirmed) {
           return await uploadToStorage(data);
         }
-      } else return await uploadToStorage(data);
+      } else {
+        return await uploadToStorage(data);
+      }
     }
   } catch (error) {
     console.log(error);

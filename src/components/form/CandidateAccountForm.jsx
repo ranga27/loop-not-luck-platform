@@ -150,17 +150,19 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         errors={errors.cv}
       />
       <div className="d-flex flex-row">
-        <p className="p-1" style={{ fontWeight: 'bold' }}>
-          {defaultValues.cvUploadDate &&
-            `CV Exists, uploaded on ${new Date(
-              defaultValues.cvUploadDate
-            ).toUTCString()}`}
-        </p>
-        <i
-          className="iconsminds-information h4 px-2 text-primary"
-          style={{ width: '40px', fontWeight: 'bold' }}
-          id="TooltipExample"
-        />
+        {defaultValues.cvUploadDate && (
+          <>
+            <p className="p-1" style={{ fontWeight: 'bold' }}>
+              CV Exists, uploaded on{' '}
+              {new Date(defaultValues.cvUploadDate).toUTCString()}
+            </p>
+            <i
+              className="iconsminds-information h4 px-2 text-primary"
+              style={{ width: '40px', fontWeight: 'bold' }}
+              id="TooltipExample"
+            />
+          </>
+        )}
       </div>
       <TextInput name="email" label="Email" control={control} disabled />
       <Button

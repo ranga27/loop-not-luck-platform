@@ -32,13 +32,15 @@ export const Step2 = (form, { diversity }, messages) => {
         >
           {({ errors, touched, values, setFieldTouched, setFieldValue }) => (
             <Form className="av-tooltip tooltip-left-top error-l-75">
-              <FormGroup>
-                <Label>{messages['forms.diversity']}</Label>
-                <i
-                  className="iconsminds-information h6 px-2 text-primary"
-                  style={{ width: '20px', fontWeight: 'bold' }}
-                  id="TooltipExample"
-                />
+              <FormGroup className="d-flex flex-column align-items-center">
+                <div>
+                  <Label>{messages['forms.diversity']}</Label>
+                  <i
+                    className="iconsminds-information h6 px-2 text-primary"
+                    style={{ width: '20px', fontWeight: 'bold' }}
+                    id="TooltipExample"
+                  />
+                </div>
                 <FormikCustomCheckboxGroup
                   name="diversity"
                   id="diversity"

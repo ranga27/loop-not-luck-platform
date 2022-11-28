@@ -81,5 +81,7 @@ typings/
 src/api/services/*.json
 .firebase/
 test.html
-**/accounts.json
-firebase-export-**
+test-data/auth_export/accounts.json
+
+/test-data/**
+/firebase-export**
