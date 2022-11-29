@@ -70,8 +70,6 @@ const PostRoleForm = () => {
     rolling: false,
     deadline: null,
     startDate: null,
-    coverLetter: false,
-    prescreening: false,
     rolesOfInterests: null,
     behaviourAttributesStrengths: null,
     technicalSkills: null,
@@ -222,11 +220,6 @@ const PostRoleForm = () => {
         control={control}
         errors={errors.startDate}
       />
-      <CheckBox
-        name="coverLetter"
-        label="Cover Letter Required"
-        control={control}
-      />
       <MultiSelect
         label="Roles of Interests"
         name="rolesOfInterests"
@@ -266,11 +259,6 @@ const PostRoleForm = () => {
             errors={errors.technicalSkillsOther}
           />
         )}
-      <CheckBox
-        name="prescreening"
-        label="Requires prescreening"
-        control={control}
-      />
       <Button color="primary" type="submit" disabled={mutation.isLoading}>
         Submit
       </Button>

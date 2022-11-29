@@ -58,8 +58,8 @@ export const Step2 = (form, { diversity }, messages) => {
                     toggle={toggle}
                     autohide={false}
                   >
-                    A school that is funded and controlled by the state and for
-                    which no fees are charged
+                    A state school is a school that is funded and controlled by
+                    the state and for which no fees are charged
                   </Tooltip>
                 </div>
                 {errors.diversity && touched.diversity && (

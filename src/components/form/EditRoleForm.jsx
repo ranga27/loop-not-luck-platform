@@ -66,9 +66,7 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
           'startDate',
           role.startDate ? getDateFromString(role.startDate) : null
         );
-        setValue('coverLetter', role.coverLetter || false);
         setValue('technicalSkillsOther', role.technicalSkillsOther || '');
-        setValue('prescreening', role.prescreening || false);
       }
     } catch (error) {
       console.error(error.message);
@@ -185,12 +183,6 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         errors={errors.startDate}
         dateFormat="dd/MM/yyyy"
       />
-      <CheckBox
-        name="coverLetter"
-        label="Cover Letter Required"
-        control={control}
-        checked={watch('coverLetter')}
-      />
       <MultiSelect
         label="Roles of Interests"
         name="rolesOfInterests"
@@ -233,12 +225,6 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
             errors={errors.technicalSkillsOther}
           />
         )}
-      <CheckBox
-        name="prescreening"
-        label="Requires prescreening"
-        control={control}
-        checked={watch('prescreening')}
-      />
       <Button color="primary" type="submit">
         Update
       </Button>

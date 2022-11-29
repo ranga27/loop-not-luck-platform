@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-param-reassign */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-prototype-builtins */
@@ -205,16 +206,26 @@ export const updateUserOnBoardedInFirebase = async ({ uid, ...data }) => {
   }
 };
 
-export async function fetchUserMatchedRolesFromFirestore(userData) {
-  const roleRef = collection(firestore, 'users', userData.id, 'matchedRoles');
-  const q = query(roleRef, where('applied', '==', true));
-  const querySnapshot = await getDocs(q);
-  const roles = querySnapshot.docs.map((docu) => ({
-    ...docu.data(),
-    id: docu.id,
-    userArray: userData,
-  }));
-  return roles;
+export async function fetchUserMatchedRolesFromFirestore(users) {
+  const roles = [];
+
+  for (const user of users) {
+    const roleRef = collection(firestore, 'users', user.id, 'matchedRoles');
+    const q = query(roleRef, where('applied', '==', true));
+    const querySnapshot = await getDocs(q);
+    const allRoles = querySnapshot.docs.map((docu) => ({
+      ...docu.data(),
+      id: docu.id,
+    }));
+    const mergedArray = {
+      ...user,
+      roles: allRoles,
+    };
+    roles.push(mergedArray);
+  }
+  const filteredRoles = roles.filter((role) => role.roles.length !== 0);
+
+  return filteredRoles;
 }
 
 export async function updateRoleCollection(role, company, newCompanyData) {

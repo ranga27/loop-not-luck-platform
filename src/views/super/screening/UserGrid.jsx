@@ -17,16 +17,16 @@ const UserGrid = ({ userRoles }) => {
   return (
     <>
       <Row>
-        {userRoles.map((role) => {
-          return (
+        {userRoles.map((user) =>
+          user.roles.map((role) => (
             <Colxx xs="6" sm="4" xl="3" className="mb-4" key={role.id}>
               <Card key={role.id} className="mb-4">
                 <CardBody>
                   <div className="text-center">
                     <CardTitle className="truncate mb-1">
-                      {role.userArray.firstName} {role.userArray.lastName}
+                      {user.firstName} {user.lastName}
                     </CardTitle>
-                    <p className="truncate">{role.userArray.email}</p>
+                    <p className="truncate">{user.email}</p>
                     <p>{role.company}</p>
                     <p> {role.score}%</p>
                     <Button
@@ -41,8 +41,8 @@ const UserGrid = ({ userRoles }) => {
                 </CardBody>
               </Card>
             </Colxx>
-          );
-        })}
+          ))
+        )}
       </Row>
 
       {modalOpen && (

@@ -76,7 +76,7 @@ const Register = () => {
             alert
               .fire({
                 title: 'Awesome!',
-                text: 'You are nearly in the loop. Please check your email to verify your account (check your spam/junk/promotions folder).',
+                text: 'You are nearly in the loop. Please check your email to verify your account (also check your spam folder).',
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 iconColor: '#3085d6',

@@ -155,7 +155,7 @@ module.exports = {
   'pages.price.useractionsauditlog': 'User actions audit log',
   'pages.prices.featurecomparison': 'Feature Comparison',
   'pages.prices.pricecomparison': 'Price Comparison',
-  'pages.application-header': 'Application Screening',
+  'pages.application-header': 'Candidate Roles Applications',
   'pages.application-tableIndex': '#',
   'pages.application-name': 'Applicant Name',
   'pages.application-email': 'Email',

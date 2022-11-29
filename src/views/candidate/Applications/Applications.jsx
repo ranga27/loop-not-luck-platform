@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Row, Button, Card, CardBody, Badge } from 'reactstrap';
 import { useQuery } from 'react-query';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
-import { collection, query, where } from 'firebase/firestore';
+import { collection, query } from 'firebase/firestore';
 import { firestore } from '../../../helpers/Firebase';
 import { formatDateInArray, getDaysToDeadline } from '../../../helpers/Utils';
 import SectionedApplications from './SectionedApplications';
@@ -14,12 +14,9 @@ const Applications = () => {
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
   const todaysDate = new Date();
-  const { isLoading, data: appliedRoles } = useFirestoreQuery(
+  const { isLoading, data: roles } = useFirestoreQuery(
     ['matchedRoles'],
-    query(
-      collection(firestore, `users/${uid}/matchedRoles`),
-      where('applied', '==', true)
-    ),
+    query(collection(firestore, `users/${uid}/matchedRoles`)),
     {
       subscribe: true,
     },
@@ -55,6 +52,8 @@ const Applications = () => {
   if (isLoading) {
     return <div className="loading" />;
   }
+
+  const appliedRoles = roles.filter((role) => role.applied);
 
   if (appliedRoles.length > 0) {
     const liveApplications = [];
@@ -112,7 +111,7 @@ const Applications = () => {
     <div>
       <Card>
         <CardBody>
-          <h3>Sorry, no applications for you yet</h3>
+          <h3>Sorry, you have not applied to any roles yet!</h3>
         </CardBody>
       </Card>
     </div>

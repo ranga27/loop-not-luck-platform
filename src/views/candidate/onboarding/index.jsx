@@ -45,7 +45,6 @@ const Onboarding = ({ intl }) => {
           // Onboarding done
           setBottomNavHidden(true);
           setLoading(true);
-          console.log(newFields);
           setTimeout(() => {
             setLoading(false);
           }, 1000);
