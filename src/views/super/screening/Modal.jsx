@@ -180,13 +180,7 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
                   : 'Not set'}
               </dd>
               <dt className="col-sm-3 text-truncate">Roles Of Interests</dt>
-              <dd className="col-sm-9">
-                {rolesData.rolesOfInterests
-                  ? rolesData.rolesOfInterests.map((item) => (
-                      <Badge key={item}>{item}</Badge>
-                    ))
-                  : null}
-              </dd>
+              <dd className="col-sm-9">{rolesData.rolesOfInterests}</dd>
               <dt className="col-sm-3 text-truncate">
                 Behaviour Attributes Strengths
               </dt>
