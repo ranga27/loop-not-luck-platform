@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from 'react';
 import { Row, Button } from 'reactstrap';
 import classnames from 'classnames';
@@ -10,13 +11,11 @@ import IntlMessages from '../../../helpers/IntlMessages';
 const Application = ({ users }) => {
   const [userRoles, setUsersRoles] = useState([]);
   useEffect(() => {
-    users.forEach((item) => {
-      fetchUserMatchedRolesFromFirestore(item).then((results) => {
-        if (results.length > 0) {
-          setUsersRoles(results);
-        }
-        return null;
-      });
+    fetchUserMatchedRolesFromFirestore(users).then((results) => {
+      if (results.length > 0) {
+        setUsersRoles(results);
+      }
+      return null;
     });
   }, [users]);
 
@@ -37,7 +36,6 @@ const Application = ({ users }) => {
     tabs[1].current = true;
     setActiveTab('tab2');
   };
-
   return (
     <>
       <Row>

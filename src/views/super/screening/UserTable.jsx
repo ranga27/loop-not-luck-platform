@@ -6,8 +6,12 @@ import IntlMessages from '../../../helpers/IntlMessages';
 const UserTable = ({ userRoles }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [rolesData, setRoleData] = useState([]);
-  const handleOpenModal = async (role) => {
-    setRoleData(role);
+  const handleOpenModal = async (user, role) => {
+    const mergedArray = {
+      ...user,
+      ...role,
+    };
+    setRoleData(mergedArray);
     setModalOpen(true);
   };
 
@@ -44,21 +48,27 @@ const UserTable = ({ userRoles }) => {
           </tr>
         </thead>
         <tbody>
-          {userRoles.map((role, index) => (
-            <tr key={role.id}>
-              <td>{index + 1}</td>
-              <td>
-                <Button color="link" onClick={() => handleOpenModal(role)}>
-                  {role.userArray.firstName} {role.userArray.lastName}
-                </Button>
-              </td>
-              <td>{role.userArray.email}</td>
-              <td>{role.company}</td>
-              <td>{role.positionType}</td>
-              <td>{role.department}</td>
-              <td>{role.score}%</td>
-            </tr>
-          ))}
+          {userRoles.map((user) =>
+            user.roles.map((role) => (
+              <tr key={role.id}>
+                <td>#</td>
+                <td>
+                  <Button
+                    color="link"
+                    onClick={() => handleOpenModal(role, user)}
+                  >
+                    {user.firstName} {user.lastName}
+                  </Button>
+                </td>
+                <td>{user.email}</td>
+
+                <td>{role.company}</td>
+                <td>{role.positionType}</td>
+                <td>{role.department}</td>
+                <td>{role.score}%</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </Table>
       {modalOpen && (

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -13,10 +14,11 @@ import {
 } from './FormFields';
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
-import rolesOfInterests from '../../data/rolesOfInterests';
 import { behaviourOptions } from '../../data/behaviourOptions';
 import { technicalSkills } from '../../data/technicalSkillsOptions';
 import { getDateFromString } from '../../helpers/Utils';
+import { interestOptions } from '../../data/interestOptions';
+import getOptions from '../../data/rolesOfInterests';
 
 // Combine Post Role & Edit Role forms
 const EditRoleForm = ({ onSubmit, companies, role }) => {
@@ -35,7 +37,7 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
   const technicalSkillsOther = watch('technicalSkills');
-
+  const rolesOfInterestCheck = watch('areaOfInterests');
   useEffect(() => {
     try {
       if (role) {
@@ -52,7 +54,11 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
           'behaviourAttributesStrengths',
           role.behaviourAttributesStrengths
         );
-        setValue('rolesOfInterests', role.rolesOfInterests);
+        setValue(
+          'rolesOfInterests',
+          role.rolesOfInterests ? role.rolesOfInterests : ''
+        );
+        setValue('areaOfInterests', role.areaOfInterests);
         setValue('technicalSkills', role.technicalSkills);
         setValue('howToApply', role.howToApply);
         setValue('email', role.email);
@@ -66,15 +72,19 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
           'startDate',
           role.startDate ? getDateFromString(role.startDate) : null
         );
-        setValue('coverLetter', role.coverLetter || false);
         setValue('technicalSkillsOther', role.technicalSkillsOther || '');
-        setValue('prescreening', role.prescreening || false);
       }
     } catch (error) {
       console.error(error.message);
     }
   }, [role, setValue]);
   // TODO: convert into smart form
+
+  const selectAreaOfInterest = getOptions(
+    control._formValues.areaOfInterests === undefined
+      ? []
+      : control._formValues.areaOfInterests
+  );
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -185,23 +195,23 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         errors={errors.startDate}
         dateFormat="dd/MM/yyyy"
       />
-      <CheckBox
-        name="coverLetter"
-        label="Cover Letter Required"
+      <SelectField
+        label="Areas of Interests"
+        name="areaOfInterests"
         control={control}
-        checked={watch('coverLetter')}
+        options={interestOptions}
+        errors={errors.areaOfInterests}
       />
-      <MultiSelect
-        label="Roles of Interests"
-        name="rolesOfInterests"
-        control={control}
-        options={rolesOfInterests}
-        setValue={setValue}
-        clearErrors={clearErrors}
-        defaultValue={role.rolesOfInterests}
-        errors={errors.rolesOfInterests}
-        closeMenuOnSelect={false}
-      />
+      {rolesOfInterestCheck !== null && (
+        <SelectField
+          label="Roles of Interests"
+          name="rolesOfInterests"
+          control={control}
+          options={selectAreaOfInterest}
+          errors={errors.rolesOfInterests}
+        />
+      )}
+
       <MultiSelect
         label="Behaviour/Attributes/Strengths"
         name="behaviourAttributesStrengths"
@@ -233,12 +243,6 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
             errors={errors.technicalSkillsOther}
           />
         )}
-      <CheckBox
-        name="prescreening"
-        label="Requires prescreening"
-        control={control}
-        checked={watch('prescreening')}
-      />
       <Button color="primary" type="submit">
         Update
       </Button>
