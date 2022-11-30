@@ -95,13 +95,13 @@ const ApplicationsCard = ({ application }) => {
               <dd className="col-sm-8">{application.description}</dd>
               <dt className="col-sm-4 text-truncate"> Position Type</dt>
               <dd className="col-sm-8">{application.positionType}</dd>
+              <dt className="col-sm-4 text-truncate">Area Of Interests</dt>
+              <dd className="col-sm-8">
+                <Badge>{application.areaOfInterests}</Badge>
+              </dd>
               <dt className="col-sm-4 text-truncate">Roles Of Interests</dt>
               <dd className="col-sm-8">
-                {application.rolesOfInterests
-                  ? application.rolesOfInterests.map((item) => (
-                      <Badge key={item}>{item}</Badge>
-                    ))
-                  : null}
+                <Badge>{application.rolesOfInterests}</Badge>
               </dd>
               <dt className="col-sm-4 text-truncate">
                 Behaviour Attributes Strengths

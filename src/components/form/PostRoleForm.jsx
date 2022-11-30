@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import {
@@ -21,10 +22,11 @@ import {
 import { locations, applicationOptions, positionTypes } from '../../data';
 import 'react-datepicker/dist/react-datepicker.css';
 import { firestore } from '../../helpers/Firebase';
-import rolesOfInterests from '../../data/rolesOfInterests';
 import { behaviourOptions } from '../../data/behaviourOptions';
 import { technicalSkills } from '../../data/technicalSkillsOptions';
 import { formatDateInArray } from '../../helpers/Utils';
+import { interestOptions } from '../../data/interestOptions';
+import getOptions from '../../data/rolesOfInterests';
 
 const PostRoleForm = () => {
   // TODO: move data operations in parent component and make this a pure component
@@ -70,10 +72,11 @@ const PostRoleForm = () => {
     rolling: false,
     deadline: null,
     startDate: null,
-    rolesOfInterests: null,
+    rolesOfInterests: '',
+    areaOfInterests: '',
     behaviourAttributesStrengths: null,
     technicalSkills: null,
-    technicalSkillsOther: null,
+    technicalSkillsOther: '',
   };
   const {
     watch,
@@ -89,6 +92,14 @@ const PostRoleForm = () => {
   });
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
+  const rolesOfInterestCheck = watch('areaOfInterests');
+  const technicalSkillsOther = watch('technicalSkills');
+  const selectAreaOfInterest = getOptions(
+    control._formValues.areaOfInterests === ''
+      ? []
+      : control._formValues.areaOfInterests
+  );
+
   const onSubmit = async (data) => {
     const date = { createdAt: serverTimestamp(), updatedAt: serverTimestamp() };
     const companyData = companies.filter((x) => x.label === data.company);
@@ -125,7 +136,6 @@ const PostRoleForm = () => {
     return <div className="loading" />;
   }
   // TODO: convert into smart form
-  const technicalSkillsOther = watch('technicalSkills');
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <TextInput
@@ -220,16 +230,23 @@ const PostRoleForm = () => {
         control={control}
         errors={errors.startDate}
       />
-      <MultiSelect
-        label="Roles of Interests"
-        name="rolesOfInterests"
+      <SelectField
+        label="Areas of Interests"
+        name="areaOfInterests"
         control={control}
-        options={rolesOfInterests}
-        setValue={setValue}
-        clearErrors={clearErrors}
-        errors={errors.rolesOfInterests}
-        closeMenuOnSelect={false}
+        options={interestOptions}
+        errors={errors.areaOfInterests}
       />
+      {rolesOfInterestCheck !== null && (
+        <SelectField
+          label="Roles of Interests"
+          name="rolesOfInterests"
+          control={control}
+          options={selectAreaOfInterest}
+          errors={errors.rolesOfInterests}
+        />
+      )}
+
       <MultiSelect
         label="Behaviour/Attributes/Strengths"
         name="behaviourAttributesStrengths"
