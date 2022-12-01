@@ -101,7 +101,13 @@ const ApplicationsCard = ({ application }) => {
               </dd>
               <dt className="col-sm-4 text-truncate">Roles Of Interests</dt>
               <dd className="col-sm-8">
-                <Badge>{application.rolesOfInterests}</Badge>
+                <Badge>
+                  {application.rolesOfInterests
+                    ? application.rolesOfInterests.map((item) => (
+                        <Badge key={item}>{item}</Badge>
+                      ))
+                    : null}
+                </Badge>
               </dd>
               <dt className="col-sm-4 text-truncate">
                 Behaviour Attributes Strengths

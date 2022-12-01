@@ -4,16 +4,31 @@ import { FormGroup, Label } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form } from 'formik';
-import { FormikCustomRadioGroup } from '../../../components/form/FormikCustomRadioGroup';
+import { FormikCustomCheckboxGroup } from '../../../components/form/FormikCustomCheckboxGroup';
 import { StepLayout } from '../../../layout/stepLayout';
 import getOptions from '../../../data/rolesOfInterests';
 
 const validationSchema = Yup.object().shape({
-  rolesOfInterest: Yup.string().required('Please select an option'),
+  rolesOfInterest: Yup.array()
+    .required('Select at least one option')
+    .min(1, 'Select at least one option'),
 });
 
-export const Step8 = (form, { rolesOfInterest, interests }, messages) => {
-  const selectAreaOfInterest = getOptions(interests);
+export const Step8 = (form, { rolesOfInterest, areaOfInterests }, messages) => {
+  const areasOfInterestsOptions =
+    areaOfInterests === null || undefined || areaOfInterests.length === 0
+      ? null
+      : areaOfInterests.map((interest) => {
+          return getOptions(interest);
+        });
+
+  const selectAreaOfInterest =
+    areasOfInterestsOptions === null ||
+    undefined ||
+    areasOfInterestsOptions.length === 0
+      ? null
+      : areasOfInterestsOptions.flatMap((x) => x);
+
   return (
     <Step id="step8">
       <StepLayout>
@@ -30,7 +45,7 @@ export const Step8 = (form, { rolesOfInterest, interests }, messages) => {
             <Form className="av-tooltip tooltip-left-top error-r-275">
               <FormGroup>
                 <Label>{messages['forms.rolesOfInterest']}</Label>
-                <FormikCustomRadioGroup
+                <FormikCustomCheckboxGroup
                   inline="true"
                   name="rolesOfInterest"
                   id="rolesOfInterest"

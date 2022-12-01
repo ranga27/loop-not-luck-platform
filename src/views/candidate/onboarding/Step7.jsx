@@ -4,15 +4,17 @@ import { FormGroup, Label } from 'reactstrap';
 import * as Yup from 'yup';
 import { Step } from 'react-albus';
 import { Formik, Form } from 'formik';
-import { FormikCustomRadioGroup } from '../../../components/form/FormikCustomRadioGroup';
+import { FormikCustomCheckboxGroup } from '../../../components/form/FormikCustomCheckboxGroup';
 import { StepLayout } from '../../../layout/stepLayout';
 import { interestOptions } from '../../../data/interestOptions';
 
 const validationSchema = Yup.object().shape({
-  interests: Yup.string().required('Please select an option'),
+  areaOfInterests: Yup.array()
+    .required('Select at least one option')
+    .min(1, 'Select at least one option'),
 });
 
-export const Step7 = (form, { interests }, messages) => {
+export const Step7 = (form, { areaOfInterests }, messages) => {
   return (
     <Step id="step7">
       <StepLayout>
@@ -20,7 +22,7 @@ export const Step7 = (form, { interests }, messages) => {
           validationSchema={validationSchema}
           innerRef={form}
           initialValues={{
-            interests,
+            areaOfInterests,
           }}
           validateOnMount
           onSubmit={() => {}}
@@ -29,18 +31,18 @@ export const Step7 = (form, { interests }, messages) => {
             <Form className="av-tooltip tooltip-left-top error-r-275">
               <FormGroup>
                 <Label>{messages['forms.interests']}</Label>
-                <FormikCustomRadioGroup
+                <FormikCustomCheckboxGroup
                   inline="true"
-                  name="interests"
-                  id="interests"
-                  value={values.interests}
+                  name="areaOfInterests"
+                  id="areaOfInterests"
+                  value={values.areaOfInterests}
                   onChange={setFieldValue}
                   onBlur={setFieldTouched}
                   options={interestOptions}
                 />
-                {errors.interests && touched.interests ? (
+                {errors.areaOfInterests && touched.areaOfInterests ? (
                   <div className="invalid-feedback d-block">
-                    {errors.interests}
+                    {errors.areaOfInterests}
                   </div>
                 ) : null}
               </FormGroup>

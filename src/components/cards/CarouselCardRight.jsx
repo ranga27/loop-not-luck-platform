@@ -57,14 +57,35 @@ const CarouselCardRight = ({ role }) => {
           match
         </h5>
         <div>
-          <Badge
-            color="primary"
-            pill
-            className="mb-1 px-4 py-2 mx-2 my-2"
-            style={{ fontSize: '14px' }}
-          >
-            {role.rolesOfInterests}
-          </Badge>
+          {role.rolesOfInterests && role.rolesOfInterests.length > 0
+            ? role.rolesOfInterests.map((item, index) => (
+                <Badge
+                  color={
+                    index === 0
+                      ? 'primary'
+                      : index === 1
+                      ? 'secondary'
+                      : index === 2
+                      ? 'danger'
+                      : index === 3
+                      ? 'primary'
+                      : index === 4
+                      ? 'secondary'
+                      : index === 5
+                      ? 'danger'
+                      : index === 6
+                      ? 'primary'
+                      : 'secondary'
+                  }
+                  key={item}
+                  pill
+                  className="mb-1 px-4 py-2 mx-2 my-2"
+                  style={{ fontSize: '14px' }}
+                >
+                  {item}
+                </Badge>
+              ))
+            : null}
 
           {role.behaviourAttributesStrengths &&
           role.behaviourAttributesStrengths.length > 0
