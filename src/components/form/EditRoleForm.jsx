@@ -56,9 +56,12 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         );
         setValue(
           'rolesOfInterests',
-          role.rolesOfInterests ? role.rolesOfInterests : ''
+          role.rolesOfInterests ? role.rolesOfInterests : null
         );
-        setValue('areaOfInterests', role.areaOfInterests);
+        setValue(
+          'areaOfInterests',
+          role.areaOfInterests ? role.areaOfInterests : null
+        );
         setValue('technicalSkills', role.technicalSkills);
         setValue('howToApply', role.howToApply);
         setValue('email', role.email);
@@ -80,11 +83,16 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
   }, [role, setValue]);
   // TODO: convert into smart form
 
-  const selectAreaOfInterest = getOptions(
-    control._formValues.areaOfInterests === undefined
+  const areasOfInterests =
+    control._formValues.areaOfInterests === undefined ||
+    control._formValues.areaOfInterests === null
       ? []
-      : control._formValues.areaOfInterests
-  );
+      : control._formValues.areaOfInterests.map((interest) => {
+          return getOptions(interest);
+        });
+
+  const selectAreaOfInterest =
+    areasOfInterests === undefined ? [] : areasOfInterests.flatMap((x) => x);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -195,20 +203,28 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         errors={errors.startDate}
         dateFormat="dd/MM/yyyy"
       />
-      <SelectField
+      <MultiSelect
         label="Areas of Interests"
         name="areaOfInterests"
         control={control}
         options={interestOptions}
         errors={errors.areaOfInterests}
+        setValue={setValue}
+        defaultValue={role.areaOfInterests}
+        closeMenuOnSelect={false}
+        clearErrors={clearErrors}
       />
       {rolesOfInterestCheck !== null && (
-        <SelectField
+        <MultiSelect
           label="Roles of Interests"
           name="rolesOfInterests"
           control={control}
           options={selectAreaOfInterest}
           errors={errors.rolesOfInterests}
+          setValue={setValue}
+          defaultValue={role.rolesOfInterests}
+          closeMenuOnSelect={false}
+          clearErrors={clearErrors}
         />
       )}
 

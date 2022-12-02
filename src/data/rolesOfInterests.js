@@ -131,7 +131,6 @@ const getOptions = (message) => {
         { label: 'Benefits Specialist', value: 'Benefits Specialist' },
         { label: 'Budget Analyst', value: 'Budget Analyst' },
         { label: 'Credit Analyst', value: 'Credit Analyst' },
-        { label: 'Data Analyst', value: 'Data Analyst' },
         { label: 'Financial Advisor', value: 'Financial Advisor' },
         { label: 'Financial Analyst', value: 'Financial Analyst' },
         { label: 'Financial Auditor', value: 'Financial Auditor' },

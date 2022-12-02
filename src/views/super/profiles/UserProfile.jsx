@@ -339,10 +339,10 @@ const UserProfile = () => {
                       : 'Not set'}
                   </dd>
                   <hr />
-                  <dt className="col-sm-5">Interests</dt>
+                  <dt className="col-sm-5">Area Of Interests</dt>
                   <dd className="col-sm-7">
-                    {user.interests
-                      ? user.interests.map((item, index) => (
+                    {user.areaOfInterests
+                      ? user.areaOfInterests.map((item, index) => (
                           <Badge
                             key={item}
                             pill

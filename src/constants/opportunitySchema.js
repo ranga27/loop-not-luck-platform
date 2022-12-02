@@ -31,10 +31,10 @@ export const OpportunitySchema = Yup.object().shape({
   ),
   salary: Yup.string().required('salary is required'),
   department: Yup.string().required('Department is required'),
-  areaOfInterests: Yup.string().required('Areas Of Interests is required'),
-  rolesOfInterests: Yup.string().when('areaOfInterests', {
-    is: (value) => value !== '',
-    then: Yup.string().required('Roles Of Interests is required'),
+  areaOfInterests: Yup.mixed().required('Areas Of Interests is required'),
+  rolesOfInterests: Yup.mixed().when('areaOfInterests', {
+    is: (value) => value !== null,
+    then: Yup.mixed().required('Roles Of Interests is required'),
   }),
   behaviourAttributesStrengths: Yup.mixed().required(
     'Behaviour/Attributes/Strengths is required'

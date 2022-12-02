@@ -17,7 +17,6 @@ import IntlMessages from '../../../helpers/IntlMessages';
 
 const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
   const [collapse, setCollapse] = useState(false);
-
   return (
     <Modal isOpen={modalOpen} toggle={toggle} className="modal-lg">
       <ModalHeader>
@@ -87,12 +86,12 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
                     ))
                   )}
                 </dd>
-                <dt className="col-sm-3 text-truncate">Interests</dt>
+                <dt className="col-sm-3 text-truncate">Area Of Interests</dt>
                 <dd className="col-sm-9">
-                  {!Array.isArray(rolesData.interests) ? (
-                    <Badge>{rolesData.interests}</Badge>
+                  {!Array.isArray(rolesData.areaOfInterests) ? (
+                    <Badge>{rolesData.areaOfInterests}</Badge>
                   ) : (
-                    rolesData.interests.map((item) => (
+                    rolesData.areaOfInterests.map((item) => (
                       <Badge key={item}>{item}</Badge>
                     ))
                   )}
@@ -123,72 +122,87 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
               alt="Company logo"
             />
             <dl className="row">
-              <dt className="col-sm-3">Organisation</dt>
-              <dd className="col-sm-9">{rolesData.organisation}</dd>
               <dt className="col-sm-3">Company</dt>
-              <dd className="col-sm-9">{rolesData.company}</dd>
+              <dd className="col-sm-9">{rolesData.roles[0].company}</dd>
               <dt className="col-sm-3 text-truncate">Location</dt>
-              <dd className="col-sm-9">{rolesData.location}</dd>
+              <dd className="col-sm-9">{rolesData.roles[0].location}</dd>
               <dt className="col-sm-3 text-truncate">Job Title</dt>
-              <dd className="col-sm-9">{rolesData.title}</dd>
+              <dd className="col-sm-9">{rolesData.roles[0].title}</dd>
               <dt className="col-sm-3">Department</dt>
-              <dd className="col-sm-9">{rolesData.department}</dd>
+              <dd className="col-sm-9">{rolesData.roles[0].department}</dd>
               <dt className="col-sm-3 text-truncate">Qualification</dt>
-              <dd className="col-sm-9">{rolesData.qualification}</dd>
+              <dd className="col-sm-9">{rolesData.roles[0].qualification}</dd>
               <dt className="col-sm-3"> Role Description</dt>
-              <dd className="col-sm-9">{rolesData.description}</dd>
+              <dd className="col-sm-9">{rolesData.roles[0].description}</dd>
               <dt className="col-sm-3 text-truncate"> Position Type</dt>
-              <dd className="col-sm-9">{rolesData.positionType}</dd>
+              <dd className="col-sm-9">{rolesData.roles[0].positionType}</dd>
               <dt className="col-sm-3 text-truncate">How To Apply</dt>
-              <dd className="col-sm-9">{rolesData.howToApply}</dd>
+              <dd className="col-sm-9">{rolesData.roles[0].howToApply}</dd>
               <dt className="col-sm-3 text-truncate">Website</dt>
-              <dd className="col-sm-9">{rolesData.website}</dd>
+              <dd className="col-sm-9">{rolesData.roles[0].website}</dd>
               <dt className="col-sm-3 text-truncate">Rolling</dt>
-              {rolesData.rolling === true ? (
+              {rolesData.roles[0].rolling === true ? (
                 <dd className="col-sm-9">Yes</dd>
               ) : (
                 <dd className="col-sm-9">No</dd>
               )}{' '}
               <dt className="col-sm-3 text-truncate">Published</dt>
-              {rolesData.publish === true ? (
+              {rolesData.roles[0].publish === true ? (
                 <dd className="col-sm-9">Yes</dd>
               ) : (
                 <dd className="col-sm-9">No</dd>
               )}
               <dt className="col-sm-3 text-truncate">Creation Date</dt>
               <dd className="col-sm-9">
-                {rolesData.createdAt !== null
+                {rolesData.roles[0].createdAt !== null
                   ? format(
-                      new Date(rolesData.createdAt.toDate()),
+                      new Date(rolesData.roles[0].createdAt.toDate()),
                       'dd-MMM-yyyy'
                     )
                   : 'Not set'}
               </dd>
               <dt className="col-sm-3 text-truncate">Deadline</dt>
               <dd className="col-sm-9">
-                {rolesData.deadline !== null
-                  ? format(new Date(rolesData.deadline.toDate()), 'dd-MMM-yyyy')
-                  : 'Not set'}
-              </dd>
-              <dt className="col-sm-3 text-truncate">Start Date</dt>
-              <dd className="col-sm-9">
-                {rolesData.startDate !== null
+                {rolesData.roles[0].deadline !== null
                   ? format(
-                      new Date(rolesData.startDate.toDate()),
+                      new Date(rolesData.roles[0].deadline.toDate()),
                       'dd-MMM-yyyy'
                     )
                   : 'Not set'}
               </dd>
+              <dt className="col-sm-3 text-truncate">Start Date</dt>
+              <dd className="col-sm-9">
+                {rolesData.roles[0].startDate !== null
+                  ? format(
+                      new Date(rolesData.roles[0].startDate.toDate()),
+                      'dd-MMM-yyyy'
+                    )
+                  : 'Not set'}
+              </dd>
+              <dt className="col-sm-3 text-truncate">Area Of Interests</dt>
+              <dd className="col-sm-9">
+                {rolesData.roles[0].areaOfInterests
+                  ? rolesData.roles[0].areaOfInterests.map((item) => (
+                      <Badge key={item}>{item}</Badge>
+                    ))
+                  : null}
+              </dd>
               <dt className="col-sm-3 text-truncate">Roles Of Interests</dt>
-              <dd className="col-sm-9">{rolesData.rolesOfInterests}</dd>
+              <dd className="col-sm-9">
+                {rolesData.roles[0].rolesOfInterests
+                  ? rolesData.roles[0].rolesOfInterests.map((item) => (
+                      <Badge key={item}>{item}</Badge>
+                    ))
+                  : null}
+              </dd>
               <dt className="col-sm-3 text-truncate">
                 Behaviour Attributes Strengths
               </dt>
               <dd className="col-sm-9">
-                {rolesData.behaviourAttributesStrengths
-                  ? rolesData.behaviourAttributesStrengths.map((item) => (
-                      <Badge key={item}>{item}</Badge>
-                    ))
+                {rolesData.roles[0].behaviourAttributesStrengths
+                  ? rolesData.roles[0].behaviourAttributesStrengths.map(
+                      (item) => <Badge key={item}>{item}</Badge>
+                    )
                   : null}
               </dd>
             </dl>

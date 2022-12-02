@@ -21,7 +21,7 @@ const Onboarding = ({ intl }) => {
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fields, setFields] = useState({
-    interests: '',
+    areaOfInterests: '',
     diversity: '',
     disability: '',
     roles: '',

@@ -72,8 +72,8 @@ const PostRoleForm = () => {
     rolling: false,
     deadline: null,
     startDate: null,
-    rolesOfInterests: '',
-    areaOfInterests: '',
+    rolesOfInterests: null,
+    areaOfInterests: null,
     behaviourAttributesStrengths: null,
     technicalSkills: null,
     technicalSkillsOther: '',
@@ -94,11 +94,17 @@ const PostRoleForm = () => {
   const rolling = watch('rolling');
   const rolesOfInterestCheck = watch('areaOfInterests');
   const technicalSkillsOther = watch('technicalSkills');
-  const selectAreaOfInterest = getOptions(
-    control._formValues.areaOfInterests === ''
+
+  const areasOfInterests =
+    control._formValues.areaOfInterests === undefined ||
+    control._formValues.areaOfInterests === null
       ? []
-      : control._formValues.areaOfInterests
-  );
+      : control._formValues.areaOfInterests.map((interest) => {
+          return getOptions(interest);
+        });
+
+  const selectAreaOfInterest =
+    areasOfInterests === undefined ? [] : areasOfInterests.flatMap((x) => x);
 
   const onSubmit = async (data) => {
     const date = { createdAt: serverTimestamp(), updatedAt: serverTimestamp() };
@@ -230,20 +236,26 @@ const PostRoleForm = () => {
         control={control}
         errors={errors.startDate}
       />
-      <SelectField
+      <MultiSelect
         label="Areas of Interests"
         name="areaOfInterests"
         control={control}
         options={interestOptions}
         errors={errors.areaOfInterests}
+        setValue={setValue}
+        closeMenuOnSelect={false}
+        clearErrors={clearErrors}
       />
       {rolesOfInterestCheck !== null && (
-        <SelectField
+        <MultiSelect
           label="Roles of Interests"
           name="rolesOfInterests"
           control={control}
           options={selectAreaOfInterest}
           errors={errors.rolesOfInterests}
+          setValue={setValue}
+          closeMenuOnSelect={false}
+          clearErrors={clearErrors}
         />
       )}
 
