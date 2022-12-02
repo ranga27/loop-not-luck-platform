@@ -16,7 +16,9 @@ const validationSchema = Yup.object().shape({
 
 export const Step8 = (form, { rolesOfInterest, areaOfInterests }, messages) => {
   const areasOfInterestsOptions =
-    areaOfInterests === null || undefined || areaOfInterests.length === 0
+    areaOfInterests === null ||
+    areaOfInterests === undefined ||
+    areaOfInterests.length === 0
       ? null
       : areaOfInterests.map((interest) => {
           return getOptions(interest);
@@ -24,7 +26,7 @@ export const Step8 = (form, { rolesOfInterest, areaOfInterests }, messages) => {
 
   const selectAreaOfInterest =
     areasOfInterestsOptions === null ||
-    undefined ||
+    areasOfInterestsOptions === undefined ||
     areasOfInterestsOptions.length === 0
       ? null
       : areasOfInterestsOptions.flatMap((x) => x);
