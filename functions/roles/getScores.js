@@ -1,10 +1,10 @@
 /**
  *
- * @param {Object} candidate
  * @param {Object} role
+ * @param {Object} candidate
  * @returns {Number} score
  */
-const getScores = (candidate, role) => {
+const getScores = (role, candidate) => {
   const behaviorAttributesScore = calculateTagScore(
     candidate.behaviorAttributes,
     role.behaviourAttributesStrengths
@@ -17,19 +17,40 @@ const getScores = (candidate, role) => {
 
   const jobValuesScore = calculateTagScore(candidate.jobValues, role.jobValues);
 
+  const rolesOfInterestsScore = calculateTagScore(
+    candidate.rolesOfInterests,
+    role.rolesOfInterests
+  );
+
+  const locationScore = calculateTagScore(candidate.location, role.location);
+
   const score =
-    (behaviorAttributesScore + technicalSkillsScore + jobValuesScore) / 3;
+    (behaviorAttributesScore +
+      technicalSkillsScore +
+      jobValuesScore +
+      rolesOfInterestsScore +
+      locationScore) /
+    5;
 
   return score;
 };
 
-const calculateTagScore = (candidateTags, roleTags) => {
-  if (!Array.isArray(candidateTags) || !Array.isArray(roleTags)) return 0;
-  if (!candidateTags.length || !roleTags.length) return 0;
+const calculateTagScore = (candidateField, roleField) => {
+  if (Array.isArray(candidateField) && Array.isArray(roleField)) {
+    if (!candidateField.length || !roleField.length) return 0;
 
-  const intersection = roleTags.filter((x) => candidateTags.includes(x));
+    const intersection = roleField.filter((x) => candidateField.includes(x));
 
-  return Math.round((intersection.length * 100) / roleTags.length);
+    return Math.round((intersection.length * 100) / roleField.length);
+  }
+
+  if (typeof candidateField === 'string' && typeof roleField === 'string') {
+    if (candidateField.toLowerCase() !== roleField.toLowerCase()) return 0;
+
+    return 100;
+  }
+
+  return 0;
 };
 
 exports.getScores = getScores;
