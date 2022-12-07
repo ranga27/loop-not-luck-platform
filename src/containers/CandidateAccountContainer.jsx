@@ -98,6 +98,7 @@ const CandidateAccountContainer = () => {
         hasCompletedProfile: hasAllValues,
         lastUpdated: serverTimestamp(),
         ...data,
+        cvUrl,
       });
       console.log('MUTATED: ', payload);
 
