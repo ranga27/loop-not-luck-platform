@@ -19,19 +19,24 @@ const feedbackSchema = Yup.object().shape({
 
 const buttonStyles = {
   position: 'fixed',
-  bottom: 0,
+  bottom: '5rem',
   right: 0,
   zIndex: '99999',
-  border: '1px solid #ff272d',
-  padding: '0.5rem 1rem',
-  backgroundColor: 'rgba(236, 37, 69, 0.4)',
+  border: '1px solid #166b70',
+  padding: '1rem 0.5rem',
+  backgroundColor: 'rgba(38, 180, 189, 0.4)',
   backdropFilter: 'blur(5px)',
   cursor: 'pointer',
+  textOrientation: 'mixed',
+  writingMode: 'vertical-rl',
+  transform: 'rotate(180deg)',
+  fontWeight: 'bold',
 };
 
 const FeedbackPopup = () => {
   const location = useLocation();
   const currentPage = location.pathname;
+  const SUBJECT = `Feedback for page ${currentPage}`;
 
   const [modal, setModal] = useState(false);
 
@@ -61,7 +66,7 @@ const FeedbackPopup = () => {
       fullName,
       email,
       feedback,
-      subject: `Feedback for page ${currentPage}`,
+      subject: SUBJECT,
     });
 
     reset(defaultValues);
@@ -73,10 +78,8 @@ const FeedbackPopup = () => {
       <div onClick={toggle} style={buttonStyles} aria-hidden>
         Any Feedback?
       </div>
-      <Modal isOpen={modal} toggle={toggle} centered>
-        <ModalHeader toggle={toggle}>
-          Feedback for page {currentPage}
-        </ModalHeader>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>{SUBJECT}</ModalHeader>
         <ModalBody>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <TextInput
