@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Modal, ModalHeader, ModalBody, Form } from 'reactstrap';
 import { TextInput } from './form/FormFields';
+import { sendWebsiteFeedbackEmail } from '../helpers/firebaseService';
 
 const feedbackSchema = Yup.object().shape({
   fullName: Yup.string().required('Please enter full name'),
@@ -53,8 +54,15 @@ const FeedbackPopup = () => {
   const toggle = () => setModal(!modal);
 
   const onSubmit = async (data) => {
-    // Send email to hello@loopnotluck.com
-    console.log(currentPage, data);
+    const { fullName, email, feedback } = data;
+
+    // Send website feedback email to hello@loopnotluck.com
+    sendWebsiteFeedbackEmail({
+      fullName,
+      email,
+      feedback,
+      subject: `Feedback for page ${currentPage}`,
+    });
 
     reset(defaultValues);
     toggle();
