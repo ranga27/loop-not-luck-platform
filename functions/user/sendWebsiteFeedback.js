@@ -8,8 +8,7 @@ const functions = require('firebase-functions/v1');
 const nodemailer = require('nodemailer');
 const { sendEmail } = require('./sendFeedbackEmail');
 
-const SUPPORT_EMAIL = 'kinjal@loopnotluck.com';
-
+const SUPPORT_EMAIL = 'hello@loopnotluck.com';
 
 /** Cloud Function that sends job recommendations to the user */
 exports.sendWebsiteFeedback = functions
