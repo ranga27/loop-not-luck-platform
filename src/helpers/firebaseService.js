@@ -140,7 +140,7 @@ export async function sendSms(data) {
 export async function sendWebsiteFeedbackEmail(data) {
   const sendWebsiteFeedbackFunction = httpsCallable(
     functions,
-    'sendWebsiteFeedback'
+    'user-sendWebsiteFeedback'
   );
   return sendWebsiteFeedbackFunction(data);
 }
