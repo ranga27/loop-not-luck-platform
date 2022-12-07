@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import AppLocale from '../lang';
-import BetaBanner from '../components/BetaBanner';
+import FeedbackPopup from '../components/FeedbackPopup';
 
 const Public = lazy(() =>
   import(/* webpackChunkName: "public-route" */ '../views/public')
@@ -35,7 +35,7 @@ const App = () => {
           </Routes>
         </Suspense>
       </IntlProvider>
-      <BetaBanner />
+      <FeedbackPopup />
     </div>
   );
 };
