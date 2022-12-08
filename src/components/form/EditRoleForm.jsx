@@ -19,6 +19,7 @@ import { technicalSkills } from '../../data/technicalSkillsOptions';
 import { getDateFromString } from '../../helpers/Utils';
 import { interestOptions } from '../../data/interestOptions';
 import getOptions from '../../data/rolesOfInterests';
+import { jobTypes } from '../../data/jobType';
 
 // Combine Post Role & Edit Role forms
 const EditRoleForm = ({ onSubmit, companies, role }) => {
@@ -38,6 +39,8 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
   const rolling = watch('rolling');
   const technicalSkillsOther = watch('technicalSkills');
   const rolesOfInterestCheck = watch('areaOfInterests');
+  const jobTypesCheck = watch('jobType');
+
   useEffect(() => {
     try {
       if (role) {
@@ -45,6 +48,7 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         setValue('title', role.title);
         setValue('company', role.company);
         setValue('location', role.location);
+        setValue('jobType', role.jobType);
         setValue('positionType', role.positionType);
         setValue('department', role.department);
         setValue('description', role.description);
@@ -111,12 +115,21 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
         errors={errors.company}
       />
       <SelectField
-        label="Location"
-        name="location"
+        label="Job type"
+        name="jobType"
         control={control}
-        options={locations}
-        errors={errors.location}
+        options={jobTypes}
+        errors={errors.jobType}
       />
+      {jobTypesCheck !== 'Remote' && (
+        <SelectField
+          label="Location"
+          name="location"
+          control={control}
+          options={locations}
+          errors={errors.location}
+        />
+      )}
       <SelectField
         label="Position Type"
         name="positionType"
