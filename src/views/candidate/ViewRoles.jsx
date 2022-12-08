@@ -28,7 +28,7 @@ const ViewRoles = () => {
 
   const { configLoading, data: config } = useFirestoreQuery(
     ['config'],
-    query(collection(firestore, 'configs')),
+    query(collection(firestore, 'config')),
     {
       subscribe: true,
     },
