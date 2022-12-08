@@ -7,7 +7,7 @@ exports.onWrite = functions
   .onWrite(async (change, context) => {
     try {
       // Check if algorithm already running
-      const configRef = admin.firestore().doc('configs/roles');
+      const configRef = admin.firestore().doc('config/roles');
       const snap = await configRef.get();
       if (snap) console.log('Being Matched', snap.data().beingMatched);
       // Access the parameter `{roleId}` with `context.params`
