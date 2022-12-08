@@ -126,6 +126,8 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
               <dd className="col-sm-9">{rolesData.roles[0].company}</dd>
               <dt className="col-sm-3 text-truncate">Location</dt>
               <dd className="col-sm-9">{rolesData.roles[0].location}</dd>
+              <dt className="col-sm-3 text-truncate">Job Type</dt>
+              <dd className="col-sm-9">{rolesData.roles[0].jobType}</dd>
               <dt className="col-sm-3 text-truncate">Job Title</dt>
               <dd className="col-sm-9">{rolesData.roles[0].title}</dd>
               <dt className="col-sm-3">Department</dt>

@@ -79,6 +79,7 @@ const CarouselCardLeft = ({ role }) => {
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Location
           </h6>
+          <h6 className="text-muted">{role.jobType || ''}</h6>
           <h6 className="text-muted">{role.location}</h6>
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Position

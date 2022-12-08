@@ -27,6 +27,7 @@ import { technicalSkills } from '../../data/technicalSkillsOptions';
 import { formatDateInArray } from '../../helpers/Utils';
 import { interestOptions } from '../../data/interestOptions';
 import getOptions from '../../data/rolesOfInterests';
+import { jobTypes } from '../../data/jobType';
 
 const PostRoleForm = () => {
   // TODO: move data operations in parent component and make this a pure component
@@ -65,6 +66,8 @@ const PostRoleForm = () => {
     department: '',
     qualification: '',
     salary: '',
+    location: '',
+    jobType: '',
     description: '',
     howToApply: '',
     email: '',
@@ -94,6 +97,7 @@ const PostRoleForm = () => {
   const rolling = watch('rolling');
   const rolesOfInterestCheck = watch('areaOfInterests');
   const technicalSkillsOther = watch('technicalSkills');
+  const jobTypesCheck = watch('jobType');
 
   const areasOfInterests =
     control._formValues.areaOfInterests === undefined ||
@@ -158,12 +162,21 @@ const PostRoleForm = () => {
         errors={errors.company}
       />
       <SelectField
-        label="Location"
-        name="location"
+        label="Job type"
+        name="jobType"
         control={control}
-        options={locations}
-        errors={errors.location}
+        options={jobTypes}
+        errors={errors.jobType}
       />
+      {jobTypesCheck !== 'Remote' && (
+        <SelectField
+          label="Location"
+          name="location"
+          control={control}
+          options={locations}
+          errors={errors.location}
+        />
+      )}
       <SelectField
         label="Position Type"
         name="positionType"

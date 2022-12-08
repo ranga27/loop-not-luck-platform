@@ -83,6 +83,8 @@ const ApplicationsCard = ({ application }) => {
               <dd className="col-sm-8">{application.organisation}</dd>
               <dt className="col-sm-4">Company</dt>
               <dd className="col-sm-8">{application.company}</dd>
+              <dt className="col-sm-4 text-truncate">Job type</dt>
+              <dd className="col-sm-8">{application.jobType}</dd>
               <dt className="col-sm-4 text-truncate">Location</dt>
               <dd className="col-sm-8">{application.location}</dd>
               <dt className="col-sm-4 text-truncate">Job Title</dt>
