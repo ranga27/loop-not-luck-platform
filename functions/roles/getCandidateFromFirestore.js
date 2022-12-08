@@ -13,7 +13,7 @@ const getCandidateFromFirestore = async (candidateUid) => {
     }
 
     const foundCandidate = {
-      id: doc.id(),
+      id: doc.id,
       ...doc.data(),
     };
 
