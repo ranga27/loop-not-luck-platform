@@ -33,7 +33,7 @@ const buttonStyles = {
   fontWeight: 'bold',
 };
 
-const FeedbackPopup = () => {
+const FeedbackPopup = ({ userFullName, userEmail }) => {
   const location = useLocation();
   const currentPage = location.pathname;
   const SUBJECT = `Feedback for page ${currentPage}`;
@@ -41,8 +41,8 @@ const FeedbackPopup = () => {
   const [modal, setModal] = useState(false);
 
   const defaultValues = {
-    fullName: '',
-    email: '',
+    fullName: userFullName,
+    email: userEmail,
     feedback: '',
   };
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import FeedbackPopup from '../components/FeedbackPopup';
 
 const PublicLayout = ({ children }) => {
   useEffect(() => {
@@ -16,6 +17,7 @@ const PublicLayout = ({ children }) => {
       <main>
         <div className="container">{children}</div>
       </main>
+      <FeedbackPopup />
     </>
   );
 };

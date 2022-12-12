@@ -5,6 +5,7 @@ import TopNav from '../containers/navs/Topnav';
 import Sidebar from '../containers/navs/Sidebar';
 import Footer from '../containers/navs/Footer';
 import BG from '../assets/logos/plain.png';
+import FeedbackPopup from '../components/FeedbackPopup';
 
 const AppLayout = ({ children }) => {
   const { containerClassnames } = useSelector((state) => state.menu);
@@ -32,6 +33,7 @@ const AppLayout = ({ children }) => {
         <div className="container-fluid">{children}</div>
       </main>
       <Footer />
+      <FeedbackPopup userFullName={fullName} userEmail={user.data.email} />
     </div>
   );
 };
