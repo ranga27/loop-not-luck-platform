@@ -86,6 +86,12 @@ const RolesCarousel = ({ roles, otherRoles, topMatch }) => {
             }
             renderBottomCenterControls={null}
           >
+            {!topMatch.length && (
+              <h3>
+                There are no recommending roles for you right now, have a look
+                at some other positions.
+              </h3>
+            )}
             {topMatch.map((item) => (
               <div key={item.id}>
                 <Row md="2">

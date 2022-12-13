@@ -100,6 +100,14 @@ const CandidateAccountContainer = () => {
         ...data,
         cvUrl,
       });
+
+      // If any field is undefined than make it null since undefined is not acceptable as a value in firestore
+      Object.entries(payload).forEach(([key, value]) => {
+        if (value === undefined) {
+          payload[key] = null;
+        }
+      });
+
       console.log('MUTATED: ', payload);
 
       // The payload will be null if popup will be cancelled.
@@ -125,6 +133,7 @@ const CandidateAccountContainer = () => {
           navigate('/app/roles');
         },
         onError(error) {
+          console.log(error);
           Swal.fire('Oops!', 'Failed to update profile.', 'error');
         },
         onMutate() {
