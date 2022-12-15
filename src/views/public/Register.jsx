@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import { NavLink, Navigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -11,7 +11,6 @@ import { Form, Button } from 'reactstrap';
 import {
   useAuthCreateUserWithEmailAndPassword,
   useAuthSignOut,
-  useAuthUser,
 } from '@react-query-firebase/auth';
 import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
@@ -25,7 +24,7 @@ import { getUserError } from '../../helpers/getUserError';
 import TermsModal from './TermsModal';
 
 const Register = () => {
-  const user = useAuthUser(['user'], auth);
+  const navigate = useNavigate();
 
   const defaultValues = {
     firstName: '',
@@ -88,6 +87,7 @@ const Register = () => {
                 if (result.isConfirmed || result.isDismissed) {
                   // Firebase signs in user on registration, hence sign out immediately to verify email
                   signOut.mutate();
+                  navigate('/login');
                 }
               });
           },
@@ -112,10 +112,6 @@ const Register = () => {
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
-
-  if (user.data) {
-    return <Navigate to="/app" />;
-  }
 
   // TODO: move form to its own component, see login
   return (

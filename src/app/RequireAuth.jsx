@@ -13,7 +13,7 @@ const RequireAuth = () => {
   if (userAuth.data) {
     return <Outlet />;
   }
-  return <Navigate to="/register" state={{ from: location }} />;
+  return <Navigate to="/login" state={{ from: location }} />;
 };
 
 export default RequireAuth;
