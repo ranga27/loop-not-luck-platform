@@ -10,7 +10,7 @@ import CarouselCardLeft from '../../components/cards/CarouselCardLeft';
 import CarouselCardRight from '../../components/cards/CarouselCardRight';
 import MoreRolesCarousel from './MoreRolesCarousel';
 
-const RolesCarousel = ({ roles, otherRoles, topMatch }) => {
+const RolesCarousel = ({ roles, otherRoles, topMatch, loadActiveTab }) => {
   const seenRole = (currentSlide) => {
     console.log(`seen role: ${roles[currentSlide].title}`);
   };
@@ -31,6 +31,7 @@ const RolesCarousel = ({ roles, otherRoles, topMatch }) => {
             })}
             onClick={() => {
               toggle('1');
+              loadActiveTab('recommended');
             }}
           >
             Recommended Roles
@@ -44,6 +45,7 @@ const RolesCarousel = ({ roles, otherRoles, topMatch }) => {
             })}
             onClick={() => {
               toggle('2');
+              loadActiveTab('other');
             }}
           >
             Other Roles
@@ -88,8 +90,8 @@ const RolesCarousel = ({ roles, otherRoles, topMatch }) => {
           >
             {!topMatch.length && (
               <h3>
-                There are no recommending roles for you right now, have a look
-                at some other positions.
+                There are no recommended roles for you right now, have a look at
+                some other positions.
               </h3>
             )}
             {topMatch.map((item) => (
