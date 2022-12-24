@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
@@ -36,11 +37,23 @@ const CarouselCardLeft = ({ role }) => {
     setSaved(!saved);
     const newData = { saved: !role.saved, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
+
+    Swal.fire(
+      `Successfully ${saved ? 'unsaved' : 'saved'}!`,
+      'You can navigate to "Saved Roles" tab to view your saved roles.',
+      'success'
+    );
   };
 
   const applyRole = async () => {
     const newData = { applied: true, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
+
+    Swal.fire(
+      'Successfully applied!',
+      'You can navigate to "Applications" tab to view your applications.',
+      'success'
+    );
   };
 
   return (
