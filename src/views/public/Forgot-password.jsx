@@ -61,6 +61,7 @@ const ForgotPassword = () => {
                 className="form-control"
                 name="email"
                 validate={validateEmail}
+                data-cy="forgot-password-email-input"
               />
               {errors.email && touched.email && (
                 <div className="invalid-feedback d-block">{errors.email}</div>

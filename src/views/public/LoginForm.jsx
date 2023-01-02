@@ -31,6 +31,7 @@ const LoginForm = ({ onUserLogin, isLoading }) => {
           label="Email"
           errors={errors.email}
           control={control}
+          data-cy="login-email-input"
         />
         <TextInput
           name="password"
@@ -38,12 +39,18 @@ const LoginForm = ({ onUserLogin, isLoading }) => {
           errors={errors.password}
           control={control}
           type="password"
+          data-cy="login-password-input"
         />
         <div className="d-flex flex-column justify-content-center align-items-center">
           <NavLink to="/forgot-password">
             <IntlMessages id="user.forgot-password-question" />
           </NavLink>
-          <AuthButton loading={isLoading} label="user.login-button" />
+
+          <AuthButton
+            data-cy="login-submit-button"
+            loading={isLoading}
+            label="user.login-button"
+          />
           <p>
             <br />
             If you are not a member, please{' '}
