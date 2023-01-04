@@ -2,5 +2,6 @@
   "landingPage": "http://localhost:3000/",
   "registerPage": "/register",
   "loginPage": "/login",
-  "forgotPasswordPage": "/forgot-password"
+  "forgotPasswordPage": "/forgot-password",
+  "candidateAccountPage": "/app/account"
 }

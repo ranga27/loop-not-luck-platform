@@ -1,0 +1,17 @@
+{
+  "accountSelectors": {
+    "FirstNameAccountInput": "[data-cy=account-first-name-input]",
+    "LastNameAccountInput": "[data-cy=account-last-name-input]",
+    "MobileAccountInput": "[data-cy=account-mobile-input]",
+    "LocationAccountInput": "[data-cy=account-location-input]",
+    "DegreeAccountInput": "[data-cy=account-degree-input]",
+    "GraduationYearAccountInput": "[data-cy=account-graduation-year-input]",
+    "VisaRequiredAccountInput": "[data-cy=account-visa-required-input]",
+    "JobValuesAccountInput": "[data-cy=account-job-values-input]",
+    "MoreJobValuesAccountInput": "[data-cy=account-more-job-values-input]",
+    "BehaviorAttributesAccountInput": "[data-cy=account-behavior-attributes-input]",
+    "TechnicalSkillsAccountInput": "[data-cy=account-technical-skills-input]",
+    "EmailAccountInput": "[data-cy=account-email-input]",
+    "SubmitAccountButton": "[data-cy=account-submit-button]"
+  }
+}

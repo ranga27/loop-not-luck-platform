@@ -20,7 +20,7 @@ const Main = () => {
           <BrowserRouter>
             <Suspense fallback={<div className="loading" />}>
               <App />
-              <ReactQueryDevtools initialIsOpen />
+              <ReactQueryDevtools initialIsOpen={false} />
             </Suspense>
           </BrowserRouter>
         </PersistGate>

@@ -1,4 +1,6 @@
 const { defineConfig } = require('cypress');
+const cypressFirebasePlugin = require('cypress-firebase').plugin;
+const admin = require('firebase-admin');
 
 module.exports = defineConfig({
   viewportWidth: 1300,
@@ -15,12 +17,14 @@ module.exports = defineConfig({
     USER_PASSWORD: '12345678',
     DOMAIN_NAME: 'localhost',
     secureCookie: false,
+    TEST_UID: 'EKIWKAPuwnQ9PAPtQZS2hMh06Ft1',
   },
   e2e: {
+    baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
       // implement node event listeners here
+      return cypressFirebasePlugin(on, config, admin);
     },
-    baseUrl: 'http://localhost:3000',
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
   },
 });
