@@ -74,7 +74,7 @@
     "precommit": "lint-staged",
     "deploy": "npm run build && firebase deploy --only hosting, functions",
     "emulators": "firebase emulators:start --import ./prod-data --export-on-exit=./test-data",
-    "build:cypress-firebase": "babel node_modules/cypress-firebase/lib-esm -d lib",
+    "build:cypress-firebase": "babel node_modules/cypress-firebase/lib-esm -d cypress/lib",
     "cypress:open": "cypress open"
   },
   "browserslist": [

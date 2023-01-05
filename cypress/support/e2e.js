@@ -23,9 +23,9 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
 import 'firebase/compat/firestore';
-// import { attachCustomCommands } from 'cypress-firebase'; // TODO: Fix this. While importing this it's throwing compilaton error
 import { firebaseConfig } from '../../src/constants/defaultValues';
+import attachCustomCommands from '../lib/attachCustomCommands';
 
 const namedApp = firebase.initializeApp(firebaseConfig, 'loop-luck');
 
-// attachCustomCommands({ Cypress, cy, firebase, app: namedApp });
+attachCustomCommands({ Cypress, cy, firebase, app: namedApp });
