@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
-import { Button, Card, CardBody } from 'reactstrap';
+import { Button, Card, CardBody, Tooltip } from 'reactstrap';
 import { firestore } from '../../helpers/Firebase';
 
 const CarouselCardLeft = ({ role }) => {
@@ -19,8 +19,11 @@ const CarouselCardLeft = ({ role }) => {
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
   };
-  const user = useQuery(['userAuth']);
-  const { uid } = user.data;
+  const userDoc = useQuery('userDoc');
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const toggle = () => setTooltipOpen(!tooltipOpen);
+  const { uid, hasCompletedProfile, cvUrl, cvUploadDate } = userDoc.data;
+
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, `users/${uid}/matchedRoles`, role.id),
     { merge: true },
@@ -143,6 +146,11 @@ const CarouselCardLeft = ({ role }) => {
               color="primary"
               onClick={() => applyRole()}
               className="slider-top-button"
+              disabled={
+                hasCompletedProfile === false ||
+                cvUrl === null ||
+                cvUploadDate === null
+              }
             >
               Apply
             </Button>
@@ -159,6 +167,36 @@ const CarouselCardLeft = ({ role }) => {
             {saved === true ? 'Unsave' : 'Save'}
           </Button>
         </div>
+        {hasCompletedProfile === false ||
+        cvUrl === null ||
+        cvUploadDate === null ? (
+          <div className="d-flex">
+            <Tooltip
+              placement="bottom"
+              isOpen={tooltipOpen}
+              target="TooltipExample"
+              toggle={toggle}
+              autohide={false}
+            >
+              Please complete your profile and upload your cv before you apply
+              for any role. Visit{' '}
+              <a
+                href="https://loop-luck.web.app/app/account"
+                rel="noreferrer"
+                className="text-primary"
+              >
+                Here
+              </a>{' '}
+              to complete your profile.
+            </Tooltip>
+            <i
+              className="iconsminds-information h4 px-2 text-primary"
+              style={{ width: '40px', fontWeight: 'bold' }}
+              id="TooltipExample"
+            />
+            <span className="py-1">Complete your profile before you apply</span>
+          </div>
+        ) : null}
       </CardBody>
     </Card>
   );
