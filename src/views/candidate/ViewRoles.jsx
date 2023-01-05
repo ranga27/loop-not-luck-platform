@@ -3,7 +3,13 @@ import React, { useState } from 'react';
 import { Badge, Button, Card, CardBody, Col, Row } from 'reactstrap';
 import { useQuery } from 'react-query';
 import { NavLink } from 'react-router-dom';
-import { collection, query, doc, serverTimestamp } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  doc,
+  serverTimestamp,
+  where,
+} from 'firebase/firestore';
 import {
   useFirestoreQuery,
   useFirestoreDocumentMutation,
@@ -29,7 +35,10 @@ const ViewRoles = () => {
 
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
-  const rolesRef = query(collection(firestore, `users/${uid}/matchedRoles`));
+  const rolesRef = query(
+    collection(firestore, `users/${uid}/matchedRoles`),
+    where('deadline', '>', new Date(Date.now()))
+  );
 
   const userRef = doc(firestore, 'users', uid);
   const userMutation = useFirestoreDocumentMutation(userRef, {
