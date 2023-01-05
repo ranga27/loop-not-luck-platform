@@ -9,6 +9,7 @@ import {
   doc,
   serverTimestamp,
   where,
+  orderBy,
 } from 'firebase/firestore';
 import {
   useFirestoreQuery,
@@ -37,6 +38,8 @@ const ViewRoles = () => {
   const { uid } = user.data;
   const rolesRef = query(
     collection(firestore, `users/${uid}/matchedRoles`),
+    orderBy('deadline', 'asc'),
+    orderBy('score', 'desc'),
     where('deadline', '>', new Date(Date.now()))
   );
 
@@ -108,7 +111,7 @@ const ViewRoles = () => {
                   : 'Other Roles'}
                 <Badge color="primary" pill className="m-1">
                   {activeRoleTab === 'recommended'
-                    ? getRoles(roles, 'topMatch').length
+                    ? roles.length // To use in future -> getRoles(roles, 'topMatch').length
                     : getRoles(roles, 'others').length}
                 </Badge>
               </h3>
