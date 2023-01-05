@@ -2,13 +2,14 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { Card, CardBody } from 'reactstrap';
-import RolesCarousel from './RolesCarousel';
+import CombinedRoles from './CombinedRoles';
+// import RolesCarousel from './RolesCarousel';
 
 const ViewRolesContainer = ({
   isLoading,
   roles,
-  otherRoles,
-  topMatch,
+  // otherRoles,
+  // topMatch,
   loadActiveTab,
 }) => {
   // TODO: add logic for no roles found
@@ -18,12 +19,15 @@ const ViewRolesContainer = ({
 
   if (roles.length > 0) {
     return (
-      <RolesCarousel
-        roles={roles}
-        otherRoles={otherRoles}
-        topMatch={topMatch}
-        loadActiveTab={loadActiveTab}
-      />
+      // TODO: For now using ./CombinedRoles, in upcoming update will switch to ./RolesCarousel
+      <CombinedRoles roles={roles} loadActiveTab={loadActiveTab} />
+
+      // <RolesCarousel
+      //   roles={roles}
+      //   otherRoles={otherRoles}
+      //   topMatch={topMatch}
+      //   loadActiveTab={loadActiveTab}
+      // />
     );
   }
 
