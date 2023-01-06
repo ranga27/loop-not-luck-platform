@@ -115,7 +115,10 @@ const ViewRoles = () => {
                     : getRoles(roles, 'others').length}
                 </Badge>
               </h3>
-              <Button onClick={() => onSubmit()} style={{ marginLeft: '15px' }}>
+              <Button
+                onClick={() => onSubmit()}
+                style={{ marginLeft: '15px', zIndex: 1 }}
+              >
                 Refresh roles
               </Button>
             </div>
