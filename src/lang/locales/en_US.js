@@ -72,6 +72,7 @@ module.exports = {
   'menu.screening': 'Screening',
   'menu.templates': 'Templates',
   'menu.profiles': 'Users List',
+  'menu.admin-dashboard': 'Admin Dashboard',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
