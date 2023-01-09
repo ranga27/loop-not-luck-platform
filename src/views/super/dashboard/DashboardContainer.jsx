@@ -5,6 +5,7 @@ import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { firestore } from '../../../helpers';
 import { formatDateInArray } from '../../../helpers/Utils';
 import { Colxx } from '../../../components/common/CustomBootstrap';
+// import NestedMetrics from './NestedMetrics';
 
 const ManageProfiles = () => {
   const { isLoading, data: usersList } = useFirestoreQuery(
@@ -27,6 +28,11 @@ const ManageProfiles = () => {
       },
     }
   );
+
+  if (isLoading) {
+    return <div className="loading" />;
+  }
+
   const isOnboarded = usersList.filter((x) => x.isOnboarded);
   const isNotOnboarded = usersList.filter((x) => !x.isOnboarded);
 
@@ -37,9 +43,6 @@ const ManageProfiles = () => {
   const profileCompleted = usersList.filter((x) => x.hasCompletedProfile);
   const profileNotCompleted = usersList.filter((x) => !x.hasCompletedProfile);
 
-  if (isLoading) {
-    return <div className="loading" />;
-  }
   return (
     <div>
       <Row md="2">
@@ -136,6 +139,7 @@ const ManageProfiles = () => {
           </Card>
         </Colxx>
       </Row>
+      {/* <NestedMetrics users={usersList} /> */}
     </div>
   );
 };
