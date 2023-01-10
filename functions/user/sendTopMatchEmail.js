@@ -48,7 +48,7 @@ exports.sendTopMatchEmail = ({
                             <tbody>
                               <tr>
                                 <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
-                                  <p class="text" style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0"><strong>Congratulation ${firstName}..!</strong> You hvae matched <strong>Company: ${company}</strong> with score of <strong>${updatedScore}</strong> work details are ${description}</p><br>
+                                  <p class="text" style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0"><strong>Congratulation ${firstName}..!</strong> You have matched <strong>Company: ${company}</strong> with score of <strong>${updatedScore}</strong> work details are ${description}</p><br>
                                   <p>Company Email: <strong>${
                                     companyWeb ? companyWeb : 'Not Mentioned'
                                   }</strong></p>
