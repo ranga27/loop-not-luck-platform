@@ -5,7 +5,7 @@ import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { firestore } from '../../../helpers';
 import { formatDateInArray } from '../../../helpers/Utils';
 import { Colxx } from '../../../components/common/CustomBootstrap';
-// import NestedMetrics from './NestedMetrics';
+import NestedMetrics from './NestedMetrics';
 
 const ManageProfiles = () => {
   const { isLoading, data: usersList } = useFirestoreQuery(
@@ -35,11 +35,8 @@ const ManageProfiles = () => {
 
   const isOnboarded = usersList.filter((x) => x.isOnboarded);
   const isNotOnboarded = usersList.filter((x) => !x.isOnboarded);
-
-  const onboardedWithCV = usersList.filter(
-    (x) => x.cvUploadDate !== null || x.cvUploadDate !== undefined
-  );
-  const onboardedWithoutCV = usersList.filter((x) => x.cvUploadDate === null);
+  const onboardedWithCV = usersList.filter((x) => x.cvUrl);
+  const onboardedWithoutCV = usersList.filter((x) => !x.cvUrl);
   const profileCompleted = usersList.filter((x) => x.hasCompletedProfile);
   const profileNotCompleted = usersList.filter((x) => !x.hasCompletedProfile);
 
@@ -52,6 +49,30 @@ const ManageProfiles = () => {
               <div className="text-center">
                 <CardTitle className="mb-1">
                   Total number of candidates who have signed up
+                </CardTitle>
+                <h3 style={{ fontWeight: 'bold' }}>{usersList.length}</h3>
+              </div>
+            </CardBody>
+          </Card>
+        </Colxx>
+        <Colxx lg="6" className="mb-4">
+          <Card className="mb-4">
+            <CardBody>
+              <div className="text-center">
+                <CardTitle className="mb-1">
+                  Total number of candidates who have signed up today
+                </CardTitle>
+                <h3 style={{ fontWeight: 'bold' }}>{usersList.length}</h3>
+              </div>
+            </CardBody>
+          </Card>
+        </Colxx>
+        <Colxx lg="6" className="mb-4">
+          <Card className="mb-4">
+            <CardBody>
+              <div className="text-center">
+                <CardTitle className="mb-1">
+                  Total number of candidates who have signed up this week
                 </CardTitle>
                 <h3 style={{ fontWeight: 'bold' }}>{usersList.length}</h3>
               </div>
@@ -139,7 +160,7 @@ const ManageProfiles = () => {
           </Card>
         </Colxx>
       </Row>
-      {/* <NestedMetrics users={usersList} /> */}
+      <NestedMetrics users={usersList} />
     </div>
   );
 };
