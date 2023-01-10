@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Form } from 'reactstrap';
+import { Button, Form, Tooltip } from 'reactstrap';
 import { AccountSchema } from '../../constants/accountSchema';
 import {
   DatePicker,
@@ -32,6 +32,8 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
   // TODO: convert into smart form
   const technicalSkillsOther = watch('technicalSkills');
   const jobValuesOther = watch('jobValues');
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const toggle = () => setTooltipOpen(!tooltipOpen);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -156,11 +158,26 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
               CV Exists, uploaded on{' '}
               {new Date(defaultValues.cvUploadDate).toUTCString()}
             </p>
-            <i
-              className="iconsminds-information h4 px-2 text-primary"
-              style={{ width: '40px', fontWeight: 'bold' }}
-              id="TooltipExample"
-            />
+            <a href={defaultValues.cvUrl} target="_blank" rel="noreferrer">
+              <i
+                className="iconsminds-download bi bi-type-bold h5 bold px-2 text-primary"
+                style={{
+                  width: '40px',
+                  fontWeight: 900,
+                  WebkitTextStroke: '2px',
+                }}
+                id="DownloadToolTip"
+              />
+              <Tooltip
+                placement="bottom"
+                isOpen={tooltipOpen}
+                target="DownloadToolTip"
+                toggle={toggle}
+                autohide={false}
+              >
+                Download CV
+              </Tooltip>
+            </a>
           </>
         )}
       </div>

@@ -248,3 +248,92 @@ export async function fetchUserProfileDataFromFirestore(uid) {
   const data = userDoc.data();
   return data;
 }
+
+export async function fetchMetrics(users) {
+  const appliedRoles = [];
+  const savedRoles = [];
+  const declinedRoles = [];
+
+  for (const user of users) {
+    const roleRef = collection(firestore, 'users', user.id, 'matchedRoles');
+    const q = query(roleRef, where('applied', '==', true));
+    const querySnapshot = await getDocs(q);
+    const allAppliedRoles = querySnapshot.docs.map((docu) => ({
+      ...docu.data(),
+      id: docu.id,
+    }));
+    const mergedArray = {
+      ...user,
+      appliedRoles: allAppliedRoles,
+    };
+
+    appliedRoles.push(mergedArray);
+  }
+
+  for (const user of users) {
+    const roleRef = collection(firestore, 'users', user.id, 'matchedRoles');
+    const q = query(roleRef, where('saved', '==', true));
+    const querySnapshot = await getDocs(q);
+    const allSavedRoles = querySnapshot.docs.map((docu) => ({
+      ...docu.data(),
+      id: docu.id,
+    }));
+    const mergedArray = {
+      ...user,
+      savedRoles: allSavedRoles,
+    };
+    savedRoles.push(mergedArray);
+  }
+
+  for (const user of users) {
+    const roleRef = collection(firestore, 'users', user.id, 'matchedRoles');
+    const q = query(
+      roleRef,
+      where('declineResponse', 'in', ['Salary', 'Not Interesting'])
+    );
+    const querySnapshot = await getDocs(q);
+    const declinedResponses = querySnapshot.docs.map((docu) => ({
+      ...docu.data(),
+      id: docu.id,
+    }));
+    const mergedArray = {
+      ...user,
+      declinedRoles: declinedResponses,
+    };
+    declinedRoles.push(mergedArray);
+  }
+
+  const cleanSavedRolesArray = savedRoles.filter(
+    (role) => role.savedRoles.length !== 0
+  );
+  const cleanAppliedRolesArray = appliedRoles.filter(
+    (role) => role.appliedRoles.length !== 0
+  );
+
+  const cleanDeclinedRolesArray = declinedRoles.filter(
+    (role) => role.declinedRoles.length !== 0
+  );
+
+  let innerUserSavedRolesArray = 0;
+  let innerUserAppliedRolesArray = 0;
+  let innerUserDeclinedArray = 0;
+
+  for (const nestedSavedRolesResponse of cleanSavedRolesArray) {
+    innerUserSavedRolesArray += nestedSavedRolesResponse.savedRoles.length;
+  }
+  for (const nestedAppliedRolesResponse of cleanAppliedRolesArray) {
+    innerUserAppliedRolesArray +=
+      nestedAppliedRolesResponse.appliedRoles.length;
+  }
+  for (const nestedDeclineResponse of cleanDeclinedRolesArray) {
+    innerUserDeclinedArray += nestedDeclineResponse.declinedRoles.length;
+  }
+
+  const mergedArray = {
+    saved: innerUserSavedRolesArray,
+    applied: innerUserAppliedRolesArray,
+    declinedRoles: innerUserDeclinedArray,
+  };
+
+  return mergedArray;
+}
