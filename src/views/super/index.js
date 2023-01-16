@@ -87,6 +87,16 @@ const HelpPage = lazy(() =>
   import(/* webpackChunkName: "admin-help-page" */ '../public/Help')
 );
 
+const AdminDashboard = lazy(() =>
+  import(/* webpackChunkName: "admin-dashboard" */ './dashboard')
+);
+
+const Dashboard = lazy(() =>
+  import(
+    /* webpackChunkName: "admin-dashboard-page" */ './dashboard/DashboardContainer'
+  )
+);
+
 const SuperAdminRoute = () => {
   return (
     <AppLayout>
@@ -109,6 +119,9 @@ const SuperAdminRoute = () => {
           <Route path="profiles" element={<UserProfiles />}>
             <Route index element={<ManageProfiles />} />
             <Route path=":id" element={<UserProfile />} />
+          </Route>
+          <Route path="dashboard" element={<AdminDashboard />}>
+            <Route index element={<Dashboard />} />
           </Route>
           <Route path="templates" element={<Templates />}>
             <Route index element={<ViewTemplates />} />

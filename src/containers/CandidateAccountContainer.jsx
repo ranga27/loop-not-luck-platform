@@ -85,6 +85,7 @@ const CandidateAccountContainer = () => {
     moreTechnicalSkills: moreTechnicalSkills || '',
     moreJobValues: moreJobValues || '',
     location: location || '',
+    cvUrl,
   };
 
   const onSubmit = async (data) => {

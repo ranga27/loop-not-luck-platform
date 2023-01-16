@@ -72,6 +72,7 @@ module.exports = {
   'menu.screening': 'Screening',
   'menu.templates': 'Templates',
   'menu.profiles': 'Users List',
+  'menu.admin-dashboard': 'Admin Dashboard',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
@@ -160,6 +161,7 @@ module.exports = {
   'pages.application-name': 'Applicant Name',
   'pages.application-email': 'Email',
   'pages.application-company': 'Company',
+  'pages.application-title': 'Role Title',
   'pages.application-position': 'Job Position',
   'pages.application-department': 'Department',
   'pages.application-match': 'Candidate Role Match',
