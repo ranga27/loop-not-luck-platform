@@ -29,6 +29,7 @@ const RolesCarousel = ({ roles, otherRoles, topMatch, loadActiveTab }) => {
               active: currentActiveTab === '1',
               'text-dark': currentActiveTab === '2',
             })}
+            data-cy="my-loop-recommended-roles-link"
             onClick={() => {
               toggle('1');
               loadActiveTab('recommended');

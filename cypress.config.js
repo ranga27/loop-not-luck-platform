@@ -13,8 +13,8 @@ module.exports = defineConfig({
   env: {
     ENVIRONMENT: 'local',
     LOOP_URL: 'http://localhost:3000',
-    USER_EMAIL: 'abraham+1@loopnotluck.com',
-    USER_PASSWORD: '12345678',
+    USER_EMAIL: 'Abraham+14@loopnotluck.com',
+    USER_PASSWORD: 'Abraham+14@loopnotluck.com',
     DOMAIN_NAME: 'localhost',
     secureCookie: false,
     TEST_UID: 'EKIWKAPuwnQ9PAPtQZS2hMh06Ft1',

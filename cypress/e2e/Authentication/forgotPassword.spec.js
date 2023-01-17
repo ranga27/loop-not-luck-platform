@@ -1,4 +1,5 @@
-let routes, auth;
+let routes;
+let auth;
 
 before(() => {
   cy.fixture('auth').then((content) => (auth = content));

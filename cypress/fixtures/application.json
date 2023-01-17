@@ -1,0 +1,8 @@
+{
+  "applicationSelectors": {
+    "ActionRequiredButton": "[data-cy=my-application-action-reqiquired-button]",
+    "AllApplicationButton": "[data-cy=my-application-all-application-button]",
+    "ApplicationCard": "[data-cy=my-application-application-card]",
+    "ShowApplicationDetailButton": "[data-cy=my-application-show-details-button]"
+  }
+}
