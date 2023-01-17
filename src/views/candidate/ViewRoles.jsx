@@ -89,7 +89,11 @@ const ViewRoles = () => {
                   {rolesLength}
                 </Badge>
               </h3>
-              <Button onClick={() => onSubmit()} style={{ marginLeft: '15px' }}>
+              <Button
+                onClick={() => onSubmit()}
+                style={{ marginLeft: '15px' }}
+                data-cy="my-loop-refresh-roles-button"
+              >
                 Refresh roles
               </Button>
             </div>

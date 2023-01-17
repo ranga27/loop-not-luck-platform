@@ -1,0 +1,14 @@
+{
+  "loopSelectors": {
+    "RefreshRolesButton": "[data-cy=my-loop-refresh-roles-button]",
+    "LeftCarouselCard": "[data-cy=my-loop-left-carousel-card]",
+    "RightCarouselCard": "[data-cy=my-loop-right-carousel-card]",
+    "NotInterestingButton": "[data-cy=my-loop-right-carousel-not-interesting-button]",
+    "SalaryButton": "[data-cy=my-loop-right-carousel-salary-button]",
+    "OtherButton": "[data-cy=my-loop-right-carousel-other-button]",
+    "MatchScore": "[data-cy=my-loop-right-carousel-match-score]",
+    "RecommendedRolesLink": "[data-cy=my-loop-recommended-roles-link]"
+
+
+  }
+}

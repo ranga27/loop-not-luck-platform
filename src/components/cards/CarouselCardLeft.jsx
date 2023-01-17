@@ -44,7 +44,7 @@ const CarouselCardLeft = ({ role }) => {
   };
 
   return (
-    <Card style={{ marginLeft: '0px' }}>
+    <Card style={{ marginLeft: '0px' }} data-cy="my-loop-left-carousel-card">
       <CardBody>
         <div className="d-flex flex-row m-2 p-2">
           <img
