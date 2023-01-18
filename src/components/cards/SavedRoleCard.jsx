@@ -26,7 +26,7 @@ const SavedRoleCard = ({ role }) => {
     refetch();
   };
   return (
-    <Card key={role.id} className="">
+    <Card key={role.id} className="" data-cy="saved-role-role-card">
       <CardBody>
         <div className="float-left">
           <div className="d-flex flex-row ">
@@ -64,6 +64,7 @@ const SavedRoleCard = ({ role }) => {
               onClick={() => applyRole()}
               className="slider-top-button"
               disabled={role.applied === true}
+              data-cy="saved-role-apply-button"
             >
               {role.applied === true ? 'Applied' : 'Apply'}
             </Button>
@@ -73,12 +74,13 @@ const SavedRoleCard = ({ role }) => {
               onClick={() => saveRole()}
               outline
               className="slider-top-button"
+              data-cy="saved-role-remove-button"
             >
               {role.saved === true ? 'Remove' : 'Save'}
             </Button>
           </div>
           <div>
-            <p>
+            <p data-cy="saved-role-view-information">
               {isViewInfo ? '' : role.description}{' '}
               <span
                 onClick={toggleViewInfo}

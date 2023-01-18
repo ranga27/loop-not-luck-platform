@@ -9,5 +9,6 @@
   "profile": "http://localhost:3000/app/account",
   "loop": "http://localhost:3000/app/roles",
   "loopPage": "/app/roles",
-  "application": "/app/applications"
+  "application": "/app/applications",
+  "savedRole": "/app/saved"
 }
