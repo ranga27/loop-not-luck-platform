@@ -73,6 +73,7 @@ typings/
 .DS_STORE
 .DS_Store
 .vscode
+cypress.env.json
 
 # workspace var
 .code-workspace

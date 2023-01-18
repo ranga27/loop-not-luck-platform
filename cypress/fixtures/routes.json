@@ -1,0 +1,18 @@
+{
+  "landingPage": "http://localhost:3000/app",
+  "registerPage": "/register",
+  "loginPage": "/login",
+  "forgotPasswordPage": "/forgot-password",
+  "candidateAccountPage": "/app/account",
+  "logout": "/app/logout",
+  "onboarding": "/app/onboard",
+  "profile": "http://localhost:3000/app/account",
+  "loop": "http://localhost:3000/app/roles",
+  "loopPage": "/app/roles",
+  "application": "/app/applications",
+  "savedRole": "/app/saved",
+  "help": "/app/help",
+  "applications": "http://localhost:3000/app/applications",
+  "saved": "http://localhost:3000/app/saved",
+  "messages": "http://localhost:3000/app/messages"
+}

@@ -123,12 +123,14 @@ const Register = () => {
             label="First Name"
             errors={errors.firstName}
             control={control}
+            data-cy="register-first-name-input"
           />
           <TextInput
             name="email"
             label="Email"
             errors={errors.email}
             control={control}
+            data-cy="register-email-input"
           />
           <TextInput
             name="password"
@@ -136,6 +138,7 @@ const Register = () => {
             errors={errors.password}
             control={control}
             type="password"
+            data-cy="register-password-input"
           />
           <TextInput
             name="confirmPassword"
@@ -143,12 +146,14 @@ const Register = () => {
             errors={errors.confirmPassword}
             control={control}
             type="password"
+            data-cy="register-confirm-password-input"
           />
           <div className="truncate d-flex flex-row">
             <CheckBox
               name="termsSelected"
               label="I agree with the"
               control={control}
+              data-cy="register-agree-checkbox"
             />
             <Button
               type="button"

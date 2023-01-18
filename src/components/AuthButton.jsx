@@ -1,6 +1,16 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import IntlMessages from '../helpers/IntlMessages';
+
+const getDataAttribute = (label) => {
+  const attributes = {
+    'user.login-button': 'login-submit-button',
+    'user.register-button': 'register-submit-button',
+    'pages.submit': 'forgot-password-submit-button',
+  };
+  return attributes[label];
+};
+
 // TODO: Styled Button using styled components
 const AuthButton = ({ loading, label }) => {
   return (
@@ -11,6 +21,7 @@ const AuthButton = ({ loading, label }) => {
         loading ? 'show-spinner' : ''
       }`}
       size="lg"
+      data-cy={getDataAttribute(label)}
     >
       <span className="spinner d-inline-block">
         <span className="bounce1" />

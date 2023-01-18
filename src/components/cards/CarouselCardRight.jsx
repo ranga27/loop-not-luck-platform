@@ -47,11 +47,15 @@ const CarouselCardRight = ({ role }) => {
   };
 
   return (
-    <Card style={{ marginLeft: '0px' }}>
+    <Card style={{ marginLeft: '0px' }} data-cy="my-loop-right-carousel-card">
       <CardBody className="m-3 p-3">
         <h5 className="mt-3">
           You are a{' '}
-          <span className="text-primary" style={{ fontWeight: 'bold' }}>
+          <span
+            className="text-primary"
+            data-cy="my-loop-right-carousel-match-score"
+            style={{ fontWeight: 'bold' }}
+          >
             {role.score}%{' '}
           </span>
           match
@@ -151,6 +155,7 @@ const CarouselCardRight = ({ role }) => {
                     id="applyButton"
                     color="primary"
                     className="text-xl"
+                    data-cy="my-loop-right-carousel-not-interesting-button"
                     onClick={() => onSubmit('Not Interesting')}
                   >
                     Not Interesting
@@ -161,6 +166,7 @@ const CarouselCardRight = ({ role }) => {
                   <Button
                     id="applyButton"
                     color="primary"
+                    data-cy="my-loop-right-carousel-salary-button"
                     onClick={() => onSubmit('Salary')}
                     className=""
                   >
@@ -173,6 +179,7 @@ const CarouselCardRight = ({ role }) => {
                     id="applyButton"
                     color="primary"
                     className="text-xl"
+                    data-cy="my-loop-right-carousel-other-button"
                     onClick={() => setShowTextField(true)}
                   >
                     Other

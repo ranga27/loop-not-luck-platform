@@ -117,7 +117,8 @@ const ViewRoles = () => {
               </h3>
               <Button
                 onClick={() => onSubmit()}
-                style={{ marginLeft: '15px', zIndex: 1 }}
+                style={{ marginLeft: '15px' }}
+                data-cy="my-loop-refresh-roles-button"
               >
                 Refresh roles
               </Button>

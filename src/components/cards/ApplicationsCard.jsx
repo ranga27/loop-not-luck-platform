@@ -6,7 +6,7 @@ const ApplicationsCard = ({ application }) => {
 
   return (
     <Card key={application.id} className="">
-      <CardBody>
+      <CardBody data-cy="my-application-application-card">
         <div className="float-left">
           <div className="d-flex flex-row ">
             <img
@@ -64,7 +64,12 @@ const ApplicationsCard = ({ application }) => {
           ) : (
             <div>
               <Button onClick={() => setCollapse(!collapse)} color="link">
-                <span style={{ color: '#F7B919' }}>View Role Information</span>
+                <span
+                  style={{ color: '#F7B919' }}
+                  data-cy="my-application-show-details-button"
+                >
+                  View Role Information
+                </span>
               </Button>
               <br />
               <span className="block ">

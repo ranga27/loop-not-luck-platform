@@ -42,12 +42,14 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         label="First Name"
         control={control}
         errors={errors.firstName}
+        data-cy="account-first-name-input"
       />
       <TextInput
         name="lastName"
         label="Last Name"
         control={control}
         errors={errors.lastName}
+        data-cy="account-last-name-input"
       />
       <TextInput
         name="mobileNumber"
@@ -55,6 +57,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         control={control}
         type="tel"
         errors={errors.mobileNumber}
+        data-cy="account-mobile-input"
       />
       <SelectField
         label="Location"
@@ -62,12 +65,14 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         control={control}
         options={locations}
         errors={errors.location}
+        dataCy="account-location-input"
       />
       <TextInput
         name="degreeSubject"
         label="Degree Subject"
         control={control}
         errors={errors.degreeSubject}
+        data-cy="account-degree-input"
       />
       <DatePicker
         name="graduationYear"
@@ -77,6 +82,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         showYearPicker
         dateFormat="yyyy"
         yearItemNumber={9}
+        dataCy="account-graduation-year-input"
       />
       <SelectField
         name="visaRequired"
@@ -84,6 +90,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         control={control}
         errors={errors.visaRequired}
         options={visaRequiredOptions}
+        dataCy="account-visa-required-input"
       />
       {/* eslint no-underscore-dangle: 0 */}
       <MultiSelect
@@ -100,6 +107,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         }
         closeMenuOnSelect={false}
         errors={errors.jobValues}
+        dataCy="account-job-values-input"
       />
       {jobValuesOther?.includes('Other') && (
         <TextInput
@@ -107,6 +115,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
           label="Other Job Values"
           control={control}
           errors={errors.jobValuesOther}
+          data-cy="account-more-job-values-input"
         />
       )}
       <MultiSelect
@@ -123,6 +132,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
           control._formValues.behaviorAttributes.length >= 3
         }
         closeMenuOnSelect={false}
+        dataCy="account-behavior-attributes-input"
       />
       <MultiSelect
         label="Technical Skills"
@@ -134,6 +144,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         defaultValue={defaultValues.technicalSkills}
         closeMenuOnSelect={false}
         errors={errors.technicalSkills}
+        dataCy="account-technical-skills-input"
       />
 
       {technicalSkillsOther?.includes('Other') && (
@@ -142,6 +153,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
           label="Other Technical Skills"
           control={control}
           errors={errors.technicalSkillsOther}
+          data-cy="account-more-technical-skills-input"
         />
       )}
 
@@ -181,7 +193,13 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
           </>
         )}
       </div>
-      <TextInput name="email" label="Email" control={control} disabled />
+      <TextInput
+        name="email"
+        label="Email"
+        control={control}
+        disabled
+        data-cy="account-email-input"
+      />
       <Button
         type="submit"
         color="primary"
@@ -189,6 +207,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
           isSubmitting ? 'show-spinner' : ''
         }`}
         size="lg"
+        data-cy="account-submit-button"
       >
         <span className="spinner d-inline-block">
           <span className="bounce1" />
