@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Input } from 'reactstrap';
+import { Table, Input, Badge } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import IntlMessages from '../../../helpers/IntlMessages';
 
@@ -36,6 +36,9 @@ const UserProfileTable = ({ profiles }) => {
         </div>
       </div>
 
+      <Badge color="success" pill className="mb-1 p-2">
+        <p className="fs-10 m-0">Total Users: {Profiles.length || 'NA'}</p>
+      </Badge>
       <Table responsive hover className="sticky-top">
         <thead>
           <tr>

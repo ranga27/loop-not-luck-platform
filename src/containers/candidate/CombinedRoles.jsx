@@ -9,8 +9,9 @@ import { Colxx } from '../../components/common/CustomBootstrap';
 import CarouselCardLeft from '../../components/cards/CarouselCardLeft';
 import CarouselCardRight from '../../components/cards/CarouselCardRight';
 import MoreRolesCarousel from './MoreRolesCarousel';
+import { sortCombinedRoles } from '../../helpers/Utils';
 
-const RolesCarousel = ({ roles, otherRoles, topMatch, loadActiveTab }) => {
+const CombinedRoles = ({ roles, loadActiveTab }) => {
   const seenRole = (currentSlide) => {
     console.log(`seen role: ${roles[currentSlide].title}`);
   };
@@ -29,27 +30,12 @@ const RolesCarousel = ({ roles, otherRoles, topMatch, loadActiveTab }) => {
               active: currentActiveTab === '1',
               'text-dark': currentActiveTab === '2',
             })}
-            data-cy="my-loop-recommended-roles-link"
             onClick={() => {
               toggle('1');
               loadActiveTab('recommended');
             }}
           >
             Recommended Roles
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            className={classnames({
-              active: currentActiveTab === '2',
-              'text-dark': currentActiveTab === '1',
-            })}
-            onClick={() => {
-              toggle('2');
-              loadActiveTab('other');
-            }}
-          >
-            Other Roles
           </NavLink>
         </NavItem>
       </Nav>
@@ -89,13 +75,13 @@ const RolesCarousel = ({ roles, otherRoles, topMatch, loadActiveTab }) => {
             }
             renderBottomCenterControls={null}
           >
-            {!topMatch.length && (
+            {!roles.length && (
               <h3>
                 There are no recommended roles for you right now, have a look at
                 some other positions.
               </h3>
             )}
-            {topMatch.map((item) => (
+            {sortCombinedRoles(roles).map((item) => (
               <div key={item.id}>
                 <Row md="2">
                   <Colxx lg="7">
@@ -110,11 +96,11 @@ const RolesCarousel = ({ roles, otherRoles, topMatch, loadActiveTab }) => {
           </Carousel>
         </TabPane>
         <TabPane tabId="2">
-          <MoreRolesCarousel otherRoles={otherRoles} />
+          <MoreRolesCarousel otherRoles={roles} />
         </TabPane>
       </TabContent>
     </>
   );
 };
 
-export default RolesCarousel;
+export default CombinedRoles;

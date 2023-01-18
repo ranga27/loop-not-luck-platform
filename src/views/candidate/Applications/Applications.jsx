@@ -80,6 +80,7 @@ const Applications = () => {
               color="danger"
               className="danger-button mr-2 pr-2"
               onClick={(e) => handleActionTab(e)}
+              data-cy="my-application-action-reqiquired-button"
             >
               {tabs[0].text}
             </Button>
@@ -88,6 +89,7 @@ const Applications = () => {
               color="link"
               onClick={(e) => handleAllApplicationTab(e)}
               className="transparent-button text-muted"
+              data-cy="my-application-all-application-button"
             >
               {tabs[1].text}
             </Button>

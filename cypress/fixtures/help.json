@@ -1,0 +1,8 @@
+{
+  "helpSelectors": {
+    "HelpVisaQuestion": "[data-cy=help-visa-question]",
+    "HelpUnsuccessfulDoubt": "[data-cy=help-unsuccessful-doubt]",
+    "HelpReviewCv": "[data-cy=help-review-cv]",
+    "HelpInterviewResultWaiting": "[data-cy=help-interview-result-waiting-doubt]"
+  }
+}

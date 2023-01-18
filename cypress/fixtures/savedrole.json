@@ -1,0 +1,8 @@
+{
+  "savedroleSelectors": {
+    "SavedRoleCard": "[data-cy=saved-role-role-card]",
+    "SavedRoleApplyButton": "[data-cy=saved-role-apply-button]",
+    "SavedRoleRemoveButton": "[data-cy=saved-role-remove-button]",
+    "SavedRoleViewInformation": "[data-cy=saved-role-view-information]"
+  }
+}

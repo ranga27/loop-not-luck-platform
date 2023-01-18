@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Form, Button } from 'reactstrap';
 import { companySchema } from '../../constants/companySchema';
 import { TextInput, MultiSelect, FileUpload, SelectField } from './FormFields';
-import tagOptions from '../../data/tagOptions';
+import { interestOptions } from '../../data/interestOptions';
 import { yesNoOptions } from '../../data/yesNoOptions';
 import { genderOptions } from '../../data/genderOptions';
 import { jobValuesOptions } from '../../data/jobValuesOptions';
@@ -62,7 +62,7 @@ const EditCompanyForm = ({ company, onSubmit }) => {
         label="Industry"
         name="industry"
         control={control}
-        options={tagOptions}
+        options={interestOptions}
         setValue={setValue}
         errors={errors.industry}
         clearErrors={clearErrors}

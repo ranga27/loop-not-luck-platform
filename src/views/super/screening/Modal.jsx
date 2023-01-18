@@ -123,76 +123,73 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
             />
             <dl className="row">
               <dt className="col-sm-3">Company</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].company}</dd>
+              <dd className="col-sm-9">{rolesData.company}</dd>
               <dt className="col-sm-3 text-truncate">Location</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].location}</dd>
+              <dd className="col-sm-9">{rolesData.location}</dd>
               <dt className="col-sm-3 text-truncate">Job Type</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].jobType}</dd>
+              <dd className="col-sm-9">{rolesData.jobType}</dd>
               <dt className="col-sm-3 text-truncate">Job Title</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].title}</dd>
+              <dd className="col-sm-9">{rolesData.title}</dd>
               <dt className="col-sm-3">Department</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].department}</dd>
+              <dd className="col-sm-9">{rolesData.department}</dd>
               <dt className="col-sm-3 text-truncate">Qualification</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].qualification}</dd>
+              <dd className="col-sm-9">{rolesData.qualification}</dd>
               <dt className="col-sm-3"> Role Description</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].description}</dd>
+              <dd className="col-sm-9">{rolesData.description}</dd>
               <dt className="col-sm-3 text-truncate"> Position Type</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].positionType}</dd>
+              <dd className="col-sm-9">{rolesData.positionType}</dd>
               <dt className="col-sm-3 text-truncate">How To Apply</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].howToApply}</dd>
+              <dd className="col-sm-9">{rolesData.howToApply}</dd>
               <dt className="col-sm-3 text-truncate">Website</dt>
-              <dd className="col-sm-9">{rolesData.roles[0].website}</dd>
+              <dd className="col-sm-9">{rolesData.website}</dd>
               <dt className="col-sm-3 text-truncate">Rolling</dt>
-              {rolesData.roles[0].rolling === true ? (
+              {rolesData.rolling === true ? (
                 <dd className="col-sm-9">Yes</dd>
               ) : (
                 <dd className="col-sm-9">No</dd>
               )}{' '}
               <dt className="col-sm-3 text-truncate">Published</dt>
-              {rolesData.roles[0].publish === true ? (
+              {rolesData.publish === true ? (
                 <dd className="col-sm-9">Yes</dd>
               ) : (
                 <dd className="col-sm-9">No</dd>
               )}
               <dt className="col-sm-3 text-truncate">Creation Date</dt>
               <dd className="col-sm-9">
-                {rolesData.roles[0].createdAt !== null
+                {rolesData.createdAt !== null
                   ? format(
-                      new Date(rolesData.roles[0].createdAt.toDate()),
+                      new Date(rolesData.createdAt.toDate()),
                       'dd-MMM-yyyy'
                     )
                   : 'Not set'}
               </dd>
               <dt className="col-sm-3 text-truncate">Deadline</dt>
               <dd className="col-sm-9">
-                {rolesData.roles[0].deadline !== null
-                  ? format(
-                      new Date(rolesData.roles[0].deadline.toDate()),
-                      'dd-MMM-yyyy'
-                    )
+                {rolesData.deadline !== null
+                  ? format(new Date(rolesData.deadline.toDate()), 'dd-MMM-yyyy')
                   : 'Not set'}
               </dd>
               <dt className="col-sm-3 text-truncate">Start Date</dt>
               <dd className="col-sm-9">
-                {rolesData.roles[0].startDate !== null
+                {rolesData.startDate !== null
                   ? format(
-                      new Date(rolesData.roles[0].startDate.toDate()),
+                      new Date(rolesData.startDate.toDate()),
                       'dd-MMM-yyyy'
                     )
                   : 'Not set'}
               </dd>
               <dt className="col-sm-3 text-truncate">Area Of Interests</dt>
               <dd className="col-sm-9">
-                {rolesData.roles[0].areaOfInterests
-                  ? rolesData.roles[0].areaOfInterests.map((item) => (
+                {rolesData.areaOfInterests
+                  ? rolesData.areaOfInterests.map((item) => (
                       <Badge key={item}>{item}</Badge>
                     ))
                   : null}
               </dd>
               <dt className="col-sm-3 text-truncate">Roles Of Interests</dt>
               <dd className="col-sm-9">
-                {rolesData.roles[0].rolesOfInterests
-                  ? rolesData.roles[0].rolesOfInterests.map((item) => (
+                {rolesData.rolesOfInterests
+                  ? rolesData.rolesOfInterests.map((item) => (
                       <Badge key={item}>{item}</Badge>
                     ))
                   : null}
@@ -201,10 +198,10 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
                 Behaviour Attributes Strengths
               </dt>
               <dd className="col-sm-9">
-                {rolesData.roles[0].behaviourAttributesStrengths
-                  ? rolesData.roles[0].behaviourAttributesStrengths.map(
-                      (item) => <Badge key={item}>{item}</Badge>
-                    )
+                {rolesData.behaviourAttributesStrengths
+                  ? rolesData.behaviourAttributesStrengths.map((item) => (
+                      <Badge key={item}>{item}</Badge>
+                    ))
                   : null}
               </dd>
             </dl>

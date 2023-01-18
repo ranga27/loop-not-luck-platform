@@ -210,3 +210,7 @@ export const setCurrentUser = (user) => {
     console.log('>>>>: src/helpers/Utils.js : setCurrentUser -> error', error);
   }
 };
+
+export const sortCombinedRoles = (roles) => {
+  return roles.sort((a, b) => b.score - a.score);
+};

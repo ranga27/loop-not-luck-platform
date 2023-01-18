@@ -20,7 +20,7 @@ import { collection, query } from 'firebase/firestore';
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import Avatar from 'react-avatar';
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
+// import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import { Colxx } from '../../../components/common/CustomBootstrap';
 import { SelectField, TextInput } from '../../../components/form/FormFields';
 import { firestore } from '../../../helpers/Firebase';
@@ -49,9 +49,9 @@ const UserProfile = () => {
   const [user, setUsers] = useState([]);
   const [open, setOpen] = useState(false);
 
-  const onDocumentLoadSuccess = () => {
-    console.log('PDF loaded');
-  };
+  // const onDocumentLoadSuccess = () => {
+  //   console.log('PDF loaded');
+  // };
 
   const toggleModal = () => {
     setOpen(!open);
@@ -385,18 +385,21 @@ const UserProfile = () => {
                 </dl>
               </CardBody>
             </Card>
-
+            {console.log(user.cvUrl, 'CV URL')}
             <Card style={{ marginLeft: '0px', marginTop: '15px' }}>
               <CardBody>
                 <div>
-                  <Document
+                  {/* <Document
                     file={{
                       url: user.cvUrl,
                     }}
                     onLoadSuccess={onDocumentLoadSuccess}
                   >
                     <Page pageNumber={1} />
-                  </Document>
+                  </Document> */}
+                  <a href={user.cvUrl} target="_blank" rel="noreferrer">
+                    <Button>CV Link</Button>
+                  </a>
                   <p className="text-muted text-small">
                     Cv Uploaded on:{' '}
                     {user.hasCompletedProfile && user.cvUploadDate !== null

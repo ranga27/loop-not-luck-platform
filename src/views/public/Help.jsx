@@ -25,7 +25,7 @@ const HelpPage = () => {
 
       <div>
         <Accordion open={open} toggle={toggle}>
-          <AccordionItem>
+          <AccordionItem data-cy="help-visa-question">
             <AccordionHeader targetId="1">
               Do you offer visa sponsorship? 1
             </AccordionHeader>
@@ -37,7 +37,7 @@ const HelpPage = () => {
               to.
             </AccordionBody>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem data-cy="help-unsuccessful-doubt">
             <AccordionHeader targetId="2">
               Will you send me roles even if I am not successful in the current
               one I am applying to?
@@ -49,7 +49,7 @@ const HelpPage = () => {
               achieve in previous roles you’ve been sent.
             </AccordionBody>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem data-cy="help-review-cv">
             <AccordionHeader targetId="3">
               Can you review my CV?
             </AccordionHeader>
@@ -69,7 +69,7 @@ const HelpPage = () => {
               to improve your chances of success when applying.
             </AccordionBody>
           </AccordionItem>{' '}
-          <AccordionItem>
+          <AccordionItem data-cy="help-with-interview">
             <AccordionHeader targetId="4">
               Can you help me with the upcoming interview?
             </AccordionHeader>
@@ -79,7 +79,7 @@ const HelpPage = () => {
               interview.
             </AccordionBody>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem data-cy="help-interview-result-waiting-doubt">
             <AccordionHeader targetId="5">
               How long until I hear back regarding an interview?
             </AccordionHeader>

@@ -2,6 +2,13 @@ import { adminRoot, UserRole } from './defaultValues';
 
 const data = [
   {
+    id: 'dashboard',
+    icon: 'iconsminds-security-check',
+    label: 'menu.dashboard',
+    to: 'dashboard',
+    roles: [UserRole.super],
+  },
+  {
     id: 'review-roles',
     icon: 'simple-icon-eyeglass',
     label: 'menu.review',
