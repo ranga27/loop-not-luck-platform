@@ -65,7 +65,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         control={control}
         options={locations}
         errors={errors.location}
-        data-cy="account-location-input"
+        dataCy="account-location-input"
       />
       <TextInput
         name="degreeSubject"
@@ -82,7 +82,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         showYearPicker
         dateFormat="yyyy"
         yearItemNumber={9}
-        data-cy="account-graduation-year-input"
+        dataCy="account-graduation-year-input"
       />
       <SelectField
         name="visaRequired"
@@ -90,7 +90,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         control={control}
         errors={errors.visaRequired}
         options={visaRequiredOptions}
-        data-cy="account-visa-required-input"
+        dataCy="account-visa-required-input"
       />
       {/* eslint no-underscore-dangle: 0 */}
       <MultiSelect
@@ -107,7 +107,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         }
         closeMenuOnSelect={false}
         errors={errors.jobValues}
-        data-cy="account-job-values-input"
+        dataCy="account-job-values-input"
       />
       {jobValuesOther?.includes('Other') && (
         <TextInput
@@ -132,7 +132,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
           control._formValues.behaviorAttributes.length >= 3
         }
         closeMenuOnSelect={false}
-        data-cy="account-behavior-attributes-input"
+        dataCy="account-behavior-attributes-input"
       />
       <MultiSelect
         label="Technical Skills"
@@ -144,7 +144,7 @@ const CandidateAccountForm = ({ defaultValues, onSubmit }) => {
         defaultValue={defaultValues.technicalSkills}
         closeMenuOnSelect={false}
         errors={errors.technicalSkills}
-        data-cy="account-technical-skills-input"
+        dataCy="account-technical-skills-input"
       />
 
       {technicalSkillsOther?.includes('Other') && (

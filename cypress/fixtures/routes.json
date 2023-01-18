@@ -11,5 +11,8 @@
   "loopPage": "/app/roles",
   "application": "/app/applications",
   "savedRole": "/app/saved",
-  "help": "/app/help"
+  "help": "/app/help",
+  "applications": "http://localhost:3000/app/applications",
+  "saved": "http://localhost:3000/app/saved",
+  "messages": "http://localhost:3000/app/messages"
 }

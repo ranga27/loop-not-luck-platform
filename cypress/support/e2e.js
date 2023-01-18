@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 // ***********************************************************
 // This example support/e2e.js is processed and
 // loaded automatically before your test files.
@@ -25,6 +26,9 @@ import 'firebase/compat/database';
 import 'firebase/compat/firestore';
 import { firebaseConfig } from '../../src/constants/defaultValues';
 import attachCustomCommands from '../lib/attachCustomCommands';
+// import '@cypress/code-coverage/support';
+// import 'cypress-istanbul/support';
+import '@bahmutov/cypress-code-coverage/support';
 
 const namedApp = firebase.initializeApp(firebaseConfig, 'loop-luck');
 

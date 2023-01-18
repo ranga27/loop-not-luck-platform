@@ -1,6 +1,8 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-extraneous-dependencies */
 const { defineConfig } = require('cypress');
-const cypressFirebasePlugin = require('cypress-firebase').plugin;
-const admin = require('firebase-admin');
+// const cypressFirebasePlugin = require('cypress-firebase').plugin;
+// const admin = require('firebase-admin');
 
 module.exports = defineConfig({
   viewportWidth: 1300,
@@ -10,6 +12,7 @@ module.exports = defineConfig({
   responseTimeout: 100000,
   pageLoadTimeout: 100000,
   video: false,
+  codeCoverageTasksRegistered: true,
   env: {
     ENVIRONMENT: 'local',
     LOOP_URL: 'http://localhost:3000',
@@ -22,8 +25,9 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
-      // implement node event listeners here
-      return cypressFirebasePlugin(on, config, admin);
+      require('@bahmutov/cypress-code-coverage/plugin')(on, config); // implement node event listeners here
+      return config;
+      // return cypressFirebasePlugin(on, config, admin);
     },
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
   },

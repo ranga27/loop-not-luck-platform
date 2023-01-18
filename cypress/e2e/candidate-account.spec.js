@@ -55,16 +55,16 @@ describe('Candidate Account Page Tests', () => {
     cy.get(accountSelectors.FirstNameAccountInput).should('be.visible');
     cy.get(accountSelectors.LastNameAccountInput).should('be.visible');
     cy.get(accountSelectors.MobileAccountInput).should('be.visible');
-    cy.get('.react-select').should('be.visible');
+    cy.get(accountSelectors.LocationAccountInput).should('be.visible');
     cy.get(accountSelectors.DegreeAccountInput).should('be.visible');
-    // cy.get(accountSelectors.GraduationYearAccountInput).should('be.visible');
-    // cy.get(accountSelectors.VisaRequiredAccountInput).should('be.visible');
-    // cy.get(accountSelectors.JobValuesAccountInput).should('be.visible');
-    // cy.get(accountSelectors.MoreJobValuesAccountInput).should('be.visible');
-    // cy.get(accountSelectors.BehaviorAttributesAccountInput).should(
-    //   'be.visible'
-    // );
-    // cy.get(accountSelectors.TechnicalSkillsAccountInput).should('be.visible');
+    cy.get(accountSelectors.GraduationYearAccountInput).should('be.visible');
+    cy.get(accountSelectors.VisaRequiredAccountInput).should('be.visible');
+    cy.get(accountSelectors.JobValuesAccountInput).should('be.visible');
+    cy.get(accountSelectors.BehaviorAttributesAccountInput).should(
+      'be.visible'
+    );
+    cy.get(accountSelectors.TechnicalSkillsAccountInput).should('be.visible');
+    cy.get(accountSelectors.FileInput).should('be.visible');
     cy.get(accountSelectors.EmailAccountInput).should('be.visible');
     cy.get(accountSelectors.SubmitAccountButton).should('be.visible');
 

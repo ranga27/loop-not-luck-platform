@@ -75,7 +75,7 @@
     "deploy": "npm run build && firebase deploy --only hosting, functions",
     "emulators": "firebase emulators:start --import ./prod-data --export-on-exit=./test-data",
     "build:cypress-firebase": "babel node_modules/cypress-firebase/lib-esm -d cypress/lib",
-    "cypress:open": "cypress open"
+    "cypress:open": "nyc cypress open"
   },
   "browserslist": [
     ">0.2%",
@@ -91,11 +91,15 @@
     "@babel/plugin-transform-react-jsx": "^7.19.0",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
+    "@bahmutov/cypress-code-coverage": "^1.3.2",
+    "@cypress/code-coverage": "^3.10.0",
     "@hookform/devtools": "^4.2.3",
     "babel-loader": "^9.1.0",
+    "babel-plugin-istanbul": "^6.1.1",
     "concurrently": "^7.5.0",
     "cypress": "^12.3.0",
     "cypress-firebase": "^3.0.1",
+    "cypress-istanbul": "^1.3.0",
     "eslint": "^8.28.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.3.0",
@@ -104,7 +108,12 @@
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
+    "istanbul-lib-coverage": "^3.2.0",
     "mini-css-extract-plugin": "2.7.0",
+    "nyc": "^15.1.0",
     "prettier": "^2.7.1"
+  },
+  "nyc": {
+    "reporter": ["html"]
   }
 }
