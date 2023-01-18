@@ -9,8 +9,10 @@
   "profile": "http://localhost:3000/app/account",
   "loop": "http://localhost:3000/app/roles",
   "loopPage": "/app/roles",
+  "application": "/app/applications",
+  "savedRole": "/app/saved",
+  "help": "/app/help",
   "applications": "http://localhost:3000/app/applications",
   "saved": "http://localhost:3000/app/saved",
-  "messages": "http://localhost:3000/app/messages",
-  "help": "http://localhost:3000/app/help"
+  "messages": "http://localhost:3000/app/messages"
 }
