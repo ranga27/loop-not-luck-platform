@@ -305,6 +305,7 @@ class Sidebar extends Component {
               alt="LNL"
               src={BG}
               className="mx-auto d-block"
+              data-cy="loop-logo"
               style={{
                 width: '70px',
                 height: '70px',
@@ -319,6 +320,7 @@ class Sidebar extends Component {
                 paddingBottom: '4px',
               }}
               className="truncate"
+              data-cy="user-full-name"
             >
               {fullName}
             </p>
@@ -341,6 +343,7 @@ class Sidebar extends Component {
                     return (
                       <NavItem
                         key={item.id}
+                        data-cy={item.name}
                         className={classnames({
                           active:
                             (selectedParentMenu === item.id &&

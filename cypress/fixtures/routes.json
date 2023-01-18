@@ -4,11 +4,13 @@
   "loginPage": "/login",
   "forgotPasswordPage": "/forgot-password",
   "candidateAccountPage": "/app/account",
-  "logout": "/app/logout" ,
-  "onboarding": "/app/onboard" ,
+  "logout": "/app/logout",
+  "onboarding": "/app/onboard",
   "profile": "http://localhost:3000/app/account",
-  "loop": "http://localhost:3000/app/roles" ,
-  "loopPage": "/app/roles"
-
-
+  "loop": "http://localhost:3000/app/roles",
+  "loopPage": "/app/roles",
+  "applications": "http://localhost:3000/app/applications",
+  "saved": "http://localhost:3000/app/saved",
+  "messages": "http://localhost:3000/app/messages",
+  "help": "http://localhost:3000/app/help"
 }

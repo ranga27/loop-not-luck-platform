@@ -1,0 +1,13 @@
+{
+  "sideBarSelectors": {
+    "MyLoop": "[data-flag=my-loop]",
+    "Applications": "[data-flag=applications]",
+    "SavedRoles": "[data-flag=saved-roles]",
+    "Messages": "[data-flag=messages]",
+    "Profile": "[data-flag=profile]",
+    "Logout": "[data-flag=logout]",
+    "Help": "[data-flag=help]",
+    "FullName": "[data-cy=user-full-name]",
+    "LoopLogo": "[data-cy=loop-logo]"
+  }
+}

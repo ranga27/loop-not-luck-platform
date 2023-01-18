@@ -31,6 +31,7 @@ export const MultiSelect = ({
   errors,
   clearErrors,
   defaultValue,
+  dataCy,
   ...rest
 }) => {
   const setDefaultValues = options.filter((o) => {
@@ -69,6 +70,8 @@ export const MultiSelect = ({
             onChange={handleChange}
             value={selection.selectedOptions}
             {...rest}
+            id={dataCy}
+            aria-label={dataCy}
           />
         )}
       />
@@ -88,6 +91,7 @@ export const TextInput = ({ name, label, control, errors, ...rest }) => {
   );
 };
 export const SelectField = ({
+  dataCy,
   label,
   name,
   control,
@@ -114,6 +118,8 @@ export const SelectField = ({
             options={options}
             className="react-select"
             classNamePrefix="react-select"
+            id={dataCy}
+            aria-label={dataCy}
             {...rest}
           />
         )}
@@ -121,18 +127,28 @@ export const SelectField = ({
     </Group>
   );
 };
-export const DatePicker = ({ label, name, control, errors, ...rest }) => {
+export const DatePicker = ({
+  dataCy,
+  label,
+  name,
+  control,
+  errors,
+  ...rest
+}) => {
   return (
     <Group label={label} errors={errors}>
       <Controller
         control={control}
         name={name}
+        data-cy={dataCy}
         render={({ field: { onChange, value } }) => (
           <ReactDatePicker
             className="input"
             placeholderText="Select date"
             onChange={(e) => onChange(e)}
             selected={value}
+            id={dataCy}
+            aria-label={dataCy}
             {...rest}
           />
         )}
@@ -182,7 +198,14 @@ export const Radio = ({ label, name, control, options }) => {
   );
 };
 
-export const FileUpload = ({ label, errors, name, control, ...rest }) => {
+export const FileUpload = ({
+  dataCy,
+  label,
+  errors,
+  name,
+  control,
+  ...rest
+}) => {
   return (
     <Group label={label} errors={errors}>
       <Controller
@@ -193,6 +216,7 @@ export const FileUpload = ({ label, errors, name, control, ...rest }) => {
             onChange={(e) => onChange(e.target.files[0])}
             innerRef={ref}
             {...rest}
+            aria-label={dataCy}
           />
         )}
         name={name}

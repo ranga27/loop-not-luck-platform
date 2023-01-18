@@ -20,12 +20,17 @@ const HelpPage = () => {
   // const toggle = () => setOpen(open);
 
   return (
-    <div className="pt-4 sticky-top">
-      <h1 className="mt-3 text-primary text-center mx-auto d-block">FAQs</h1>
+    <div className="pt-4 sticky-top" data-cy="FAQ-container">
+      <h1
+        className="mt-3 text-primary text-center mx-auto d-block"
+        data-cy="FAQ-header"
+      >
+        FAQs
+      </h1>
 
       <div>
         <Accordion open={open} toggle={toggle}>
-          <AccordionItem>
+          <AccordionItem data-cy="FAQ-1">
             <AccordionHeader targetId="1">
               Do you offer visa sponsorship? 1
             </AccordionHeader>
@@ -37,7 +42,7 @@ const HelpPage = () => {
               to.
             </AccordionBody>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem data-cy="FAQ-2">
             <AccordionHeader targetId="2">
               Will you send me roles even if I am not successful in the current
               one I am applying to?
@@ -49,7 +54,7 @@ const HelpPage = () => {
               achieve in previous roles you’ve been sent.
             </AccordionBody>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem data-cy="FAQ-3">
             <AccordionHeader targetId="3">
               Can you review my CV?
             </AccordionHeader>
@@ -69,7 +74,7 @@ const HelpPage = () => {
               to improve your chances of success when applying.
             </AccordionBody>
           </AccordionItem>{' '}
-          <AccordionItem>
+          <AccordionItem data-cy="FAQ-4">
             <AccordionHeader targetId="4">
               Can you help me with the upcoming interview?
             </AccordionHeader>
@@ -79,7 +84,7 @@ const HelpPage = () => {
               interview.
             </AccordionBody>
           </AccordionItem>
-          <AccordionItem>
+          <AccordionItem data-cy="FAQ-5">
             <AccordionHeader targetId="5">
               How long until I hear back regarding an interview?
             </AccordionHeader>
