@@ -49,10 +49,6 @@ const UserProfile = () => {
   const [user, setUsers] = useState([]);
   const [open, setOpen] = useState(false);
 
-  // const onDocumentLoadSuccess = () => {
-  //   console.log('PDF loaded');
-  // };
-
   const toggleModal = () => {
     setOpen(!open);
   };
@@ -231,10 +227,10 @@ const UserProfile = () => {
                   <dt className="col-sm-7">Preferred Start Date</dt>
                   <dd className="col-sm-5">
                     <p>{user.start}</p>
-                    {user.specificStartDate ? (
+                    {user.specificStartDate && user?.graduationYear ? (
                       <p>
                         {format(
-                          new Date(user.graduationYear.toDate()),
+                          new Date(user?.graduationYear?.toDate().toString()),
                           'dd-MMM-yyyy'
                         )}
                       </p>
@@ -244,10 +240,9 @@ const UserProfile = () => {
                   <hr />
                   <dt className="col-sm-7">Graduation Year</dt>
                   <dd className="col-sm-5">
-                    {' '}
-                    {user.hasCompletedProfile
+                    {user.hasCompletedProfile && user?.graduationYear
                       ? format(
-                          new Date(user.graduationYear.toDate()),
+                          new Date(user?.graduationYear?.toDate().toString()),
                           'dd-MMM-yyyy'
                         )
                       : 'Not set'}
@@ -385,7 +380,6 @@ const UserProfile = () => {
                 </dl>
               </CardBody>
             </Card>
-            {console.log(user.cvUrl, 'CV URL')}
             <Card style={{ marginLeft: '0px', marginTop: '15px' }}>
               <CardBody>
                 <div>
