@@ -120,14 +120,14 @@ const CarouselCardLeft = ({ role }) => {
               </span>
             </h6>
           )}
-          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+          {/* <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Department
           </h6>
-          <h6 className="text-muted">{role.department}</h6>
-          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+          <h6 className="text-muted">{role.department}</h6> */}
+          {/* <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Start Date
           </h6>
-          <h6 className="text-muted">{role.startDate}</h6>
+          <h6 className="text-muted">{role.startDate}</h6> */}
         </div>
 
         <div className="d-flex flex-row">
