@@ -14,7 +14,7 @@ const CarouselCardLeft = ({ role }) => {
   const [saved, setSaved] = useState(role.saved);
   const client = useQueryClient();
   // TODO: create readMore component
-  const { isLoading } = useQuery(['matchedRoles']);
+  const { isLoading } = useQuery(['companyMatchedRoles']);
   const [isReadMore, setIsReadMore] = useState(true);
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
@@ -25,12 +25,12 @@ const CarouselCardLeft = ({ role }) => {
   const { uid, hasCompletedProfile, cvUrl, cvUploadDate } = userDoc.data;
 
   const mutation = useFirestoreDocumentMutation(
-    doc(firestore, `users/${uid}/matchedRoles`, role.id),
+    doc(firestore, `users/${uid}/companyMatchedRoles`, role.id),
     { merge: true },
     {
-      // After success or failure, refetch the matchedRoles query. TODO: may be refetch only the role & not the whole list
+      // After success or failure, refetch the companyMatchedRoles query. TODO: may be refetch only the role & not the whole list
       onSettled: () => {
-        client.invalidateQueries('matchedRoles');
+        client.invalidateQueries('companyMatchedRoles');
         client.invalidateQueries('savedRoles');
       },
     }
