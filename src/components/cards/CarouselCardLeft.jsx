@@ -9,9 +9,11 @@ import { doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
 import { Button, Card, CardBody, Tooltip } from 'reactstrap';
 import { firestore } from '../../helpers/Firebase';
+import QuestionPopup from '../QuestionPopup';
 
 const CarouselCardLeft = ({ role }) => {
   const [saved, setSaved] = useState(role.saved);
+  const [questionInqueryModel, setquestionInqueryModel] = useState(false);
   const client = useQueryClient();
   // TODO: create readMore component
   const { isLoading } = useQuery(['companyMatchedRoles']);
@@ -48,16 +50,16 @@ const CarouselCardLeft = ({ role }) => {
     );
   };
 
-  const applyRole = async () => {
-    const newData = { applied: true, updatedAt: serverTimestamp() };
-    mutation.mutate(newData);
+  // const applyRole = async () => {
+  //   const newData = { applied: true, updatedAt: serverTimestamp() };
+  //   mutation.mutate(newData);
 
-    Swal.fire(
-      'Successfully applied!',
-      'You can navigate to "Applications" tab to view your applications.',
-      'success'
-    );
-  };
+  //   Swal.fire(
+  //     'Successfully applied!',
+  //     'You can navigate to "Applications" tab to view your applications.',
+  //     'success'
+  //   );
+  // };
 
   return (
     <Card style={{ marginLeft: '0px' }} data-cy="my-loop-left-carousel-card">
@@ -144,7 +146,11 @@ const CarouselCardLeft = ({ role }) => {
             <Button
               id="applyButton"
               color="primary"
-              onClick={() => applyRole()}
+              onClick={() => {
+                console.log(role);
+                setquestionInqueryModel(false);
+                // applyRole();
+              }}
               className="slider-top-button"
               disabled={
                 hasCompletedProfile === false ||
@@ -198,6 +204,7 @@ const CarouselCardLeft = ({ role }) => {
           </div>
         ) : null}
       </CardBody>
+      <QuestionPopup open={questionInqueryModel} />
     </Card>
   );
 };
