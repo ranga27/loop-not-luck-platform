@@ -9,11 +9,14 @@ import { doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
 import { Button, Card, CardBody, Tooltip } from 'reactstrap';
 import { firestore } from '../../helpers/Firebase';
-import QuestionPopup from '../QuestionPopup';
+// import QuestionPopup from '../QuestionPopup';
 
-const CarouselCardLeft = ({ role }) => {
+const CarouselCardLeft = ({
+  role,
+  setquestionInqueryModel,
+  setCurrentRole,
+}) => {
   const [saved, setSaved] = useState(role.saved);
-  const [questionInqueryModel, setquestionInqueryModel] = useState(false);
   const client = useQueryClient();
   // TODO: create readMore component
   const { isLoading } = useQuery(['companyMatchedRoles']);
@@ -122,14 +125,6 @@ const CarouselCardLeft = ({ role }) => {
               </span>
             </h6>
           )}
-          {/* <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
-            Department
-          </h6>
-          <h6 className="text-muted">{role.department}</h6> */}
-          {/* <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
-            Start Date
-          </h6>
-          <h6 className="text-muted">{role.startDate}</h6> */}
         </div>
 
         <div className="d-flex flex-row">
@@ -148,7 +143,8 @@ const CarouselCardLeft = ({ role }) => {
               color="primary"
               onClick={() => {
                 console.log(role);
-                setquestionInqueryModel(false);
+                setquestionInqueryModel(role.isQuestion);
+                setCurrentRole(role);
                 // applyRole();
               }}
               className="slider-top-button"
@@ -204,7 +200,6 @@ const CarouselCardLeft = ({ role }) => {
           </div>
         ) : null}
       </CardBody>
-      <QuestionPopup open={questionInqueryModel} />
     </Card>
   );
 };
