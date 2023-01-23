@@ -11,6 +11,15 @@ import { getCollection } from '../../helpers/firestoreService';
 const QuestionForm = ({ roleId, userUid, modelToggle, conformForAnswer }) => {
   const [questionData, setquestionData] = useState(null);
 
+  const [answer, setanswer] = useState({});
+
+  const mergeAnswer = (newData) => {
+    const updatedAnswer = { ...answer, ...newData };
+    setanswer(updatedAnswer);
+  };
+
+  console.log(answer);
+
   useEffect(() => {
     (async () => {
       const roleData = await getCollection('questionnaire', [
@@ -28,17 +37,33 @@ const QuestionForm = ({ roleId, userUid, modelToggle, conformForAnswer }) => {
       <h2>Screening Questions</h2>
       {questionData?.map((question) =>
         question.element === 'TextInput' ? (
-          <SimpleQuestionBuilder key={question.id} label={question.label} />
+          <SimpleQuestionBuilder
+            key={question.id}
+            label={question.label}
+            mergeAnswer={mergeAnswer}
+          />
         ) : question.element === 'Checkboxes' ? (
-          <CheckBoxBuilder label={question.label} options={question.options} />
+          <CheckBoxBuilder
+            label={question.label}
+            options={question.options}
+            mergeAnswer={mergeAnswer}
+          />
         ) : question.element === 'NumberInput' ? (
-          <NumberInputBuilder label={question.label} />
+          <NumberInputBuilder
+            label={question.label}
+            mergeAnswer={mergeAnswer}
+          />
         ) : question.element === 'Dropdown' ? (
-          <DropDownBuilder label={question.label} options={question.options} />
+          <DropDownBuilder
+            label={question.label}
+            options={question.options}
+            mergeAnswer={mergeAnswer}
+          />
         ) : question.element === 'RadioButtons' ? (
           <RadioButtonBuilder
             label={question.label}
             options={question.options}
+            mergeAnswer={mergeAnswer}
           />
         ) : null
       )}
