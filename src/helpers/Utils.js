@@ -282,3 +282,65 @@ export const downloadSelectedCVs = (cvUrls) => {
     }
   }
 };
+
+export const getOnboardedUsers = (users) => {
+  return users.filter((x) => x.isOnboarded);
+};
+
+export const signUpsMinusLoop = (users) => {
+  return users.filter((user) => !user.email.endsWith('@loopnotluck.com'));
+};
+
+export const getUsersNotOnboarded = (users) => {
+  return users.filter((x) => !x.isOnboarded);
+};
+
+export const getUsersOnboardedWithoutCv = (users) => {
+  return users.filter((x) => !x.cvUrl);
+};
+
+export const getUsersOnboardedWithCv = (users) => {
+  return users.filter((x) => x.cvUrl);
+};
+
+export const getUsersWithProfileCompleted = (users) => {
+  return users.filter((x) => x.hasCompletedProfile);
+};
+
+export const getUsersWithoutCompletedProfile = (users) => {
+  return users.filter((x) => !x.hasCompletedProfile);
+};
+
+export const signUpsToday = (users) => {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const month = today.toLocaleString('default', { month: 'short' });
+  let dd = today.getDate();
+
+  if (dd < 10) dd = `0${dd}`;
+
+  const formattedToday = `${dd}-${month}-${yyyy}`;
+
+  return users.filter((user) => user.createdAt === formattedToday);
+};
+
+export const signUpsThisWeek = (users) => {
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+  const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(
+    sevenDaysAgo
+  );
+  const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(
+    sevenDaysAgo
+  );
+  const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(
+    sevenDaysAgo
+  );
+
+  console.log(`${da}-${mo}-${ye}`);
+  const formattedWeek = `${da}-${mo}-${ye}`;
+
+  return users.filter((user) => {
+    return user.createdAt > formattedWeek;
+  });
+};

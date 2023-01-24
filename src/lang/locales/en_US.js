@@ -205,6 +205,7 @@ module.exports = {
   'forms.startLabel': 'Select date',
   'forms.interests': 'Areas of interest',
   'forms.rolesOfInterest': 'Roles of interest',
+  'forms.hearAbout': 'How did you hear about us?',
 
   /* 07.06.Charts */
   'charts.line': 'Line Chart',
