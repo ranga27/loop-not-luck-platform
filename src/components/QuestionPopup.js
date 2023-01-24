@@ -20,7 +20,12 @@ const QuestionPopup = ({ open, modelToggle, userUid, selectedRoleData }) => {
         <ModalHeader>
           Please answer the question to complete the appliation
         </ModalHeader>
-        <ModalBody>
+        <ModalBody
+          style={{
+            maxHeight: '465px',
+            overflow: 'auto',
+          }}
+        >
           {isAnswer ? (
             <QuestionForm
               modelToggle={modelToggle}
@@ -29,9 +34,20 @@ const QuestionPopup = ({ open, modelToggle, userUid, selectedRoleData }) => {
               conformForAnswer={conformForAnswer}
             />
           ) : (
-            <div>
-              <Button onClick={conformForAnswer}>Answer</Button>
-              <Button onClick={modelToggle}>Later</Button>
+            <div
+              style={{
+                width: '80%',
+                margin: 'auto',
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Button onClick={conformForAnswer} style={{ width: '45%' }}>
+                Answer
+              </Button>
+              <Button onClick={modelToggle} style={{ width: '45%' }}>
+                Later
+              </Button>
             </div>
           )}
         </ModalBody>

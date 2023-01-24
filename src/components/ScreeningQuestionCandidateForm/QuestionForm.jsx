@@ -109,15 +109,28 @@ const QuestionForm = ({ roleId, userUid, modelToggle, conformForAnswer }) => {
           />
         ) : null
       )}
-      <Button onClick={handleSubmit}>Submit</Button>
-      <Button
-        onClick={() => {
-          modelToggle();
-          conformForAnswer();
+      <div
+        style={{
+          width: '80%',
+          margin: 'auto',
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginTop: '10px',
         }}
       >
-        Cancel
-      </Button>
+        <Button onClick={handleSubmit} style={{ width: '45%' }}>
+          Submit
+        </Button>
+        <Button
+          onClick={() => {
+            modelToggle();
+            conformForAnswer();
+          }}
+          style={{ width: '45%' }}
+        >
+          Cancel
+        </Button>
+      </div>
     </div>
   );
 };
