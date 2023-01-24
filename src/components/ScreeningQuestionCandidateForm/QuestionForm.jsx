@@ -1,7 +1,10 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { Button } from 'reactstrap';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
+import { useQueryClient } from 'react-query';
 import { firestore } from '../../helpers/Firebase';
 import SimpleQuestionBuilder from './Builders/SimpleQuestionBuilder';
 import CheckBoxBuilder from './Builders/CheckBoxBuilder';
@@ -20,6 +23,30 @@ const QuestionForm = ({ roleId, userUid, modelToggle, conformForAnswer }) => {
     setanswer(updatedAnswer);
   };
 
+  const client = useQueryClient();
+
+  const mutation = useFirestoreDocumentMutation(
+    doc(firestore, `users/${userUid}/companyMatchedRoles`, roleId),
+    { merge: true },
+    {
+      onSettled: () => {
+        client.invalidateQueries('companyMatchedRoles');
+        client.invalidateQueries('savedRoles');
+      },
+    }
+  );
+
+  const applyRole = async () => {
+    const newData = { applied: true, updatedAt: serverTimestamp() };
+    mutation.mutate(newData);
+
+    Swal.fire(
+      'Successfully applied!',
+      'You can navigate to "Applications" tab to view your applications.',
+      'success'
+    );
+  };
+
   const handleSubmit = async () => {
     console.log(userUid);
 
@@ -28,6 +55,7 @@ const QuestionForm = ({ roleId, userUid, modelToggle, conformForAnswer }) => {
     const newLike = doc(likesRef, userUid);
     await setDoc(newLike, { answer })
       .then(() => {
+        applyRole();
         modelToggle();
       })
       .catch((err) => {

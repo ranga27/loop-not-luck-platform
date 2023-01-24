@@ -285,7 +285,12 @@ export async function fetchMetrics(users) {
   const declinedRoles = [];
 
   for (const user of users) {
-    const roleRef = collection(firestore, 'users', user.id, 'matchedRoles');
+    const roleRef = collection(
+      firestore,
+      'users',
+      user.id,
+      'companyMatchedRoles'
+    );
     const q = query(roleRef, where('applied', '==', true));
     const querySnapshot = await getDocs(q);
     const allAppliedRoles = querySnapshot.docs.map((docu) => ({

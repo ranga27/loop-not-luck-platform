@@ -53,16 +53,25 @@ const CarouselCardLeft = ({
     );
   };
 
-  // const applyRole = async () => {
-  //   const newData = { applied: true, updatedAt: serverTimestamp() };
-  //   mutation.mutate(newData);
+  const applyRole = async () => {
+    const newData = { applied: true, updatedAt: serverTimestamp() };
+    mutation.mutate(newData);
 
-  //   Swal.fire(
-  //     'Successfully applied!',
-  //     'You can navigate to "Applications" tab to view your applications.',
-  //     'success'
-  //   );
-  // };
+    Swal.fire(
+      'Successfully applied!',
+      'You can navigate to "Applications" tab to view your applications.',
+      'success'
+    );
+  };
+
+  const handleApplyButtonClick = (selectedRole) => {
+    if (selectedRole.isQuestion) {
+      setquestionInqueryModel(selectedRole.isQuestion);
+      setCurrentRole(selectedRole);
+    } else {
+      applyRole();
+    }
+  };
 
   return (
     <Card style={{ marginLeft: '0px' }} data-cy="my-loop-left-carousel-card">
@@ -141,12 +150,7 @@ const CarouselCardLeft = ({
             <Button
               id="applyButton"
               color="primary"
-              onClick={() => {
-                console.log(role);
-                setquestionInqueryModel(role.isQuestion);
-                setCurrentRole(role);
-                // applyRole();
-              }}
+              onClick={() => handleApplyButtonClick(role)}
               className="slider-top-button"
               disabled={
                 hasCompletedProfile === false ||
