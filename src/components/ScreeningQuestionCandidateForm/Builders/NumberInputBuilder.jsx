@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInput } from '../../form/FormFields';
 import simpleTextFieldSchema from '../../../constants/simpleTextFieldSchema';
 
-const NumberInputBuilder = ({ label }) => {
+const NumberInputBuilder = ({ label, mergeAnswer }) => {
   const {
     control,
     formState: { errors },
@@ -17,6 +17,9 @@ const NumberInputBuilder = ({ label }) => {
         name="textField"
         control={control}
         errors={errors.name}
+        onChange={(e) => {
+          mergeAnswer({ [label]: e.target.value });
+        }}
       />
     </div>
   );

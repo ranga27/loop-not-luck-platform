@@ -1,6 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { firestore } from '../../helpers/Firebase';
 import SimpleQuestionBuilder from './Builders/SimpleQuestionBuilder';
 import CheckBoxBuilder from './Builders/CheckBoxBuilder';
 import NumberInputBuilder from './Builders/NumberInputBuilder';
@@ -18,7 +20,20 @@ const QuestionForm = ({ roleId, userUid, modelToggle, conformForAnswer }) => {
     setanswer(updatedAnswer);
   };
 
-  console.log(answer);
+  const handleSubmit = async () => {
+    console.log(userUid);
+
+    const postRef = doc(firestore, `questionnaire/${roleId}`);
+    const likesRef = collection(postRef, 'Answers');
+    const newLike = doc(likesRef, userUid);
+    await setDoc(newLike, { answer })
+      .then(() => {
+        modelToggle();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     (async () => {
@@ -29,7 +44,6 @@ const QuestionForm = ({ roleId, userUid, modelToggle, conformForAnswer }) => {
     })();
   }, [roleId]);
 
-  console.log(userUid);
   if (!questionData) return 'Loading...';
 
   return (
@@ -67,7 +81,7 @@ const QuestionForm = ({ roleId, userUid, modelToggle, conformForAnswer }) => {
           />
         ) : null
       )}
-      <Button>Submit</Button>
+      <Button onClick={handleSubmit}>Submit</Button>
       <Button
         onClick={() => {
           modelToggle();

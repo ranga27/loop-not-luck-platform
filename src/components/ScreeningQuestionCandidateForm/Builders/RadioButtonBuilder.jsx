@@ -1,26 +1,25 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Radio } from '../../form/FormFields';
 
-const RadioButtonBuilder = ({ label, options }) => {
-  const {
-    control,
-    formState: { errors },
-  } = useForm();
-
+const RadioButtonBuilder = ({ label, options, mergeAnswer }) => {
   return (
     <div>
       <p>{label}</p>
       {options.map((radio) => (
-        <Radio
-          key={radio.key}
-          name={radio.key}
-          id={radio.text}
-          label={radio.text}
-          errors={errors}
-          control={control}
-          value={radio.text}
-        />
+        <div key={radio.key}>
+          <input
+            type="radio"
+            id={radio.text}
+            name="radio"
+            value={radio.text}
+            onChange={(e) => {
+              mergeAnswer({ [label]: e.target.value });
+            }}
+          />
+          <label htmlFor={radio.text} className="m-2 mt-0">
+            {radio.text}
+          </label>
+          <br />
+        </div>
       ))}
     </div>
   );

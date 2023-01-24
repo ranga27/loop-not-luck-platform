@@ -3,6 +3,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
 import Carousel from 'nuka-carousel';
+import { useQuery } from 'react-query';
 import { Row, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 import { Colxx } from '../../components/common/CustomBootstrap';
@@ -26,6 +27,9 @@ const CombinedRoles = ({ roles, loadActiveTab }) => {
   const modelToggle = () => setquestionInqueryModel(!questionInqueryModel);
 
   const [currentRole, setCurrentRole] = useState(null);
+
+  const userDoc = useQuery('userDoc');
+  const { uid } = userDoc.data;
 
   return (
     <>
@@ -112,7 +116,7 @@ const CombinedRoles = ({ roles, loadActiveTab }) => {
       <QuestionPopup
         open={questionInqueryModel}
         modelToggle={modelToggle}
-        userUid="Dummy"
+        userUid={uid}
         selectedRoleData={currentRole}
       />
     </>

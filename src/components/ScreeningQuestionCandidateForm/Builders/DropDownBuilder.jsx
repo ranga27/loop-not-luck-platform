@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SelectField } from '../../form/FormFields';
 
-const DropDownBuilder = ({ label, options }) => {
+const DropDownBuilder = ({ label, options, mergeAnswer }) => {
   const {
     control,
     formState: { errors },
@@ -26,6 +26,9 @@ const DropDownBuilder = ({ label, options }) => {
         control={control}
         options={selectOptions}
         errors={errors.name}
+        onChange={(value) => {
+          mergeAnswer({ [label]: value.value });
+        }}
       />
     </div>
   );
