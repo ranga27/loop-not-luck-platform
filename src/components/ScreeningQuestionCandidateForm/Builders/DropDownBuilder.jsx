@@ -6,9 +6,16 @@ const DropDownBuilder = ({ label, options, mergeAnswer }) => {
   const {
     control,
     formState: { errors },
+    watch,
   } = useForm();
 
+  const dropdownValue = watch('select');
+
   const [selectOptions, setselectOptions] = useState([]);
+
+  useEffect(() => {
+    mergeAnswer({ [label]: dropdownValue });
+  }, [dropdownValue, label]);
 
   useEffect(() => {
     const tempOption = [];
@@ -26,9 +33,6 @@ const DropDownBuilder = ({ label, options, mergeAnswer }) => {
         control={control}
         options={selectOptions}
         errors={errors.name}
-        onChange={(value) => {
-          mergeAnswer({ [label]: value.value });
-        }}
       />
     </div>
   );
