@@ -4,8 +4,11 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
-import { doc, serverTimestamp } from 'firebase/firestore';
+import {
+  useFirestoreCollectionMutation,
+  useFirestoreDocumentMutation,
+} from '@react-query-firebase/firestore';
+import { collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
 import { Button, Card, CardBody, Tooltip } from 'reactstrap';
 import { firestore } from '../../helpers/Firebase';
@@ -35,6 +38,10 @@ const CarouselCardLeft = ({ role }) => {
       },
     }
   );
+
+  const appliedRoleMutation = useFirestoreCollectionMutation(
+    collection(firestore, 'appliedRoles')
+  );
   const saveRole = async () => {
     // Optimistic update for button state
     setSaved(!saved);
@@ -48,10 +55,17 @@ const CarouselCardLeft = ({ role }) => {
     );
   };
 
+  console.log(role);
   const applyRole = async () => {
     const newData = { applied: true, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
-
+    appliedRoleMutation.mutate({
+      appliedAt: serverTimestamp(),
+      match: role.score,
+      roleId: role.id,
+      status: 'Pending Review',
+      userId: uid,
+    });
     Swal.fire(
       'Successfully applied!',
       'You can navigate to "Applications" tab to view your applications.',
