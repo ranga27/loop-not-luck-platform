@@ -25,7 +25,7 @@ const CarouselCardLeft = ({ role }) => {
   const userDoc = useQuery('userDoc');
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = () => setTooltipOpen(!tooltipOpen);
-  const { uid, hasCompletedProfile, cvUrl, cvUploadDate } = userDoc.data;
+  const { uid, hasCompletedProfile, cvUrl, cvUploadDate, email } = userDoc.data;
 
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, `users/${uid}/matchedRoles`, role.id),
@@ -38,7 +38,6 @@ const CarouselCardLeft = ({ role }) => {
       },
     }
   );
-
   const appliedRoleMutation = useFirestoreCollectionMutation(
     collection(firestore, 'appliedRoles')
   );
@@ -55,7 +54,6 @@ const CarouselCardLeft = ({ role }) => {
     );
   };
 
-  console.log(role);
   const applyRole = async () => {
     const newData = { applied: true, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
@@ -63,8 +61,11 @@ const CarouselCardLeft = ({ role }) => {
       appliedAt: serverTimestamp(),
       match: role.score,
       roleId: role.id,
+      roleTitle: role.title,
       status: 'Pending Review',
       userId: uid,
+      companyId: role.companyId,
+      applicantEmail: email,
     });
     Swal.fire(
       'Successfully applied!',
