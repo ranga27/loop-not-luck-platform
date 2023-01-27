@@ -20,6 +20,36 @@ import {
 import { format } from 'date-fns';
 import { firestore } from './Firebase';
 
+// Util functions
+export async function getCollection(collectionName, whereQuery) {
+  const collectionRef = collection(firestore, collectionName);
+
+  let q;
+  if (whereQuery) {
+    q = query(
+      collectionRef,
+      ...whereQuery.map(({ field, operator, value }) =>
+        where(field, operator, value)
+      )
+    );
+  } else {
+    q = query(collectionRef);
+  }
+
+  const querySnapshot = await getDocs(q);
+
+  const res = [];
+
+  querySnapshot.docs.map((docu) =>
+    res.push({
+      ...docu.data(),
+      id: docu.id,
+    })
+  );
+
+  return res;
+}
+
 // Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore({ uid, ...details }) {
   return setDoc(doc(firestore, 'users', uid), details, { merge: true });
@@ -255,7 +285,12 @@ export async function fetchMetrics(users) {
   const declinedRoles = [];
 
   for (const user of users) {
-    const roleRef = collection(firestore, 'users', user.id, 'matchedRoles');
+    const roleRef = collection(
+      firestore,
+      'users',
+      user.id,
+      'companyMatchedRoles'
+    );
     const q = query(roleRef, where('applied', '==', true));
     const querySnapshot = await getDocs(q);
     const allAppliedRoles = querySnapshot.docs.map((docu) => ({

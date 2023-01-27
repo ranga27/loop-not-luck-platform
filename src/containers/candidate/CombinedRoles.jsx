@@ -3,6 +3,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
 import Carousel from 'nuka-carousel';
+import { useQuery } from 'react-query';
 import { Row, TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 import { Colxx } from '../../components/common/CustomBootstrap';
@@ -10,6 +11,7 @@ import CarouselCardLeft from '../../components/cards/CarouselCardLeft';
 import CarouselCardRight from '../../components/cards/CarouselCardRight';
 import MoreRolesCarousel from './MoreRolesCarousel';
 import { sortCombinedRoles } from '../../helpers/Utils';
+import QuestionPopup from '../../components/QuestionPopup';
 
 const CombinedRoles = ({ roles, loadActiveTab }) => {
   const seenRole = (currentSlide) => {
@@ -20,6 +22,14 @@ const CombinedRoles = ({ roles, loadActiveTab }) => {
   const toggle = (tab) => {
     if (currentActiveTab !== tab) setCurrentActiveTab(tab);
   };
+
+  const [questionInqueryModel, setquestionInqueryModel] = useState(false);
+  const modelToggle = () => setquestionInqueryModel(!questionInqueryModel);
+
+  const [currentRole, setCurrentRole] = useState(null);
+
+  const userDoc = useQuery('userDoc');
+  const { uid } = userDoc.data;
 
   return (
     <>
@@ -85,7 +95,11 @@ const CombinedRoles = ({ roles, loadActiveTab }) => {
               <div key={item.id}>
                 <Row md="2">
                   <Colxx lg="7">
-                    <CarouselCardLeft role={item} />
+                    <CarouselCardLeft
+                      role={item}
+                      setquestionInqueryModel={setquestionInqueryModel}
+                      setCurrentRole={setCurrentRole}
+                    />
                   </Colxx>
                   <Colxx lg="5">
                     <CarouselCardRight role={item} />
@@ -99,6 +113,12 @@ const CombinedRoles = ({ roles, loadActiveTab }) => {
           <MoreRolesCarousel otherRoles={roles} />
         </TabPane>
       </TabContent>
+      <QuestionPopup
+        open={questionInqueryModel}
+        modelToggle={modelToggle}
+        userUid={uid}
+        selectedRoleData={currentRole}
+      />
     </>
   );
 };

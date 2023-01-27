@@ -12,12 +12,17 @@ import { collection, doc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
 import { Button, Card, CardBody, Tooltip } from 'reactstrap';
 import { firestore } from '../../helpers/Firebase';
+// import QuestionPopup from '../QuestionPopup';
 
-const CarouselCardLeft = ({ role }) => {
+const CarouselCardLeft = ({
+  role,
+  setquestionInqueryModel,
+  setCurrentRole,
+}) => {
   const [saved, setSaved] = useState(role.saved);
   const client = useQueryClient();
   // TODO: create readMore component
-  const { isLoading } = useQuery(['matchedRoles']);
+  const { isLoading } = useQuery(['companyMatchedRoles']);
   const [isReadMore, setIsReadMore] = useState(true);
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
@@ -28,12 +33,12 @@ const CarouselCardLeft = ({ role }) => {
   const { uid, hasCompletedProfile, cvUrl, cvUploadDate, email } = userDoc.data;
 
   const mutation = useFirestoreDocumentMutation(
-    doc(firestore, `users/${uid}/matchedRoles`, role.id),
+    doc(firestore, `users/${uid}/companyMatchedRoles`, role.id),
     { merge: true },
     {
-      // After success or failure, refetch the matchedRoles query. TODO: may be refetch only the role & not the whole list
+      // After success or failure, refetch the companyMatchedRoles query. TODO: may be refetch only the role & not the whole list
       onSettled: () => {
-        client.invalidateQueries('matchedRoles');
+        client.invalidateQueries('companyMatchedRoles');
         client.invalidateQueries('savedRoles');
       },
     }
@@ -72,6 +77,15 @@ const CarouselCardLeft = ({ role }) => {
       'You can navigate to "Applications" tab to view your applications.',
       'success'
     );
+  };
+
+  const handleApplyButtonClick = (selectedRole) => {
+    if (selectedRole.isQuestion) {
+      setquestionInqueryModel(selectedRole.isQuestion);
+      setCurrentRole(selectedRole);
+    } else {
+      applyRole();
+    }
   };
 
   return (
@@ -135,14 +149,6 @@ const CarouselCardLeft = ({ role }) => {
               </span>
             </h6>
           )}
-          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
-            Department
-          </h6>
-          <h6 className="text-muted">{role.department}</h6>
-          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
-            Start Date
-          </h6>
-          <h6 className="text-muted">{role.startDate}</h6>
         </div>
 
         <div className="d-flex flex-row">
@@ -159,7 +165,7 @@ const CarouselCardLeft = ({ role }) => {
             <Button
               id="applyButton"
               color="primary"
-              onClick={() => applyRole()}
+              onClick={() => handleApplyButtonClick(role)}
               className="slider-top-button"
               disabled={
                 hasCompletedProfile === false ||

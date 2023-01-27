@@ -215,6 +215,74 @@ export const sortCombinedRoles = (roles) => {
   return roles.sort((a, b) => b.score - a.score);
 };
 
+export const getCandidateScreeningList = (userWithRoles) => {
+  const result = [];
+  userWithRoles.forEach((user) => {
+    user.roles.forEach((role) => {
+      result.push({
+        userFullname: `${user.firstName} ${user.lastName}`,
+        email: user.email,
+        company: role.company,
+        positionType: role.positionType,
+        department: role.department,
+        score: role.score,
+      });
+    });
+  });
+  return result;
+};
+
+export const sortScreeningUserList = (userList, sortBy) => {
+  // Need to update for all the filter Logoic
+  switch (sortBy) {
+    case 'company':
+      return userList.sort((a, b) => a.company.localeCompare(b.company));
+    case 'role':
+      return userList.sort((a, b) =>
+        a.positionType.localeCompare(b.positionType)
+      );
+    case 'score':
+      console.log(userList.sort((a, b) => a.score > b.score));
+      return userList.sort((a, b) => b.score - a.score);
+
+    default:
+      return userList;
+  }
+};
+
+export const unCheckAllCheckbox = (cvUrl) => {
+  const x = document.getElementById(cvUrl);
+  x.checked = false;
+};
+
+export const downloadSelectedCVs = (cvUrls) => {
+  if (cvUrls?.length) {
+    for (let i = 0; i < cvUrls?.length; i += 1) {
+      fetch(
+        cvUrls[i],
+        { mode: 'cors' },
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/pdf',
+          },
+        }
+      )
+        .then((response) => response.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(new Blob([blob]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', `${cvUrls[i]?.split('/')?.pop()}`);
+          document.body.appendChild(link);
+          link.click();
+          link.parentNode.removeChild(link);
+          unCheckAllCheckbox(cvUrls[i]);
+        });
+    }
+  }
+};
+
 export const getOnboardedUsers = (users) => {
   return users.filter((x) => x.isOnboarded);
 };
