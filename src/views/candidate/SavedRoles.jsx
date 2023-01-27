@@ -16,7 +16,7 @@ const SavedRoles = () => {
   const { isLoading, data: savedRoles } = useFirestoreQuery(
     ['savedRoles'],
     query(
-      collection(firestore, `users/${uid}/matchedRoles`),
+      collection(firestore, `users/${uid}/companyMatchedRoles`),
       where('saved', '==', true)
     ),
     {

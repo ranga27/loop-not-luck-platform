@@ -8,7 +8,7 @@ import { Card, CardBody, Badge, Button } from 'reactstrap';
 import { firestore } from '../../helpers/Firebase';
 
 const SavedRoleCard = ({ role }) => {
-  const { refetch } = useQuery(['matchedRoles']);
+  const { refetch } = useQuery(['companyMatchedRoles']);
   const [isViewInfo, setIsViewInfo] = useState(true);
   const toggleViewInfo = () => {
     setIsViewInfo(!isViewInfo);
@@ -16,7 +16,7 @@ const SavedRoleCard = ({ role }) => {
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
   const mutation = useFirestoreDocumentMutation(
-    doc(firestore, `users/${uid}/matchedRoles`, role.id),
+    doc(firestore, `users/${uid}/companyMatchedRoles`, role.id),
     { merge: true }
   );
   const applyRole = () => {};

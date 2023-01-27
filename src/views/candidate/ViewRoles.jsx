@@ -37,7 +37,7 @@ const ViewRoles = () => {
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
   const rolesRef = query(
-    collection(firestore, `users/${uid}/matchedRoles`),
+    collection(firestore, `users/${uid}/companyMatchedRoles`),
     orderBy('deadline', 'asc'),
     orderBy('score', 'desc'),
     where('deadline', '>', new Date(Date.now()))
@@ -67,7 +67,7 @@ const ViewRoles = () => {
   );
 
   const { isLoading, data: roles } = useFirestoreQuery(
-    ['matchedRoles'],
+    ['companyMatchedRoles'],
     rolesRef,
     {
       subscribe: true,
