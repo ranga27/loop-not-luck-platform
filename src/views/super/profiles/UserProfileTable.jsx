@@ -1,11 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Input, Badge } from 'reactstrap';
+import { Table, Input, Badge, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import IntlMessages from '../../../helpers/IntlMessages';
+import { sendSeperateEmailToSelecteduser } from '../../../helpers/firebaseService';
+import { downloadSelectedCVs } from '../../../helpers/Utils';
 
 const UserProfileTable = ({ profiles }) => {
   const [SearchTerms, setSearchTerms] = useState('');
   const [Profiles, setProfiles] = useState([]);
+
+  const [cvUrls, setcvUrls] = useState([]);
+  const [selectedUserData, setSelectedUserData] = useState([]);
+
+  function addUrlInList(url) {
+    if (url && !cvUrls?.includes(url)) {
+      setcvUrls([...cvUrls, url]);
+    } else {
+      const index = cvUrls.indexOf(url);
+      if (index > -1) {
+        cvUrls.splice(index, 1);
+      }
+    }
+  }
+
+  function addUserDataInList(data) {
+    setSelectedUserData([...selectedUserData, data]);
+  }
 
   useEffect(() => {
     if (SearchTerms !== '') {
@@ -20,9 +40,11 @@ const UserProfileTable = ({ profiles }) => {
       setProfiles(profiles);
     }
   }, [profiles, SearchTerms]);
+
   const onChangeSearch = (event) => {
     setSearchTerms(event.currentTarget.value);
   };
+
   return (
     <>
       <div>
@@ -35,10 +57,30 @@ const UserProfileTable = ({ profiles }) => {
           />
         </div>
       </div>
-
-      <Badge color="success" pill className="mb-1 p-2">
-        <p className="fs-10 m-0">Total Users: {Profiles.length || 'NA'}</p>
-      </Badge>
+      <div className="flex">
+        <Badge color="success" pill className="mb-1 p-2 flex-1 z-50">
+          <p className="fs-10 m-0">Total Users: {Profiles.length || 'NA'}</p>
+        </Badge>
+        <Button
+          className="flex-1 mx-4"
+          onClick={() => {
+            if (cvUrls?.length) {
+              downloadSelectedCVs(cvUrls);
+              setcvUrls([]);
+            }
+          }}
+        >
+          Download CVs
+        </Button>
+        <Button
+          className="flex-1"
+          onClick={() => {
+            sendSeperateEmailToSelecteduser(selectedUserData);
+          }}
+        >
+          Send Template Email
+        </Button>
+      </div>
       <Table responsive hover className="sticky-top">
         <thead>
           <tr>
@@ -65,7 +107,21 @@ const UserProfileTable = ({ profiles }) => {
         <tbody>
           {Profiles.map((profile, index) => (
             <tr key={profile.id}>
-              <td>{index + 1}</td>
+              <td>
+                {index + 1}
+                <input
+                  type="checkbox"
+                  className="m-2 checkbox"
+                  id={profile.cvUrl}
+                  onClick={() => {
+                    addUrlInList(profile.cvUrl);
+                    addUserDataInList({
+                      firstName: profile.firstName,
+                      email: profile.email,
+                    });
+                  }}
+                />
+              </td>
               <td>
                 <Link color="link" to={`/app/profiles/${profile.id}`}>
                   {profile.firstName} {profile.lastName}

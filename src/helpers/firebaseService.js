@@ -144,3 +144,12 @@ export async function sendWebsiteFeedbackEmail(data) {
   );
   return sendWebsiteFeedbackFunction(data);
 }
+
+export async function sendSeperateEmailToSelecteduser(data) {
+  console.log('Hello');
+  const sendSeperateEmailFunction = httpsCallable(
+    functions,
+    'user-sendSaperateEmail'
+  );
+  return sendSeperateEmailFunction(data);
+}

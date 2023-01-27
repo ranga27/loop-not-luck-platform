@@ -20,6 +20,36 @@ import {
 import { format } from 'date-fns';
 import { firestore } from './Firebase';
 
+// Util functions
+export async function getCollection(collectionName, whereQuery) {
+  const collectionRef = collection(firestore, collectionName);
+
+  let q;
+  if (whereQuery) {
+    q = query(
+      collectionRef,
+      ...whereQuery.map(({ field, operator, value }) =>
+        where(field, operator, value)
+      )
+    );
+  } else {
+    q = query(collectionRef);
+  }
+
+  const querySnapshot = await getDocs(q);
+
+  const res = [];
+
+  querySnapshot.docs.map((docu) =>
+    res.push({
+      ...docu.data(),
+      id: docu.id,
+    })
+  );
+
+  return res;
+}
+
 // Create a new user document in user collection if it does not exists. Else update the document.
 export async function updateUserInFirestore({ uid, ...details }) {
   return setDoc(doc(firestore, 'users', uid), details, { merge: true });

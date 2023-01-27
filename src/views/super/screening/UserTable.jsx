@@ -1,12 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Table, Input } from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { Button, Table } from 'reactstrap';
 import Modals from './Modal';
 import IntlMessages from '../../../helpers/IntlMessages';
+import {
+  getCandidateScreeningList,
+  sortScreeningUserList,
+} from '../../../helpers/Utils';
 
 const UserTable = ({ userRoles }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [rolesData, setRoleData] = useState([]);
-  const handleOpenModal = async (role, user) => {
+  const [select, setSelect] = useState('');
+  const [toggle, setToggle] = useState(false);
+  const [filtered, setFiltered] = useState(
+    getCandidateScreeningList(userRoles)
+  );
+
+  useEffect(() => {
+    setFiltered(getCandidateScreeningList(userRoles));
+  }, [userRoles]);
+
+  const handleOpenModal = async (user, role) => {
     const mergedArray = {
       ...user,
       ...role,
@@ -19,42 +33,32 @@ const UserTable = ({ userRoles }) => {
     setModalOpen(!modalOpen);
   };
 
-  const [SearchTerms, setSearchTerms] = useState('');
-  const [Profiles, setProfiles] = useState([]);
-
   useEffect(() => {
-    if (SearchTerms !== '') {
-      setProfiles(
-        userRoles.map((element) => {
-          return {
-            ...element,
-            roles: element.roles.filter(
-              (subElement) =>
-                subElement.title.includes(SearchTerms) ||
-                subElement.company.includes(SearchTerms)
-            ),
-          };
-        })
-      );
-    } else {
-      setProfiles(userRoles);
-    }
-  }, [userRoles, SearchTerms]);
+    const tempArr = sortScreeningUserList(filtered, select);
+    setFiltered(tempArr);
+  }, [select, toggle]);
 
-  const onChangeSearch = (event) => {
-    setSearchTerms(event.currentTarget.value);
-  };
   return (
     <>
       <div>
-        <div className=" bg-transparent  sticky-top p-4">
-          <Input
-            value={SearchTerms}
-            onChange={onChangeSearch}
-            placeholder="Search here..."
-            className="px-5 py-3 relative rounded w-full"
-          />
-        </div>
+        <select
+          onChange={(e) => {
+            setSelect(e.target.value);
+          }}
+          className="m-3"
+        >
+          <option value="random">Choose Filter</option>
+          <option value="company">Filter by Company Name</option>
+          <option value="role">Filter by Role Name</option>
+          <option value="score">Filter by Matched Score %</option>
+        </select>
+        <Button
+          onClick={() => {
+            setToggle(!toggle);
+          }}
+        >
+          Filter
+        </Button>
       </div>
       <Table responsive hover className="sticky-top">
         <thead>
@@ -86,28 +90,26 @@ const UserTable = ({ userRoles }) => {
           </tr>
         </thead>
         <tbody>
-          {Profiles.map((user) =>
-            user.roles.map((role) => (
-              <tr key={role.id}>
-                <td>#</td>
-                <td>
-                  <Button
-                    color="link"
-                    onClick={() => handleOpenModal(role, user)}
-                  >
-                    {user.firstName} {user.lastName}
-                  </Button>
-                </td>
-                <td>{user.email}</td>
+          {filtered.map((user) => (
+            <tr key={user.id}>
+              <td>#</td>
+              <td>
+                <Button
+                  color="link"
+                  onClick={() => handleOpenModal(user.role, user)}
+                >
+                  {user.userFullname}
+                </Button>
+              </td>
+              <td>{user.email}</td>
 
-                <td>{role.company}</td>
-                <td>{role.title}</td>
-                <td>{role.positionType}</td>
-                <td>{role.department}</td>
-                <td>{role.score}%</td>
-              </tr>
-            ))
-          )}
+              <td>{user.company}</td>
+              <td>{user.positionType}</td>
+              <td>{user.department}</td>
+              <td>{user.score}%</td>
+              <td>{user.department}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
       {modalOpen && (
