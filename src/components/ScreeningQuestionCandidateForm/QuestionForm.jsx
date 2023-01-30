@@ -2,17 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { Button } from 'reactstrap';
-import {
-  collection,
-  doc,
-  setDoc,
-  serverTimestamp,
-  getDoc,
-} from 'firebase/firestore';
-import {
-  useFirestoreCollectionMutation,
-  useFirestoreDocumentMutation,
-} from '@react-query-firebase/firestore';
+import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
 import { useQueryClient } from 'react-query';
 import { firestore } from '../../helpers/Firebase';
 import SimpleQuestionBuilder from './Builders/SimpleQuestionBuilder';
@@ -22,15 +13,8 @@ import DropDownBuilder from './Builders/DropDownBuilder';
 import RadioButtonBuilder from './Builders/RadioButtonBuilder';
 import { getCollection } from '../../helpers/firestoreService';
 
-const QuestionForm = ({
-  roleId,
-  userUid,
-  modelToggle,
-  conformForAnswer,
-  role,
-}) => {
+const QuestionForm = ({ roleId, userUid, modelToggle, conformForAnswer }) => {
   const [questionData, setquestionData] = useState(null);
-  const [userEmail, setuserEmail] = useState('');
 
   const [answer, setanswer] = useState({});
 
@@ -52,32 +36,10 @@ const QuestionForm = ({
     }
   );
 
-  const getuserEmail = async () => {
-    const userEmailData = await getDoc(doc(firestore, 'users', userUid));
-    setuserEmail(userEmailData.data()?.email);
-  };
-
-  useEffect(() => {
-    getuserEmail();
-  }, [userUid]);
-
-  const appliedRoleMutation = useFirestoreCollectionMutation(
-    collection(firestore, 'appliedRoles')
-  );
-
   const applyRole = async () => {
     const newData = { applied: true, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
-    appliedRoleMutation.mutate({
-      appliedAt: serverTimestamp(),
-      match: role.score,
-      roleId: role.id,
-      roleTitle: role.title,
-      status: 'Pending Review',
-      userId: userUid,
-      companyId: role.companyId,
-      applicantEmail: userEmail,
-    });
+
     Swal.fire(
       'Successfully applied!',
       'You can navigate to "Applications" tab to view your applications.',
@@ -86,6 +48,8 @@ const QuestionForm = ({
   };
 
   const handleSubmit = async () => {
+    console.log(userUid);
+
     const postRef = doc(firestore, `questionnaire/${roleId}`);
     const likesRef = collection(postRef, 'Answers');
     const newLike = doc(likesRef, userUid);
