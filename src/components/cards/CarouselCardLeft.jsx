@@ -89,7 +89,10 @@ const CarouselCardLeft = ({
   };
 
   return (
-    <Card style={{ marginLeft: '0px' }} data-cy="my-loop-left-carousel-card">
+    <Card
+      style={{ marginLeft: '0px', height: '600px', overflowY: 'auto' }}
+      data-cy="my-loop-left-carousel-card"
+    >
       <CardBody>
         <div className="d-flex flex-row m-2 p-2">
           <img
@@ -118,18 +121,37 @@ const CarouselCardLeft = ({
             </h5>
           </div>
         </div>
+
         <div className="m-2 p-2">
+          {role.status ? (
+            <>
+              <h6
+                className="mt-2 mb-2 text-primary"
+                style={{ fontWeight: 'bold' }}
+              >
+                Congratulations
+              </h6>
+              <h6 className="text-muted mb-4">
+                Your profile has been accepted by {role.company}. Expect
+                feedback from them soon.
+              </h6>
+            </>
+          ) : null}
           <h6 style={{ fontWeight: 'bold' }}>Application Deadline:</h6>
           <h6 className="text-muted">{role.deadline}</h6>
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Location
           </h6>
-          <h6 className="text-muted">{role.jobType || ''}</h6>
+          <h6 className="text-muted">{role.locationType || ''}</h6>
           <h6 className="text-muted">{role.location}</h6>
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Position
           </h6>
           <h6 className="text-muted">{role.positionType}</h6>
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+            Department
+          </h6>
+          <h6 className="text-muted">{role.department}</h6>
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Salary
           </h6>
@@ -149,6 +171,34 @@ const CarouselCardLeft = ({
               </span>
             </h6>
           )}
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+            More Role Description
+          </h6>
+          {role.moreRoleInfo && (
+            <h6 className="text-muted">
+              {isReadMore ? role.moreRoleInfo.slice(0, 150) : role.moreRoleInfo}
+              <span onClick={toggleReadMore} style={{ color: '#F7B919' }}>
+                {role.moreRoleInfo.length > 150
+                  ? isReadMore
+                    ? ' Read more'
+                    : ' Show less'
+                  : ''}
+              </span>
+            </h6>
+          )}
+
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+            Experience Needed
+          </h6>
+          <h6 className="text-muted">{role.experience}</h6>
+          {role.status ? (
+            <>
+              <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+                Status
+              </h6>
+              <h6 className="text-muted">{role.status}</h6>
+            </>
+          ) : null}
         </div>
 
         <div className="d-flex flex-row">

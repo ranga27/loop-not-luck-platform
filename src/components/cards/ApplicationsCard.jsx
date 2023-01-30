@@ -43,8 +43,22 @@ const ApplicationsCard = ({ application }) => {
         </div>
         <div>
           <div className="text-center">
-            <p className="pt-1 text-success">Application Under Review</p>
-            <p>Your application to this role is under review. Stay tuned!.</p>
+            <p className="pt-1 text-success">
+              {application.status ? (
+                <p>Application {application.status}</p>
+              ) : (
+                <p>Application Under Review</p>
+              )}
+            </p>
+            <p>
+              {application.status ? (
+                <p>Your application to this role is {application.status}.</p>
+              ) : (
+                <p>
+                  Your application to this role is under review. Stay tuned!.
+                </p>
+              )}
+            </p>
           </div>
         </div>
         <div className="text-center mt-3">
@@ -91,7 +105,11 @@ const ApplicationsCard = ({ application }) => {
               <dt className="col-sm-4 text-truncate">Job type</dt>
               <dd className="col-sm-8">{application.jobType}</dd>
               <dt className="col-sm-4 text-truncate">Location</dt>
-              <dd className="col-sm-8">{application.location}</dd>
+              <dd className="col-sm-8">
+                {application.locationType}
+                <br />
+                {application.location}
+              </dd>
               <dt className="col-sm-4 text-truncate">Job Title</dt>
               <dd className="col-sm-8">{application.title}</dd>
               <dt className="col-sm-4">Department</dt>
@@ -99,22 +117,34 @@ const ApplicationsCard = ({ application }) => {
               <dt className="col-sm-4 text-truncate">Qualification</dt>
               <dd className="col-sm-8">{application.qualification}</dd>
               <dt className="col-sm-4"> Role Description</dt>
-              <dd className="col-sm-8">{application.description}</dd>
+              <dd className="col-sm-8">
+                {application.description}
+                <br /> <br />
+                {application.moreRoleInfo}
+              </dd>
+              {application.status ? (
+                <>
+                  <dt className="col-sm-4">Status</dt>
+                  <dd className="col-sm-8">{application.status}</dd>
+                </>
+              ) : null}
               <dt className="col-sm-4 text-truncate"> Position Type</dt>
               <dd className="col-sm-8">{application.positionType}</dd>
               <dt className="col-sm-4 text-truncate">Area Of Interests</dt>
               <dd className="col-sm-8">
-                <Badge>{application.areaOfInterests}</Badge>
+                {application.areaOfInterests
+                  ? application.areaOfInterests.map((item) => (
+                      <Badge key={item}>{item}</Badge>
+                    ))
+                  : null}
               </dd>
               <dt className="col-sm-4 text-truncate">Roles Of Interests</dt>
               <dd className="col-sm-8">
-                <Badge>
-                  {application.rolesOfInterests
-                    ? application.rolesOfInterests.map((item) => (
-                        <Badge key={item}>{item}</Badge>
-                      ))
-                    : null}
-                </Badge>
+                {application.rolesOfInterests
+                  ? application.rolesOfInterests.map((item) => (
+                      <Badge key={item}>{item}</Badge>
+                    ))
+                  : null}
               </dd>
               <dt className="col-sm-4 text-truncate">
                 Behaviour Attributes Strengths
@@ -122,7 +152,9 @@ const ApplicationsCard = ({ application }) => {
               <dd className="col-sm-8">
                 {application.behaviourAttributesStrengths
                   ? application.behaviourAttributesStrengths.map((item) => (
-                      <Badge key={item}>{item}</Badge>
+                      <Badge className="mx-2 " key={item}>
+                        {item}
+                      </Badge>
                     ))
                   : null}
               </dd>

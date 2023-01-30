@@ -56,21 +56,21 @@ export async function updateUserInFirestore({ uid, ...details }) {
 }
 
 export async function updateRoleInFirestore({ uid, roleId, data }) {
-  const roleRef = doc(firestore, 'users', uid, 'matchedRoles', roleId);
+  const roleRef = doc(firestore, 'users', uid, 'companyMatchedRoles', roleId);
   const key = Object.keys(data)[0];
   data[key] = Timestamp.fromMillis(data[key]);
   return updateDoc(roleRef, data);
 }
 
 export async function unSaveRoleInFirestore({ uid, roleId }) {
-  const roleRef = doc(firestore, 'users', uid, 'matchedRoles', roleId);
+  const roleRef = doc(firestore, 'users', uid, 'companyMatchedRoles', roleId);
   return updateDoc(roleRef, { saved: deleteField() });
 }
 
 // TODO: Test function, move to cloud function
 export async function addRoleInUserDoc(uid, role) {
   const { id, ...data } = role;
-  const roleRef = doc(firestore, 'users', uid, 'matchedRoles', id);
+  const roleRef = doc(firestore, 'users', uid, 'companyMatchedRoles', id);
   await setDoc(roleRef, data, { merge: true });
 }
 
@@ -86,7 +86,7 @@ export async function addOpportunityToFirestore(opportunity) {
 }
 
 export async function fetchRolesFromFirestore(uid) {
-  const roleRef = collection(firestore, 'users', uid, 'matchedRoles');
+  const roleRef = collection(firestore, 'users', uid, 'companyMatchedRoles');
   const q = query(roleRef, where('matchedScore', '>', 0));
   const querySnapshot = await getDocs(q);
   const roles = querySnapshot.docs.map((docu) => ({
@@ -240,7 +240,12 @@ export async function fetchUserMatchedRolesFromFirestore(users) {
   const roles = [];
 
   for (const user of users) {
-    const roleRef = collection(firestore, 'users', user.id, 'matchedRoles');
+    const roleRef = collection(
+      firestore,
+      'users',
+      user.id,
+      'companyMatchedRoles'
+    );
     const q = query(roleRef, where('applied', '==', true));
     const querySnapshot = await getDocs(q);
     const allRoles = querySnapshot.docs.map((docu) => ({
@@ -306,7 +311,12 @@ export async function fetchMetrics(users) {
   }
 
   for (const user of users) {
-    const roleRef = collection(firestore, 'users', user.id, 'matchedRoles');
+    const roleRef = collection(
+      firestore,
+      'users',
+      user.id,
+      'companyMatchedRoles'
+    );
     const q = query(roleRef, where('saved', '==', true));
     const querySnapshot = await getDocs(q);
     const allSavedRoles = querySnapshot.docs.map((docu) => ({
@@ -321,7 +331,12 @@ export async function fetchMetrics(users) {
   }
 
   for (const user of users) {
-    const roleRef = collection(firestore, 'users', user.id, 'matchedRoles');
+    const roleRef = collection(
+      firestore,
+      'users',
+      user.id,
+      'companyMatchedRoles'
+    );
     const q = query(
       roleRef,
       where('declineResponse', 'in', ['Salary', 'Not Interesting'])

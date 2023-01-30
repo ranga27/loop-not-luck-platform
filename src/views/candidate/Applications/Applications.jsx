@@ -15,8 +15,8 @@ const Applications = () => {
   const { uid } = user.data;
   const todaysDate = new Date();
   const { isLoading, data: roles } = useFirestoreQuery(
-    ['matchedRoles'],
-    query(collection(firestore, `users/${uid}/matchedRoles`)),
+    ['companyMatchedRoles'],
+    query(collection(firestore, `users/${uid}/companyMatchedRoles`)),
     {
       subscribe: true,
     },

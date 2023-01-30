@@ -26,11 +26,11 @@ const CarouselCardRight = ({ role }) => {
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
   const mutation = useFirestoreDocumentMutation(
-    doc(firestore, `users/${uid}/matchedRoles`, role.id),
+    doc(firestore, `users/${uid}/companyMatchedRoles`, role.id),
     { merge: true },
     {
       onSettled: () => {
-        client.invalidateQueries('matchedRoles');
+        client.invalidateQueries('companyMatchedRoles');
         client.invalidateQueries('savedRoles');
       },
     }
