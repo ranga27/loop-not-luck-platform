@@ -52,7 +52,7 @@ export async function setUserRole(data) {
 export async function getUpdatedMatchedRolesInDB(data) {
   const getUpdatedMatchedRolesFunction = httpsCallable(
     functions,
-    'roles-onRefresh'
+    'companyRoles-onRefreshV2'
   );
   return getUpdatedMatchedRolesFunction(data);
 }
