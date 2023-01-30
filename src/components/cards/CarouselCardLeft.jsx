@@ -129,11 +129,13 @@ const CarouselCardLeft = ({
                 className="mt-2 mb-2 text-primary"
                 style={{ fontWeight: 'bold' }}
               >
-                Congratulations
+                {role.status === 'Rejected' ? 'Rejected' : 'Congratulations'}
               </h6>
               <h6 className="text-muted mb-4">
-                Your profile has been accepted by {role.company}. Expect
-                feedback from them soon.
+                {role.status === 'Rejected'
+                  ? `We really appreciate you taking the time to apply and interview with us and we wish you best of luck in your job search.`
+                  : `Your profile has been accepted by ${role.company}. Expect
+                feedback from them soon.`}
               </h6>
             </>
           ) : null}
