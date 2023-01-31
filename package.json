@@ -63,7 +63,7 @@
     "zustand": "^4.1.4"
   },
   "scripts": {
-    "dev": "concurrently 'yarn:use' 'yarn:start' 'yarn:emulators'",
+    "dev": "concurrently 'yarn:use' 'yarn:start'",
     "use": "firebase use loop-luck",
     "start": "react-scripts start",
     "build": "react-scripts build",
