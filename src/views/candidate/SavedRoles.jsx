@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { collection, query, where } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { Card, CardBody, Row } from 'reactstrap';
@@ -8,11 +8,22 @@ import { firestore } from '../../helpers/Firebase';
 import { formatDateInArray, getDaysToDeadline } from '../../helpers/Utils';
 import SavedRoleCard from '../../components/cards/SavedRoleCard';
 import ExpiredRoleCard from '../../components/cards/ExpiredRoleCard';
+import QuestionPopup from '../../components/QuestionPopup';
 
 const SavedRoles = () => {
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
   const todaysDate = new Date();
+  const [
+    questionInqueryModelForSavedRole,
+    setQuestionInqueryModelForSavedRole,
+  ] = useState(false);
+
+  const modelToggleForSavedRole = () =>
+    setQuestionInqueryModelForSavedRole(!questionInqueryModelForSavedRole);
+
+  const [currentSelectedRole, setCurrentSelectedRole] = useState(null);
+
   const { isLoading, data: savedRoles } = useFirestoreQuery(
     ['savedRoles'],
     query(
@@ -55,7 +66,13 @@ const SavedRoles = () => {
           {liveRoles.map((role) => {
             return (
               <Colxx lg="6" className="pt-4" key={role.id}>
-                <SavedRoleCard role={role} />
+                <SavedRoleCard
+                  role={role}
+                  setCurrentSelectedRole={setCurrentSelectedRole}
+                  setQuestionInqueryModelForSavedRole={
+                    setQuestionInqueryModelForSavedRole
+                  }
+                />
               </Colxx>
             );
           })}
@@ -72,6 +89,12 @@ const SavedRoles = () => {
             );
           })}
         </Row>
+        <QuestionPopup
+          open={questionInqueryModelForSavedRole}
+          modelToggle={modelToggleForSavedRole}
+          userUid={uid}
+          selectedRoleData={currentSelectedRole}
+        />
       </>
     );
   }

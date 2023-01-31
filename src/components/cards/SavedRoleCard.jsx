@@ -1,15 +1,24 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
-import { useFirestoreDocumentMutation } from '@react-query-firebase/firestore';
-import { doc, serverTimestamp } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
+import {
+  useFirestoreDocumentMutation,
+  useFirestoreCollectionMutation,
+} from '@react-query-firebase/firestore';
+import { collection, doc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { Card, CardBody, Badge, Button } from 'reactstrap';
 import { firestore } from '../../helpers/Firebase';
 
-const SavedRoleCard = ({ role }) => {
+const SavedRoleCard = ({
+  role,
+  setCurrentSelectedRole,
+  setQuestionInqueryModelForSavedRole,
+}) => {
   const { refetch } = useQuery(['companyMatchedRoles']);
   const [isViewInfo, setIsViewInfo] = useState(true);
+  const [userEmail, setuserEmail] = useState('');
   const toggleViewInfo = () => {
     setIsViewInfo(!isViewInfo);
   };
@@ -19,11 +28,53 @@ const SavedRoleCard = ({ role }) => {
     doc(firestore, `users/${uid}/companyMatchedRoles`, role.id),
     { merge: true }
   );
-  const applyRole = () => {};
+
+  const getuserEmail = async () => {
+    const userEmailData = await getDoc(doc(firestore, 'users', uid));
+    setuserEmail(userEmailData.data()?.email);
+  };
+
+  useEffect(() => {
+    getuserEmail();
+  }, [uid]);
+
+  const appliedRoleMutation = useFirestoreCollectionMutation(
+    collection(firestore, 'appliedRoles')
+  );
+
+  const applyRole = () => {
+    const newData = { applied: true, updatedAt: serverTimestamp() };
+    mutation.mutate(newData);
+    appliedRoleMutation.mutate({
+      appliedAt: serverTimestamp(),
+      match: role.score,
+      roleId: role.id,
+      roleTitle: role.title,
+      status: 'Pending Review',
+      userId: uid,
+      companyId: role.companyId,
+      applicantEmail: userEmail,
+    });
+    Swal.fire(
+      'Successfully applied!',
+      'You can navigate to "Applications" tab to view your applications.',
+      'success'
+    );
+  };
+
   const saveRole = async () => {
     const newData = { saved: !role.saved, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
     refetch();
+  };
+
+  const handleApplyButtonClick = (selectedRole) => {
+    if (selectedRole.isQuestion) {
+      setQuestionInqueryModelForSavedRole(role.isQuestion);
+      setCurrentSelectedRole(role);
+    } else {
+      applyRole();
+    }
   };
   return (
     <Card key={role.id} className="" data-cy="saved-role-role-card">
@@ -61,7 +112,7 @@ const SavedRoleCard = ({ role }) => {
             <Button
               id="applyButton"
               color="primary"
-              onClick={() => applyRole()}
+              onClick={() => handleApplyButtonClick(role)}
               className="slider-top-button"
               disabled={role.applied === true}
               data-cy="saved-role-apply-button"
