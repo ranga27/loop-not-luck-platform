@@ -22,7 +22,13 @@ export const ethnicityOptions = [
     label: 'White and Black African',
     value: 'White and Black African',
   },
-  { label: 'White and Asian', value: 'White and Asian' },
+  {
+    label: 'English, Welsh, Scottish, Northern Irish or British',
+    value: 'English, Welsh, Scottish, Northern Irish or British',
+  },
+  { label: 'Irish', value: 'Irish' },
+  { label: 'Roma', value: 'Roma' },
+  { label: 'Any other White background', value: 'Any other White background' },
   {
     label: 'Any other Mixed or multiple ethnic background',
     value: 'Any other Mixed or multiple ethnic background',

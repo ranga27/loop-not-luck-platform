@@ -192,7 +192,7 @@ module.exports = {
   'pages.profiles-table-head-role': 'Role',
   'pages.profiles-table-head-status': 'Profile Status',
   'pages.profiles-table-head-createdAt': 'Created At',
-
+  'pages.profiles-table-head-hearAbout': 'Hear About',
   /* Forms */
   'forms.gender': 'Gender',
   'forms.diversity':
