@@ -30,7 +30,6 @@ const QuestionPopup = ({ open, modelToggle, userUid, selectedRoleData }) => {
             <QuestionForm
               modelToggle={modelToggle}
               roleId={currrentQuestions.id}
-              role={selectedRoleData}
               userUid={userUid}
               conformForAnswer={conformForAnswer}
             />
