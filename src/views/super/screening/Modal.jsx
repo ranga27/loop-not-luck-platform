@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
-import React, { useState } from 'react';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   ModalHeader,
@@ -12,11 +13,31 @@ import {
   Badge,
   Collapse,
 } from 'reactstrap';
+import { firestore } from '../../../helpers';
 
 import IntlMessages from '../../../helpers/IntlMessages';
 
 const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
   const [collapse, setCollapse] = useState(false);
+  const [userDetails, setUserDetails] = useState();
+  console.log(rolesData);
+
+  const getuserData = async () => {
+    const q = query(
+      collection(firestore, 'users'),
+      where('email', '==', rolesData.email)
+    );
+    onSnapshot(q, (userData) => {
+      userData.forEach((data) => {
+        setUserDetails(data.data());
+      });
+    });
+  };
+
+  useEffect(() => {
+    getuserData();
+  }, []);
+
   return (
     <Modal isOpen={modalOpen} toggle={toggle} className="modal-lg">
       <ModalHeader>
@@ -31,9 +52,7 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
 
             <dl className="row list-unstyled">
               <dt className="col-sm-3">Full Name</dt>
-              <dd className="col-sm-9">
-                {rolesData.firstName} {rolesData.lastName}
-              </dd>
+              <dd className="col-sm-9">{rolesData.userFullname}</dd>
               <dt className="col-sm-3 text-truncate">Email</dt>
               <dd className="col-sm-9">{rolesData.email}</dd>
               <dt className="col-sm-3 text-truncate">Role Match</dt>
@@ -51,64 +70,67 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
             <Collapse isOpen={collapse}>
               <dl className="row">
                 <dt className="col-sm-3">Degree</dt>
-                <dd className="col-sm-9">{rolesData.degreeSubject}</dd>
+                <dd className="col-sm-9">{userDetails?.degreeSubject}</dd>
                 <dt className="col-sm-3 text-truncate">Phone number</dt>
-                <dd className="col-sm-9">{rolesData.mobileNumber}</dd>
+                <dd className="col-sm-9">{userDetails?.mobileNumber}</dd>
                 <dt className="col-sm-3 text-truncate">Gender</dt>
-                <dd className="col-sm-9">{rolesData.gender}</dd>
+                <dd className="col-sm-9">{userDetails?.gender}</dd>
                 <dt className="col-sm-3 text-truncate">Gender (Other)</dt>
-                <dd className="col-sm-9">{rolesData.genderOther}</dd>
+                <dd className="col-sm-9">{userDetails?.genderOther}</dd>
                 <dt className="col-sm-3 text-truncate">Ethnicity</dt>
-                <dd className="col-sm-9">{rolesData.ethnicity}</dd>
+                <dd className="col-sm-9">{userDetails?.ethnicity}</dd>
                 <dt className="col-sm-3 text-truncate">Ethnicity (Other)</dt>
-                <dd className="col-sm-9">{rolesData.ethnicityOther}</dd>
+                <dd className="col-sm-9">{userDetails?.ethnicityOther}</dd>
                 <dt className="col-sm-3 text-truncate">Disability</dt>
-                <dd className="col-sm-9">{rolesData.disability}</dd>
+                <dd className="col-sm-9">{userDetails?.disability}</dd>
                 <dt className="col-sm-3 text-truncate">
                   Disability (if exists)
                 </dt>
-                <dd className="col-sm-9">{rolesData.disabilityAnswer}</dd>
+                <dd className="col-sm-9">{userDetails?.disabilityAnswer}</dd>
                 <dt className="col-sm-3 text-truncate">Diversity</dt>
                 <dd className="col-sm-9">
-                  {rolesData.diversity
-                    ? rolesData.diversity.map((item) => (
+                  {userDetails?.diversity
+                    ? userDetails?.diversity.map((item) => (
                         <Badge key={item}>{item}</Badge>
                       ))
                     : null}
                 </dd>
                 <dt className="col-sm-3 text-truncate">Roles Interested In</dt>
                 <dd className="col-sm-9">
-                  {!Array.isArray(rolesData.rolesInterestedIn) ? (
-                    <Badge>{rolesData.rolesInterestedIn}</Badge>
+                  {!Array.isArray(userDetails?.rolesInterestedIn) ? (
+                    <Badge>{userDetails?.rolesInterestedIn}</Badge>
                   ) : (
-                    rolesData.rolesInterestedIn.map((item) => (
+                    userDetails.rolesInterestedIn.map((item) => (
                       <Badge key={item}>{item}</Badge>
                     ))
                   )}
                 </dd>
                 <dt className="col-sm-3 text-truncate">Area Of Interests</dt>
                 <dd className="col-sm-9">
-                  {!Array.isArray(rolesData.areaOfInterests) ? (
-                    <Badge>{rolesData.areaOfInterests}</Badge>
+                  {!Array.isArray(userDetails?.areaOfInterests) ? (
+                    <Badge>{userDetails?.areaOfInterests}</Badge>
                   ) : (
-                    rolesData.areaOfInterests.map((item) => (
+                    userDetails.areaOfInterests.map((item) => (
                       <Badge key={item}>{item}</Badge>
                     ))
                   )}
                 </dd>
                 <dt className="col-sm-3 text-truncate">Is Visa Required</dt>
-                <dd className="col-sm-9">{rolesData.visaRequired}</dd>
+                <dd className="col-sm-9">{userDetails?.visaRequired}</dd>
                 <dt className="col-sm-3 text-truncate">Graduation Year</dt>
                 <dd className="col-sm-9">
-                  {rolesData.graduationYear !== null
+                  {userDetails?.graduationYear &&
+                  userDetails.graduationYear !== null
                     ? format(
-                        new Date(rolesData.graduationYear.toDate()),
+                        new Date(
+                          userDetails.graduationYear.toDate().toString()
+                        ),
                         'dd-MMM-yyyy'
                       )
                     : 'Not set'}
                 </dd>
                 <dt className="col-sm-3 text-truncate">Start date</dt>
-                <dd className="col-sm-9">{rolesData.start}</dd>
+                <dd className="col-sm-9">{userDetails?.start}</dd>
               </dl>
             </Collapse>
           </ListGroupItem>
@@ -156,7 +178,7 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
               )}
               <dt className="col-sm-3 text-truncate">Creation Date</dt>
               <dd className="col-sm-9">
-                {rolesData.createdAt !== null
+                {rolesData.createdAt && rolesData.createdAt !== null
                   ? format(
                       new Date(rolesData.createdAt.toDate()),
                       'dd-MMM-yyyy'
@@ -165,13 +187,13 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
               </dd>
               <dt className="col-sm-3 text-truncate">Deadline</dt>
               <dd className="col-sm-9">
-                {rolesData.deadline !== null
+                {rolesData.deadline && rolesData.deadline !== null
                   ? format(new Date(rolesData.deadline.toDate()), 'dd-MMM-yyyy')
                   : 'Not set'}
               </dd>
               <dt className="col-sm-3 text-truncate">Start Date</dt>
               <dd className="col-sm-9">
-                {rolesData.startDate !== null
+                {rolesData.startDate && rolesData.startDate !== null
                   ? format(
                       new Date(rolesData.startDate.toDate()),
                       'dd-MMM-yyyy'
@@ -216,15 +238,15 @@ const Modals = ({ modalOpen, rolesData, setModalOpen, toggle }) => {
                 <IntlMessages id="pages.application-cv" />
               </dt>
               <dd className="col-sm-9">
-                <a href={rolesData.cvUrl} rel="noreferrer" target="_blank">
+                <a href={userDetails?.cvUrl} rel="noreferrer" target="_blank">
                   <IntlMessages id="pages.application-cv" />
                 </a>
               </dd>
               <dt className="col-sm-3 text-truncate">CV Uploaded at</dt>
               <dd className="col-sm-9">
-                {rolesData.cvUploadDate !== null
+                {userDetails?.cvUploadDate && userDetails?.cvUploadDate !== null
                   ? format(
-                      new Date(rolesData.cvUploadDate.toDate()),
+                      new Date(userDetails.cvUploadDate.toDate()),
                       'dd-MMM-yyyy'
                     )
                   : 'Not set'}
