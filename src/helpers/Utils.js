@@ -226,6 +226,10 @@ export const getCandidateScreeningList = (userWithRoles) => {
         positionType: role.positionType,
         department: role.department,
         score: role.score,
+        combined: {
+          ...user,
+          ...role,
+        },
       });
     });
   });
