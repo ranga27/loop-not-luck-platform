@@ -6,6 +6,7 @@ exports.sendEmail = ({
   subject,
   message,
   firstName,
+  emailText,
   transporter,
 }) => {
   const mailOptions = {
@@ -44,7 +45,7 @@ exports.sendEmail = ({
                               <tbody>
                                 <tr>
                                   <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
-                                    <p class="text" style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0">We are so excited to connect you to personalised career opportunities. Please click the button below to verify your email address.</p>
+                                    <p class="text" style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0">${emailText}</p>
                                   </td>
                                 </tr>
                               </tbody>

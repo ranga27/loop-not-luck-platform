@@ -67,7 +67,7 @@ const ViewRoles = () => {
   );
 
   const { isLoading, data: roles } = useFirestoreQuery(
-    ['matchedRoles'],
+    ['companyMatchedRoles'],
     rolesRef,
     {
       subscribe: true,
