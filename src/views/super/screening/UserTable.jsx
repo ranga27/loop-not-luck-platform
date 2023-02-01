@@ -20,12 +20,8 @@ const UserTable = ({ userRoles }) => {
     setFiltered(getCandidateScreeningList(userRoles));
   }, [userRoles]);
 
-  const handleOpenModal = async (user, role) => {
-    const mergedArray = {
-      ...user,
-      ...role,
-    };
-    setRoleData(mergedArray);
+  const handleOpenModal = async (user) => {
+    setRoleData(user.combined);
     setModalOpen(true);
   };
 
@@ -36,7 +32,7 @@ const UserTable = ({ userRoles }) => {
   useEffect(() => {
     const tempArr = sortScreeningUserList(filtered, select);
     setFiltered(tempArr);
-  }, [select, toggle]);
+  }, [select, toggle, filtered]);
 
   return (
     <>
@@ -94,10 +90,7 @@ const UserTable = ({ userRoles }) => {
             <tr key={user.id}>
               <td>#</td>
               <td>
-                <Button
-                  color="link"
-                  onClick={() => handleOpenModal(user.role, user)}
-                >
+                <Button color="link" onClick={() => handleOpenModal(user)}>
                   {user.userFullname}
                 </Button>
               </td>
