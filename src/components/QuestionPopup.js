@@ -4,15 +4,15 @@ import React, { useState, useEffect } from 'react';
 import QuestionForm from './ScreeningQuestionCandidateForm/QuestionForm';
 
 const QuestionPopup = ({ open, modelToggle, userUid, selectedRoleData }) => {
-  const [isAnswer, setisAnswer] = useState(false);
+  const [isAnswer, setIsAnswer] = useState(false);
   const conformForAnswer = () => {
-    setisAnswer(!isAnswer);
+    setIsAnswer(!isAnswer);
   };
 
-  const [currrentQuestions, setCurrrentQuestions] = useState(null);
+  const [currentQuestions, setCurrentQuestions] = useState(null);
 
   useEffect(() => {
-    setCurrrentQuestions(selectedRoleData);
+    setCurrentQuestions(selectedRoleData);
   }, [selectedRoleData]);
   return (
     <div>
@@ -29,7 +29,7 @@ const QuestionPopup = ({ open, modelToggle, userUid, selectedRoleData }) => {
           {isAnswer ? (
             <QuestionForm
               modelToggle={modelToggle}
-              roleId={currrentQuestions.id}
+              roleId={currentQuestions.id}
               role={selectedRoleData}
               userUid={userUid}
               conformForAnswer={conformForAnswer}
