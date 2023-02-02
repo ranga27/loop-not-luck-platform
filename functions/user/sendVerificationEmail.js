@@ -26,6 +26,8 @@ exports.sendVerificationEmail = functions
       subject: 'Click here to verify your email address - Get in the Loop',
       firstName,
       message: `${process.env.CONFIRM_URL}?conf=${confirmationHash}`,
+      emailText:
+        'We are so excited to connect you to personalized career opportunities. Please click the button below to verify your email address.',
       transporter,
     });
   });
