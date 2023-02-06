@@ -16,7 +16,7 @@ const SavedRoleCard = ({
   setCurrentSelectedRole,
   setQuestionInqueryModelForSavedRole,
 }) => {
-  const { refetch } = useQuery(['companyMatchedRoles']);
+  const { refetch } = useQuery(['matchedRoles']);
   const [isViewInfo, setIsViewInfo] = useState(true);
   const [userEmail, setuserEmail] = useState('');
   const toggleViewInfo = () => {
@@ -25,7 +25,7 @@ const SavedRoleCard = ({
   const user = useQuery(['userAuth']);
   const { uid } = user.data;
   const mutation = useFirestoreDocumentMutation(
-    doc(firestore, `users/${uid}/companyMatchedRoles`, role.id),
+    doc(firestore, `users/${uid}/matchedRoles`, role.id),
     { merge: true }
   );
 
