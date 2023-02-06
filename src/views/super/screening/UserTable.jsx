@@ -32,7 +32,7 @@ const UserTable = ({ userRoles }) => {
   useEffect(() => {
     const tempArr = sortScreeningUserList(filtered, select);
     setFiltered(tempArr);
-  }, [select, toggle]);
+  }, [select, toggle, filtered]);
 
   return (
     <>

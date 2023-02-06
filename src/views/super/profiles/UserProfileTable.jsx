@@ -32,7 +32,9 @@ const UserProfileTable = ({ profiles }) => {
       setProfiles(
         profiles.filter((x) => {
           return (
-            x.firstName.includes(SearchTerms) || x.email.includes(SearchTerms)
+            x.firstName.includes(SearchTerms) ||
+            x.email.includes(SearchTerms) ||
+            (x.hearAbout && x.hearAbout.includes(SearchTerms))
           );
         })
       );
@@ -102,6 +104,9 @@ const UserProfileTable = ({ profiles }) => {
             <th>
               <IntlMessages id="pages.profiles-table-head-createdAt" />
             </th>
+            <th>
+              <IntlMessages id="pages.profiles-table-head-hearAbout" />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -135,6 +140,17 @@ const UserProfileTable = ({ profiles }) => {
                   : 'Not Completed'}
               </td>
               <td>{profile.createdAt}</td>
+              <td>
+                {profile.hearAbout ? (
+                  profile.hearAbout.map((item) => (
+                    <Badge className="mx-1" key={item}>
+                      {item}
+                    </Badge>
+                  ))
+                ) : (
+                  <p>Not selected</p>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
