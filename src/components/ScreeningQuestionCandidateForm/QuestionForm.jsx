@@ -42,11 +42,11 @@ const QuestionForm = ({
   const client = useQueryClient();
 
   const mutation = useFirestoreDocumentMutation(
-    doc(firestore, `users/${userUid}/companyMatchedRoles`, roleId),
+    doc(firestore, `users/${userUid}/matchedRoles`, roleId),
     { merge: true },
     {
       onSettled: () => {
-        client.invalidateQueries('companyMatchedRoles');
+        client.invalidateQueries('matchedRoles');
         client.invalidateQueries('savedRoles');
       },
     }

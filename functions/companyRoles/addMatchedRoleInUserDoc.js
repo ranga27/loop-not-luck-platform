@@ -7,7 +7,7 @@ const addMatchedRoleInUserDoc = async (role, uid) => {
     .firestore()
     .collection('users')
     .doc(uid)
-    .collection('companyMatchedRoles')
+    .collection('matchedRoles')
     .doc(id);
   await roleRef.set({ ...data }, { merge: true });
 };

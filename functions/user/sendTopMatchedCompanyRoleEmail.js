@@ -6,7 +6,7 @@ const { sendTopMatchEmail } = require('./sendTopMatchEmail');
 exports.sendTopMatchedCompanyRoleEmail = functions
   .region('europe-west2')
   .runWith({ secrets: ['NODEMAILER_AUTH_PASSWORD'] })
-  .firestore.document('users/{userid}/companyMatchedRoles/{uid}')
+  .firestore.document('users/{userid}/matchedRoles/{uid}')
   .onUpdate(async (snapshot, context) => {
     const {
       score: updatedScore,
