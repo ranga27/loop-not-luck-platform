@@ -21,7 +21,7 @@ const UserTable = ({ userRoles }) => {
   }, [userRoles]);
 
   const handleOpenModal = async (user) => {
-    setRoleData(user.combined);
+    setRoleData(user);
     setModalOpen(true);
   };
 

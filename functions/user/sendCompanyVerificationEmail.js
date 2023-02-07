@@ -28,6 +28,8 @@ exports.sendCompanyVerificationEmail = functions
       subject: 'Click here to verify your email address - Get in the Loop',
       firstName,
       message: `${process.env.CONFIRM_COMPANY_URL}?conf=${confirmationHash}`,
+      emailText:
+        'We are so excited to connect you to diverse candidate profiles. Please click the button below to verify your email address.',
       transporter,
     });
   });

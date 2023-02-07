@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { CheckBox } from '../../form/FormFields';
 
@@ -9,6 +9,15 @@ const CheckBoxBuilder = ({ label, options, mergeAnswer }) => {
   } = useForm({ mode: 'onBlur' });
 
   const [checkboxValues, setcheckboxValues] = useState([]);
+  const handleChange = (value) => {
+    if (!checkboxValues.includes(value)) {
+      setcheckboxValues([...checkboxValues, value]);
+    }
+  };
+
+  useEffect(() => {
+    mergeAnswer({ [label]: checkboxValues });
+  }, [checkboxValues, label]);
 
   return (
     <div>
@@ -22,8 +31,9 @@ const CheckBoxBuilder = ({ label, options, mergeAnswer }) => {
           errors={errors.name}
           value={opt.text}
           onChange={(e) => {
-            setcheckboxValues([...checkboxValues, e.target.value]);
-            mergeAnswer({ [label]: checkboxValues });
+            handleChange(e.target.value);
+            // setcheckboxValues([...checkboxValues, e.target.value]);
+            // mergeAnswer({ [label]: checkboxValues });
           }}
         />
       ))}

@@ -15,7 +15,7 @@ exports.companyEmailConformation = functions
       .where('confirmationHash', '==', confirmationHash)
       .get();
     if (querySnapshot.size === 0) {
-      return res.redirect(`${process.env.FAILURE_URL}`);
+      return res.redirect(`${process.env.FAILURE_COMPANY_URL}`);
     }
     const temporaryUserDoc = querySnapshot.docs[0];
     const { uid, email, firstName, lastName, role } = temporaryUserDoc.data();
@@ -33,5 +33,5 @@ exports.companyEmailConformation = functions
       .collection('temporaryCompanyUsers')
       .doc(temporaryUserDoc.id)
       .delete();
-    return res.redirect(`${process.env.SUCCESS_URL}`);
+    return res.redirect(`${process.env.SUCCESS_COMPANY_URL}`);
   });

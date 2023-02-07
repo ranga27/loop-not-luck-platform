@@ -36,7 +36,7 @@ const CarouselCardLeft = ({
     doc(firestore, `users/${uid}/matchedRoles`, role.id),
     { merge: true },
     {
-      // After success or failure, refetch the companyMatchedRoles query. TODO: may be refetch only the role & not the whole list
+      // After success or failure, refetch the matchedRoles query. TODO: may be refetch only the role & not the whole list
       onSettled: () => {
         client.invalidateQueries('matchedRoles');
         client.invalidateQueries('savedRoles');
@@ -89,7 +89,10 @@ const CarouselCardLeft = ({
   };
 
   return (
-    <Card style={{ marginLeft: '0px' }} data-cy="my-loop-left-carousel-card">
+    <Card
+      style={{ marginLeft: '0px', height: '600px', overflowY: 'auto' }}
+      data-cy="my-loop-left-carousel-card"
+    >
       <CardBody>
         <div className="d-flex flex-row m-2 p-2">
           <img
@@ -118,18 +121,39 @@ const CarouselCardLeft = ({
             </h5>
           </div>
         </div>
+
         <div className="m-2 p-2">
+          {role.status ? (
+            <>
+              <h6
+                className="mt-2 mb-2 text-primary"
+                style={{ fontWeight: 'bold' }}
+              >
+                {role.status === 'Rejected' ? 'Rejected' : 'Congratulations'}
+              </h6>
+              <h6 className="text-muted mb-4">
+                {role.status === 'Rejected'
+                  ? `We really appreciate you taking the time to apply and interview with us and we wish you best of luck in your job search.`
+                  : `Your profile has been accepted by ${role.company}. Expect
+                feedback from them soon.`}
+              </h6>
+            </>
+          ) : null}
           <h6 style={{ fontWeight: 'bold' }}>Application Deadline:</h6>
           <h6 className="text-muted">{role.deadline}</h6>
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Location
           </h6>
-          <h6 className="text-muted">{role.jobType || ''}</h6>
+          <h6 className="text-muted">{role.locationType || ''}</h6>
           <h6 className="text-muted">{role.location}</h6>
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Position
           </h6>
           <h6 className="text-muted">{role.positionType}</h6>
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+            Department
+          </h6>
+          <h6 className="text-muted">{role.department}</h6>
           <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
             Salary
           </h6>
@@ -149,6 +173,34 @@ const CarouselCardLeft = ({
               </span>
             </h6>
           )}
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+            More Role Description
+          </h6>
+          {role.moreRoleInfo && (
+            <h6 className="text-muted">
+              {isReadMore ? role.moreRoleInfo.slice(0, 150) : role.moreRoleInfo}
+              <span onClick={toggleReadMore} style={{ color: '#F7B919' }}>
+                {role.moreRoleInfo.length > 150
+                  ? isReadMore
+                    ? ' Read more'
+                    : ' Show less'
+                  : ''}
+              </span>
+            </h6>
+          )}
+
+          <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+            Experience Needed
+          </h6>
+          <h6 className="text-muted">{role.experience}</h6>
+          {role.status ? (
+            <>
+              <h6 className="mt-2" style={{ fontWeight: 'bold' }}>
+                Status
+              </h6>
+              <h6 className="text-muted">{role.status}</h6>
+            </>
+          ) : null}
         </div>
 
         <div className="d-flex flex-row">
