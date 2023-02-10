@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Button, Table } from 'reactstrap';
 import Modals from './Modal';
 import IntlMessages from '../../../helpers/IntlMessages';
-import {
+import StoreInUsestate, {
   getCandidateScreeningList,
-  sortScreeningUserList,
+  searchData,
 } from '../../../helpers/Utils';
+import '../../../assets/css/sass/user.scss';
 
 const UserTable = ({ userRoles }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [rolesData, setRoleData] = useState([]);
-  const [select, setSelect] = useState('');
-  const [toggle, setToggle] = useState(false);
+
+  const [searchInput, setSearchInput] = useState({});
+  console.log(searchInput);
+
+  console.log(userRoles);
   const [filtered, setFiltered] = useState(
     getCandidateScreeningList(userRoles)
   );
@@ -30,77 +34,158 @@ const UserTable = ({ userRoles }) => {
   };
 
   useEffect(() => {
-    const tempArr = sortScreeningUserList(filtered, select);
-    setFiltered(tempArr);
-  }, [select, toggle, filtered]);
+    setFiltered(searchData(searchInput, getCandidateScreeningList(userRoles)));
+  }, [searchInput]);
 
   return (
     <>
-      <div>
-        <select
-          onChange={(e) => {
-            setSelect(e.target.value);
-          }}
-          className="m-3"
-        >
-          <option value="random">Choose Filter</option>
-          <option value="company">Filter by Company Name</option>
-          <option value="role">Filter by Role Name</option>
-          <option value="score">Filter by Matched Score %</option>
-        </select>
-        <Button
-          onClick={() => {
-            setToggle(!toggle);
-          }}
-        >
-          Filter
-        </Button>
-      </div>
-      <Table responsive hover className="sticky-top">
+      <Table
+        hover
+        className="sticky-top custom_table"
+        style={{
+          borderCollapse: 'separate',
+          borderSpacing: '0 20px',
+          overflowX: 'scroll !important',
+        }}
+      >
         <thead>
           <tr>
-            <th>
-              <IntlMessages id="pages.application-tableIndex" />
+            <th className="w-0.5 cusrom_row">
+              <IntlMessages id="pages.applicant-id" />
             </th>
-            <th>
+            <th className="w-0.5">
               <IntlMessages id="pages.application-name" />
             </th>
-            <th>
+            <th className="w-0.5">
               <IntlMessages id="pages.application-email" />
             </th>
-            <th>
+            <th className="w-0.5">
+              <IntlMessages id="pages.application-applied-id" />
+            </th>
+            <th className="w-0.5">
               <IntlMessages id="pages.application-company" />
             </th>
-            <th>
+            <th className="w-0.5">
               <IntlMessages id="pages.application-title" />
             </th>
-            <th>
+            <th className="w-0.5">
               <IntlMessages id="pages.application-position" />
             </th>
-            <th>
+            <th className="w-0.5">
               <IntlMessages id="pages.application-department" />
             </th>
-            <th>
+            <th className="w-0.5">
               <IntlMessages id="pages.application-match" />
             </th>
+          </tr>
+          <tr>
+            <td className="w-0.5">
+              <input
+                placeholder="Id"
+                className="small_input_search_field"
+                name="recordId"
+                onChange={(e) => {
+                  StoreInUsestate.handleChange(e, setSearchInput);
+                }}
+              />
+            </td>
+            <td>
+              <input
+                placeholder="Name"
+                name="userFullname"
+                onChange={(e) => {
+                  StoreInUsestate.handleChange(e, setSearchInput);
+                }}
+              />
+            </td>
+            <td>
+              <input
+                placeholder="Email"
+                name="email"
+                onChange={(e) => {
+                  StoreInUsestate.handleChange(e, setSearchInput);
+                }}
+              />
+            </td>
+            <td>
+              <input
+                placeholder="Applied date"
+                className="medium_input_search_field"
+                type="date"
+                name="appliedAt"
+                onChange={(e) => {
+                  StoreInUsestate.handleChange(e, setSearchInput);
+                }}
+              />
+            </td>
+            <td>
+              <input
+                placeholder="Company"
+                className="medium_input_search_field"
+                name="company"
+                onChange={(e) => {
+                  StoreInUsestate.handleChange(e, setSearchInput);
+                }}
+              />
+            </td>
+            <td>
+              <input
+                placeholder="Role"
+                className="medium_input_search_field"
+                name="roleTitle"
+                onChange={(e) => {
+                  StoreInUsestate.handleChange(e, setSearchInput);
+                }}
+              />
+            </td>
+            <td>
+              <input
+                placeholder="Position"
+                className="medium_input_search_field"
+                name="positionType"
+                onChange={(e) => {
+                  StoreInUsestate.handleChange(e, setSearchInput);
+                }}
+              />
+            </td>
+            <td>
+              <input
+                placeholder="Department"
+                className="medium_input_search_field"
+                name="department"
+                onChange={(e) => {
+                  StoreInUsestate.handleChange(e, setSearchInput);
+                }}
+              />
+            </td>
+            <td>
+              <input
+                placeholder="Match %"
+                className="small_input_search_field"
+                name="score"
+                onChange={(e) => {
+                  StoreInUsestate.handleChange(e, setSearchInput);
+                }}
+              />
+            </td>
           </tr>
         </thead>
         <tbody>
           {filtered.map((user) => (
-            <tr key={user.id}>
-              <td>#</td>
+            <tr key={user.recordId}>
+              <td className="cusrom_row">{user.recordId}</td>
               <td>
                 <Button color="link" onClick={() => handleOpenModal(user)}>
                   {user.userFullname}
                 </Button>
               </td>
-              <td>{user.email}</td>
-
+              <td className="w-0.5 ">{user.email}</td>
+              <td>{user.appliedAt.toString()}</td>
               <td>{user.company}</td>
+              <td>{user.roleTitle}</td>
               <td>{user.positionType}</td>
               <td>{user.department}</td>
               <td>{user.score}%</td>
-              <td>{user.department}</td>
             </tr>
           ))}
         </tbody>

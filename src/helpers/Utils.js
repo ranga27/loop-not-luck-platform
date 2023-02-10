@@ -220,9 +220,14 @@ export const getCandidateScreeningList = (userWithRoles) => {
   userWithRoles.forEach((user) => {
     user.roles.forEach((role) => {
       result.push({
+        recordId: `${user.id.slice(-3)}${role.id.slice(-2)}`.toUpperCase(),
+        appliedAt: role.updatedAt
+          ? format(new Date(role.updatedAt.toDate()), 'dd-MMM-yyyy')
+          : 'Not set',
         userFullname: `${user.firstName} ${user.lastName}`,
         email: user.email,
         company: role.company,
+        roleTitle: role.title,
         positionType: role.positionType,
         department: role.department,
         score: role.score,
@@ -259,6 +264,65 @@ export const getCandidateScreeningList = (userWithRoles) => {
     });
   });
   return result;
+};
+
+// check weather the date is valid or not
+export const checkDateValidity = (data) => {
+  const checkDate = new Date(data);
+  if (checkDate === 'Invalid Date') {
+    return false;
+  }
+  return false;
+};
+
+// Function to manage the Object UseState
+class StoreInUsestate {
+  // handle the changes in Input field to store the data in UseState
+  static handleChange = (e, stateName) => {
+    const { name, value } = e.target;
+    stateName((prevState) => ({
+      ...prevState,
+      [name]:
+        name === 'appliedAt' ? format(new Date(value), 'dd-MMM-yyyy') : value,
+    }));
+  };
+}
+export default StoreInUsestate;
+
+// function to return  the keys which have values
+const getKeys = (searchObj) => {
+  const keys = Object.keys(searchObj).filter((key) => {
+    return searchObj[key] !== '' && searchObj[key] !== undefined;
+  });
+  return keys;
+};
+
+// Function to search the Data by multiple field
+export const searchData = (searchObj, allData) => {
+  const keysToSearch = getKeys(searchObj);
+  const filtered = [];
+  for (let i = 0; i < allData.length; i += 1) {
+    let check = false;
+    const record = allData[i];
+    for (let j = 0; j < keysToSearch.length; j += 1) {
+      const key = keysToSearch[j];
+      if (record[key].toLowerCase().includes(searchObj[key].toLowerCase())) {
+        check = true;
+      } else {
+        check = false;
+        break;
+      }
+    }
+    if (check) {
+      filtered.push(record);
+    }
+  }
+
+  if (filtered?.length) {
+    return filtered;
+  }
+
+  return filtered;
 };
 
 export const sortScreeningUserList = (userList, sortBy) => {

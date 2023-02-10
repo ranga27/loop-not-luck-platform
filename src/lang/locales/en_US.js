@@ -157,6 +157,8 @@ module.exports = {
   'pages.prices.featurecomparison': 'Feature Comparison',
   'pages.prices.pricecomparison': 'Price Comparison',
   'pages.application-header': 'Candidate Roles Applications',
+  'pages.applicant-id': 'id',
+  'pages.application-applied-id': 'Applied at',
   'pages.application-tableIndex': '#',
   'pages.application-name': 'Applicant Name',
   'pages.application-email': 'Email',

@@ -1,0 +1,22 @@
+.custom_table{
+    overflow-x: inherit !important;
+}
+.custom_table tbody .cusrom_row{
+    width: 100px !important;
+    word-break: normal;
+}
+.custom_table tbody tr td {
+      word-break: break-all;
+    width: 15%;
+}
+.custom_table thead th {
+    word-break: unset !important;
+}
+
+.small_input_search_field {
+    width: 70px
+}
+
+.medium_input_search_field {
+    width: 100px
+}
