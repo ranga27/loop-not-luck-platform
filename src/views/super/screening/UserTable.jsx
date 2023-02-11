@@ -13,6 +13,9 @@ const UserTable = ({ userRoles }) => {
   const [rolesData, setRoleData] = useState([]);
 
   const [searchInput, setSearchInput] = useState({});
+  const clearSearch = () => {
+    setSearchInput({});
+  };
 
   const [filtered, setFiltered] = useState(
     getCandidateScreeningList(userRoles)
@@ -37,6 +40,7 @@ const UserTable = ({ userRoles }) => {
 
   return (
     <>
+      <Button onClick={clearSearch}>Clear Search</Button>
       <Table
         hover
         className="sticky-top custom_table"

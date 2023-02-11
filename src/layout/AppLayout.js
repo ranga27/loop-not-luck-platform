@@ -25,6 +25,7 @@ const AppLayout = ({ children }) => {
           position: 'fixed',
           right: 0,
           top: 100,
+          zIndex: 1,
         }}
       />
       <TopNav />

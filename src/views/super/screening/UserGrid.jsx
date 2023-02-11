@@ -14,6 +14,10 @@ const UserGrid = ({ userRoles }) => {
 
   const [searchInput, setSearchInput] = useState({});
 
+  const clearSearch = () => {
+    setSearchInput({});
+  };
+
   const [filtered, setFiltered] = useState(
     getCandidateScreeningList(userRoles)
   );
@@ -37,8 +41,24 @@ const UserGrid = ({ userRoles }) => {
 
   return (
     <>
-      <h2>Enter details for filter</h2>
-      <div>
+      <Row className="mb-3 w-60">
+        <Colxx Colxx>
+          <h2 className="mt-1">Enter details for filter</h2>
+        </Colxx>
+        <Colxx Colxx>
+          <Button onClick={clearSearch}>Clear Filter</Button>
+        </Colxx>
+      </Row>
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 2,
+          marginBottom: '20px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '98%',
+        }}
+      >
         <input
           placeholder="Name"
           name="userFullname"
@@ -53,7 +73,6 @@ const UserGrid = ({ userRoles }) => {
             StoreInUsestate.handleChange(e, setSearchInput);
           }}
         />
-
         <input
           placeholder="Applied date"
           className="medium_input_search_field"
@@ -99,7 +118,7 @@ const UserGrid = ({ userRoles }) => {
         />
         <input
           placeholder="Match %"
-          className="small_input_search_field"
+          className="small_input_search_field z-20"
           name="score"
           onChange={(e) => {
             StoreInUsestate.handleChange(e, setSearchInput);
@@ -108,7 +127,17 @@ const UserGrid = ({ userRoles }) => {
       </div>
       <Row>
         {filtered.map((user) => (
-          <Colxx xs="6" sm="4" xl="3" className="mb-4" key={user.recordId}>
+          <Colxx
+            xs="6"
+            sm="4"
+            xl="3"
+            className="mb-4"
+            key={user.recordId}
+            style={{
+              position: 'relative',
+              zIndex: 2,
+            }}
+          >
             <Card key={user.id + user.score} className="mb-4">
               <CardBody>
                 <div className="text-center">
