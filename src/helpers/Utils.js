@@ -266,15 +266,6 @@ export const getCandidateScreeningList = (userWithRoles) => {
   return result;
 };
 
-// check weather the date is valid or not
-export const checkDateValidity = (data) => {
-  const checkDate = new Date(data);
-  if (checkDate === 'Invalid Date') {
-    return false;
-  }
-  return false;
-};
-
 // Function to manage the Object UseState
 class StoreInUsestate {
   // handle the changes in Input field to store the data in UseState
@@ -283,7 +274,9 @@ class StoreInUsestate {
     stateName((prevState) => ({
       ...prevState,
       [name]:
-        name === 'appliedAt' ? format(new Date(value), 'dd-MMM-yyyy') : value,
+        name === 'appliedAt' && value !== ''
+          ? format(new Date(value), 'dd-MMM-yyyy')
+          : value,
     }));
   };
 }
