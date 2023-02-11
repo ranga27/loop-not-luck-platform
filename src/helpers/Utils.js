@@ -300,6 +300,7 @@ const getKeys = (searchObj) => {
 // Function to search the Data by multiple field
 export const searchData = (searchObj, allData) => {
   const keysToSearch = getKeys(searchObj);
+  if (keysToSearch <= 0) return allData;
   const filtered = [];
   for (let i = 0; i < allData.length; i += 1) {
     let check = false;
@@ -326,7 +327,7 @@ export const searchData = (searchObj, allData) => {
   if (filtered?.length) {
     return filtered;
   }
-  return allData;
+  return [];
 };
 
 export const sortScreeningUserList = (userList, sortBy) => {
