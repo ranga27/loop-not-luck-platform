@@ -166,7 +166,7 @@ module.exports = {
   'pages.application-title': 'Role Title',
   'pages.application-position': 'Job Position',
   'pages.application-department': 'Department',
-  'pages.application-match': 'Candidate Role Match',
+  'pages.application-match': 'Match %',
   'pages.application-applicantInfo': 'Applicant Information',
   'pages.application-send': 'Send Email',
   'pages.application-done': 'Done',

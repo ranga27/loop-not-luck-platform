@@ -12,9 +12,29 @@ const UserTable = ({ userRoles }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [rolesData, setRoleData] = useState([]);
 
-  const [searchInput, setSearchInput] = useState({});
+  const [searchInput, setSearchInput] = useState({
+    score: '',
+    department: '',
+    positionType: '',
+    roleTitle: '',
+    company: '',
+    email: '',
+    userFullname: '',
+    recordId: '',
+    appliedAt: '',
+  });
   const clearSearch = () => {
-    setSearchInput({});
+    setSearchInput({
+      score: '',
+      department: '',
+      positionType: '',
+      roleTitle: '',
+      company: '',
+      email: '',
+      userFullname: '',
+      recordId: '',
+      appliedAt: '',
+    });
   };
 
   const [filtered, setFiltered] = useState(
@@ -89,6 +109,7 @@ const UserTable = ({ userRoles }) => {
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
+                value={searchInput.recordId}
               />
             </td>
             <td>
@@ -98,6 +119,7 @@ const UserTable = ({ userRoles }) => {
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
+                value={searchInput.userFullname}
               />
             </td>
             <td>
@@ -107,6 +129,7 @@ const UserTable = ({ userRoles }) => {
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
+                value={searchInput.email}
               />
             </td>
             <td>
@@ -128,6 +151,7 @@ const UserTable = ({ userRoles }) => {
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
+                value={searchInput.company}
               />
             </td>
             <td>
@@ -138,6 +162,7 @@ const UserTable = ({ userRoles }) => {
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
+                value={searchInput.roleTitle}
               />
             </td>
             <td>
@@ -148,6 +173,7 @@ const UserTable = ({ userRoles }) => {
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
+                value={searchInput.positionType}
               />
             </td>
             <td>
@@ -158,6 +184,7 @@ const UserTable = ({ userRoles }) => {
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
+                value={searchInput.department}
               />
             </td>
             <td>
@@ -168,6 +195,7 @@ const UserTable = ({ userRoles }) => {
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
+                value={searchInput.score}
               />
             </td>
           </tr>
