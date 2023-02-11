@@ -306,7 +306,12 @@ export const searchData = (searchObj, allData) => {
     const record = allData[i];
     for (let j = 0; j < keysToSearch.length; j += 1) {
       const key = keysToSearch[j];
-      if (record[key].toLowerCase().includes(searchObj[key].toLowerCase())) {
+      if (
+        record[key]
+          .toString()
+          .toLowerCase()
+          .includes(searchObj[key].toString().toLowerCase())
+      ) {
         check = true;
       } else {
         check = false;
@@ -321,8 +326,7 @@ export const searchData = (searchObj, allData) => {
   if (filtered?.length) {
     return filtered;
   }
-
-  return filtered;
+  return allData;
 };
 
 export const sortScreeningUserList = (userList, sortBy) => {

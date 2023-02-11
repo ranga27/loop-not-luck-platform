@@ -13,9 +13,7 @@ const UserTable = ({ userRoles }) => {
   const [rolesData, setRoleData] = useState([]);
 
   const [searchInput, setSearchInput] = useState({});
-  console.log(searchInput);
 
-  console.log(userRoles);
   const [filtered, setFiltered] = useState(
     getCandidateScreeningList(userRoles)
   );
