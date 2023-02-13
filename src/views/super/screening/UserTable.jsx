@@ -5,10 +5,13 @@ import IntlMessages from '../../../helpers/IntlMessages';
 import StoreInUsestate, {
   getCandidateScreeningList,
   searchData,
+  sortScreeningUserList,
 } from '../../../helpers/Utils';
 import '../../../assets/css/sass/user.scss';
 
 const UserTable = ({ userRoles }) => {
+  const [sorting, setsorting] = useState([]);
+  const [typeSort, settypeSort] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [rolesData, setRoleData] = useState([]);
 
@@ -58,6 +61,15 @@ const UserTable = ({ userRoles }) => {
     setFiltered(searchData(searchInput, getCandidateScreeningList(userRoles)));
   }, [searchInput]);
 
+  const sortingAscendingDescending = (sortRequest) => {
+    settypeSort(sortRequest);
+    setsorting(sortScreeningUserList(filtered, sortRequest));
+  };
+
+  useEffect(() => {
+    setFiltered(sorting);
+  }, [sorting, typeSort]);
+
   return (
     <>
       <Button onClick={clearSearch}>Clear Search</Button>
@@ -72,7 +84,7 @@ const UserTable = ({ userRoles }) => {
       >
         <thead>
           <tr>
-            <th className="w-0.5 cusrom_row">
+            <th className="w-0.5">
               <IntlMessages id="pages.applicant-id" />
             </th>
             <th className="w-0.5">
@@ -197,6 +209,127 @@ const UserTable = ({ userRoles }) => {
                 }}
                 value={searchInput.score}
               />
+            </td>
+          </tr>
+          <tr className="sortingRow">
+            <td />
+            <td>
+              <div className="text-center">
+                <i
+                  className="simple-icon-arrow-up sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('usernameAscending');
+                  }}
+                />
+                <br />
+                <i
+                  className="simple-icon-arrow-down sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('usernameDescending');
+                  }}
+                />
+              </div>
+            </td>
+            <td>
+              <div className="text-center">
+                <i
+                  className="simple-icon-arrow-up sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('emailAscending');
+                  }}
+                />
+                <br />
+                <i
+                  className="simple-icon-arrow-down sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('emailDescending');
+                  }}
+                />
+              </div>
+            </td>
+            <td>
+              <div className="text-center">
+                <i
+                  className="simple-icon-arrow-up sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('appliedAtAscending');
+                  }}
+                />
+                <br />
+                <i
+                  className="simple-icon-arrow-down sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('appliedAtDescending');
+                  }}
+                />
+              </div>
+            </td>
+            <td>
+              <div className="text-center">
+                <i
+                  className="simple-icon-arrow-up sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('companyAscending');
+                  }}
+                />
+                <br />
+                <i
+                  className="simple-icon-arrow-down sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('companyDescending');
+                  }}
+                />
+              </div>
+            </td>
+            <td />
+
+            <td />
+
+            <td>
+              <div className="text-center">
+                <i
+                  className="simple-icon-arrow-up sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('departmentAscending');
+                  }}
+                />
+                <br />
+                <i
+                  className="simple-icon-arrow-down sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('departmentDescending');
+                  }}
+                />
+              </div>
+            </td>
+            <td>
+              <div className="text-center">
+                <i
+                  className="simple-icon-arrow-up sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('scoreAscending');
+                  }}
+                />
+                <br />
+                <i
+                  className="simple-icon-arrow-down sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('scoreDescending');
+                  }}
+                />
+              </div>
             </td>
           </tr>
         </thead>

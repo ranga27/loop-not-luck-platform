@@ -324,16 +324,51 @@ export const searchData = (searchObj, allData) => {
 };
 
 export const sortScreeningUserList = (userList, sortBy) => {
-  // Need to update for all the filter Logoic
   switch (sortBy) {
-    case 'company':
+    case 'companyAscending':
       return userList.sort((a, b) => a.company.localeCompare(b.company));
-    case 'role':
+
+    case 'companyDescending':
+      return userList.sort((a, b) => b.company.localeCompare(a.company));
+
+    case 'usernameAscending':
       return userList.sort((a, b) =>
-        a.positionType.localeCompare(b.positionType)
+        a.userFullname.localeCompare(b.userFullname)
       );
-    case 'score':
-      console.log(userList.sort((a, b) => a.score > b.score));
+
+    case 'usernameDescending':
+      return userList.sort((a, b) =>
+        b.userFullname.localeCompare(a.userFullname)
+      );
+
+    case 'emailAscending':
+      return userList.sort((a, b) => a.email.localeCompare(b.email));
+
+    case 'emailDescending':
+      return userList.sort((a, b) => b.email.localeCompare(a.email));
+
+    case 'departmentAscending':
+      return userList.sort((a, b) => a.department.localeCompare(b.department));
+
+    case 'departmentDescending':
+      return userList.sort((a, b) => b.department.localeCompare(a.department));
+
+    case 'appliedAtAscending':
+      return userList.sort(
+        (a, b) =>
+          new Date(a.appliedAt).getTime() - new Date(b.appliedAt).getTime()
+      );
+
+    case 'appliedAtDescending':
+      return userList.sort(
+        (a, b) =>
+          new Date(b.appliedAt).getTime() - new Date(a.appliedAt).getTime()
+      );
+
+    case 'scoreAscending':
+      return userList.sort((a, b) => a.score - b.score);
+
+    case 'scoreDescending':
       return userList.sort((a, b) => b.score - a.score);
 
     default:
