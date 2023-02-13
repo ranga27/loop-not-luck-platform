@@ -3,16 +3,21 @@ import { Button, Card, CardBody, CardTitle, Row } from 'reactstrap';
 import { Colxx } from '../../../components/common/CustomBootstrap';
 import Modals from './Modal';
 import IntlMessages from '../../../helpers/IntlMessages';
-import {
+import StoreInUsestate, {
   getCandidateScreeningList,
-  sortScreeningUserList,
+  searchData,
 } from '../../../helpers/Utils';
 
 const UserGrid = ({ userRoles }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [rolesData, setRoleData] = useState([]);
-  const [select, setSelect] = useState('');
-  const [toggle, setToggle] = useState(false);
+
+  const [searchInput, setSearchInput] = useState({});
+
+  const clearSearch = () => {
+    setSearchInput({});
+  };
+
   const [filtered, setFiltered] = useState(
     getCandidateScreeningList(userRoles)
   );
@@ -31,33 +36,95 @@ const UserGrid = ({ userRoles }) => {
   };
 
   useEffect(() => {
-    const tempArr = sortScreeningUserList(filtered, select);
-    setFiltered(tempArr);
-  }, [select, toggle, filtered]);
+    setFiltered(searchData(searchInput, getCandidateScreeningList(userRoles)));
+  }, [searchInput]);
 
   return (
     <>
-      <div>
-        <select
+      <Row className="mb-3 w-60">
+        <Colxx Colxx>
+          <h2 className="mt-1">Enter details for filter</h2>
+        </Colxx>
+        <Colxx Colxx>
+          <Button onClick={clearSearch}>Clear Filter</Button>
+        </Colxx>
+      </Row>
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 2,
+          marginBottom: '20px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '98%',
+        }}
+      >
+        <input
+          placeholder="Name"
+          name="userFullname"
           onChange={(e) => {
-            setSelect(e.target.value);
+            StoreInUsestate.handleChange(e, setSearchInput);
           }}
-          className="m-3"
-        >
-          <option value="random">Choose Filter</option>
-          <option value="company">Filter by Company Name</option>
-          <option value="role">Filter by Role Name</option>
-          <option value="score">Filter by Matched Score %</option>
-        </select>
-        <Button
-          onClick={() => {
-            setToggle(!toggle);
+        />
+        <input
+          placeholder="Email"
+          name="email"
+          onChange={(e) => {
+            StoreInUsestate.handleChange(e, setSearchInput);
           }}
-        >
-          Filter
-        </Button>
-      </div>
+        />
+        <input
+          placeholder="Applied date"
+          className="medium_input_search_field"
+          type="date"
+          name="appliedAt"
+          onChange={(e) => {
+            StoreInUsestate.handleChange(e, setSearchInput);
+          }}
+        />
+        <input
+          placeholder="Company"
+          className="medium_input_search_field"
+          name="company"
+          onChange={(e) => {
+            StoreInUsestate.handleChange(e, setSearchInput);
+          }}
+        />
 
+        <input
+          placeholder="Role"
+          className="medium_input_search_field"
+          name="roleTitle"
+          onChange={(e) => {
+            StoreInUsestate.handleChange(e, setSearchInput);
+          }}
+        />
+
+        <input
+          placeholder="Position"
+          className="medium_input_search_field"
+          name="positionType"
+          onChange={(e) => {
+            StoreInUsestate.handleChange(e, setSearchInput);
+          }}
+        />
+        <input
+          placeholder="Department"
+          className="medium_input_search_field"
+          name="department"
+          onChange={(e) => {
+            StoreInUsestate.handleChange(e, setSearchInput);
+          }}
+        />
+        <input
+          placeholder="Match %"
+          className="small_input_search_field z-20"
+          name="score"
+          onChange={(e) => {
+            StoreInUsestate.handleChange(e, setSearchInput);
+          }}
+        />
+      </div>
       <Row>
         {filtered.map((user) => (
           <Colxx
@@ -65,7 +132,11 @@ const UserGrid = ({ userRoles }) => {
             sm="4"
             xl="3"
             className="mb-4"
-            key={user.id + user.score}
+            key={user.recordId}
+            style={{
+              position: 'relative',
+              zIndex: 2,
+            }}
           >
             <Card key={user.id + user.score} className="mb-4">
               <CardBody>

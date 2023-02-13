@@ -1,0 +1,37 @@
+.custom_table{
+    overflow-x: inherit !important;
+}
+.custom_table tbody .cusrom_row{
+    width: 100px !important;
+    word-break: normal;
+}
+.custom_table tbody tr td {
+      word-break: break-all;
+    width: 15%;
+}
+.custom_table thead th {
+    word-break: unset !important;
+    line-height: 0;
+}
+
+.small_input_search_field {
+    width: 70px
+}
+
+.medium_input_search_field {
+    width: 100px
+}
+
+.sortingRow {
+    height: 30px !important;
+    padding: 0px;
+}
+
+.sortIconSize {
+    font-size: 10px;
+}
+.sortingRow {
+    td{
+        padding: 0;
+    }
+}
