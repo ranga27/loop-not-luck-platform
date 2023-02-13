@@ -1,5 +1,7 @@
-import React from 'react';
-import { Card, CardBody, CardTitle, Row } from 'reactstrap';
+import React, { useState } from 'react';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { Button, Card, CardBody, CardTitle, Row } from 'reactstrap';
 import { collection, query, where, orderBy } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { firestore } from '../../../helpers';
@@ -16,9 +18,12 @@ import {
   signUpsToday,
 } from '../../../helpers/Utils';
 import { Colxx } from '../../../components/common/CustomBootstrap';
+import { getUpdatedMatchedRolesInDB } from '../../../helpers/firebaseService';
 // import NestedMetrics from './NestedMetrics';
 
 const ManageProfiles = () => {
+  const [loading, setFunctionLoading] = useState(false);
+  const alert = withReactContent(Swal);
   const { isLoading, data: usersList } = useFirestoreQuery(
     ['users'],
     query(
@@ -48,8 +53,46 @@ const ManageProfiles = () => {
     (user) => !user.email.endsWith('@loopnotluck.com')
   );
 
+  const usersToRefresh = usersList.filter(
+    (x) =>
+      x.hasCompletedProfile &&
+      x.isOnboarded &&
+      !x.email.endsWith('@loopnotluck.com')
+  );
+
+  const onRefreshRoles = async () => {
+    setFunctionLoading(true);
+    await usersToRefresh.map((user) => {
+      return getUpdatedMatchedRolesInDB(user.id).then(() => {
+        alert.fire({
+          title: 'Awesome!',
+          text: 'The refreshing of all loop candidates matched roles is now running.',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+          iconColor: '#3085d6',
+        });
+      });
+    });
+    setFunctionLoading(false);
+  };
+
+  if (loading) {
+    return <div className="loading" />;
+  }
+
   return (
     <div>
+      <div className="my-4">
+        <Button onClick={() => onRefreshRoles()} color="link">
+          <span
+            style={{ color: '#F7B919' }}
+            data-cy="my-application-show-details-button"
+          >
+            Refresh All Candidates Matched Roles
+          </span>
+        </Button>
+        <span>(Please click only once as it works in the background)</span>
+      </div>
       <Row md="2">
         <Colxx lg="6" className="mb-4">
           <Card className="mb-4">

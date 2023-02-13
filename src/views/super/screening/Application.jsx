@@ -44,7 +44,13 @@ const Application = ({ users }) => {
             {' '}
             <IntlMessages id="pages.application-header" />
           </h1>
-          <div className="text-zero top-right-button-container">
+          <div
+            className="text-zero top-right-button-container"
+            style={{
+              position: 'relative',
+              zIndex: 2,
+            }}
+          >
             <Button
               color="transparent"
               className={classnames('top-right-button mb-4', {
