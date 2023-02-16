@@ -1,64 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Table } from 'reactstrap';
-import Modals from './Modal';
+import { Link } from 'react-router-dom';
+import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
+import { collection } from 'firebase/firestore';
 import IntlMessages from '../../../helpers/IntlMessages';
 import StoreInUsestate, {
-  getCandidateScreeningList,
   searchData,
   sortScreeningUserList,
 } from '../../../helpers/Utils';
 import '../../../assets/css/sass/user.scss';
+import { firestore } from '../../../helpers';
 
 const UserTable = ({ userRoles }) => {
-  const [sorting, setsorting] = useState([]);
+  const [sorting, setsorting] = useState(userRoles);
   const [typeSort, settypeSort] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
-  const [rolesData, setRoleData] = useState([]);
 
   const [searchInput, setSearchInput] = useState({
-    score: '',
+    match: '',
     department: '',
     positionType: '',
     roleTitle: '',
     company: '',
-    email: '',
-    userFullname: '',
+    applicantEmail: '',
+    userFullName: '',
     recordId: '',
     appliedAt: '',
   });
   const clearSearch = () => {
     setSearchInput({
-      score: '',
+      match: '',
       department: '',
       positionType: '',
       roleTitle: '',
       company: '',
-      email: '',
-      userFullname: '',
+      applicantEmail: '',
+      userFullName: '',
       recordId: '',
       appliedAt: '',
     });
   };
 
-  const [filtered, setFiltered] = useState(
-    getCandidateScreeningList(userRoles)
-  );
-
+  const [filtered, setFiltered] = useState(userRoles);
   useEffect(() => {
-    setFiltered(getCandidateScreeningList(userRoles));
+    setFiltered(userRoles);
   }, [userRoles]);
 
-  const handleOpenModal = async (user) => {
-    setRoleData(user);
-    setModalOpen(true);
-  };
-
-  const toggleModal = () => {
-    setModalOpen(!modalOpen);
-  };
-
   useEffect(() => {
-    setFiltered(searchData(searchInput, getCandidateScreeningList(userRoles)));
+    setFiltered(searchData(searchInput, userRoles));
   }, [searchInput]);
 
   const sortingAscendingDescending = (sortRequest) => {
@@ -70,8 +58,31 @@ const UserTable = ({ userRoles }) => {
     setFiltered(sorting);
   }, [sorting, typeSort]);
 
+  const appliedRoleMutation = useFirestoreCollectionMutation(
+    collection(firestore, 'testCollection')
+  );
+
+  const applyRole = async () => {
+    filtered.map(async (user) => {
+      await appliedRoleMutation.mutate({
+        appliedAt: user.updatedAt,
+        match: user.score,
+        roleId: user.roleId,
+        roleTitle: user.jobTitle,
+        status: user.status,
+        userId: user.userId,
+        companyId: user.companyId,
+        applicantEmail: user.email,
+        positionType: user.positionType,
+        department: user.department,
+        company: user.company,
+        userFullName: user.userFullname,
+      });
+    });
+  };
   return (
     <>
+      <Button onClick={applyRole}>Apply Role</Button>
       <Button onClick={clearSearch}>Clear Search</Button>
       <Table
         hover
@@ -127,21 +138,21 @@ const UserTable = ({ userRoles }) => {
             <td>
               <input
                 placeholder="Name"
-                name="userFullname"
+                name="userFullName"
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
-                value={searchInput.userFullname}
+                value={searchInput.userFullName}
               />
             </td>
             <td>
               <input
                 placeholder="Email"
-                name="email"
+                name="applicantEmail"
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
-                value={searchInput.email}
+                value={searchInput.applicantEmail}
               />
             </td>
             <td>
@@ -203,11 +214,11 @@ const UserTable = ({ userRoles }) => {
               <input
                 placeholder="Match %"
                 className="small_input_search_field"
-                name="score"
+                name="match"
                 onChange={(e) => {
                   StoreInUsestate.handleChange(e, setSearchInput);
                 }}
-                value={searchInput.score}
+                value={searchInput.match}
               />
             </td>
           </tr>
@@ -338,29 +349,24 @@ const UserTable = ({ userRoles }) => {
             <tr key={user.recordId}>
               <td className="cusrom_row">{user.recordId}</td>
               <td>
-                <Button color="link" onClick={() => handleOpenModal(user)}>
-                  {user.userFullname}
-                </Button>
+                <Link
+                  color="link"
+                  to={`/app/screening/${user.userId}/${user.roleId}`}
+                >
+                  {user.userFullName}
+                </Link>
               </td>
-              <td className="w-0.5 ">{user.email}</td>
+              <td className="w-0.5 ">{user.applicantEmail}</td>
               <td>{user.appliedAt.toString()}</td>
               <td>{user.company}</td>
               <td>{user.roleTitle}</td>
               <td>{user.positionType}</td>
               <td>{user.department}</td>
-              <td>{user.score}%</td>
+              <td>{user.match}%</td>
             </tr>
           ))}
         </tbody>
       </Table>
-      {modalOpen && (
-        <Modals
-          modalOpen={modalOpen}
-          rolesData={rolesData}
-          setModalOpen={setModalOpen}
-          toggle={toggleModal}
-        />
-      )}
     </>
   );
 };

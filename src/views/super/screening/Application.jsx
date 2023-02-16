@@ -1,30 +1,19 @@
 /* eslint-disable no-restricted-syntax */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Row, Button } from 'reactstrap';
 import classnames from 'classnames';
-import { fetchUserMatchedRolesFromFirestore } from '../../../helpers/firestoreService';
 import { Colxx } from '../../../components/common/CustomBootstrap';
 import UserTable from './UserTable';
 import UserGrid from './UserGrid';
 import IntlMessages from '../../../helpers/IntlMessages';
 
 const Application = ({ users }) => {
-  const [userRoles, setUsersRoles] = useState([]);
-  useEffect(() => {
-    fetchUserMatchedRolesFromFirestore(users).then((results) => {
-      if (results.length > 0) {
-        setUsersRoles(results);
-      }
-      return null;
-    });
-  }, [users]);
+  const [activeTab, setActiveTab] = useState('tab1');
 
   const tabs = [
     { icon: 'simple-icon-list', current: true },
     { icon: ' simple-icon-grid', current: false },
   ];
-
-  const [activeTab, setActiveTab] = useState('tab1');
 
   const handleTable = async () => {
     tabs[0].current = true;
@@ -75,9 +64,9 @@ const Application = ({ users }) => {
 
       <div className="">
         {activeTab === 'tab1' ? (
-          <UserTable userRoles={userRoles} />
+          <UserTable userRoles={users} />
         ) : (
-          <UserGrid userRoles={userRoles} />
+          <UserGrid userRoles={users} />
         )}
       </div>
     </>
