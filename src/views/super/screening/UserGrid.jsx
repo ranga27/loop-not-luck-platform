@@ -1,42 +1,45 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardTitle, Row } from 'reactstrap';
 import { Colxx } from '../../../components/common/CustomBootstrap';
-import Modals from './Modal';
 import IntlMessages from '../../../helpers/IntlMessages';
-import StoreInUsestate, {
-  getCandidateScreeningList,
-  searchData,
-} from '../../../helpers/Utils';
+import StoreInUsestate, { searchData } from '../../../helpers/Utils';
 
 const UserGrid = ({ userRoles }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [rolesData, setRoleData] = useState([]);
-
-  const [searchInput, setSearchInput] = useState({});
+  const [searchInput, setSearchInput] = useState({
+    match: '',
+    department: '',
+    positionType: '',
+    roleTitle: '',
+    company: '',
+    applicantEmail: '',
+    userFullName: '',
+    recordId: '',
+    appliedAt: '',
+  });
 
   const clearSearch = () => {
-    setSearchInput({});
+    setSearchInput({
+      match: '',
+      department: '',
+      positionType: '',
+      roleTitle: '',
+      company: '',
+      applicantEmail: '',
+      userFullName: '',
+      recordId: '',
+      appliedAt: '',
+    });
   };
 
-  const [filtered, setFiltered] = useState(
-    getCandidateScreeningList(userRoles)
-  );
+  const [filtered, setFiltered] = useState(userRoles);
 
   useEffect(() => {
-    setFiltered(getCandidateScreeningList(userRoles));
+    setFiltered(userRoles);
   }, [userRoles]);
 
-  const handleOpenModal = async (user) => {
-    setRoleData(user.combined);
-    setModalOpen(true);
-  };
-
-  const toggleModal = () => {
-    setModalOpen(!modalOpen);
-  };
-
   useEffect(() => {
-    setFiltered(searchData(searchInput, getCandidateScreeningList(userRoles)));
+    setFiltered(searchData(searchInput, userRoles));
   }, [searchInput]);
 
   return (
@@ -61,14 +64,14 @@ const UserGrid = ({ userRoles }) => {
       >
         <input
           placeholder="Name"
-          name="userFullname"
+          name="userFullName"
           onChange={(e) => {
             StoreInUsestate.handleChange(e, setSearchInput);
           }}
         />
         <input
           placeholder="Email"
-          name="email"
+          name="applicantEmail"
           onChange={(e) => {
             StoreInUsestate.handleChange(e, setSearchInput);
           }}
@@ -119,7 +122,7 @@ const UserGrid = ({ userRoles }) => {
         <input
           placeholder="Match %"
           className="small_input_search_field z-20"
-          name="score"
+          name="match"
           onChange={(e) => {
             StoreInUsestate.handleChange(e, setSearchInput);
           }}
@@ -138,38 +141,29 @@ const UserGrid = ({ userRoles }) => {
               zIndex: 2,
             }}
           >
-            <Card key={user.id + user.score} className="mb-4">
+            <Card key={user.id + user.match} className="mb-4">
               <CardBody>
                 <div className="text-center">
                   <CardTitle className="truncate mb-1">
-                    {user.userFullname}
+                    {user.userFullName}
                   </CardTitle>
-                  <p className="truncate">{user.email}</p>
+                  <p className="truncate">{user.applicantEmail}</p>
                   <p>{user.company}</p>
-                  <p> {user.score}%</p>
-                  <Button
+                  <p> {user.match}%</p>
+                  <Link
                     outline
                     size="xs"
                     color="primary"
-                    onClick={() => handleOpenModal(user)}
+                    to={`/app/screening/${user.userId}/${user.roleId}`}
                   >
                     <IntlMessages id="menu.view" />
-                  </Button>
+                  </Link>
                 </div>
               </CardBody>
             </Card>
           </Colxx>
         ))}
       </Row>
-
-      {modalOpen && (
-        <Modals
-          modalOpen={modalOpen}
-          rolesData={rolesData}
-          setModalOpen={setModalOpen}
-          toggle={toggleModal}
-        />
-      )}
     </>
   );
 };

@@ -30,7 +30,15 @@ const CarouselCardLeft = ({
   const userDoc = useQuery('userDoc');
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = () => setTooltipOpen(!tooltipOpen);
-  const { uid, hasCompletedProfile, cvUrl, cvUploadDate, email } = userDoc.data;
+  const {
+    uid,
+    hasCompletedProfile,
+    cvUrl,
+    cvUploadDate,
+    email,
+    firstName,
+    lastName,
+  } = userDoc.data;
 
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, `users/${uid}/matchedRoles`, role.id),
@@ -71,6 +79,10 @@ const CarouselCardLeft = ({
       userId: uid,
       companyId: role.companyId,
       applicantEmail: email,
+      positionType: role.positionType,
+      department: role.department,
+      company: role.company,
+      userFullName: `${firstName} ${lastName}`,
     });
     Swal.fire(
       'Successfully applied!',

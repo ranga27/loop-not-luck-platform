@@ -45,6 +45,16 @@ const ScreenApplications = lazy(() =>
   )
 );
 
+const ScreeningPage = lazy(() =>
+  import(/* webpackChunkName: "admin-screening-profile" */ './screening')
+);
+
+const UserInfo = lazy(() =>
+  import(
+    /* webpackChunkName: "admin-user-screening-profile" */ './screening/UserInfo'
+  )
+);
+
 const Templates = lazy(() =>
   import(/* webpackChunkName: "admin-templates" */ './Templates')
 );
@@ -115,7 +125,11 @@ const SuperAdminRoute = () => {
             <Route path="edit" element={<EditCompany />} />
             <Route path="add" element={<AddCompany />} />
           </Route>
-          <Route path="screening" element={<ScreenApplications />} />
+          <Route path="screening" element={<ScreeningPage />}>
+            <Route index element={<ScreenApplications />} />
+            <Route path=":id/:roleId" element={<UserInfo />} />
+          </Route>
+
           <Route path="profiles" element={<UserProfiles />}>
             <Route index element={<ManageProfiles />} />
             <Route path=":id" element={<UserProfile />} />

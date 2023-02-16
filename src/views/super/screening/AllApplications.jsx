@@ -1,17 +1,14 @@
 import React from 'react';
-import { collection, query, where } from 'firebase/firestore';
+import { collection, query } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { firestore } from '../../../helpers';
+import { formatDateInArray } from '../../../helpers/Utils';
 import Application from './Application';
 
 const AllApplications = () => {
   const { isLoading, data: usersList } = useFirestoreQuery(
-    ['users'],
-    query(
-      collection(firestore, 'users'),
-      where('hasCompletedProfile', '==', true),
-      where('role', '==', 'candidate')
-    ),
+    ['appliedRoles'],
+    query(collection(firestore, 'appliedRoles')),
     {
       subscribe: true,
     },
@@ -20,8 +17,11 @@ const AllApplications = () => {
         const userData = snapshot.docs.map((document) => ({
           ...document.data(),
           id: document.id,
+          recordId: `${document.data().userId.slice(-3)}${document
+            .data()
+            .roleId.slice(-2)}`.toUpperCase(),
         }));
-        return userData;
+        return formatDateInArray(userData);
       },
     }
   );

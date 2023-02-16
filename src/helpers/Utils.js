@@ -260,6 +260,11 @@ export const getCandidateScreeningList = (userWithRoles) => {
         cvUploadDate: user.cvUploadDate,
         howToApply: role.howToApply,
         createdAt: role.createdAt,
+        updatedAt: role.updatedAt,
+        roleId: role.id,
+        userId: user.id,
+        companyId: role.companyId,
+        status: role.status === undefined ? 'Pending Review' : role.status,
       });
     });
   });
