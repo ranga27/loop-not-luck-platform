@@ -7,8 +7,8 @@ import Application from './Application';
 
 const AllApplications = () => {
   const { isLoading, data: usersList } = useFirestoreQuery(
-    ['testCollection'],
-    query(collection(firestore, 'testCollection')),
+    ['appliedRoles'],
+    query(collection(firestore, 'appliedRoles')),
     {
       subscribe: true,
     },

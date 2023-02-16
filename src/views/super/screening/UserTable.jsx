@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { useFirestoreCollectionMutation } from '@react-query-firebase/firestore';
-import { collection } from 'firebase/firestore';
 import IntlMessages from '../../../helpers/IntlMessages';
 import StoreInUsestate, {
   searchData,
   sortScreeningUserList,
 } from '../../../helpers/Utils';
 import '../../../assets/css/sass/user.scss';
-import { firestore } from '../../../helpers';
 
 const UserTable = ({ userRoles }) => {
   const [sorting, setsorting] = useState(userRoles);
@@ -58,31 +55,8 @@ const UserTable = ({ userRoles }) => {
     setFiltered(sorting);
   }, [sorting, typeSort]);
 
-  const appliedRoleMutation = useFirestoreCollectionMutation(
-    collection(firestore, 'testCollection')
-  );
-
-  const applyRole = async () => {
-    filtered.map(async (user) => {
-      await appliedRoleMutation.mutate({
-        appliedAt: user.updatedAt,
-        match: user.score,
-        roleId: user.roleId,
-        roleTitle: user.jobTitle,
-        status: user.status,
-        userId: user.userId,
-        companyId: user.companyId,
-        applicantEmail: user.email,
-        positionType: user.positionType,
-        department: user.department,
-        company: user.company,
-        userFullName: user.userFullname,
-      });
-    });
-  };
   return (
     <>
-      <Button onClick={applyRole}>Apply Role</Button>
       <Button onClick={clearSearch}>Clear Search</Button>
       <Table
         hover
