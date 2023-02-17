@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import appInfo from '../../../package.json';
 import Tiktok from '../../assets/img/tiktok.svg';
 
 const Footer = () => {
@@ -10,9 +9,7 @@ const Footer = () => {
         <div className="container-fluid">
           <div className="row text-center">
             <div className="col-md-3">
-              <span className="">
-                Loop Not Luck 2022 Version: {appInfo.version}
-              </span>
+              <span className="">Loop Not Luck 2023 </span>
             </div>
             <div className="col-md-6">
               <ul className="list-inline social-buttons">
