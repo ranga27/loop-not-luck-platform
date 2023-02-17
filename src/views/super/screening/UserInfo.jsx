@@ -125,10 +125,13 @@ const UserInfo = () => {
     resolver: yupResolver(YupErrorCheck),
   });
 
-  if (role === undefined || isLoading || isRolesLoading || isTemplateLoading) {
+  if (isLoading || isRolesLoading || isTemplateLoading) {
     return <div className="loading" />;
   }
-  console.log(role);
+
+  if (role === undefined) {
+    return <div>Role is a deleted role please select another applicant</div>;
+  }
 
   const sendSmsOption = watch('sendSmsOption');
 

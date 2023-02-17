@@ -31,6 +31,7 @@ const QuestionForm = ({
 }) => {
   const [questionData, setquestionData] = useState(null);
   const [userEmail, setuserEmail] = useState('');
+  const [userData, setUserData] = useState('');
 
   const [answer, setanswer] = useState({});
 
@@ -55,6 +56,7 @@ const QuestionForm = ({
   const getuserEmail = async () => {
     const userEmailData = await getDoc(doc(firestore, 'users', userUid));
     setuserEmail(userEmailData.data()?.email);
+    setUserData(userEmailData.data());
   };
 
   useEffect(() => {
@@ -77,6 +79,10 @@ const QuestionForm = ({
       userId: userUid,
       companyId: role.companyId,
       applicantEmail: userEmail,
+      positionType: role.positionType,
+      department: role.department,
+      company: role.company,
+      userFullName: `${userData.firstName} ${userData.lastName}`,
     });
     Swal.fire(
       'Successfully applied!',

@@ -19,6 +19,8 @@ const SavedRoleCard = ({
   const { refetch } = useQuery(['matchedRoles']);
   const [isViewInfo, setIsViewInfo] = useState(true);
   const [userEmail, setuserEmail] = useState('');
+  const [userData, setUserData] = useState('');
+
   const toggleViewInfo = () => {
     setIsViewInfo(!isViewInfo);
   };
@@ -28,10 +30,10 @@ const SavedRoleCard = ({
     doc(firestore, `users/${uid}/matchedRoles`, role.id),
     { merge: true }
   );
-
   const getuserEmail = async () => {
     const userEmailData = await getDoc(doc(firestore, 'users', uid));
     setuserEmail(userEmailData.data()?.email);
+    setUserData(userEmailData.data());
   };
 
   useEffect(() => {
@@ -54,6 +56,10 @@ const SavedRoleCard = ({
       userId: uid,
       companyId: role.companyId,
       applicantEmail: userEmail,
+      positionType: role.positionType,
+      department: role.department,
+      company: role.company,
+      userFullName: `${userData.firstName} ${userData.lastName}`,
     });
     Swal.fire(
       'Successfully applied!',
