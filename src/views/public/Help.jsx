@@ -27,7 +27,7 @@ const HelpPage = () => {
         <Accordion open={open} toggle={toggle}>
           <AccordionItem data-cy="help-visa-question">
             <AccordionHeader targetId="1">
-              Do you offer visa sponsorship? 1
+              Do you offer visa sponsorship?
             </AccordionHeader>
             <AccordionBody accordionId="1" className="sticky-top">
               Visa sponsorship is dependent on the role and company you are
@@ -59,7 +59,7 @@ const HelpPage = () => {
               candidates’ CV more competitive. You can also review our CV
               checklist{' '}
               <a
-                href="https://docs.google.com/document/u/1/d/1Xafeh1n8uN10T3V8-3I3SyILY6dDZFkFtkkfgVEoEgA/edit"
+                href="/assets/PDF/cv-checklist.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="text-primary"
