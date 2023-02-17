@@ -33,7 +33,6 @@ const UserGrid = ({ userRoles }) => {
   };
 
   const [filtered, setFiltered] = useState(userRoles);
-
   useEffect(() => {
     setFiltered(userRoles);
   }, [userRoles]);
