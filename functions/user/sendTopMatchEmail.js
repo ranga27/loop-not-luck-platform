@@ -138,7 +138,7 @@ exports.sendTopMatchEmail = ({
                       </tr>
                       <tr>
                         <td style="padding: 0px 10px 10px;" align="center" valign="top" class="footerEmailInfo">
-                          <p class="text" style="color:#000000;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:12px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:20px;text-transform:none;text-align:center;padding:0;margin:0">If you have any quetions please contact us <a href="mailto:hello@loopnotluck.com" style="color:#000000;text-decoration:underline" target="_blank">hello@loopnotluck.com.</a>
+                          <p class="text" style="color:#000000;font-family:'Open Sans',Helvetica,Arial,sans-serif;font-size:12px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:20px;text-transform:none;text-align:center;padding:0;margin:0">If you have any questions please contact us <a href="mailto:hello@loopnotluck.com" style="color:#000000;text-decoration:underline" target="_blank">hello@loopnotluck.com.</a>
                         </td>
                       </tr>
                       <tr>
