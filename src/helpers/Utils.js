@@ -376,6 +376,30 @@ export const sortScreeningUserList = (userList, sortBy) => {
     case 'scoreDescending':
       return userList.sort((a, b) => b.score - a.score);
 
+    case 'sortByCreatedAtAscending':
+      return userList.sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+
+    case 'sortByCreatedAtDescending':
+      return userList.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+
+    case 'sortByCompleteProfile':
+      return userList.filter((a) => {
+        if (a.hasCompletedProfile) return a;
+        return null;
+      });
+
+    case 'sortByIncompleteProfile':
+      return userList.filter((a) => {
+        if (!a.hasCompletedProfile) return a;
+        return null;
+      });
+
     default:
       return userList;
   }
