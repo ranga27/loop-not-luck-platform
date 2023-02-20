@@ -57,6 +57,9 @@ const ViewCompanies = () => {
                 <IntlMessages id="pages.company-table-head-companyEmail" />
               </td>
               <td className="w-0.5">
+                <IntlMessages id="pages.company-table-head-companyStatus" />
+              </td>
+              <td className="w-0.5 text-center">
                 <IntlMessages id="pages.company-table-head-companySigninAt" />
               </td>
             </tr>
@@ -79,6 +82,11 @@ const ViewCompanies = () => {
                   </td>
                   <td>{company?.email}</td>
                   <td>
+                    {company?.status === undefined || company.status === true
+                      ? 'Active'
+                      : 'Inactive'}
+                  </td>
+                  <td className="text-center">
                     {company?.updatedAt ? company.updatedAt : company.createdAt}
                   </td>
                   <td className="w-0.5">

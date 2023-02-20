@@ -199,6 +199,7 @@ module.exports = {
   'pages.company-table-head-companyName': 'Company Name',
   'pages.company-table-head-companyEmail': 'Email',
   'pages.company-table-head-companySigninAt': 'SignIn At/Updated At',
+  'pages.company-table-head-companyStatus': 'Status',
 
   /* Forms */
   'forms.gender': 'Gender',
