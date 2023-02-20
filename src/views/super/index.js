@@ -31,6 +31,8 @@ const ViewCompanies = lazy(() =>
   )
 );
 
+const ViewSoloCompany = lazy(() => import('./companies/ViewSoloCompany'));
+
 const EditCompany = lazy(() =>
   import(/* webpackChunkName: "admin-edit-company" */ './companies/EditCompany')
 );
@@ -124,6 +126,7 @@ const SuperAdminRoute = () => {
             <Route path="view" element={<ViewCompanies />} />
             <Route path="edit" element={<EditCompany />} />
             <Route path="add" element={<AddCompany />} />
+            <Route path="viewsolo" element={<ViewSoloCompany />} />
           </Route>
           <Route path="screening" element={<ScreeningPage />}>
             <Route index element={<ScreenApplications />} />

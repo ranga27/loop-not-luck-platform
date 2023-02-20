@@ -93,6 +93,18 @@ const ViewCompanies = () => {
                       Edit
                     </Button>
                   </td>
+                  <td className="w-0.5">
+                    <Button
+                      outline
+                      size="xs"
+                      color="primary"
+                      tag={Link}
+                      to="viewsolo"
+                      onClick={() => setCompany(company)}
+                    >
+                      View
+                    </Button>
+                  </td>
                 </tr>
               ))}
           </tbody>
