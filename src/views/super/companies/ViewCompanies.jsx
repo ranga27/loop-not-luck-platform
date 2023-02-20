@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { collection, query } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
 import { Button, Row, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { firestore } from '../../../helpers/Firebase';
-import { formatDateInArray } from '../../../helpers/Utils';
+import StoreInUsestate, {
+  formatDateInArray,
+  searchData,
+  sortScreeningUserList,
+} from '../../../helpers/Utils';
 import IntlMessages from '../../../helpers/IntlMessages';
 import useCompanyStore from '../../../hooks/useCompanyStore';
 
@@ -29,12 +33,49 @@ const ViewCompanies = () => {
     }
   );
 
+  const [filtered, setFiltered] = useState(companies);
+  const [sorting, setsorting] = useState(companies);
+  const [typeSort, settypeSort] = useState('');
+
+  const [searchInput, setSearchInput] = useState({
+    name: '',
+    email: '',
+  });
+
+  const clearSearch = () => {
+    setSearchInput({
+      name: '',
+      email: '',
+    });
+  };
+
+  useEffect(() => {
+    setFiltered(searchData(searchInput, companies));
+  }, [searchInput]);
+
+  const sortingAscendingDescending = (sortRequest) => {
+    settypeSort(sortRequest);
+    setsorting(sortScreeningUserList(companies, sortRequest));
+  };
+
+  useEffect(() => {
+    setFiltered(companies);
+    setsorting(companies);
+  }, [companies]);
+
+  useEffect(() => {
+    setFiltered(sorting);
+  }, [sorting, typeSort]);
+
   // TODO: add logic for no roles found
   if (isLoading) {
     return <div className="loading" />;
   }
   return (
     <Row>
+      <Button onClick={clearSearch} className="w-15">
+        Clear Search
+      </Button>
       <div>
         <Table
           hover
@@ -63,11 +104,53 @@ const ViewCompanies = () => {
                 <IntlMessages id="pages.company-table-head-companySigninAt" />
               </td>
             </tr>
+            <tr>
+              <td />
+              <td className="h-10">
+                <input
+                  placeholder="Company"
+                  className="small_input_search_field"
+                  name="name"
+                  onChange={(e) => {
+                    StoreInUsestate.handleChange(e, setSearchInput);
+                  }}
+                  value={searchInput.name}
+                />
+              </td>
+              <td>
+                <input
+                  placeholder="Email"
+                  name="email"
+                  onChange={(e) => {
+                    StoreInUsestate.handleChange(e, setSearchInput);
+                  }}
+                  value={searchInput.email}
+                />
+              </td>
+              <td className="d-flex justify-content-between fw-bold">
+                <span
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('sortActiveCompanies');
+                  }}
+                >
+                  Active
+                </span>
+                <span
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('sortInactiveCompanies');
+                  }}
+                >
+                  Inactive
+                </span>
+              </td>
+            </tr>
           </thead>
           <tbody>
-            {companies.length === 0 && <p>No companies available!</p>}
-            {companies.length > 0 &&
-              companies.map((company, index) => (
+            {companies?.length === 0 && <p>No companies available!</p>}
+            {filtered?.length > 0 &&
+              filtered.map((company, index) => (
                 <tr key={company.id}>
                   <td className="flex justify-center">{index}</td>
                   <td>

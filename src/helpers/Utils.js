@@ -400,6 +400,22 @@ export const sortScreeningUserList = (userList, sortBy) => {
         return null;
       });
 
+    case 'sortActiveCompanies':
+      return userList.filter((item) => {
+        if (item.status === undefined || item.status === true) {
+          return item;
+        }
+        return null;
+      });
+
+    case 'sortInactiveCompanies':
+      return userList.filter((item) => {
+        if (item.status === false) {
+          return item;
+        }
+        return null;
+      });
+
     default:
       return userList;
   }
