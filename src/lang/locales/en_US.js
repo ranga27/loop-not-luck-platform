@@ -195,6 +195,11 @@ module.exports = {
   'pages.profiles-table-head-status': 'Profile Status',
   'pages.profiles-table-head-createdAt': 'Created At',
   'pages.profiles-table-head-hearAbout': 'Hear About',
+  'pages.company-table-head-id': 'ID',
+  'pages.company-table-head-companyName': 'Company Name',
+  'pages.company-table-head-companyEmail': 'Email',
+  'pages.company-table-head-companySigninAt': 'SignIn At/Updated At',
+
   /* Forms */
   'forms.gender': 'Gender',
   'forms.diversity':
