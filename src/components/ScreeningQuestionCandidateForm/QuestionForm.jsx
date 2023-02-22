@@ -28,6 +28,7 @@ const QuestionForm = ({
   modelToggle,
   conformForAnswer,
   role,
+  applyEmailData,
 }) => {
   const [questionData, setquestionData] = useState(null);
   const [userEmail, setuserEmail] = useState('');
@@ -41,6 +42,8 @@ const QuestionForm = ({
   };
 
   const client = useQueryClient();
+
+  console.log(applyEmailData, 'IN Form');
 
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, `users/${userUid}/matchedRoles`, roleId),

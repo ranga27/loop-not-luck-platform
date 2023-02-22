@@ -8,7 +8,8 @@ import {
   useFirestoreCollectionMutation,
   useFirestoreDocumentMutation,
 } from '@react-query-firebase/firestore';
-import { collection, doc, serverTimestamp } from 'firebase/firestore';
+import { format } from 'date-fns';
+import { collection, doc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
 import { Button, Card, CardBody, Tooltip } from 'reactstrap';
 import { firestore } from '../../helpers/Firebase';
@@ -18,6 +19,7 @@ const CarouselCardLeft = ({
   role,
   setquestionInqueryModel,
   setCurrentRole,
+  setapplyEmailData,
 }) => {
   const [saved, setSaved] = useState(role.saved);
   const client = useQueryClient();
@@ -28,6 +30,7 @@ const CarouselCardLeft = ({
     setIsReadMore(!isReadMore);
   };
   const userDoc = useQuery('userDoc');
+
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = () => setTooltipOpen(!tooltipOpen);
   const {
@@ -67,7 +70,41 @@ const CarouselCardLeft = ({
     );
   };
 
+  const [emailData, setEmailData] = useState({});
+
+  const GetCompanyEmail = async (companyID) => {
+    const companySnapShot = doc(firestore, `companyV2/${companyID}`);
+    const companyData = await getDoc(companySnapShot);
+    const companyUserSnapshot = doc(
+      firestore,
+      `companyUsers/${companyData.data().userId}`
+    );
+    const companyUserData = await getDoc(companyUserSnapshot);
+    setEmailData({
+      companyEmail: companyUserData.data().email,
+      userEmail: email,
+      userName: `${firstName} ${lastName}`,
+      roleTitle: role.title,
+      match: role.score,
+      applyAt: format(new Date(), 'dd-MMM-YYY'),
+    });
+
+    const emailFetchedData = {
+      companyEmail: companyUserData.data().email,
+      userEmail: email,
+      userName: `${firstName} ${lastName}`,
+      roleTitle: role.title,
+      match: role.score,
+      applyAt: format(new Date(), 'dd-MMM-YYY'),
+    };
+
+    return emailFetchedData;
+  };
+
+  console.log(emailData);
+
   const applyRole = async () => {
+    GetCompanyEmail(role.companyId);
     const newData = { applied: true, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
     appliedRoleMutation.mutate({
@@ -91,10 +128,12 @@ const CarouselCardLeft = ({
     );
   };
 
-  const handleApplyButtonClick = (selectedRole) => {
+  const handleApplyButtonClick = async (selectedRole) => {
     if (selectedRole.isQuestion) {
+      const emailDataForForm = await GetCompanyEmail(role.companyId);
       setquestionInqueryModel(selectedRole.isQuestion);
       setCurrentRole(selectedRole);
+      setapplyEmailData(emailDataForForm);
     } else {
       applyRole();
     }
