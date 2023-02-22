@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Label, Form } from 'reactstrap';
@@ -23,6 +23,29 @@ import { jobTypes } from '../../data/jobType';
 
 // Combine Post Role & Edit Role forms
 const EditRoleForm = ({ onSubmit, companies, role }) => {
+  const defaultValues = {
+    title: role.title,
+    company: role.company,
+    location: role.location,
+    jobType: role.jobType,
+    positionType: role.positionType,
+    department: role.department,
+    description: role.description,
+    salary: role.salary,
+    qualification: role.qualification,
+    behaviourAttributesStrengths: role.behaviourAttributesStrengths,
+    rolesOfInterests: role.rolesOfInterests ? role.rolesOfInterests : null,
+    areaOfInterests: role.areaOfInterests ? role.areaOfInterests : null,
+    technicalSkills: role.technicalSkills,
+    howToApply: role.howToApply,
+    email: role.email,
+    website: role.website,
+    rolling: role.rolling || false,
+    deadline: role.deadline ? getDateFromString(role.deadline) : null,
+    startDate: role.startDate ? getDateFromString(role.startDate) : null,
+    technicalSkillsOther: role.technicalSkillsOther || '',
+  };
+
   const {
     setValue,
     watch,
@@ -31,61 +54,14 @@ const EditRoleForm = ({ onSubmit, companies, role }) => {
     clearErrors,
     formState: { errors },
   } = useForm({
-    defaultValues: role,
+    defaultValues,
     resolver: yupResolver(OpportunitySchema),
   });
-
   const howToApply = watch('howToApply');
   const rolling = watch('rolling');
   const technicalSkillsOther = watch('technicalSkills');
   const rolesOfInterestCheck = watch('areaOfInterests');
   const jobTypesCheck = watch('jobType');
-
-  useEffect(() => {
-    try {
-      if (role) {
-        // TODO: use object.entries or reset
-        setValue('title', role.title);
-        setValue('company', role.company);
-        setValue('location', role.location);
-        setValue('jobType', role.jobType);
-        setValue('positionType', role.positionType);
-        setValue('department', role.department);
-        setValue('description', role.description);
-        setValue('salary', role.salary);
-        setValue('qualification', role.qualification);
-        setValue(
-          'behaviourAttributesStrengths',
-          role.behaviourAttributesStrengths
-        );
-        setValue(
-          'rolesOfInterests',
-          role.rolesOfInterests ? role.rolesOfInterests : null
-        );
-        setValue(
-          'areaOfInterests',
-          role.areaOfInterests ? role.areaOfInterests : null
-        );
-        setValue('technicalSkills', role.technicalSkills);
-        setValue('howToApply', role.howToApply);
-        setValue('email', role.email);
-        setValue('website', role.website);
-        setValue('rolling', role.rolling || false);
-        setValue(
-          'deadline',
-          role.deadline ? getDateFromString(role.deadline) : null
-        );
-        setValue(
-          'startDate',
-          role.startDate ? getDateFromString(role.startDate) : null
-        );
-        setValue('technicalSkillsOther', role.technicalSkillsOther || '');
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  }, [role, setValue]);
-  // TODO: convert into smart form
 
   const areasOfInterests =
     control._formValues.areaOfInterests === undefined ||
