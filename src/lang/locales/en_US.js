@@ -71,7 +71,7 @@ module.exports = {
   'menu.test': 'Test Algorithm',
   'menu.screening': 'Screening',
   'menu.templates': 'Templates',
-  'menu.profiles': 'Users List',
+  'menu.profiles': 'Candidate List',
   'menu.admin-dashboard': 'Admin Dashboard',
 
   /* 04.Error Page */
