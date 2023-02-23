@@ -2,15 +2,19 @@ import {
   useFirestoreDocumentMutation,
   useFirestoreQuery,
 } from '@react-query-firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { Row, Card, CardBody, CardTitle } from 'reactstrap';
 import { collection, doc, query, serverTimestamp } from 'firebase/firestore';
 import React from 'react';
 import Swal from 'sweetalert2';
-import EditRoleForm from '../../components/form/EditRoleForm';
-import { firestore } from '../../helpers/Firebase';
-import { formatDateInArray } from '../../helpers/Utils';
-import useRoleStore from '../../hooks/useRoleStore';
+import { Colxx } from '../../../components/common/CustomBootstrap';
+import EditRoleForm from '../../../components/form/EditRoleForm';
+import { firestore } from '../../../helpers/Firebase';
+import { formatDateInArray } from '../../../helpers/Utils';
+import useRoleStore from '../../../hooks/useRoleStore';
 
 const RoleDetailsContainer = () => {
+  const navigate = useNavigate();
   const role = useRoleStore((state) => state.role);
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, 'roles', role.id),
@@ -52,10 +56,10 @@ const RoleDetailsContainer = () => {
       industry,
       companyId: id,
     };
-    console.log('SUBMIT: ', updatePost);
     mutation.mutate(updatePost, {
       onSuccess() {
         Swal.fire('Updated!', 'Company Data Updated.', 'success');
+        navigate('/app/companies');
       },
       onError(error) {
         Swal.fire('Oops!', 'Failed to Update Company.', 'error');
@@ -67,11 +71,20 @@ const RoleDetailsContainer = () => {
     });
   };
   return (
-    <EditRoleForm
-      role={role}
-      companies={companies}
-      onSubmit={(data) => onSubmit(data)}
-    />
+    <Row className="mb-4">
+      <Colxx xxs="12">
+        <Card>
+          <CardBody>
+            <CardTitle>Edit Role</CardTitle>
+            <EditRoleForm
+              role={role}
+              companies={companies}
+              onSubmit={(data) => onSubmit(data)}
+            />
+          </CardBody>
+        </Card>
+      </Colxx>
+    </Row>
   );
 };
 export default RoleDetailsContainer;

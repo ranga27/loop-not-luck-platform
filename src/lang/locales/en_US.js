@@ -41,7 +41,7 @@ module.exports = {
   'menu.opportunities': 'Opportunities',
   'menu.post': 'Post Role',
   'menu.open': 'Open Roles',
-  'menu.review': 'Review Roles',
+  'menu.review': 'Roles',
   'menu.candidates': 'Candidates',
   'menu.view': 'View',
   'menu.viewMore': 'View more',
@@ -195,6 +195,18 @@ module.exports = {
   'pages.profiles-table-head-status': 'Profile Status',
   'pages.profiles-table-head-createdAt': 'Created At',
   'pages.profiles-table-head-hearAbout': 'Hear About',
+  'pages.company-table-head-id': 'ID',
+  'pages.company-table-head-companyName': 'Company Name',
+  'pages.company-table-head-companyEmail': 'Email',
+  'pages.company-table-head-companySigninAt': 'SignIn At/Updated At',
+  'pages.company-table-head-companyStatus': 'Status',
+  'pages.roles-table-head-id': 'ID',
+  'pages.roles-table-head-roleTitle': 'Title',
+  'pages.roles-table-head-department': 'Department',
+  'pages.roles-table-head-roleType': 'Role Type',
+  'pages.roles-table-head-roleStatus': 'Status',
+  'pages.roles-table-head-roleCreatedAt': 'Created At',
+
   /* Forms */
   'forms.gender': 'Gender',
   'forms.diversity':

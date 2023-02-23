@@ -78,7 +78,12 @@ const ViewRoles = () => {
           ...document.data(),
           id: document.id,
         }));
-        return formatDateInArray(rolesData);
+        const filteredRoles =
+          rolesData.length !== 0 &&
+          rolesData.filter(
+            (role) => role.archived === undefined || !role.archived
+          );
+        return formatDateInArray(filteredRoles);
       },
     }
   );

@@ -376,6 +376,59 @@ export const sortScreeningUserList = (userList, sortBy) => {
     case 'scoreDescending':
       return userList.sort((a, b) => b.score - a.score);
 
+    case 'sortByCreatedAtAscending':
+      return userList.sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+
+    case 'sortByCreatedAtDescending':
+      return userList.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+
+    case 'sortByCompleteProfile':
+      return userList.filter((a) => {
+        if (a.hasCompletedProfile) return a;
+        return null;
+      });
+
+    case 'sortByIncompleteProfile':
+      return userList.filter((a) => {
+        if (!a.hasCompletedProfile) return a;
+        return null;
+      });
+
+    case 'sortActiveCompanies':
+      return userList.filter((item) => {
+        if (item.status === undefined || item.status === true) {
+          return item;
+        }
+        return null;
+      });
+
+    case 'sortInactiveCompanies':
+      return userList.filter((item) => {
+        if (item.status === false) {
+          return item;
+        }
+        return null;
+      });
+    case 'activeRoles':
+      return userList.filter((item) => {
+        if (item.archived === undefined || item.archived === false) {
+          return item;
+        }
+        return null;
+      });
+    case 'archivedRoles':
+      return userList.filter((item) => {
+        if (item.archived === true) {
+          return item;
+        }
+        return null;
+      });
     default:
       return userList;
   }
@@ -468,7 +521,6 @@ export const signUpsThisWeek = (users) => {
     sevenDaysAgo
   );
 
-  console.log(`${da}-${mo}-${ye}`);
   const formattedWeek = `${da}-${mo}-${ye}`;
 
   return users.filter((user) => {
