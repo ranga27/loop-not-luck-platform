@@ -56,8 +56,19 @@ const PostRoleForm = () => {
           industry: document.data().industry,
           jobValues: document.data().jobValues,
           logoUrl: document.data().logoUrl,
+          status: document.data().status,
         }));
-        return formatDateInArray(companiesData);
+        const findInactiveCompanies = companiesData.filter(
+          (company) => company.status === false
+        );
+
+        const removeInactiveCompanies = companiesData.filter(
+          (company) =>
+            !findInactiveCompanies.some(
+              (inactiveCompany) => company.id === inactiveCompany.id
+            )
+        );
+        return formatDateInArray(removeInactiveCompanies);
       },
     }
   );
