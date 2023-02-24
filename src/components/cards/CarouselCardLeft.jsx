@@ -4,6 +4,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 import {
   useFirestoreCollectionMutation,
   useFirestoreDocumentMutation,
@@ -70,8 +71,6 @@ const CarouselCardLeft = ({
     );
   };
 
-  const [emailData, setEmailData] = useState({});
-
   const GetCompanyEmail = async (companyID) => {
     const companySnapShot = doc(firestore, `companyV2/${companyID}`);
     const companyData = await getDoc(companySnapShot);
@@ -80,14 +79,6 @@ const CarouselCardLeft = ({
       `companyUsers/${companyData.data().userId}`
     );
     const companyUserData = await getDoc(companyUserSnapshot);
-    setEmailData({
-      companyEmail: companyUserData.data().email,
-      userEmail: email,
-      userName: `${firstName} ${lastName}`,
-      roleTitle: role.title,
-      match: role.score,
-      applyAt: format(new Date(), 'dd-MMM-YYY'),
-    });
 
     const emailFetchedData = {
       companyEmail: companyUserData.data().email,
@@ -96,17 +87,16 @@ const CarouselCardLeft = ({
       roleTitle: role.title,
       match: role.score,
       applyAt: format(new Date(), 'dd-MMM-YYY'),
+      companyName: role.company,
     };
 
     return emailFetchedData;
   };
 
-  console.log(emailData);
-
   const applyRole = async () => {
-    GetCompanyEmail(role.companyId);
     const newData = { applied: true, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
+
     appliedRoleMutation.mutate({
       appliedAt: serverTimestamp(),
       match: role.score,
@@ -121,6 +111,7 @@ const CarouselCardLeft = ({
       company: role.company,
       userFullName: `${firstName} ${lastName}`,
     });
+
     Swal.fire(
       'Successfully applied!',
       'You can navigate to "Applications" tab to view your applications.',
@@ -135,7 +126,17 @@ const CarouselCardLeft = ({
       setCurrentRole(selectedRole);
       setapplyEmailData(emailDataForForm);
     } else {
+      const applyEmailData = await GetCompanyEmail(role.companyId);
       applyRole();
+
+      await axios
+        .post(
+          process.env.NODE_ENV !== 'development'
+            ? process.env.REACT_APP_EMAIL_NOTIFICATION_PROD
+            : process.env.REACT_APP_EMAIL_NOTIFICATION_DEV,
+          applyEmailData
+        )
+        .then(() => console.log('email sent'));
     }
   };
 

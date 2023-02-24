@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 import { Button } from 'reactstrap';
 import {
   collection,
@@ -42,8 +43,6 @@ const QuestionForm = ({
   };
 
   const client = useQueryClient();
-
-  console.log(applyEmailData, 'IN Form');
 
   const mutation = useFirestoreDocumentMutation(
     doc(firestore, `users/${userUid}/matchedRoles`, roleId),
@@ -87,6 +86,16 @@ const QuestionForm = ({
       company: role.company,
       userFullName: `${userData.firstName} ${userData.lastName}`,
     });
+
+    await axios
+      .post(
+        process.env.NODE_ENV !== 'development'
+          ? process.env.REACT_APP_EMAIL_NOTIFICATION_PROD
+          : process.env.REACT_APP_EMAIL_NOTIFICATION_DEV,
+        applyEmailData
+      )
+      .then(() => console.log('email sent'));
+
     Swal.fire(
       'Successfully applied!',
       'You can navigate to "Applications" tab to view your applications.',
