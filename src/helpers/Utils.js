@@ -415,7 +415,20 @@ export const sortScreeningUserList = (userList, sortBy) => {
         }
         return null;
       });
-
+    case 'activeRoles':
+      return userList.filter((item) => {
+        if (item.archived === undefined || item.archived === false) {
+          return item;
+        }
+        return null;
+      });
+    case 'archivedRoles':
+      return userList.filter((item) => {
+        if (item.archived === true) {
+          return item;
+        }
+        return null;
+      });
     default:
       return userList;
   }
@@ -508,7 +521,6 @@ export const signUpsThisWeek = (users) => {
     sevenDaysAgo
   );
 
-  console.log(`${da}-${mo}-${ye}`);
   const formattedWeek = `${da}-${mo}-${ye}`;
 
   return users.filter((user) => {

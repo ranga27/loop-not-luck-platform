@@ -5,21 +5,14 @@ const data = [
     id: 'dashboard',
     icon: 'iconsminds-security-check',
     label: 'menu.dashboard',
-    to: 'dashboard',
+    to: `${adminRoot}`,
     roles: [UserRole.super],
   },
   {
     id: 'review-roles',
     icon: 'simple-icon-eyeglass',
     label: 'menu.review',
-    to: `${adminRoot}`,
-    roles: [UserRole.super],
-  },
-  {
-    id: 'post',
-    icon: 'simple-icon-pencil',
-    label: 'menu.post',
-    to: 'post',
+    to: `roles`,
     roles: [UserRole.super],
   },
   {

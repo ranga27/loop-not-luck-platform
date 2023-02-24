@@ -13,9 +13,19 @@ const Post = lazy(() =>
   import(/* webpackChunkName: "admin-post" */ './PostRole')
 );
 
-const Review = lazy(() =>
-  import(/* webpackChunkName: "admin-review-roles" */ './ReviewRoles')
+const Roles = lazy(() =>
+  import(/* webpackChunkName: "admin-roles" */ './roles')
 );
+
+const Review = lazy(() =>
+  import(/* webpackChunkName: "admin-review-roles" */ './roles/ReviewRoles')
+);
+
+const EditRole = lazy(() =>
+  import(/* webpackChunkName: "admin-edit-role" */ './roles/EditRole')
+);
+
+const ViewRole = lazy(() => import('./roles/View'));
 
 const Logout = lazy(() =>
   import(/* webpackChunkName: "admin-logout" */ './Logout')
@@ -117,8 +127,12 @@ const SuperAdminRoute = () => {
           <Route path="privacy" element={<Privacy />} />
           <Route path="help" element={<HelpPage />} />
           <Route path="terms-and-conditions" element={<Terms />} />
-          <Route path="review" element={<Review />} />
-          <Route path="post" element={<Post />} />
+          <Route path="roles" element={<Roles />}>
+            <Route index element={<Review />} />
+            <Route path="edit" element={<EditRole />} />
+            <Route path="add" element={<Post />} />
+            <Route path="view" element={<ViewRole />} />
+          </Route>
           <Route path="test" element={<Test />} />
           <Route path="users" element={<EditUsers />} />
           <Route path="companies" element={<Companies />}>
@@ -147,7 +161,7 @@ const SuperAdminRoute = () => {
             <Route path="add" element={<AddTemplate />} />
           </Route>
           <Route path="logout" element={<Logout />} />
-          <Route path="/" element={<Navigate to="review" />} />
+          <Route path="/" element={<Navigate to="dashboard" />} />
         </Routes>
       </Suspense>
     </AppLayout>
