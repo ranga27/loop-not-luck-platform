@@ -81,7 +81,7 @@ exports.applicationNotificationTemplate = ({
                                 <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
                                   <p class="text"
                                     style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;padding:0;margin:0">
-                                    Please login to your Loop Not Luck account to accept or reject applicants and view their profiles.
+                                    Login to your Loop Not Luck account to review candidate profiles.
                                   
                                   </p>
                                   <button style="height: 30px;
@@ -95,7 +95,7 @@ exports.applicationNotificationTemplate = ({
                                     font-weight: 500;
                                     cursor: pointer;
                                     font-weight: normal;">
-                                  Login
+                                  Review
                                 </button>
                                 </td>
                               </tr>
@@ -112,7 +112,7 @@ exports.applicationNotificationTemplate = ({
                                 <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
                                   <p class="text"
                                     style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;padding:0;margin:0">
-                                    If you have any questions or suggestions feel free to contact your account manager or a member of the team at <a style="color:#000000;text-decoration:underline; font-weight:bold" href="hello@loopnotluck.com">hello@loopnotluck.com</a>.
+                                    If you have any questions please contact your account manager or a member of the team at <a style="color:#000000;text-decoration:underline; font-weight:bold" href="hello@loopnotluck.com">hello@loopnotluck.com</a>.
                                   </p>
                                 </td>
                               </tr>
@@ -133,20 +133,6 @@ exports.applicationNotificationTemplate = ({
                                     Loop Not Luck Team
                                   </p>
 
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding-left:20px;padding-right:20px" align="center" valign="top"
-                          class="containtTable ui-sortable">
-                          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tableDescription">
-                            <tbody>
-                              <tr>
-                                <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
-                                  <h3>Stay Tuned</h3>
                                 </td>
                               </tr>
                             </tbody>
