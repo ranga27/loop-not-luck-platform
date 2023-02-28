@@ -14,7 +14,7 @@ const tagOptions = [
     value: 'National and Local Government/Public Sector',
   },
   { label: 'Charity and Third Sector', value: 'Charity and Third Sector' },
-  { label: 'Sport', value: 'Sport' },
+  { label: 'HR and Recruitment', value: 'HR and Recruitment' },
   { label: 'Film and TV', value: 'Film and TV' },
   { label: 'Creative Industries', value: 'Creative Industries' },
   { label: 'HR', value: 'HR' },
