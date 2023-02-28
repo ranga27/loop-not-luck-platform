@@ -10,8 +10,6 @@ exports.sendCompanyVerificationEmail = functions
     const tempUserInfo = snapshot.data();
     const { email, confirmationHash, firstName } = tempUserInfo;
 
-    console.log(tempUserInfo);
-
     const transporter = nodemailer.createTransport({
       host: process.env.NODEMAILER_HOST_URL,
       port: process.env.NODEMAILER_PORT,

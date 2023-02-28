@@ -5,17 +5,19 @@ const { sendTopMatchedRoleEmail } = require('./sendTopMatchedRoleEmail');
 const {
   sendTopMatchedCompanyRoleEmail,
 } = require('./sendTopMatchedCompanyRoleEmail');
-const { sendSaperateEmail } = require('./sendSaperateEmail');
+const { sendSeparateEmail } = require('./sendSeparateEmail');
 const {
   sendCompanyVerificationEmail,
 } = require('./sendCompanyVerificationEmail');
-const { companyEmailConformation } = require('./companyEmailConformation');
+const { companyEmailConfirmation } = require('./companyEmailConfirmation');
 
 exports.confirmEmail = confirmEmail.confirmEmail;
 exports.sendVerificationEmail = sendVerificationEmail.sendVerificationEmail;
 exports.sendWebsiteFeedback = sendWebsiteFeedback;
 exports.sendTopMatchedRoleEmail = sendTopMatchedRoleEmail;
 exports.sendTopMatchedCompanyRoleEmail = sendTopMatchedCompanyRoleEmail;
-exports.sendSaperateEmail = sendSaperateEmail;
+exports.sendSeparateEmail = sendSeparateEmail;
+exports.sendTopMatchedCompanyRoleEmail = sendTopMatchedCompanyRoleEmail;
+exports.sendSeparateEmail = sendSeparateEmail;
 exports.sendCompanyVerificationEmail = sendCompanyVerificationEmail;
-exports.companyEmailConformation = companyEmailConformation;
+exports.companyEmailConfirmation = companyEmailConfirmation;
