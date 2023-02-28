@@ -19,8 +19,16 @@ exports.onApplyNotification = functions
   .region('europe-west2')
   .https.onRequest(async (req, res) => {
     cors(req, res, () => {
-      const { companyEmail, userName, roleTitle, match, applyAt, companyName } =
-        req.body;
+      const {
+        companyEmail,
+        userName,
+        roleTitle,
+        match,
+        applyAt,
+        companyName,
+        companyUserName,
+        reviewPending,
+      } = req.body;
       console.log(req.body);
 
       const transporter = nodemailer.createTransport({
@@ -37,11 +45,13 @@ exports.onApplyNotification = functions
         to: companyEmail,
         from: 'Loop Not Luck hello@loopnotluck.com',
         firstName: userName,
+        companyUser: companyUserName,
         roleTitle: roleTitle,
         match: match,
         appliedAt: applyAt,
         company: companyName,
-        subject: `Loop Not Luck: Received Application on Role-${roleTitle}`,
+        reviewPendingCount: reviewPending,
+        subject: `Loop Not Luck: Application Received`,
         transporter,
       })
         .then(() => console.log('email sent!'))
