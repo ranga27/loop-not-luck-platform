@@ -1,10 +1,9 @@
 //Utility function to send email
 //TODO: move html to config db or a lightweight cms
-exports.saperateEmailTemplate = ({
+exports.separateEmailTemplate = ({
   to,
   from,
   subject,
-  message,
   firstName,
   transporter,
 }) => {
