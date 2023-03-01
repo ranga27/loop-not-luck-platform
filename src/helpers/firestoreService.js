@@ -258,6 +258,43 @@ export async function fetchUserMatchedRolesFromFirestore(users) {
   return filteredRoles;
 }
 
+export async function fetchDeletedRoles(roles, users) {
+  const allDeletedRolesFound = [];
+  const roleRef = collection(firestore, `users/${users}/matchedRoles`);
+  const q = query(roleRef, where('deadline', '<', new Date(Date.now())));
+  const querySnapshot = await getDocs(q);
+  const allRoles = querySnapshot.docs.map((docu) => ({
+    ...docu.data(),
+    id: docu.id,
+  }));
+  const result = allRoles.filter((o1) => !roles.some((o2) => o1.id === o2.id));
+  allDeletedRolesFound.push(result);
+  const newArray = result.concat(roles);
+  for (const role of newArray) {
+    const test = doc(firestore, 'testCollection2', role.id);
+    await setDoc(test, {
+      ...role,
+      id: role.id,
+    });
+  }
+}
+
+export async function archiveRoleInUsersMatchedRoles(role, users) {
+  const roleRef = doc(firestore, `users/${users}/matchedRoles/${role}`);
+  return updateDoc(roleRef, { archived: true }, { merge: true });
+}
+
+export async function fetchRoles() {
+  const roleRef = collection(firestore, 'testCollection2');
+  const q = query(roleRef);
+  const querySnapshot = await getDocs(q);
+  const roles = querySnapshot.docs.map((docu) => ({
+    ...docu.data(),
+    id: docu.id,
+  }));
+  return roles;
+}
+
 export async function updateRoleCollection(role, company, newCompanyData) {
   const { id } = role;
   const roleRef = doc(firestore, 'roles', id);

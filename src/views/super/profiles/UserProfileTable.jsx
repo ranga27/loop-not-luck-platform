@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Table, Input, Badge, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import IntlMessages from '../../../helpers/IntlMessages';
-import { sendSeperateEmailToSelecteduser } from '../../../helpers/firebaseService';
-import { downloadSelectedCVs } from '../../../helpers/Utils';
+import {
+  downloadSelectedCVs,
+  sortScreeningUserList,
+} from '../../../helpers/Utils';
 
 const UserProfileTable = ({ profiles }) => {
   const [SearchTerms, setSearchTerms] = useState('');
   const [Profiles, setProfiles] = useState([]);
+
+  const [filtered, setFiltered] = useState([]);
+  const [sorting, setsorting] = useState();
+  const [typeSort, settypeSort] = useState('');
 
   const [cvUrls, setcvUrls] = useState([]);
   const [selectedUserData, setSelectedUserData] = useState([]);
@@ -43,9 +49,24 @@ const UserProfileTable = ({ profiles }) => {
     }
   }, [profiles, SearchTerms]);
 
+  useEffect(() => {
+    setProfiles(profiles);
+    setFiltered(profiles);
+    setsorting(profiles);
+  }, [profiles]);
+
   const onChangeSearch = (event) => {
     setSearchTerms(event.currentTarget.value);
   };
+
+  const sortingAscendingDescending = (sortRequest) => {
+    settypeSort(sortRequest);
+    setsorting(sortScreeningUserList(Profiles, sortRequest));
+  };
+
+  useEffect(() => {
+    setFiltered(sorting);
+  }, [sorting, typeSort]);
 
   return (
     <>
@@ -61,7 +82,7 @@ const UserProfileTable = ({ profiles }) => {
       </div>
       <div className="flex">
         <Badge color="success" pill className="mb-1 p-2 flex-1 z-50">
-          <p className="fs-10 m-0">Total Users: {Profiles.length || 'NA'}</p>
+          <p className="fs-10 m-0">Total Users: {Profiles?.length || 'NA'}</p>
         </Badge>
         <Button
           className="flex-1 mx-4"
@@ -73,14 +94,6 @@ const UserProfileTable = ({ profiles }) => {
           }}
         >
           Download CVs
-        </Button>
-        <Button
-          className="flex-1"
-          onClick={() => {
-            sendSeperateEmailToSelecteduser(selectedUserData);
-          }}
-        >
-          Send Template Email
         </Button>
       </div>
       <Table responsive hover className="sticky-top">
@@ -96,63 +109,88 @@ const UserProfileTable = ({ profiles }) => {
               <IntlMessages id="pages.profiles-table-head-email" />
             </th>
             <th>
-              <IntlMessages id="pages.profiles-table-head-role" />
-            </th>
-            <th>
+              <div className="text-center">
+                <p
+                  aria-hidden="true"
+                  className="mb-2"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    sortingAscendingDescending('sortByCompleteProfile');
+                  }}
+                >
+                  Completed
+                </p>
+
+                <p
+                  aria-hidden="true"
+                  className="m-0"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    sortingAscendingDescending('sortByIncompleteProfile');
+                  }}
+                >
+                  Incomplete
+                </p>
+              </div>
+              <br />
               <IntlMessages id="pages.profiles-table-head-status" />
             </th>
             <th>
+              <div className="text-center">
+                <i
+                  className="simple-icon-arrow-up sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('sortByCreatedAtAscending');
+                  }}
+                />
+                <br />
+                <i
+                  className="simple-icon-arrow-down sortIconSize"
+                  aria-hidden="true"
+                  onClick={() => {
+                    sortingAscendingDescending('sortByCreatedAtDescending');
+                  }}
+                />
+              </div>
+              <br />
               <IntlMessages id="pages.profiles-table-head-createdAt" />
-            </th>
-            <th>
-              <IntlMessages id="pages.profiles-table-head-hearAbout" />
             </th>
           </tr>
         </thead>
         <tbody>
-          {Profiles.map((profile, index) => (
-            <tr key={profile.id}>
-              <td>
-                {index + 1}
-                <input
-                  type="checkbox"
-                  className="m-2 checkbox"
-                  id={profile.cvUrl}
-                  onClick={() => {
-                    addUrlInList(profile.cvUrl);
-                    addUserDataInList({
-                      firstName: profile.firstName,
-                      email: profile.email,
-                    });
-                  }}
-                />
-              </td>
-              <td>
-                <Link color="link" to={`/app/profiles/${profile.id}`}>
-                  {profile.firstName} {profile.lastName}
-                </Link>
-              </td>
-              <td>{profile.email}</td>
-              <td>{profile.role}</td>
-              <td>
-                {profile.hasCompletedProfile === true
-                  ? 'Completed'
-                  : 'Not Completed'}
-              </td>
-              <td>{profile.createdAt}</td>
-              <td>
-                {profile.hearAbout ? (
-                  profile.hearAbout.map((item) => (
-                    <Badge className="mx-1" key={item}>
-                      {item}
-                    </Badge>
-                  ))
-                ) : (
-                  <p>Not selected</p>
-                )}
-              </td>
-            </tr>
-          ))}
+          {filtered?.length &&
+            filtered.map((profile, index) => (
+              <tr key={profile.id}>
+                <td>
+                  {index + 1}
+                  <input
+                    type="checkbox"
+                    className="m-2 checkbox"
+                    id={profile.cvUrl}
+                    onClick={() => {
+                      addUrlInList(profile.cvUrl);
+                      addUserDataInList({
+                        firstName: profile.firstName,
+                        email: profile.email,
+                      });
+                    }}
+                  />
+                </td>
+                <td>
+                  <Link color="link" to={`/app/profiles/${profile.id}`}>
+                    {profile.firstName} {profile.lastName}
+                  </Link>
+                </td>
+                <td>{profile.email}</td>
+                <td>
+                  {profile.hasCompletedProfile === true
+                    ? 'Completed'
+                    : 'Not Completed'}
+                </td>
+                <td>{profile.createdAt}</td>
+              </tr>
+            ))}
         </tbody>
       </Table>
     </>
