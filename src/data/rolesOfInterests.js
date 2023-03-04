@@ -382,6 +382,42 @@ const getOptions = (message) => {
         { label: 'Transport Coordinator ', value: 'Transport Coordinator ' },
         { label: 'Warehouse Coordinator', value: 'Warehouse Coordinator' },
       ];
+
+    case /HR and Recruitment/i.test(message):
+      return [
+        { label: 'Director of People', value: 'Director of People' },
+        {
+          label: 'Employee Relations Advisor',
+          value: 'Employee Relations Advisor',
+        },
+        { label: 'Head of People', value: 'Head of People' },
+        {
+          label: 'Human Resources Administrator',
+          value: 'Human Resources Administrator',
+        },
+        { label: 'Human Resources Advisor', value: 'Human Resources Advisor' },
+        { label: 'Human Resources Manager', value: 'Human Resources Manager' },
+        {
+          label: 'Human Resources Officer',
+          value: 'Human Resources Officer',
+        },
+        {
+          label: 'Occuptational Psychologists',
+          value: 'Occuptational Psychologists',
+        },
+        { label: 'Personnel Manager', value: 'Personnel Manager' },
+        { label: 'People Business Partner', value: 'People Business Partner' },
+        { label: 'Recruitment Consultant', value: 'Recruitment Consultant' },
+        {
+          label: 'Training and Development Officer',
+          value: 'Training and Development Officer',
+        },
+        {
+          label: 'Talent Acquisition Analyst',
+          value: 'Talent Acquisition Analyst',
+        },
+      ];
+
     default:
       return message;
   }
