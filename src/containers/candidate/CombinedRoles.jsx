@@ -27,6 +27,7 @@ const CombinedRoles = ({ roles, loadActiveTab }) => {
   const modelToggle = () => setquestionInqueryModel(!questionInqueryModel);
 
   const [currentRole, setCurrentRole] = useState(null);
+  const [applyEmailData, setapplyEmailData] = useState(null);
 
   const userDoc = useQuery('userDoc');
   const { uid } = userDoc.data;
@@ -99,6 +100,7 @@ const CombinedRoles = ({ roles, loadActiveTab }) => {
                       role={item}
                       setquestionInqueryModel={setquestionInqueryModel}
                       setCurrentRole={setCurrentRole}
+                      setapplyEmailData={setapplyEmailData}
                     />
                   </Colxx>
                   <Colxx lg="5">
@@ -118,6 +120,7 @@ const CombinedRoles = ({ roles, loadActiveTab }) => {
         modelToggle={modelToggle}
         userUid={uid}
         selectedRoleData={currentRole}
+        applyEmailData={applyEmailData}
       />
     </>
   );

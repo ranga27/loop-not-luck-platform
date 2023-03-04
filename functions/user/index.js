@@ -10,6 +10,7 @@ const {
   sendCompanyVerificationEmail,
 } = require('./sendCompanyVerificationEmail');
 const { companyEmailConfirmation } = require('./companyEmailConfirmation');
+const { onApplyNotification } = require('./onApplyNotification');
 
 exports.confirmEmail = confirmEmail.confirmEmail;
 exports.sendVerificationEmail = sendVerificationEmail.sendVerificationEmail;
@@ -21,3 +22,4 @@ exports.sendTopMatchedCompanyRoleEmail = sendTopMatchedCompanyRoleEmail;
 exports.sendSeparateEmail = sendSeparateEmail;
 exports.sendCompanyVerificationEmail = sendCompanyVerificationEmail;
 exports.companyEmailConfirmation = companyEmailConfirmation;
+exports.onApplyNotification = onApplyNotification;
