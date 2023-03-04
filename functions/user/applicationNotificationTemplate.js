@@ -5,10 +5,12 @@ exports.applicationNotificationTemplate = ({
   from,
   subject,
   firstName,
+  companyUser,
   roleTitle,
   match,
   appliedAt,
   company,
+  reviewPendingCount,
   transporter,
 }) => {
   const mailOptions = {
@@ -47,7 +49,8 @@ exports.applicationNotificationTemplate = ({
                           valign="top" class="mainTitle">
                           <h5 class="text"
                             style="color:#000;font-family:Poppins,Helvetica,Arial,sans-serif;font-size:20px;font-weight:500;font-style:normal;letter-spacing:normal;line-height:36px;text-transform:none;padding:0;margin:0">
-                            Hello to ${company}</h2>
+                            Hello ${companyUser} 
+                          </h5>
                         </td>
                       </tr>
                       <tr>
@@ -59,10 +62,9 @@ exports.applicationNotificationTemplate = ({
                                 <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
                                   <p class="text"
                                     style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0">
-                                    We are exited to inform you that you got new application on the role <b>${roleTitle}</b>
-                                    from candidate <b>${firstName}</b> on <b>${appliedAt}</b>. Candidate profile macthed <b>${match}</b> with
-                                    the role requirement. Please check your Loop Not Luck handle to view full details.
-                                    Hope you find the potential talent.
+                                    We are exited to inform you that a ${firstName} has applied for the ${roleTitle} position at ${company}. You have ${
+      reviewPendingCount ? reviewPendingCount + 1 : 1
+    } applications waiting to be reviewed.
                                   </p>
                                 </td>
                               </tr>
@@ -79,8 +81,38 @@ exports.applicationNotificationTemplate = ({
                                 <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
                                   <p class="text"
                                     style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;padding:0;margin:0">
-                                    If you have any query or suggestions feel free to follow on <a
-                                      href="https://loopnotluck.com/contact-us/"><strong>hello@loopnotluck.com</strong></a>.
+                                    Login to your Loop Not Luck account to review candidate profiles.
+                                  
+                                  </p>
+                                  <button style="height: 30px;
+                                    width: 100px;
+                                    margin-top: 10px;
+                                    background-color: #F7B919;
+                                    border: none;  
+                                    border-radius: 5px;
+                                    font-style: bold;
+                                    font-size: 15px;
+                                    font-weight: 500;
+                                    cursor: pointer;
+                                    font-weight: normal;">
+                                  Review
+                                </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-left:20px;padding-right:20px" align="center" valign="top"
+                          class="containtTable ui-sortable">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tableDescription">
+                            <tbody>
+                              <tr>
+                                <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
+                                  <p class="text"
+                                    style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;padding:0;margin:0">
+                                    If you have any questions please contact your account manager or a member of the team at <a style="color:#000000;text-decoration:underline; font-weight:bold" href="hello@loopnotluck.com">hello@loopnotluck.com</a>.
                                   </p>
                                 </td>
                               </tr>
@@ -97,24 +129,10 @@ exports.applicationNotificationTemplate = ({
                                 <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
                                   <p class="text"
                                     style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;padding:0;margin:0">
-                                    Regards, <br />
+                                    Kind Regards, <br />
                                     Loop Not Luck Team
                                   </p>
 
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding-left:20px;padding-right:20px" align="center" valign="top"
-                          class="containtTable ui-sortable">
-                          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tableDescription">
-                            <tbody>
-                              <tr>
-                                <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
-                                  <h3>Stay Tuned</h3>
                                 </td>
                               </tr>
                             </tbody>
