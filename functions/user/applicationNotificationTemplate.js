@@ -84,6 +84,7 @@ exports.applicationNotificationTemplate = ({
                                     Login to your Loop Not Luck account to review candidate profiles.
                                   
                                   </p>
+                                  <a href="https://loop-luck-portal.web.app/" style= "text-decoration: none; color: "black">
                                   <button style="height: 30px;
                                     width: 100px;
                                     margin-top: 10px;
@@ -97,6 +98,7 @@ exports.applicationNotificationTemplate = ({
                                     font-weight: normal;">
                                   Review
                                 </button>
+                                </a>
                                 </td>
                               </tr>
                             </tbody>
