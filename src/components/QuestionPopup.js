@@ -3,7 +3,13 @@ import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import React, { useState, useEffect } from 'react';
 import QuestionForm from './ScreeningQuestionCandidateForm/QuestionForm';
 
-const QuestionPopup = ({ open, modelToggle, userUid, selectedRoleData }) => {
+const QuestionPopup = ({
+  open,
+  modelToggle,
+  userUid,
+  selectedRoleData,
+  applyEmailData,
+}) => {
   const [isAnswer, setIsAnswer] = useState(false);
   const conformForAnswer = () => {
     setIsAnswer(!isAnswer);
@@ -33,6 +39,7 @@ const QuestionPopup = ({ open, modelToggle, userUid, selectedRoleData }) => {
               role={selectedRoleData}
               userUid={userUid}
               conformForAnswer={conformForAnswer}
+              applyEmailData={applyEmailData}
             />
           ) : (
             <div

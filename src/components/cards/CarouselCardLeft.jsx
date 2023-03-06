@@ -4,11 +4,19 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 import {
   useFirestoreCollectionMutation,
   useFirestoreDocumentMutation,
 } from '@react-query-firebase/firestore';
-import { collection, doc, serverTimestamp } from 'firebase/firestore';
+import { format } from 'date-fns';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  serverTimestamp,
+} from 'firebase/firestore';
 import { useQuery, useQueryClient } from 'react-query';
 import { Button, Card, CardBody, Tooltip } from 'reactstrap';
 import { firestore } from '../../helpers/Firebase';
@@ -18,6 +26,7 @@ const CarouselCardLeft = ({
   role,
   setquestionInqueryModel,
   setCurrentRole,
+  setapplyEmailData,
 }) => {
   const [saved, setSaved] = useState(role.saved);
   const client = useQueryClient();
@@ -28,6 +37,7 @@ const CarouselCardLeft = ({
     setIsReadMore(!isReadMore);
   };
   const userDoc = useQuery('userDoc');
+
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = () => setTooltipOpen(!tooltipOpen);
   const {
@@ -67,9 +77,54 @@ const CarouselCardLeft = ({
     );
   };
 
+  const GetPendingReviewCount = async (RoleID) => {
+    const tempApplication = [];
+
+    const appliedRoleSnapshot = await getDocs(
+      collection(firestore, `appliedRoles`)
+    );
+
+    appliedRoleSnapshot.forEach((application) => {
+      if (
+        application.data().roleId === RoleID &&
+        application.data().status === 'Pending Review'
+      ) {
+        tempApplication.push(application.data());
+      }
+    });
+
+    if (tempApplication.length) return tempApplication.length;
+    return 0;
+  };
+
+  const GetCompanyEmail = async (companyID) => {
+    const companySnapShot = doc(firestore, `companyV2/${companyID}`);
+    const companyData = await getDoc(companySnapShot);
+    const companyUserSnapshot = doc(
+      firestore,
+      `companyUsers/${companyData.data().userId}`
+    );
+    const companyUserData = await getDoc(companyUserSnapshot);
+
+    const emailFetchedData = {
+      companyEmail: companyUserData.data().email,
+      companyUserName: companyUserData.data().firstName,
+      userEmail: email,
+      userName: `${firstName} ${lastName}`,
+      roleTitle: role.title,
+      match: role.score,
+      applyAt: format(new Date(), 'dd-MMM-YYY'),
+      companyName: role.company,
+      reviewPending: await GetPendingReviewCount(role.id),
+    };
+
+    return emailFetchedData;
+  };
+
   const applyRole = async () => {
     const newData = { applied: true, updatedAt: serverTimestamp() };
     mutation.mutate(newData);
+
     appliedRoleMutation.mutate({
       appliedAt: serverTimestamp(),
       match: role.score,
@@ -84,6 +139,7 @@ const CarouselCardLeft = ({
       company: role.company,
       userFullName: `${firstName} ${lastName}`,
     });
+
     Swal.fire(
       'Successfully applied!',
       'You can navigate to "Applications" tab to view your applications.',
@@ -91,12 +147,25 @@ const CarouselCardLeft = ({
     );
   };
 
-  const handleApplyButtonClick = (selectedRole) => {
+  const handleApplyButtonClick = async (selectedRole) => {
     if (selectedRole.isQuestion) {
+      GetPendingReviewCount(role.id);
+      const emailDataForForm = await GetCompanyEmail(role.companyId);
       setquestionInqueryModel(selectedRole.isQuestion);
       setCurrentRole(selectedRole);
+      setapplyEmailData(emailDataForForm);
     } else {
+      const applyEmailData = await GetCompanyEmail(role.companyId);
       applyRole();
+
+      await axios
+        .post(
+          process.env.NODE_ENV !== 'development'
+            ? process.env.REACT_APP_EMAIL_NOTIFICATION_PROD
+            : process.env.REACT_APP_EMAIL_NOTIFICATION_DEV,
+          applyEmailData
+        )
+        .then(() => console.log('email sent'));
     }
   };
 

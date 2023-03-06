@@ -6,12 +6,12 @@
 /* eslint object-curly-spacing: ["error", "always"]*/
 const functions = require('firebase-functions/v1');
 const nodemailer = require('nodemailer');
-const { saperateEmailTemplate } = require('./saperateEmailTemplate');
+const { sendSeparateEmail } = require('./separateEmailTemplate');
 
 const SUPPORT_EMAIL = 'hello@loopnotluck.com';
 
 /** Cloud Function that sends job recommendations to the user */
-exports.sendSaperateEmail = functions
+exports.sendSeparateEmail = functions
   .region('europe-west2')
   .runWith({ secrets: ['NODEMAILER_AUTH_PASSWORD'] })
   .https.onCall((newData) => {
@@ -27,7 +27,7 @@ exports.sendSaperateEmail = functions
 
     try {
       for (let i = 0; i < newData.length; i += 1) {
-        saperateEmailTemplate({
+        sendSeparateEmail({
           to: newData[i].email,
           from: SUPPORT_EMAIL,
           firstName: newData[i].firstName,
