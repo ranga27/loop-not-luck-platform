@@ -21,9 +21,9 @@ export const OpportunitySchema = Yup.object().shape({
     then: Yup.string().required('Please enter your website'),
   }),
   deadline: Yup.date().when('rolling', {
-    is: (value) => value === false,
-    then: Yup.date().nullable().required('Deadline required'),
-    otherwise: Yup.date().nullable().notRequired(),
+    is: (value) => value === true,
+    then: Yup.date().nullable().notRequired(),
+    otherwise: Yup.date().nullable().required('Deadline required'),
   }),
   startDate: Yup.date().nullable().required('Start Date required'),
   qualification: Yup.string().required(
