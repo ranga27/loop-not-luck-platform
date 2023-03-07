@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 export const hearAboutOptions = [
+  { label: 'Firebrand Training', value: 'Firebrand Training' },
   { label: 'Charity', value: 'Charity' },
   { label: 'Facebook', value: 'Facebook' },
   { label: 'Google Search', value: 'Google Search' },
