@@ -2,6 +2,7 @@
 export const hearAboutOptions = [
   { label: 'Charity', value: 'Charity' },
   { label: 'Facebook', value: 'Facebook' },
+  { label: 'Firebrand Training', value: 'Firebrand Training' },
   { label: 'Google Search', value: 'Google Search' },
   { label: 'Indeed', value: 'Indeed' },
   { label: 'Instagram', value: 'Instagram' },
