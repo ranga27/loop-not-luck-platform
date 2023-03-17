@@ -139,7 +139,7 @@ const RoleListItem = ({ roles }) => {
             {filtered?.length > 0 &&
               filtered.map((role, index) => (
                 <tr key={role.id}>
-                  <td className="flex justify-center">{index}</td>
+                  <td className="flex justify-center">{index + 1}</td>
                   <td>
                     <img
                       src={role.logoUrl}
@@ -156,7 +156,7 @@ const RoleListItem = ({ roles }) => {
                       ? 'Company Role'
                       : 'Admin Role'}
                   </td>
-                  <td>{role?.department}</td>
+                  <td>{role?.archived ? 'Archived' : 'Active'}</td>
                   <td className="text-center">{role?.createdAt}</td>
                   <td className="w-0.5 z-1000">
                     {role?.type === 'company-role' ? (

@@ -397,6 +397,33 @@ const ViewRole = () => {
               }}
             >
               <CardBody>
+                <p style={{ fontWeight: 'bold' }}>Metrics</p>
+
+                <p>Total: {applicantList.length}</p>
+                <p>
+                  Applicants Pending Review:{' '}
+                  {
+                    applicantList.filter(
+                      (applicant) => applicant.status === 'Pending Review'
+                    ).length
+                  }
+                </p>
+                <p>
+                  Accepted Applicants:{' '}
+                  {
+                    applicantList.filter(
+                      (applicant) => applicant.status === 'Accepted'
+                    ).length
+                  }
+                </p>
+                <p>
+                  Rejected Applicants:{' '}
+                  {
+                    applicantList.filter(
+                      (applicant) => applicant.status === 'Rejected'
+                    ).length
+                  }
+                </p>
                 <Table
                   hover
                   className="sticky-top custom_table"

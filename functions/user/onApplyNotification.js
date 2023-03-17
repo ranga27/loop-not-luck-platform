@@ -51,7 +51,7 @@ exports.onApplyNotification = functions
         appliedAt: applyAt,
         company: companyName,
         reviewPendingCount: reviewPending,
-        subject: `Loop Not Luck: Application Received`,
+        subject: 'Loop Not Luck: Application Received',
         transporter,
       })
         .then(() => console.log('email sent!'))
