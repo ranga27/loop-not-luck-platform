@@ -39,8 +39,7 @@ const ViewRoles = () => {
   const rolesRef = query(
     collection(firestore, `users/${uid}/matchedRoles`),
     orderBy('deadline', 'asc'),
-    orderBy('score', 'desc'),
-    where('deadline', '>', new Date(Date.now()))
+    orderBy('score', 'desc')
   );
 
   const userRef = doc(firestore, 'users', uid);
