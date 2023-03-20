@@ -62,7 +62,7 @@ exports.applicationNotificationTemplate = ({
                                 <td style="padding-bottom: 20px;" align="center" valign="top" class="description">
                                   <p class="text"
                                     style="color:#000000;font-family:'Poppins', sans-serif;font-size:14px;font-weight:400;font-style:normal;letter-spacing:normal;line-height:22px;text-transform:none;text-align:center;padding:0;margin:0">
-                                    We are exited to inform you that a ${firstName} has applied for the ${roleTitle} position at ${company}. You have ${
+                                    We are excited to inform you that a ${firstName} has applied for the ${roleTitle} position at ${company}. You have ${
       reviewPendingCount ? reviewPendingCount + 1 : 1
     } applications waiting to be reviewed.
                                   </p>
