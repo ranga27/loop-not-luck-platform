@@ -8,18 +8,19 @@ import {
 } from '../../../helpers/Utils';
 
 const UserProfileTable = ({ profiles }) => {
-  const [searchTerms, setSearchTerms] = useState('');
+  const [SearchTerms, setSearchTerms] = useState('');
+  const [Profiles, setProfiles] = useState([]);
+
   const [filtered, setFiltered] = useState([]);
+  const [sorting, setsorting] = useState();
+  const [typeSort, settypeSort] = useState('');
 
-  const [sorting, setSorting] = useState([]);
-  const [typeSort, setTypeSort] = useState('');
-
-  const [cvUrls, setCvUrls] = useState([]);
+  const [cvUrls, setcvUrls] = useState([]);
   const [selectedUserData, setSelectedUserData] = useState([]);
 
   function addUrlInList(url) {
     if (url && !cvUrls?.includes(url)) {
-      setCvUrls([...cvUrls, url]);
+      setcvUrls([...cvUrls, url]);
     } else {
       const index = cvUrls.indexOf(url);
       if (index > -1) {
@@ -32,69 +33,63 @@ const UserProfileTable = ({ profiles }) => {
     setSelectedUserData([...selectedUserData, data]);
   }
 
-  // Filter profiles based on search terms
   useEffect(() => {
-    const filteredProfiles = profiles.filter((x) => {
-      const firstName = x.firstName.toLowerCase();
-      const email = x.email.toLowerCase();
-      const hearAbout = x.hearAbout?.toLowerCase() || '';
-      const search = searchTerms ? searchTerms.toLowerCase() : '';
-
-      return (
-        firstName.includes(search) ||
-        email.includes(search) ||
-        hearAbout.includes(search)
+    if (SearchTerms !== '') {
+      setProfiles(
+        profiles.filter((x) => {
+          return (
+            x.firstName.includes(SearchTerms) ||
+            x.email.includes(SearchTerms) ||
+            (x.hearAbout && x.hearAbout.includes(SearchTerms))
+          );
+        })
       );
-    });
+    } else {
+      setProfiles(profiles);
+    }
+  }, [profiles, SearchTerms]);
 
-    const sortedProfiles = sortScreeningUserList(filteredProfiles, typeSort);
-
-    setFiltered(sortedProfiles);
-    setSorting(sortedProfiles);
-  }, [profiles, searchTerms, typeSort]);
+  useEffect(() => {
+    setProfiles(profiles);
+    setFiltered(profiles);
+    setsorting(profiles);
+  }, [profiles]);
 
   const onChangeSearch = (event) => {
     setSearchTerms(event.currentTarget.value);
   };
 
-  const onSearchSubmit = (event) => {
-    event.preventDefault();
-    // Do nothing when enter key is pressed
-  };
-
   const sortingAscendingDescending = (sortRequest) => {
-    setTypeSort(sortRequest);
-    setSorting(sortScreeningUserList(filtered, sortRequest));
+    settypeSort(sortRequest);
+    setsorting(sortScreeningUserList(Profiles, sortRequest));
   };
 
   useEffect(() => {
     setFiltered(sorting);
-  }, [sorting, typeSort, searchTerms]);
+  }, [sorting, typeSort]);
 
   return (
     <>
       <div>
         <div className=" bg-transparent  sticky-top p-4">
-          <form onSubmit={onSearchSubmit}>
-            <Input
-              value={searchTerms}
-              onChange={onChangeSearch}
-              placeholder="Search here..."
-              className="px-5 py-3 relative rounded w-full"
-            />
-          </form>
+          <Input
+            value={SearchTerms}
+            onChange={onChangeSearch}
+            placeholder="Search here..."
+            className="px-5 py-3 relative rounded w-full"
+          />
         </div>
       </div>
       <div className="flex">
         <Badge color="success" pill className="mb-1 p-2 flex-1 z-50">
-          <p className="fs-10 m-0">Total Users: {filtered?.length || 'NA'}</p>
+          <p className="fs-10 m-0">Total Users: {Profiles?.length || 'NA'}</p>
         </Badge>
         <Button
           className="flex-1 mx-4"
           onClick={() => {
             if (cvUrls?.length) {
               downloadSelectedCVs(cvUrls);
-              setCvUrls([]);
+              setcvUrls([]);
             }
           }}
         >
