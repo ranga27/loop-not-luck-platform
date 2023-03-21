@@ -38,7 +38,7 @@ const UserProfileTable = ({ profiles }) => {
       const firstName = x.firstName.toLowerCase();
       const email = x.email.toLowerCase();
       const hearAbout = x.hearAbout?.toLowerCase() || '';
-      const search = searchTerms.toLowerCase();
+      const search = searchTerms ? searchTerms.toLowerCase() : '';
 
       return (
         firstName.includes(search) ||
