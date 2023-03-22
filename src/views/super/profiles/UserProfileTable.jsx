@@ -37,13 +37,13 @@ const UserProfileTable = ({ profiles }) => {
     const filteredProfiles = profiles.filter((x) => {
       const firstName = x.firstName.toLowerCase();
       const email = x.email.toLowerCase();
-      //const hearAbout = x.hearAbout?.toLowerCase() || '';
+      // const hearAbout = x.hearAbout?.toLowerCase() || '';
       const search = searchTerms ? searchTerms.toLowerCase() : '';
 
       return (
-        firstName.includes(search) ||
-        email.includes(search) ||
-        //hearAbout.includes(search) ||
+        firstName.includes(search) || email.includes(search)
+        // ||
+        // hearAbout.includes(search) ||
       );
     });
 
