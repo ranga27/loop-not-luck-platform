@@ -284,6 +284,11 @@ export async function archiveRoleInUsersMatchedRoles(role, users) {
   return updateDoc(roleRef, { archived: true }, { merge: true });
 }
 
+export async function unArchiveRoleInUsersMatchedRoles(role, users) {
+  const roleRef = doc(firestore, `users/${users}/matchedRoles/${role}`);
+  return updateDoc(roleRef, { archived: false }, { merge: true });
+}
+
 export async function fetchRoles() {
   const roleRef = collection(firestore, 'testCollection2');
   const q = query(roleRef);

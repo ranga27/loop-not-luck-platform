@@ -34,7 +34,10 @@ import useRoleStore from '../../../hooks/useRoleStore';
 import { Colxx } from '../../../components/common/CustomBootstrap';
 import { TextInput } from '../../../components/form/FormFields';
 import { firestore } from '../../../helpers/Firebase';
-import { archiveRoleInUsersMatchedRoles } from '../../../helpers/firestoreService';
+import {
+  archiveRoleInUsersMatchedRoles,
+  unArchiveRoleInUsersMatchedRoles,
+} from '../../../helpers/firestoreService';
 
 const YupErrorCheck = Yup.object().shape({
   reason: Yup.string()
@@ -149,6 +152,35 @@ const ViewRole = () => {
     reset(defaultValues);
     setOpen(!open);
   };
+
+  const unarchiveRole = async () => {
+    const updatePost = {
+      archived: false,
+      updatedAt: serverTimestamp(),
+    };
+    mutation.mutate(updatePost, {
+      async onSuccess() {
+        Swal.fire(
+          'Archived!',
+          'Please wait for 2 minutes while we archive this role for all users matched to it.',
+          'success'
+        );
+        await usersList.map((user) => {
+          return unArchiveRoleInUsersMatchedRoles(role.id, user.id).then(() => {
+            console.log('Running...');
+          });
+        });
+      },
+      onError(error) {
+        Swal.fire('Oops!', 'Failed to unarchive role.', 'error');
+        console.error(error);
+      },
+      onMutate() {
+        console.info('Updating document...');
+      },
+    });
+  };
+
   if (isLoading || isAllUsersLoading) {
     return <div className="loading" />;
   }
@@ -193,13 +225,25 @@ const ViewRole = () => {
                 <Row>
                   <div className="d-flex justify-content-center align-items-center flex-row">
                     {role.archived ? (
-                      <h6 className="text-center text-muted text-small mt-2">
-                        Role archived
+                      <div>
+                        <h6 className="text-center text-muted text-small mt-2">
+                          Role archived
+                        </h6>
                         <br />
                         <small>By: {role.archiverName}</small>
                         <br />
                         <small>Reason: {role.reason}</small>
-                      </h6>
+
+                        <Button
+                          id="saveButton"
+                          color="primary"
+                          outline
+                          className="slider-top-button text-small"
+                          onClick={() => unarchiveRole()}
+                        >
+                          Unarchive Role
+                        </Button>
+                      </div>
                     ) : (
                       <Button
                         id="saveButton"
@@ -482,11 +526,7 @@ const ViewRole = () => {
             />
           </ModalBody>
           <ModalFooter>
-            <Button
-              color="primary"
-              type="submit"
-              disabled={role.type === 'company-role'}
-            >
+            <Button color="primary" type="submit" disabled={role.archived}>
               Archive
             </Button>
           </ModalFooter>
