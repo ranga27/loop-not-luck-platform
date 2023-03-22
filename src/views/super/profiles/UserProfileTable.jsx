@@ -43,7 +43,7 @@ const UserProfileTable = ({ profiles }) => {
       return (
         firstName.includes(search) ||
         email.includes(search) ||
-        //hearAbout.includes(search)
+        //hearAbout.includes(search) ||
       );
     });
 
