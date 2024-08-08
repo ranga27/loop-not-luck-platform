@@ -37,6 +37,7 @@ Start the emulators
 Finally, run the app in the development mode
 ### `npm start`
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.</br></br>
+
 ## TODO
 
 - [ ] replace notification manager with sweetalert2
@@ -55,4 +56,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.</
 - [ ] prevent the app to generate unnecessary routes, rather checking current user role on each route it is great to generate only the routes that user have access
 - [x] upgrade to react router 6 - lots of breaking changes
 - [x] integrate redux toolkit
-
